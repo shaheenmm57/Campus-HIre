@@ -1,0 +1,873 @@
+<apex:page controller="InstructionsPageController" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true">
+    <html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,800;1,100;1,200;1,300;1,400;1,500;1,800&display=swap" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" />
+        <style>
+
+            :root{
+            --blue-color: #150958;
+            --text-color: black;
+            --background-color: white;
+            --red-color: #EF233C;
+            --icon-gray-color:#D9D9D9;
+            --blue-color-hover: #200e89;
+            }
+            *{
+                margin: 0;
+                padding: 0;
+                font-family: 'Oswald', sans-serif; 
+                font-family: 'Poppins', sans-serif;
+            }
+            .main{
+              height: 100vh;
+              width: 100%; 
+              color: white;  
+            }
+            .header{
+                height: 10vh;
+                width: 100%;
+                background: var(--blue-color);
+                display: grid;
+                place-items:center;
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            .novigo-icon{
+                  height: 6vh; 
+                  margin-left: 8px; 
+            }
+
+            .header-stopwatch-icon-container{
+                display: flex;
+                place-items:center;
+            }
+
+            .header-stopwatch-icon-container{
+                font-size: 2rem;
+                font-weight: 500;
+            }
+
+            .header-novigo-icon{
+                display: grid;
+                align-items: center;
+                width: 100%;
+                
+            }
+
+
+            .header-submit-icon-container{
+                width: 100%;
+                display: grid;
+                align-items: center;
+                justify-content: right;
+                margin-right: 50px;  
+            }
+
+            .header-submit-icon-container-btn{
+                height: 6vh;
+                background: var(--red-color);
+                color: white;
+                border: none;
+                width: 12vw; 
+                font-weight: 500;
+                font-size: 1.2rem;
+                border-radius: 5px;
+            }
+
+
+            .main-body{
+                display: grid;
+                grid-template-columns: 1fr 2px 25vw;
+                height: 100vh;
+                width:100%;
+            }
+
+            .qst-nav-btn{
+                  display: grid;
+                  grid-template-columns: 1fr 1fr 1fr 1fr;
+                  place-items:center;
+            }
+
+            .qst-nav-btn-item{
+               width: 5vw;
+               height: 10vh;
+               background: var(--icon-gray-color);
+               border-radius: 5px;
+               display: grid;
+               place-items:center;
+               border: 1px solid black;
+                color: black;
+                font-weight: 600;
+                font-size: 1.2rem;
+                cursor: pointer;
+            }
+
+            .main-body-line{
+                background: black;
+                height: 100vh;
+                
+            }
+
+
+            .main-body-qst-container{  
+                margin: 25px 25px 30px 25px;
+                overflow: scroll;
+                overflow-x: hidden; 
+                
+            }
+
+            .main-body-qst-container::-webkit-scrollbar{
+                display: none;
+            }
+
+            .error-image{
+                height:18px; 
+                width:18px; 
+                margin-left:0.5vw;
+                margin-right: 1vw;
+            }
+            .error-alert {
+                position: fixed;
+                z-index: 1000; 
+                top: 8%; 
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: none;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: var(--red-color);
+                color: white;
+                margin-bottom: 15px;
+                align-items: center;
+                justify-content: center;
+                align-content: center;
+            }
+            .alert-animation {
+                animation-name: fade;
+                animation-duration: 0.5s; /* Adjust the duration as needed */
+            }
+
+            @keyframes fade {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+            .closebtn {
+            margin-left: 15px;
+            color: white;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            }
+
+            .closebtn:hover {
+            color: black;
+            }
+            .closebtn-black-color{
+                color: black;
+            }
+            .closebtn-black-color:hover{
+                color: white;
+            }
+
+            .question-cnt-question-cnt{
+                font-size: 1.5rem;
+                display: flex;
+                color: #150958;
+                font-weight: 500;
+            }
+
+            .question-cnt-question-number{
+                margin-left: 0.5rem;
+            }
+            .question-cnt-question-number-2, .question-cnt-question-cat{
+                    margin-left: 1rem;
+            }
+
+            .question-cnt-title{
+                margin-top: 0.5rem;
+                font-size: 1.2rem;
+                display: flex;
+                color: black;
+                font-weight: 500;
+            }
+
+            .question-cnt-options{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                place-items:center;
+                min-height: 30vh;
+                margin-top: 10px;
+
+
+            }
+
+            .question-cnt-options-item{ 
+                min-width: 20vw;
+                max-width: 50vw;
+                min-height: 8vh;
+                border-radius: 4px;
+                display: grid;
+                grid-template-columns : 4vw 1fr; 
+                background: #D9D9D9;
+                color: black;
+                cursor: pointer;
+            }
+            .question-cnt-options-item:active{
+                box-shadow:  0 0 10px black;
+            }
+
+            .selected{
+                background: #009A19;
+                color: white;
+            }
+
+            
+
+
+            .question-cnt-options-item-1, .question-cnt-options-item-2{
+                   
+                   display: grid;
+                   place-items:center;
+                   
+                   font-weight: 500;
+                   font-size: 1.2rem; 
+            }
+
+            .question-cnt-options-item-1{
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+
+            .question-cnt-options-item-2{
+                border-left: 1.5px solid rgb(15, 15, 15);
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+
+            }
+
+            .question-cnt-desc{
+                     background: #f5f2f0;
+                     display: grid;
+                     place-items:left;
+                     border-radius: 10px;
+                     margin-top: 1.5vh;
+                     padding: 20px;
+            }
+
+            .question-cnt-desc-pre{ 
+                min-width: 40vw;
+                max-width: 60vw;
+                margin: 6vh 0  6vh 0;
+
+            }
+
+            .qst-nav-btn-item-current{
+              border: 3px solid var(--blue-color);
+              background-color: #b3afaf;
+            }
+
+            .qst-nav-btn-item-answered{
+                background-color: #009A19;
+                color: white;
+            }
+
+            .question-cnt-btn{
+                width: 100%;
+                display: grid;
+                place-items:center;
+                margin: 30px 10px ;
+            }
+
+            .question-cnt-btn-item{
+                padding: 5px 10px;
+                border-radius: 5px;
+                background-color: var(--blue-color);
+                color: white;
+                display: grid;
+                place-items:center;
+                cursor: pointer;
+                width: 10vw;
+            }
+            .question-cnt-btn-item:hover{
+                background-color: var(--blue-color-hover);
+            }
+            .question-cnt-btn-item:active{
+                box-shadow: 0 0 10px black;
+            }
+            .question-cnt-btn-felx{
+                display: grid; 
+                grid-template-columns: 1fr auto;
+                justify-content: center;
+                align-items: center;
+                column-gap: 20px;
+            }
+
+            /* loader Start CSS */
+
+                .loader {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 9999;
+                }
+
+                .loader-inner {
+                    border: 4px solid #f3f3f3;
+                    border-top: 4px solid #3498db;
+                    border-radius: 50%;
+                    width: 70px;
+                    height: 70px;
+                    animation: spin 0.5s linear infinite;
+                }
+
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+
+                /* Hide the loader by default */
+                .hidden {
+                    display: none;
+                }
+
+                /* Loader end */
+
+                 .clear-btn{
+                    display: grid;
+                    justify-content: right;
+                    align-items: center;
+                 }
+                 .clear-btn-item{
+                    width: 15vw;
+                    padding: 5px 10px;
+                    background: rgb(218, 17, 17);
+                    border-radius: 5px;
+                    color: white;
+                    display: grid;
+                    place-items:center;
+                    cursor: pointer;
+                    margin-right: 10px;
+                 }
+                 .clear-btn-item:active{
+                            box-shadow: 0 0 10px black;
+                 }
+
+                 .clear-active{
+                    display: none;
+                 }
+
+
+                 .qnt-count , .qnt-count-txt{
+                    color: #150958;
+                    text-align: center;
+                    margin-top: 10px;
+                 }
+                 .novig-icon-2-main{
+                    display: grid;
+                    place-items:center;
+                     
+                 }
+
+                 .novig-icon-2{
+
+                    width: 25vw;
+                    
+                 }
+                 .main-cnt-2{
+                    margin-top: 10vh;
+                 }
+                 .question-cnt-btn-2{
+                    margin-top: 5px;
+                 }
+
+                 .tick-icon{
+                    display: grid;
+                    place-items:center;
+                 }
+
+                 .qnt-count{
+                    font-size: 2rem;
+                    font-weight: 600;
+                 }
+                 .qnt-count-sp{
+                    color: #009A19;
+                 }
+                 .qnt-ount-sp-red{
+                    color: #ff3b00;
+                 }
+
+                 .finish-color-green{
+                    color: #009A19;
+                    
+                 }
+                 .tick-mark-1,.tick-mark-2{
+                    border: none;
+                 }
+
+                 .finish-color-red{
+                    background: #ff3b00;
+                    color: black;
+                 }
+
+                 .qnt-count-txt{
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                 }
+
+                 .hide-tick{
+                    display: none;
+                 }
+
+                 .main{
+                    color: black;
+                 }
+
+                 .main-cnt{
+                    margin: 20px 40px 50px 40px;
+                    
+                 }
+
+                 .question-cnt-btn-item{
+                    color:white;
+                 }
+                 .main-cnt-head{
+                    font-size: 1.4rem;
+                    font-weight: 500;
+                    color: #150958;
+                 }
+
+                 .main-bnt-head-tl{
+                    color: black;
+                    font-weight: 500;
+                    font-size: 1.2rem;
+                 }
+
+                 .main-cnt-item{
+                    display: flex;
+                    margin: 5px 0 ;
+                 }
+                 .main-cnt-item-a{
+                    margin-left: 25px;
+                 }
+                 .main-cnt-item-2{
+                    margin-left: 5px;
+                 }
+                 .main-cnt-item-2 span{
+                    font-weight: 600;
+                    font-style: italic;
+                 }
+                 .submit-btn{
+                    display: grid;
+                    place-items:center;
+                    height: 20vh;
+                 }
+                 .main-cnt-item-container{
+                    margin-top: 16px;
+                 }
+                 .main-bnt-head-tl{
+                    margin-top: 8px;
+                 }
+
+                 .main-cnt-item-img{
+
+                 }
+
+                 .main-cnt-item-2-image{
+                   margin-left: 6vw;
+                 }
+
+                 .main-cnt-image{
+                       width: 50vw;
+                       margin-top: 10px;
+                 }
+
+                 .main-cnt-item-img-txt{
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                 }
+
+                 .main-cnt-item-img-txt-sub{
+                    margin-left: 45px; 
+                 }
+                 .main-cnt-item-img-txt-sub-main{
+                    font-size: 1.1rem;
+                    margin-left: 30px;
+                    font-weight: 500; 
+                 }
+
+                 .main-cnt-item-img-txt-sub-main span{
+                    font-weight: 600;
+                    color: rgb(214, 10, 10);
+                 }
+
+
+                 
+
+
+
+                 .loader {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 9999;
+                }
+ 
+
+                .loader-logo{
+                position: absolute;
+                top: 50;
+                left: 50;
+                }
+
+
+
+                .loader-logo .logo-section-one {
+                    animation: moveOne 1.25s infinite alternate;
+                }
+
+
+
+                .loader-logo .logo-section-two {
+                animation: moveTwo 1.25s infinite alternate;
+                }
+
+                .header-stopwatch-cton-container-txt{
+                     margin-top: 6px;
+                }
+
+
+
+                @keyframes moveOne {
+                0%, 100% {
+                    fill: white;
+                    transform: translate(-15px, -25px);
+                    opacity: 0;
+                    
+                }
+                50% {
+                    fill: var(--red-color);
+                    transform: translate(0, 0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes moveTwo {
+                0%, 100% {
+                    fill: white;
+                    transform: translate(10px, 10px);
+                    opacity: 0;
+                }
+                50% {
+                    fill: var(--red-color);
+                    transform: translate(0, 0);
+                    opacity: 1;
+                }
+            }
+
+
+                .hidden {
+                    display: none ;
+                }
+                
+
+
+
+      
+
+             
+           
+            
+
+        </style>
+    </head>
+    <body>
+
+        <div class="loader hidden">
+            <div class="loader-logo loader-logo-animation">
+                <svg width="120" height="120" viewBox="0 0 61 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M30.8919 50.5334C33.472 46.3136 35.8983 42.4107 38.2198 38.4516C38.447 38.062 38.1813 37.2563 37.8911 36.7808C30.6681 24.8707 23.4241 12.9705 16.1242 1.10328C15.7781 0.541945 14.9355 0.0697652 14.2502 0.0565574C9.65982 -0.0325952 5.0659 0.0103303 0 0.0103303C10.3486 16.9361 20.5293 33.5845 30.8919 50.5334Z" fill="white"/>
+                      <path class="logo-section-one" d="M21.9257 0.0785001C28.4739 10.7867 34.8054 21.135 41.3047 31.7607C43.8779 27.5738 46.3182 23.6643 48.6536 19.7053C48.8844 19.3123 48.6641 18.5133 48.3844 18.0444C44.9897 12.4146 41.567 6.80127 38.0743 1.22428C37.7422 0.692662 36.8996 0.137935 36.2843 0.124727C31.6869 0.0322727 27.0825 0.0751975 21.9257 0.0751975V0.0785001Z" fill="#EF233C"/>
+                      <path class="logo-section-two" d="M60.6489 0.124756H45.0002C47.6293 4.4404 50.1395 8.56784 52.7965 12.9264C55.4326 8.62727 57.9394 4.54276 60.6489 0.124756Z" fill="#EF233C"/>
+                 </svg>
+              </div> 
+        </div>
+       
+        <div class="main">
+            <div class="header">
+               <div  class="header-novigo-icon" >
+                <img class="novigo-icon" src="{!URLFOR($Resource.novigo_logo)}" alt="My PNG Image" />
+                </div> 
+                <div class="header-stopwatch-icon-container">
+                    <div> 
+                        <img  src="{!URLFOR($Resource.stop_watch_icon)}" alt="My PNG Image" style="width: 40px; height: 40px;" />                                
+                    </div>
+                    <div  class="header-stopwatch-cton-container-txt"  id="timer" style="color:white" > 00:00:00</div>
+                </div>
+            </div> 
+
+            <div class="error-alert" id="errorCustom">
+                <img id="alertImg" src="{!URLFOR($Resource.iconAlertWhite)}" class="error-image"/>
+                <span id="alertText" class="closebtn"  onclick="this.parentElement.style.display='none';">&times;</span>
+            </div>
+           
+    
+          <div class="main-cnt">
+            <div class="main-cnt-head">
+                Test Instructions
+            </div>
+            <div class="main-bnt-head-tl">
+                Please adhere to the following test rules:
+            </div>
+            <div class="main-cnt-item-container" > 
+                <div class="main-cnt-item">
+                    <div>1.</div>
+                    <div class="main-cnt-item-2">Test Duration: The test will have a total duration of <span class="test-start-time-inst">1</span>.</div>
+                </div>
+                <div class="main-cnt-item">
+                    <div>2.</div> 
+                    <div class="main-cnt-item-2">Topics: The test will cover three main topics: <span> C Programming and Aptitude</span>.</div>
+                </div>
+                <div class="main-cnt-item-a">
+                    <div  class="main-cnt-item">
+                        <div>a.</div>
+                        <div class="main-cnt-item-2">There will be 15 questions from the C Programming topic.</div>
+                    </div>
+                    <div class="main-cnt-item">
+                        <div>b.</div>
+                        <div class="main-cnt-item-2">There will be 15 questions from the Aptitude topic.</div>
+                    </div>
+                </div>
+                <div class="main-cnt-item">
+                    <div>3.</div>
+                    <div class="main-cnt-item-2">Question Types: The test will consist of <span>multiple-choice questions (MCQs)</span>.</div>
+                </div>
+                <div class="main-cnt-item">
+                    <div>4.</div>
+                    <div class="main-cnt-item-2">Scoring: Each correct answer will carry <span>1 point</span>.</div>
+                </div>
+                <div class="main-cnt-item">
+                    <div>5.</div>
+                    <div class="main-cnt-item-2">Negative Marking: There will be <span>no negative marking</span> for incorrect answers.</div>
+                </div>
+                <div class="main-cnt-item">
+                    <div>6.</div>
+                    <div class="main-cnt-item-2">Submission: All answers must be submitted before the test timer expires.</div>
+                </div>
+                <div class="main-cnt-item">
+                    <div>7.</div>
+                    <div class="main-cnt-item-2">No External Resources: Participants are not allowed to use any external resources, including books, notes, or online references, during the test.</div>
+                </div>
+                <div class="main-cnt-item">
+                    <div>8.</div>
+                    <div class="main-cnt-item-2">No Collaboration: Collaboration or discussion with other participants during the test is strictly prohibited.</div>
+                </div>
+                <div class="main-cnt-item">
+                    <div>9.</div>
+                    <div class="main-cnt-item-2">Technical Issues: In case of any technical issues faced by the participant, they should <span>immediately notify the invigilator</span>.</div>
+                </div>
+                <div class="main-cnt-item"> 
+                    <div>10.</div>
+                    <div class="main-cnt-item-2">Respectful Conduct: All participants are expected to maintain a respectful and ethical conduct throughout the test.</div>
+                </div>
+                <div class="main-cnt-item">
+                    <div>11.</div>
+                    <div class="main-cnt-item-2">Violation of Rules: Any violation of the test rules may lead to <span>disqualification and invalidation</span> of the test results.</div>
+                </div>
+                <div class="main-cnt-item-img">
+                    <div class="main-cnt-item-img-txt" >12. Please follow these rules and regulations during Test:</div>
+                    <div class="main-cnt-item-img-txt-sub-main"><span>Maximum 6 warnings will be given</span>, Warnings will be considered when:</div>
+                    <div class="main-cnt-item-img-txt-sub">a. When the page is forcefully refreshed.</div>
+                    <div class="main-cnt-item-img-txt-sub">b. When the page exits fullscreen. </div>
+                    <div class="main-cnt-item-img-txt-sub">c. When tabs or app is switched.</div>
+                    <div class="main-cnt-item-img-txt-sub-main"><span>When fullscreen exit warning timer reaches 0 or warnings become 0 test will be auto submited.</span> </div>
+                    <div class="main-cnt-item-2-image">
+                        <img class="main-cnt-image" src="{!URLFOR($Resource.warning_instruction_image)}" alt="My PNG Image" />
+                    </div>
+
+                    <div class="main-cnt-item-2-image">
+                        <img class="main-cnt-image" src="{!URLFOR($Resource.TestUI)}" alt="My PNG Image" />
+                    </div>
+                </div>
+              </div>
+
+              <div class="submit-btn">
+                <div  class="question-cnt-btn-item" onclick="startTest()">Start Test</div>
+            </div>
+            </div>
+            
+          </div>  
+        <script> 
+
+            function displayErrorMessage(errorText) {
+                const errorCustom = document.getElementById("errorCustom");
+                const alertText = errorCustom.querySelector("#alertText");
+                const alertImg = errorCustom.querySelector("#alertImg");
+                errorCustom.textContent = "";
+                errorCustom.appendChild(alertImg);
+                errorCustom.appendChild(document.createTextNode("NOTE: " + errorText));
+                errorCustom.appendChild(alertText);
+
+                errorCustom.style.display = 'flex';
+                errorCustom.classList.add("alert-animation");
+                setTimeout(() => {
+                    errorCustom.style.display = "none";
+                    errorCustom.classList.remove("alert-animation");
+                }, 5000);
+            }
+
+
+            function showLoader() {
+                    document.querySelector(".loader").classList.remove("hidden");
+                }
+
+
+                function hideLoader() {
+                    document.querySelector(".loader").classList.add("hidden");
+                }
+            
+             function getUrlParameter(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+
+
+
+            const studentId = getUrlParameter('studentId');
+            const eventId = getUrlParameter('eventId');
+            // var studentId = 'a055j00000U7D9WAAV';
+            // var eventId = 'a025j00000d4iX0AAI';
+            
+            showLoader();
+
+            function startTest() {
+                showLoader(); 
+                  
+            Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.InstructionsPageController.GetTestStartTime}',
+                                    eventId,
+                                    function (result, event) { 
+                                            console.log("success");
+                                            hideLoader();
+
+                                              
+                                                 console.log('time from DB  ');
+                                                 console.log(  result);
+                                                 var currentTime = new Date();
+                                                var hours = currentTime.getHours();
+                                                var minutes = currentTime.getMinutes();
+                                                var seconds = currentTime.getSeconds();
+                                                   
+                                                // Format the time as HH:mm:ss
+                                                var currentTimeString = hours.toString().padStart(2, '0') + ':' +
+                                                                minutes.toString().padStart(2, '0') + ':' +
+                                                                seconds.toString().padStart(2, '0');
+
+                                                console.log('time from ui ');
+                                                console.log( currentTimeString );
+
+
+
+                                                console.log( ( currentTimeString >= result));
+                                                if(currentTimeString >= result){   
+                                                     var targetPageUrl = '/apex/QuestionsPage?studentId=' + studentId + '&eventId=' + eventId;
+                                                     window.location.href = targetPageUrl;
+                                                }else{
+                                                    displayErrorMessage('Test start time is ' +result+ ', please wait. ');
+                                                }
+                                                 
+                                                
+                                                if (event.status) {
+                                                    console.log(event.status);
+                                                }
+                                                else if (result.type === 'exception') {
+                                                    alert("Exception caught");
+                                                }
+                                                else {
+                                                    alert("Exception caught");
+                                                }
+                                        }
+                                );
+            }
+
+
+
+            
+
+
+
+
+
+
+
+      
+
+
+
+
+
+            Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.InstructionsPageController.GetCurrentTimer}',
+                                    studentId, eventId,
+                                    function (result, event) { 
+                                        hideLoader();
+                                        console.log(result);
+                                            console.log("success");     
+                                            let timerInterval;
+                                            let totalSeconds = 0;  
+                                            totalSeconds = result; 
+
+                                                const hours = Math.floor(totalSeconds / 3600);
+                                                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                                                const seconds = totalSeconds % 60;
+
+                                                const formattedHours = String(hours).padStart(2, '0');
+                                                const formattedMinutes = String(minutes).padStart(2, '0');
+                                                const formattedSeconds = String(seconds).padStart(2, '0');
+
+                                                document.getElementById('timer').textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+                                                document.querySelector('.test-start-time-inst').textContent = `${formattedHours} hours and ${formattedMinutes} minutes`;
+
+
+                                                if (event.status) {
+                                                    console.log('event status  ' + (event.status));
+                                                }
+                                                else if (result.type === 'exception') {
+                                                    alert("Exception caught");
+                                                }
+                                                else {
+                                                    alert("Exception caught");
+                                                }
+                                        }
+                                );
+
+
+         
+
+
+         
+        </script> 
+         
+    </body>
+    </html>
+</apex:page>

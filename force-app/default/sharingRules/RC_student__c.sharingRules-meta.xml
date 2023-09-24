@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingGuestRules>
+        <fullName>student_Sharing_Rules</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>student Sharing Rules</label>
+        <sharedTo>
+            <guestUser>NovigoRecruitmentApp</guestUser>
+        </sharedTo>
+        <criteriaItems>
+            <field>email__c</field>
+            <operation>equals</operation>
+            <value>nads@gmail.com</value>
+        </criteriaItems>
+        <includeHVUOwnedRecords>false</includeHVUOwnedRecords>
+    </sharingGuestRules>
+</SharingRules>

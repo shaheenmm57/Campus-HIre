@@ -1,0 +1,1354 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" controller="CreateEventController">
+<html>     
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,800;1,100;1,200;1,300;1,400;1,500;1,800&display=swap" rel="stylesheet"/>
+        <style>
+            :root {
+                --blue-color: #150958;
+                --blue-color-hover: #200e89;
+                --blue-color-hover-alt: #312a5a;
+                --blue-color-select: #534798;
+                --text-color: black;
+                --background-color: white;
+                --red-color: #EF233C;
+                --yellow-color: #ffb01d;
+
+                --green-color: #008000;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: 'Poppins', sans-serif;
+            }
+            input{
+                width: 15vw;
+                height: 3vh;
+                border: 1.5px solid var(--blue-color);
+                padding: 2px;
+                font-size: 1.25vw;
+            }
+            textarea{
+                width: 15vw;
+                height: 12.5vh;
+                border: 1.5px solid var(--blue-color);
+                padding: 2px;
+                font-size: 1vw;
+                resize: none;
+            }
+            .phone-text{
+                padding-right: 2px;
+                font-size: 1.2vw;
+            
+                border-right: 1px dashed var(--blue-color);
+            }
+            input:focus{
+                outline: none;
+            }
+            option{
+                color: solid var(--blue-color)!important;
+                width: 15vw;
+                border: 1.5px solid var(--blue-color);
+                background-color: none;
+
+            }
+
+            .phone-container{
+                border: 1.5px solid var(--blue-color);
+                display: flex;
+            }
+            .phone-container-error{
+                border: 1.5px solid var(--red-color);
+            }
+
+
+            .select-style{
+                width: 15.5vw !important;
+                height: 4vh !important;
+                border: 1.5px solid var(--blue-color);
+                /* padding-left:2px; */
+                padding-right: 2px; 
+                background-color: none;
+                font-size:1.25vw;
+
+            }
+            .input-error{
+                border: 1.5px solid var(--red-color);
+            }
+            .input-warning{
+                border: 1.5px solid var(--yellow-color);
+            }
+
+
+            .main {
+                height: 100vh;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .header {
+                height: 10vh;
+                width: 100%;
+                background: var(--blue-color);
+                display: flex;
+                align-items: center;
+                justify-content: space-between
+            }
+
+            .novigo-icon {
+                height: 6vh;
+                margin-left: 8px;
+            }
+            .novigo-icon-big{
+                opacity: 0.05;
+                position: fixed;
+                bottom: 0;
+                right: 0;
+                z-index: -1; 
+                filter: grayscale(50%);
+            }
+            .title {
+                /* margin-top: 4vh; */
+                margin-right:4vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: sticky;
+                top: 0;
+                /* background-color: white; */
+                z-index: 1;
+            }
+            .content-container {
+
+                /* justify-content: center; */
+            }
+
+            .title-text {
+                font-size: 2vw;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 500;
+                color: var(--background-color);
+            }
+            .section-body{
+
+                margin-top:4vh;
+                background-color: var(--background-color);
+                border: 1px solid var(--blue-color);
+                border-radius: 8px;
+                box-shadow: 0px 1px 10px #150958;
+                height: 60%;
+            }
+            .section-body-green-shadow{
+                box-shadow: 0px 1px 10px var(--green-color);
+            }
+            .section-body-red-shadow{
+                box-shadow: 0px 1px 10px var(--red-color);
+            }
+
+            .section-wrapper{
+                padding: 1.5vh;
+                /* margin-top: 2vh; */
+                margin-bottom: 2vh;
+                
+
+            }
+            .section {
+                
+                padding: 1.5vh;
+                /* cursor: pointer; */
+                transition: border 0.2s, transform 0.2s;
+                width: 40vw;
+                max-height: 50vh;
+                overflow-y: scroll;
+
+            }
+
+            /* .section:hover {
+                border: 2px solid var(--blue-color);
+                transform: translateY(-2px);
+            } */
+
+            .section-text-container{
+                display:flex;
+                flex-direction: column;
+            }
+
+            .section-text {
+                font-weight: 500;
+                font-size: 1.5vw;
+                margin-left: 1vh;
+                margin-bottom: 0.5vh;
+
+            }
+            .section-text-small{
+                font-weight: 300;
+                font-size: 0.8vw;
+                margin-left: 1vh;
+                margin-bottom: 0.5vh;
+                color: var(--red-color);
+            }
+
+            .section-items {
+                padding: 2vh;
+                display: flex;
+                flex-direction: column;
+                gap: 1.5vh;
+            }
+
+            .section-item {
+                display: flex;
+                justify-content: space-between;
+                padding: 1;
+                margin: 2vh;
+            }
+
+            .section-item-text {
+                margin-right: 1vw;
+                font-size: 1.2vw;
+            }
+            .section-buttons{
+                display: flex;
+                justify-content: space-around;
+                flex-direction: row;
+            }
+            /* .prev-button, .next-button, .go-back-button {
+                width: 15rem;
+                height: 4rem;
+                border-radius: 1rem;
+                box-shadow: $shadow;
+                justify-self: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: .3s ease;
+                } */
+
+            .prev-button, .next-button, .go-back-button {
+                background-color: var(--blue-color);
+                color: var(--background-color);
+                width: 50%;
+                height: 5vh;
+                padding: 2px;
+                outline: none;
+                border: 2px transparent;
+                margin: 0.5vw;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: .3s ease;
+                }
+
+            .prev-button:hover, .next-button:hover {
+                background-color: var(--blue-color-hover);
+                }
+
+            .submit-button{
+                background-color: var(--green-color);
+                color: var(--background-color);
+                width: 50%;
+                height: 5vh;
+                padding: 2px;
+                outline: none;
+                border:2px transparent;
+                margin: 0.5vw;
+                border-radius: 10px;
+                cursor: pointer;
+            }
+            /* .prev-button:hover,.next-button:hover {
+                background-color: var(--blue-color-hover);
+            } */
+
+
+            .progress-bar {
+                width: 100%;
+                height: 35px;
+                background-color: white;
+                position: sticky;
+                border-radius: 7px;
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+                top: 0;
+                z-index: 1;
+            }
+
+            .progress {
+                height: 100%;
+                border-top: 1px solid var(--blue-color);
+                display: flex;
+                justify-content: flex-start;
+                /* border-radius: 7px;
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px; */
+                /* background-image: linear-gradient(45deg, var(--blue-color-hover), var(--blue-color-hover-alt)); */
+                background-color: var(--blue-color);
+                width: 25%;
+                clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+                transition: width 0.5s;
+                align-items: flex-end;
+            }
+            .progress-green {
+                background-image: linear-gradient(45deg, var(--green-color), #026d02);
+            }
+            .progress-red {
+                background-image: linear-gradient(45deg, var(--red-color), red);
+            }
+            .progress-text{
+                margin-left: 1vw;
+                color: white;
+                font-size: 22px;
+                font-weight: 400;
+            }
+            .custom-checkbox{
+                width: 20px;
+                height: 3vh;
+            }
+            #successfulSection, #failSection{
+                display: none;
+            }
+            
+            .success-section{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .error-image{
+                height:18px; 
+                width:18px; 
+                margin-left:0.5vw;
+                margin-right: 1vw;
+            }
+            .error-alert {
+                position: fixed;
+                z-index: 1000; 
+                top: 8%; 
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: none;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: var(--red-color);
+                color: white;
+                margin-bottom: 15px;
+                align-items: center;
+                justify-content: center;
+                align-content: center;
+            }
+            .alert-animation {
+                animation-name: fade;
+                animation-duration: 0.5s; /* Adjust the duration as needed */
+            }
+
+            @keyframes fade {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+            .error-warning {
+                position: fixed;
+                z-index: 1000; 
+                top: 8%; 
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: none;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: var(--yellow-color);
+                color: black;
+                margin-bottom: 15px;
+                align-items: center;
+                justify-content: center;
+                align-content: center;
+            }
+            .closebtn {
+            margin-left: 15px;
+            color: white;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            }
+
+            .closebtn:hover {
+            color: black;
+            }
+            .closebtn-black-color{
+                color: black;
+            }
+            .closebtn-black-color:hover{
+                color: white;
+            }
+            ::selection{
+                color: white;
+                background: var(--blue-color-hover);
+            }
+
+           
+            .loader {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 9999;
+            }
+
+            /* .loader-inner {
+                border: 4px solid #f3f3f3;
+                border-top: 4px solid #3498db;
+                border-radius: 50%;
+                width: 100px;
+                height: 100px;
+                animation: spin 0.5s linear infinite;
+            } */
+            .loader-logo{
+                position: absolute;
+                top: 50;
+                left: 50;
+            }
+
+            .loader-logo .logo-section-one {
+                animation: moveOne 1.25s infinite alternate;
+            }
+
+            .loader-logo .logo-section-two {
+                animation: moveTwo 1.25s infinite alternate;
+            }
+
+            @keyframes moveOne {
+                0%, 100% {
+                    fill: white;
+                    transform: translate(-15px, -25px);
+                    opacity: 0;
+                    
+                }
+                50% {
+                    fill: var(--red-color);
+                    transform: translate(0, 0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes moveTwo {
+                0%, 100% {
+                    fill: white;
+                    transform: translate(10px, 10px);
+                    opacity: 0;
+                }
+                50% {
+                    fill: var(--red-color);
+                    transform: translate(0, 0);
+                    opacity: 1;
+                }
+            }
+            .hidden {
+                display: none;
+            }
+
+            ::-webkit-scrollbar {
+                    width: 12px;
+                }
+
+            ::-webkit-scrollbar-track {
+                    background-color: rgb(244, 244, 244);
+                    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 25, 88, 0.3);  */
+                    border-radius: 10px;
+                }
+
+            ::-webkit-scrollbar-thumb {
+                    border-radius: 10px;
+                    background-color: var(--blue-color);
+                    transition: 0.3s;
+                }
+            ::-webkit-scrollbar-thumb:hover {
+                    background-color: var(--blue-color-hover);
+                }
+
+
+
+                body {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                }
+                input[type=checkbox]{
+                    height: 0;
+                    width: 0;
+                    visibility: hidden;
+                }
+
+                label {
+                    cursor: pointer;
+                    text-indent: -9999px;
+                    width: 4vw;
+                    height: 4vh;
+                    background: white;
+                    display: block;
+                    border-radius: 100px;
+                    position: relative;
+                    border: 2px solid var(--blue-color);
+                }
+
+                label:after {
+                    content: '';
+                    position: absolute;
+                    top: 5px;
+                    left: 8px;
+                    width: 1vw;
+                    height: 2vh;
+                    background: var(--blue-color);
+                    border-radius: 90px;
+                    transition: 0.3s;
+                }
+
+                input:checked + label {
+                    background: var(--blue-color);
+                }
+
+                input:checked + label:after {
+                    left: calc(100% - 5px);
+                    transform: translateX(-100%);
+                    background: white;
+                }
+
+                label:active:after {
+                    background: white;
+                    width: 40px;
+                }
+                .dropbtn {
+                    background: white;
+                    color: var(--blue-color);
+                    cursor: pointer;
+                    width: 15vw;
+                    height: auto;
+                    border: 1.5px solid var(--blue-color);
+                    padding: 2px;
+                    font-size: 1.25vw;
+                }
+                .dropbtn-selected {
+                    background: var(--blue-color);
+                    color: white;
+                }
+
+
+
+            .dropdown-move {
+                animation-name: move-in;
+                animation-duration: 0.5s;
+                animation-fill-mode: forwards;
+            }
+
+
+            @keyframes move-in {
+                0% {
+                    opacity:0%;
+                    margin-right: 0vw;
+                }
+                50%{
+                    opacity:100%;
+                }
+                100% {
+                    opacity: 100%;
+                    margin-right: 25vw;
+                }
+            }
+
+            @keyframes move-out {
+                0% {
+                    opacity: 100%;
+                    margin-right: 25vw;
+                }
+                50%{
+                    opacity:0%;
+                }
+                100% {
+                    opacity:0%;
+                    margin-right: 0vw;
+                }
+            }
+
+            .dropdown-container{
+                margin-top: 4vh;
+            }
+
+            .dropbtn:hover, .dropbtn:focus {
+            background-color: #white;
+            }
+
+            #myInput {
+            box-sizing: border-box;
+            width: 100%;
+            height: 4vh;
+            background-position: 14px 12px;
+            background-repeat: no-repeat;
+            font-size: 16px;
+            padding: 4px;
+            border: none;
+            border-bottom: 1px solid var(--blue-color);
+            }
+
+            #myInput:focus {outline: 3px solid var(--blue-color-select);}
+
+            .dropdown {
+            position: relative;
+            display: inline-block;
+            }
+
+            .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            margin-left: 2vw;
+            width: vw;
+            overflow: auto;
+            border: 1px solid var(--blue-color);
+            border-radius: 8px;
+            box-shadow: 0px 1px 10px #150958;
+            z-index: 1;
+            }
+
+            .dropdown-content a {
+            color: black;
+            padding: 4px;
+            text-decoration: none;
+            display: block;
+            }
+            .dropdown-single-content:hover{
+                background-color: var(--blue-color);
+                color: white;
+            }
+
+            .dropdown a:hover {background-color: var(--blue-color-select);}
+
+            .show {display: block;}
+
+           
+
+            .section-left {
+                /* Add your styles for .section-left here */
+            }
+
+            .clear-icon {
+                /* Add your styles for .clear-icon here */
+                width: 18px;
+                height: 18px;
+                cursor: pointer;
+                padding: 10px;
+            }
+
+            .sucess {
+                /* Add your styles for .sucess here */
+                display: none;
+                align-items: center;
+            }
+
+            .fail {
+                /* Add your styles for .fail here */
+                display: none;
+                align-items: center;
+            }
+
+            .input-error{
+                border: 1.5px solid var(--red-color);
+            }
+
+            .reveal{display: flex; flex-direction: column;}
+
+            .hidden {
+                /* Add your styles for .hidden here */
+                display: none;
+            }
+            .body-container{
+                display: flex;
+                align-items: flex-start;
+            }
+
+            .hide {display: none;}
+
+            </style>
+    </head>
+<body>
+    <script>
+
+        //validatating that only admin can access this page
+        function getUrlParameter(name) {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    return urlParams.get(name);
+          }
+
+        const adminID = getUrlParameter('adminId');
+        if(!adminID)
+        {
+            routeToAdminLogin();
+        }
+
+        function routeToAdminLogin()
+        {
+            var targetPageUrl = '/apex/AdminLogin';
+            window.location.href = targetPageUrl;
+        }
+
+        function AdminPageRoute(){
+            var targetPageUrl = '/apex/AdminPage?adminId='+adminID;
+            window.location.href = targetPageUrl;
+        }
+
+
+        //get all colleges from the DB once the page loads
+        window.onload = (event) => {
+            
+            GetCollegeNamesFromDatabase();
+            GetPanelistsNameFromDatabase();
+        };
+
+        //global Variables
+        var CollegeIDAndName = {};
+        var collegeListFromDataBase = [];
+        var collegesNotYetSelected = [];
+        var collegesSelected = '';
+
+        var PanelistsIDAndName = {};
+        var PanelistsListFromDataBase = [];
+        var PanelistsNotYetSelected = [];
+        var PanelistsSelected = '';
+
+       
+        
+
+        function PopulateDropdownForCollegeSelection(){               
+            var anchorContainer = document.getElementById('myDropdown');
+
+            for(var i = 0; i < collegesNotYetSelected.length; i++)
+            {
+                var linkText = collegesNotYetSelected[i];
+                var anchorTag = document.createElement("a");
+                anchorTag.id = linkText;
+                anchorTag.classList = "dropdown-single-content"
+                anchorTag.href = "#" + linkText;
+                anchorTag.innerHTML = linkText;
+
+                anchorTag.onclick = function()
+                {
+                    selectedCollege(this);
+                };
+                
+                //append tag
+                anchorContainer.appendChild(anchorTag);
+            }
+
+        }
+
+        function PopulateDropdownForPanelistsSelection(){               
+            var anchorContainer = document.getElementById('myDropdown');
+
+            console.log(PanelistsNotYetSelected);
+
+            for(var i = 0; i < PanelistsNotYetSelected.length; i++)
+            {
+                var linkText = PanelistsNotYetSelected[i];
+                var anchorTag = document.createElement("a");
+                anchorTag.id = linkText;
+                anchorTag.classList = "dropdown-single-content"
+                anchorTag.href = "#" + linkText;
+                anchorTag.innerHTML = linkText;
+
+                anchorTag.onclick = function()
+                {
+                    selectedCollege(this);
+                };
+                
+                //append tag
+                anchorContainer.appendChild(anchorTag);
+            }
+
+        }
+
+        
+
+        function clearDropdown()
+        {
+           var anchorContainer = document.getElementById('myDropdown');
+           var childElements = anchorContainer.children;
+
+           for(var i = childElements.length-1; i >=0; i-- )
+           {
+                if(childElements[i].tagName === "A")
+                {
+                    anchorContainer.removeChild(childElements[i]);
+                }
+           }
+        
+        }
+        
+        function GetCollegeNamesFromDatabase(){
+
+            if(collegeListFromDataBase.length == 0)
+            {
+                Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.CreateEventController.getAllCollegeNames}',
+                GetCollegeNamesCallBack
+                );
+            }
+            else
+            {
+                PopulateDropdownForCollegeSelection();
+            }
+        }
+
+        function GetPanelistsNameFromDatabase(){
+
+            if(PanelistsListFromDataBase.length == 0)
+            {
+                Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.CreateEventController.getAllPanelistNames}',
+                GetPanelistsNameCallback
+                );
+            }
+            else
+            {
+                PopulateDropdownForPanelistsSelection();
+            }
+        }
+
+        
+        function GetCollegeNamesCallBack(result,event){
+
+            for(var i = 0; i < result.length; i++)
+            {
+                collegeListFromDataBase.push(result[i].Name);
+                var collegeName = result[i].Name;
+                CollegeIDAndName[collegeName] = result[i].Id;
+            }  
+        }
+
+        function GetPanelistsNameCallback(result,event){
+            console.log(result);
+            for(var i = 0; i < result.length; i++)
+            {
+                PanelistsListFromDataBase.push(result[i].Name);
+                var panelistName = result[i].panelistsName__c;
+                PanelistsIDAndName[panelistName] = result[i].Id;
+            }  
+        }
+
+        function ShowDropDown() {
+            var dropdown = document.getElementById("myDropdown");
+            var container = document.getElementById("dropdownContainer");
+            var isDropdownVisible = dropdown.classList.contains("show");
+
+            if (isDropdownVisible) {
+                container.style.animationName = "move-out";
+                setTimeout(function () {
+                    dropdown.classList.toggle("show");
+                    container.classList.toggle("dropdown-move");
+                }, 600);
+            } else {
+                container.style.animationName = "move-in";
+                dropdown.classList.toggle("show");
+                container.classList.toggle("dropdown-move");
+                
+            }
+            document.getElementById("dropdownheader").classList.toggle("dropbtn-selected");
+            
+
+        }
+
+       function SetUpDropDownForCollege() {
+            clearDropdown();
+            ResetCollegeList();
+            PopulateDropdownForCollegeSelection();
+            ShowDropDown();
+        }
+
+        function SetUpDropDownForPanelists() {
+            clearDropdown();
+            ResetPanelistList();
+            PopulateDropdownForPanelistsSelection();
+            ShowDropDown();
+        }
+
+        function UpdateDropDownForCollege()
+        {
+            clearDropdown();
+            ResetCollegeList();
+            PopulateDropdownForCollegeSelection();
+            document.getElementById('dropDownHeaderCollege').classList.remove('input-error');
+        }
+
+        function UpdateDropDownForCollege()
+        {
+            clearDropdown();
+            ResetPanelistList();
+            PopulateDropdownForPanelistsSelection();
+            document.getElementById('dropDownHeaderCollege').classList.remove('input-error');
+        }
+
+        function ResetCollegeList()
+        {
+            if(collegesNotYetSelected.length == 0 && collegesSelected === '')
+            {
+                for(var i = 0; i < collegeListFromDataBase.length; i++)
+                {
+                    collegesNotYetSelected.push(collegeListFromDataBase[i]);
+                }
+            }
+        }
+
+        function ResetPanelistList()
+        {
+            if(PanelistsNotYetSelected.length == 0 && PanelistsSelected === '')
+            {
+                for(var i = 0; i < PanelistsListFromDataBase.length; i++)
+                {
+                    PanelistsNotYetSelected.push(PanelistsListFromDataBase[i]);
+                }
+            }
+        }
+
+        function filterFunction() {
+            var input, filter, ul, li, a, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            div = document.getElementById("myDropdown");
+            a = div.getElementsByTagName("a");
+
+            for (i = 0; i < a.length; i++) {
+                txtValue = a[i].textContent || a[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    a[i].style.display = "";
+                } else {
+                    a[i].style.display = "none";
+                }
+            }
+        }
+
+    function ValidateDateEntry(selectedDate){
+        const date = new Date();
+        let year = date.getFullYear();
+        let month = ("0" + (date.getMonth() + 1)).slice(-2);
+        let day = ("0" + (date.getDate())).slice(-2);
+
+        let todaysDate = year + '-' + month + '-' + day;
+
+        if(selectedDate < todaysDate)
+        {
+            return false;
+        }       
+
+        return true;
+
+    }
+
+    function ConvertDurationToMins(eduration){
+        var timearr = eduration.split(":");
+        var hrs = parseInt(timearr[0]) * 60;
+        var min = parseInt(timearr[1]);
+        return ((hrs + min) * 60);
+    }
+
+    function GetCollegeIDFromCollegeName(colleges){
+        if(colleges == null) return;
+
+        var dataarr = colleges.split(',');
+        var collegeIDs = "";
+
+        for(var i = 0; i < dataarr.length; i++){
+            if(collegeIDs === "")
+            {
+                collegeIDs = CollegeIDAndName[dataarr[i]];
+            }
+            else{
+                collegeIDs += ',' + CollegeIDAndName[dataarr[i]];
+            }
+        }
+
+        return collegeIDs;
+    }
+
+    function showAlertMessage(errorText)
+    {
+        const errorCustom = document.getElementById("errorCustom");
+        const alertText = errorCustom.querySelector("#alertText");
+        const alertImg = errorCustom.querySelector("#alertImg");
+        errorCustom.textContent = "";
+        errorCustom.appendChild(alertImg);
+        errorCustom.appendChild(document.createTextNode("Error: " + errorText));
+        errorCustom.appendChild(alertText);
+
+        errorCustom.style.display = 'flex';
+        errorCustom.classList.add("alert-animation");
+        setTimeout(() => {
+            errorCustom.style.display = "none";
+            errorCustom.classList.remove("alert-animation");
+        }, 5000);
+    }
+
+    function IsPasswordTaken(pass)
+    {
+        showLoader();
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.CreateEventController.checkIfPasswordTaken}',
+            pass,
+            CheckPasswordCallBack
+            );
+    }
+
+    function CheckPasswordCallBack(result, event)
+    {
+        hideLoader();
+        console.log('Event : ' + event);
+        console.log('Result:' + result);
+
+        if(result === true)
+        {
+            showAlertMessage("This password is already taken, please use another one.");
+            document.getElementById('eventPassword').classList.add('input-error');
+            document.getElementById('eventPasswordConfirm').classList.add('input-error');
+        }
+        else
+        {
+            var ename = document.getElementById('eventName').value;
+            var edate = document.getElementById('eventDate').value;
+            var elocation = document.getElementById('eventLocation').value;
+            var estartTime = document.getElementById('eventStartTime').value;
+            var eduration = document.getElementById('eventDuration').value;
+            var cutoff = document.getElementById('cutoff').value;
+            var eventPass = document.getElementById('eventPassword').value;
+            var eventPassConfirm = document.getElementById('eventPasswordConfirm').value;
+
+            colleges = GetCollegeIDFromCollegeName(collegesSelected);
+            eduration = ConvertDurationToMins(eduration);
+
+            CreateEvent(ename,eventPass,edate,elocation,estartTime,eduration,colleges,cutoff);
+        }
+        
+        
+    }
+
+    function clearRedHighLight(){
+        document.getElementById('eventName').classList.remove('input-error');
+        document.getElementById('eventDate').classList.remove('input-error');
+        document.getElementById('eventLocation').classList.remove('input-error');
+        document.getElementById('eventStartTime').classList.remove('input-error');
+        document.getElementById('eventDuration').classList.remove('input-error');
+        document.getElementById('cutoff').classList.remove('input-error');
+        document.getElementById('eventPassword').classList.remove('input-error');
+        document.getElementById('eventPasswordConfirm').classList.remove('input-error');
+        document.getElementById('dropDownHeaderCollege').classList.remove('input-error');
+    }
+
+    function submitData() {
+        clearRedHighLight();
+        var ename = document.getElementById('eventName').value;
+        var edate = document.getElementById('eventDate').value;
+        var elocation = document.getElementById('eventLocation').value;
+        var estartTime = document.getElementById('eventStartTime').value;
+        var eduration = document.getElementById('eventDuration').value;
+        var cutoff = document.getElementById('cutoff').value;
+        var eventPass = document.getElementById('eventPassword').value;
+        var eventPassConfirm = document.getElementById('eventPasswordConfirm').value;
+
+       colleges = GetCollegeIDFromCollegeName(collegesSelected);
+       eduration = ConvertDurationToMins(eduration);
+
+       if(ename == '' || edate == '' || elocation == '' || estartTime == '' || isNaN(eduration) || cutoff == '' || eventPass == '' || eventPassConfirm == '' || collegesSelected == ''){
+            showAlertMessage("Please Fill all the fields");
+            
+            if(ename == '') document.getElementById('eventName').classList.add('input-error');
+            if(edate == '') document.getElementById('eventDate').classList.add('input-error');
+            if(elocation == '') document.getElementById('eventLocation').classList.add('input-error');
+            if(estartTime == '')  document.getElementById('eventStartTime').classList.add('input-error');
+            if(isNaN(eduration)) document.getElementById('eventDuration').classList.add('input-error');
+            if(cutoff == '') document.getElementById('cutoff').classList.add('input-error');
+            if(eventPass == '') document.getElementById('eventPassword').classList.add('input-error');
+            if(eventPassConfirm == '') document.getElementById('eventPasswordConfirm').classList.add('input-error');         
+            if(collegesSelected == '') document.getElementById('dropDownHeaderCollege').classList.add('input-error');
+            return;
+        }
+
+        if(eventPass !== eventPassConfirm)
+        {
+            showAlertMessage("Event Passwords do not match");
+            document.getElementById('eventPassword').classList.add('input-error');
+            document.getElementById('eventPasswordConfirm').classList.add('input-error');
+            return;
+        }
+
+        if(ValidateDateEntry(edate) == false)
+        {
+            showAlertMessage("Please enter valid test date.");
+            document.getElementById('eventDate').classList.add('input-error');
+            return;
+        }
+        
+        if(colleges == null) 
+        {
+            showAlertMessage("Please Select a college");
+            document.getElementById('dropDownHeaderCollege').classList.add('input-error');
+            return;
+        }
+
+        IsPasswordTaken(eventPass);
+    }
+
+    function CreateEvent(ename,eventPass,edate,elocation,estartTime,eduration,colleges,cutoff)
+    {
+        showLoader();
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.CreateEventController.createEvent}',
+            ename,
+            eventPass,
+            edate,
+            elocation,
+            estartTime,
+            eduration,
+            colleges,
+            cutoff,
+            SubmitRecordCallBack
+            );
+    }
+
+    function SubmitRecordCallBack(result,event){
+        hideLoader();
+        console.log(event.message);
+        if(result == true){
+            document.getElementById("FormHTML").classList.toggle("hide");
+            document.getElementById("sucessimage").classList.toggle("reveal");
+        }
+        else{
+            document.getElementById("failimage").classList.toggle("reveal");
+            document.getElementById("FormHTML").classList.toggle("hide");
+            showAlertMessage(event.message);
+        }
+        
+    }
+
+    function selectedCollege(collegeElement){
+        var collegesSelectField = document.getElementById('dropDownHeaderCollege');
+        //make it empty if the stadard text is there
+        if(collegesSelectField.textContent === "Choose a College"){collegesSelectField.textContent = ""};
+
+        var collegeName = collegeElement.textContent;
+        if(collegesSelectField.textContent === "")
+        {
+            collegesSelectField.textContent += collegeName;
+        }
+        else
+        {
+            collegesSelectField.textContent += ',' + collegeName;
+        }
+
+        //postproccessing the list
+        var index = collegesNotYetSelected.indexOf(collegeName);
+        collegesNotYetSelected.splice(index,1);
+
+        UpdateDropDownForCollege();
+
+        collegesSelected = collegesSelectField.textContent;
+    }
+
+    function selectPanelists(PanelistsElement){
+        var PanelistsSelectedField = document.getElementById('dropDownHeaderPanelists');
+        //make it empty if the stadard text is there
+        if(PanelistsSelectedField.textContent === "Select Panelists"){PanelistsSelectedField.textContent = ""};
+
+        var panelistsName = PanelistsElement.textContent;
+        if(PanelistsSelectedField.textContent === "")
+        {
+            PanelistsSelectedField.textContent += panelistsName;
+        }
+        else
+        {
+            PanelistsSelectedField.textContent += ',' + panelistsName;
+        }
+
+        //postproccessing the list
+        var index = PanelistsNotYetSelected.indexOf(panelistsName);
+        PanelistsNotYetSelected.splice(index,1);
+
+        SetUpDropDownForPanelists();
+
+        PanelistsSelected = PanelistsSelectedField.textContent;
+    }
+
+    function clearCollegeSelected(){
+        var collegesSelectField = document.getElementById('dropDownHeaderCollege');
+        collegesSelectField.textContent = "Choose a College";
+        collegesSelected = "";
+        collegesNotYetSelected = [];
+        clearDropdown();
+        ResetCollegeList();
+    }
+
+    function clearPanelistsSelected(){
+        var panelistsSelectField = document.getElementById('dropDownHeaderPanelists');
+        panelistsSelectField.textContent = "Select Panelists";
+        PanelistsSelected = "";
+        PanelistsNotYetSelected = [];
+        clearDropdown();
+        ResetPanelistList();
+    }
+
+    function showLoader() {
+        document.querySelector(".loader").classList.remove("hidden");
+    }
+
+
+    function hideLoader() {
+        document.querySelector(".loader").classList.add("hidden");
+    }
+
+    </script>
+    <div class="loader hidden">
+        <div class="loader-logo loader-logo-animation">
+            <svg width="120" height="120" viewBox="0 0 61 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M30.8919 50.5334C33.472 46.3136 35.8983 42.4107 38.2198 38.4516C38.447 38.062 38.1813 37.2563 37.8911 36.7808C30.6681 24.8707 23.4241 12.9705 16.1242 1.10328C15.7781 0.541945 14.9355 0.0697652 14.2502 0.0565574C9.65982 -0.0325952 5.0659 0.0103303 0 0.0103303C10.3486 16.9361 20.5293 33.5845 30.8919 50.5334Z" fill="white"/>
+                <path class="logo-section-one" d="M21.9257 0.0785001C28.4739 10.7867 34.8054 21.135 41.3047 31.7607C43.8779 27.5738 46.3182 23.6643 48.6536 19.7053C48.8844 19.3123 48.6641 18.5133 48.3844 18.0444C44.9897 12.4146 41.567 6.80127 38.0743 1.22428C37.7422 0.692662 36.8996 0.137935 36.2843 0.124727C31.6869 0.0322727 27.0825 0.0751975 21.9257 0.0751975V0.0785001Z" fill="#EF233C"/>
+                <path class="logo-section-two" d="M60.6489 0.124756H45.0002C47.6293 4.4404 50.1395 8.56784 52.7965 12.9264C55.4326 8.62727 57.9394 4.54276 60.6489 0.124756Z" fill="#EF233C"/>
+            </svg>
+        </div>
+        <div class="loader-inner"></div>
+    </div>
+    <div class="error-warning" id="warningCustom">
+        <img id="warnImg" src="{!URLFOR($Resource.iconAlertBlack)}" class="error-image"/>
+        <span id="warnText" class="closebtn closebtn-black-color"  onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+    <div class="error-alert" id="errorCustom">
+        <img id="alertImg" src="{!URLFOR($Resource.iconAlertWhite)}" class="error-image"/>
+        <span id="alertText" class="closebtn"  onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+   
+    <div class="main">
+        <div class="header">
+            <div>
+                <img class="novigo-icon" src="{!URLFOR($Resource.novigo_logo)}" alt="Novigo Icon"/>
+            </div>
+            <div class="title">
+                <svg style="margin-right: 1vw;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="white" d="M11 9c0 1.66-1.34 3-3 3s-3-1.34-3-3s1.34-3 3-3s3 1.34 3 3m3 11H2v-2c0-2.21 2.69-4 6-4s6 1.79 6 4m8-6v2h-9v-2m9-4v2h-9V8m9-4v2h-9V4Z"/></svg>
+                <span class="title-text">College Details.</span>
+            </div>
+        </div>
+
+        <div class="sucess" id="sucessimage">
+            <iframe style="border:none; outline:none" src="https://lottie.host/?file=23e143eb-ddcf-4f90-9e78-3a2c47e57e6a/ueqFzJupr2.json"></iframe>
+            A new Event has been created!
+        </div>
+        <div class="fail" id="failimage">
+            <iframe style="border:none; outline:none" src="https://lottie.host/?file=6c7fe4bc-b7f3-4b6c-88ba-70c4f6e504b4/vsOF6MZHZd.json"></iframe>
+            <div id="failText">
+                We encountered an error.
+                Please Refresh the page and try again
+            </div>
+        </div>
+
+        <div  class="body-container" id="FormHTML">
+            <div class="content-container" id="form">
+                <apex:form >
+                <div class="section-body"> 
+                    <div class = "section-wrapper" id= "basicDetails">
+                        <div class="section-text-container">
+                            <span class="section-text">Create A Placement Event</span> 
+                        </div>
+                        <div class="section">
+                            <div class="section-items">
+                                <div class="section-left">
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">Event Name </div>
+                                        <input type="Text" id="eventName" class="field"/>
+                                    </div>
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">Event Password </div>
+                                        <input type="Text" id="eventPassword" class="field"/>
+                                    </div>
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">Confirm Event Password </div>
+                                        <input type="Text" id="eventPasswordConfirm" class="field"/>
+                                    </div>
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">Event Date </div>
+                                        <input type="date" id="eventDate" class="field"/>
+                                    </div>
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">Event Location</div>
+                                        <input type="Text" id="eventLocation" class="field"/>
+                                    </div>
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">Event Start Time </div>
+                                        <input type="Time" id="eventStartTime" class="field"/>
+                                    </div>
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">Test Duration (HH:MM) </div>
+                                        <input type="Time" id="eventDuration" class="field" min="00:00" max="04:00"/>
+                                    </div>
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">Colleges</div>
+                                        <!-- <input type="Text" id="colleges" class="field"/> -->
+                    
+                                        <div class="dropdown">
+                                            <div onclick="SetUpDropDownForCollege()" id = 'dropdownheader' class="dropbtn">Choose a College</div>
+                                            <img class="clear-icon" src="{!URLFOR($Resource.clearicon)}" alt="Clear Icon" onclick="clearCollegeSelected()"/>
+                                        </div> 
+                                    </div>
+
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">Cutoff </div>
+                                        <input type="number" id="cutoff" class="field"/>
+                                    </div> 
+                                    
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">Panelists</div>
+                                        <!-- <input type="Text" id="colleges" class="field"/> -->
+                    
+                                        <div class="dropdown">
+                                            <div onclick="SetUpDropDownForPanelists()" id = 'dropDownHeaderPanelists' class="dropbtn">Select Panelists</div>
+                                            <img class="clear-icon" src="{!URLFOR($Resource.clearicon)}" alt="Clear Icon" onclick="clearPanelistsSelected()"/>
+                                        </div> 
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                        <div class="section-buttons button" id="button">
+                            <button type="button" class="next-button" onclick="submitData()">Submit</button>
+                        </div>
+                    </div>
+
+                </div>
+                </apex:form>
+            </div>
+            <div>
+                <div class="dropdown-container" id="dropdownContainer">
+                    <div id="myDropdown" class="dropdown-content">
+                        <span class="section-text" style="margin-bottm:1vh;">Select Colleges</span>
+                        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()"/>
+                    </div>
+                </div>
+            </div>
+
+         </div>
+        
+        
+    </div>
+
+    <div>
+        <img class="novigo-icon-big" src="{!URLFOR($Resource.novigo_logo_blue)}" alt="Novigo Icon"/>
+    </div>
+    </body>
+</html>
+</apex:page>

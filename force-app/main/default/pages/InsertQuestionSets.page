@@ -1,0 +1,1321 @@
+<apex:page controller="InsertQuestionSetsctrl" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true">
+    <html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,800;1,100;1,200;1,300;1,400;1,500;1,800&display=swap" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" />
+        <style>
+
+            :root{
+                --blue-color: #150958;
+                --blue-color-hover: #200e89;
+                --blue-color-hover-alt: #312a5a;
+                --blue-color-select: #534798;
+                --text-color: black;
+                --background-color: white;
+                --red-color: #EF233C;
+                --yellow-color: #ffb01d;
+
+                --green-color: #008000;
+            }
+            *{
+                margin: 0;
+                padding: 0;
+                font-family: 'Oswald', sans-serif; 
+                font-family: 'Poppins', sans-serif;
+            }
+            .main{
+              height: 100vh;
+              width: 100%; 
+              color: white;  
+            }
+            .header{
+                height: 10vh;
+                width: 100%;
+                background: var(--blue-color);
+                display: flex;
+                align-items: center;
+                justify-content: space-between
+            }
+            .title {
+                margin-right: 4vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: sticky;
+                top: 0;
+                z-index: 1;
+                background: white;
+                border-radius: 5px;
+                padding: 3px 15px;
+                cursor: pointer;
+            }
+            .title-text {
+                font-size: 1.2rem;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 500;
+                color: black;
+            }
+            textarea:focus, select:focus{
+                outline: none;
+            }
+            
+
+            .novigo-icon{
+                  height: 6vh; 
+                  margin-left: 8px; 
+            }
+
+            .header-stopwatch-icon-container{
+                display: flex;
+                place-items:center;
+            }
+
+            .header-stopwatch-icon-container{
+                font-size: 2rem;
+                font-weight: 500;
+            }
+
+            .header-novigo-icon{
+                display: grid;
+                align-items: center;
+                width: 100%;
+                
+            }
+
+
+            .header-submit-icon-container{
+                width: 100%;
+                display: grid;
+                align-items: center;
+                justify-content: right;
+                margin-right: 50px;  
+            }
+
+            .header-submit-icon-container-btn{
+                height: 6vh;
+                background: var(--red-color);
+                color: white;
+                border: none;
+                width: 12vw; 
+                font-weight: 500;
+                font-size: 1.2rem;
+                border-radius: 5px;
+            }
+
+
+            .main-body{
+                display: grid;
+                grid-template-columns: 1fr 2px 25vw;
+                height: 100vh;
+                width:100%;
+            }
+
+            /* new code  */
+
+
+            .main-body-full{
+                grid-template-columns: 1fr;
+                width: 100%;
+            }
+
+            .main-body-line-full{
+               display: none;
+            }
+
+            .qst-nav-btn-full{
+                display: none;
+            }
+                 
+            /* new code end  */
+
+
+           
+
+            .qst-nav-btn{
+                  display: grid;
+                  grid-template-columns: 1fr 1fr 1fr 1fr;
+                  place-items:center;
+            }
+
+            .qst-nav-btn-item{
+               width: 5vw;
+               height: 10vh;
+               background: var(--icon-gray-color);
+               border-radius: 5px;
+               display: grid;
+               place-items:center;
+               border: 1px solid black;
+                color: black;
+                font-weight: 600;
+                font-size: 1.2rem;
+                cursor: pointer;
+            }
+
+            .main-body-line{
+                background: black;
+                height: 100vh;
+                
+            }
+
+
+            .main-body-qst-container{  
+                margin: 25px 25px 30px 25px;
+                overflow: scroll;
+                overflow-x: hidden; 
+                
+            }
+
+            .main-body-qst-container::-webkit-scrollbar{
+                display: none;
+            }
+
+            .question-cnt-question-cnt{
+                font-size: 1.5rem;
+                display: flex;
+                color: #150958;
+                font-weight: 500;
+            }
+
+            .question-cnt-question-number{
+                margin-left: 0.5rem;
+            }
+            .question-cnt-question-number-2, .question-cnt-question-cat{
+                    margin-left: 1rem;
+            }
+
+            .question-cnt-title{
+                margin-top: 0.5rem;
+                font-size: 1.2rem;
+                display: flex;
+                color: black;
+                font-weight: 500;
+            }
+
+            .question-cnt-options{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                place-items:center;
+                min-height: 30vh;
+                margin-top: 10px;
+
+
+            }
+
+            .question-cnt-options-item{ 
+                min-width: 20vw;
+                max-width: 50vw;
+                min-height: 8vh;
+                border-radius: 4px;
+                display: grid;
+                grid-template-columns : 4vw 1fr; 
+                background: #D9D9D9;
+                color: black;
+                cursor: pointer;
+            }
+            .question-cnt-options-item:active{
+                box-shadow:  0 0 10px black;
+            }
+
+            .selected{
+                background: #009A19;
+                color: white;
+            }
+
+            
+
+
+            .question-cnt-options-item-1, .question-cnt-options-item-2{
+                   
+                   display: grid;
+                   place-items:center;
+                   
+                   font-weight: 500;
+                   font-size: 1.2rem; 
+            }
+
+            .question-cnt-options-item-1{
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+
+            .question-cnt-options-item-2{
+                border-left: 1.5px solid rgb(15, 15, 15);
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+
+            }
+
+            .question-cnt-desc{
+                     background: #f5f2f0;
+                     display: grid;
+                     place-items:left;
+                     border-radius: 10px;
+                     margin-top: 1.5vh;
+                     padding: 20px;
+            }
+
+            .question-cnt-desc-pre{ 
+                min-width: 40vw;
+                max-width: 60vw;
+                margin: 6vh 0  6vh 0;
+
+            }
+
+            .qst-nav-btn-item-current{
+              border: 3px solid var(--blue-color);
+              background-color: #b3afaf;
+            }
+
+            .qst-nav-btn-item-answered{
+                background-color: #009A19;
+                color: white;
+            }
+
+            .question-cnt-btn{
+                width: 100%;
+                display: grid;
+                place-items:center;
+                margin: 30px 10px ;
+            }
+
+            .question-cnt-btn-item{
+                padding: 5px 10px;
+                border-radius: 5px;
+                background-color: var(--blue-color);
+                color: white;
+                display: grid;
+                place-items:center;
+                cursor: pointer;
+                width: 10vw;
+            }
+            .question-cnt-btn-item:active{
+                box-shadow: 0 0 10px black;
+            }
+            .question-cnt-btn-felx{
+                display: grid; 
+                grid-template-columns: 1fr auto;
+                justify-content: center;
+                align-items: center;
+                column-gap: 20px;
+            }
+
+            /* loader Start CSS */
+
+                .loader {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    z-index: 9999;
+                }
+
+                .loader-inner {
+                    border: 4px solid #f3f3f3;
+                    border-top: 4px solid #3498db;
+                    border-radius: 50%;
+                    width: 70px;
+                    height: 70px;
+                    animation: spin 0.5s linear infinite;
+                }
+
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+
+                /* Hide the loader by default */
+                .hidden {
+                    display: none;
+                }
+
+                /* Loader end */
+
+                 .clear-btn{
+                    display: grid;
+                    justify-content: right;
+                    align-items: center;
+                 }
+                 .clear-btn-item{
+                    width: 15vw;
+                    padding: 5px 10px;
+                    background: rgb(218, 17, 17);
+                    border-radius: 5px;
+                    color: white;
+                    display: grid;
+                    place-items:center;
+                    cursor: pointer;
+                    margin-right: 10px;
+                 }
+                 .clear-btn-item:active{
+                            box-shadow: 0 0 10px black;
+                 }
+
+                 .clear-active{
+                    display: none;
+                 }
+
+
+                 .qnt-count , .qnt-count-txt{
+                    color: #150958;
+                    text-align: center;
+                    margin-top: 10px;
+                 }
+                 .novig-icon-2-main{
+                    display: grid;
+                    place-items:center;
+                     
+                 }
+
+                 .novig-icon-2{
+
+                    width: 25vw;
+                    
+                 }
+                 .main-cnt-2{
+                    margin-top: 10vh;
+                 }
+                 .question-cnt-btn-2{
+                    margin-top: 5px;
+                 }
+
+                 .tick-icon{
+                    display: grid;
+                    place-items:center;
+                 }
+
+                 .qnt-count{
+                    font-size: 2rem;
+                    font-weight: 600;
+                 }
+                 .qnt-count-sp{
+                    color: #009A19;
+                 }
+                 .qnt-ount-sp-red{
+                    color: #ff3b00;
+                 }
+
+                 .finish-color-green{
+                    color: #009A19;
+                    
+                 }
+                 .tick-mark-1,.tick-mark-2{
+                    border: none;
+                 }
+
+                 .finish-color-red{
+                    background: #ff3b00;
+                    color: black;
+                 }
+
+                 .qnt-count-txt{
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                 }
+
+                 .hide-tick{
+                    display: none;
+                 }
+
+                 .main{
+                    color: black;
+                    margin-bottom: 10vh;
+                    height: auto;
+                 }
+
+                 .main-cnt{
+                    margin: 20px 40px 50px 40px;
+                    
+                 }
+
+                 .question-cnt-btn-item{
+                    color:white;
+                 }
+                 .main-cnt-head{
+                    font-size: 1.4rem;
+                    font-weight: 500;
+                    color: #150958;
+                 }
+
+                 .main-bnt-head-tl{
+                    color: black;
+                    font-weight: 500;
+                    font-size: 1.2rem;
+                 }
+
+                 .main-cnt-item{
+                    display: flex;
+                    margin: 5px 0 ;
+                 }
+                 .main-cnt-item-a{
+                    margin-left: 25px;
+                 }
+                 .main-cnt-item-2{
+                    margin-left: 5px;
+                 }
+                 .main-cnt-item-2 span{
+                    font-weight: 600;
+                    font-style: italic;
+                 }
+                 .submit-btn{
+                    display: grid;
+                    place-items:center;
+                    height: 20vh;
+                 }
+                 .main-cnt-item-container{
+                    margin-top: 16px;
+                 }
+                 .main-bnt-head-tl{
+                    margin-top: 8px;
+                 }
+
+                 .main-cnt-item-img{
+
+                 }
+
+                 .main-cnt-item-2-image{
+                   margin-left: 6vw;
+                 }
+
+                 .main-cnt-image{
+                       width: 50vw;
+                       margin-top: 10px;
+                 }
+
+                 .main-cnt-item-img-txt{
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                 }
+
+                 .main-cnt-item-img-txt-sub{
+                    margin-left: 45px; 
+                 }
+                 .main-cnt-item-img-txt-sub-main{
+                    font-size: 1.1rem;
+                    margin-left: 30px;
+                    font-weight: 500; 
+                 }
+
+                 .main-cnt-item-img-txt-sub-main span{
+                    font-weight: 600;
+                    color: rgb(214, 10, 10);
+                 }
+
+
+
+
+
+                  /* question page start  */
+
+                  .qnt-cnt-main{
+                     display: grid;
+                     place-items:center;
+                     grid-row-gap: 5vh;
+                     
+                  }
+
+
+                  .qnt-cnt-main-1{
+                    width: 50vw;
+                    display: grid;
+                    grid-template-columns: 1fr 40vw;
+                    place-items:center;
+                    height:  auto;
+                  }
+                  .qnt-cnt-main-1-title{
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                    color: #150958;
+                  }
+                  .qnt-cnt-main-1-input{
+                    width: 35vw;
+                    min-height: 8vh;
+                    border: 4px solid gray;
+                    border-radius: 10px;
+                    padding:  4px;
+                    resize:  none;
+                  }
+
+                  .qnt-cnt-main-2{
+                    width: 50vw;
+                    display: grid;
+                    grid-template-columns: 1fr 30vw;
+                    place-items:center;
+                    height:  auto;
+                  }
+                  .qnt-cnt-main-2-title{
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                    color: #150958;
+                    padding-left: 2px;
+                    text-align: left;
+                    width: 20vw;
+                  }
+                  .qnt-cnt-option-select{
+                    width: 20vw;
+                    height: 6vh;
+                    border: 4px solid gray;
+                    border-radius: 10px;
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                    color: #150958;
+
+                  }
+                  .qnt-cnt-option-select-cat{
+                    width: 20vw;
+                    height: 6vh;
+                    border: 4px solid gray;
+                    border-radius: 10px;
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                    color: #150958;
+                  }
+
+                  .qnt-cnt-option-select-dif{
+                    width: 20vw;
+                    height: 6vh;
+                    border: 4px solid gray;
+                    border-radius: 10px;
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                    color: #150958;
+                  }
+
+                  .qnt-cnt-main-1-checkbox{
+                    width: 50vw;
+                    display: grid;
+                    grid-template-columns: 15vw 1fr;
+                    height:  auto;
+                    align-items: center;
+                    justify-content: left;
+                  }
+
+                  .hide-checkbox{
+                    display: none;
+                  }
+                  .qnt-cnt-main-checkbox{
+                    height: 4vh;
+                    width: 4vw;
+                    border: 4px solid gray;
+                    border-radius: 10px;
+                  }
+
+                  .qnt-cnt-main-1-title-desc{
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                    color: #150958;
+                  }
+
+                  .qnt-cnt-main-1-btn{
+                          height: 20vh;
+                          width: 100%;
+                          display: grid;
+                          place-items:center;
+                  }
+                  #home-btn{
+                    transition: .3s ease;
+                  }
+                  #home-btn:hover{
+                   background: rgb(206, 205, 205);
+                      
+                }
+                #view-all-btn{
+                    transition: .3s ease;
+                }
+                #view-all-btn:hover{
+                    background: rgb(206, 205, 205);
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                 
+
+
+
+                 .loader {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 9999;
+                }
+ 
+
+                .loader-logo{
+                position: absolute;
+                top: 50;
+                left: 50;
+                }
+
+
+
+                .loader-logo .logo-section-one {
+                    animation: moveOne 1.25s infinite alternate;
+                }
+
+
+
+                .loader-logo .logo-section-two {
+                animation: moveTwo 1.25s infinite alternate;
+                }
+
+
+
+                @keyframes moveOne {
+                0%, 100% {
+                    transform: translate(0, 0);
+                    opacity: 1;
+                }
+                50% {
+                    fill: white;
+                    transform: translate(-15px, -25px);
+                    opacity: 0;
+                }
+                }
+
+                @keyframes moveTwo {
+
+                0%, 100% {
+                    transform: translate(0, 0);
+                    opacity: 1;
+                }
+                50% {
+                    fill: white;
+                    transform: translate(15px, 15px);
+                    opacity: 0.2;
+                }
+                }
+
+
+                .hidden {
+                    display: none ;
+                }
+
+
+
+                .error-image{
+                height:18px; 
+                width:18px; 
+                margin-left:0.5vw;
+                margin-right: 1vw;
+            }
+            .error-alert {
+                position: fixed;
+                z-index: 1000; 
+                top: 8%; 
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: none;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: var(--red-color);
+                color: white;
+                margin-bottom: 15px;
+                align-items: center;
+                justify-content: center;
+                align-content: center;
+            }
+            .alert-animation {
+                animation-name: fade;
+                animation-duration: 0.5s; /* Adjust the duration as needed */
+            }
+
+            @keyframes fade {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+            .closebtn {
+            margin-left: 15px;
+            color: white;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            }
+
+            .closebtn:hover {
+            color: black;
+            }
+            .closebtn-black-color{
+                color: black;
+            }
+            .closebtn-black-color:hover{
+                color: white;
+            }
+
+            .sucess-alert {
+                position: fixed;
+                z-index: 1000; 
+                top: 8%; 
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: none;
+                padding: 20px;
+                border-radius: 10px;
+                background-color:  var(--green-color);
+                color: white;
+                margin-bottom: 15px;
+                align-items: center;
+                justify-content: center;
+                align-content: center;
+            }
+
+
+            .error-warning {
+                position: fixed;
+                z-index: 1000; 
+                top: 8%; 
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: none;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: var(--yellow-color);
+                color: black;
+                margin-bottom: 15px;
+                align-items: center;
+                justify-content: center;
+                align-content: center;
+            }
+            .header-btn{
+                display: flex;
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <div class="error-warning" id="warningCustom">
+            <img id="warnImg" src="{!URLFOR($Resource.iconAlertBlack)}" class="error-image"/>
+            <span id="warnText" class="closebtn closebtn-black-color"  onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+        <div class="error-alert" id="errorCustom">
+            <img id="alertImg" src="{!URLFOR($Resource.iconAlertWhite)}" class="error-image"/>
+            <span id="alertText" class="closebtn"  onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+        <div class="sucess-alert" id="sucessCustom">
+            <img id="alertImg" src="{!URLFOR($Resource.iconAlertWhite)}" class="error-image"/>
+            <span id="alertText" class="closebtn"  onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+
+        <div class="loader hidden">
+            <div class="loader-logo loader-logo-animation">
+                <svg width="120" height="120" viewBox="0 0 61 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M30.8919 50.5334C33.472 46.3136 35.8983 42.4107 38.2198 38.4516C38.447 38.062 38.1813 37.2563 37.8911 36.7808C30.6681 24.8707 23.4241 12.9705 16.1242 1.10328C15.7781 0.541945 14.9355 0.0697652 14.2502 0.0565574C9.65982 -0.0325952 5.0659 0.0103303 0 0.0103303C10.3486 16.9361 20.5293 33.5845 30.8919 50.5334Z" fill="white"/>
+                      <path class="logo-section-one" d="M21.9257 0.0785001C28.4739 10.7867 34.8054 21.135 41.3047 31.7607C43.8779 27.5738 46.3182 23.6643 48.6536 19.7053C48.8844 19.3123 48.6641 18.5133 48.3844 18.0444C44.9897 12.4146 41.567 6.80127 38.0743 1.22428C37.7422 0.692662 36.8996 0.137935 36.2843 0.124727C31.6869 0.0322727 27.0825 0.0751975 21.9257 0.0751975V0.0785001Z" fill="#EF233C"/>
+                      <path class="logo-section-two" d="M60.6489 0.124756H45.0002C47.6293 4.4404 50.1395 8.56784 52.7965 12.9264C55.4326 8.62727 57.9394 4.54276 60.6489 0.124756Z" fill="#EF233C"/>
+                 </svg>
+              </div> 
+        </div>
+       
+        <div class="main">
+            <div class="header">
+                <div>
+                    <img class="novigo-icon" src="{!URLFOR($Resource.novigo_logo)}" alt="Novigo Icon"/>
+                </div>
+                <div class="header-btn">
+
+                    <div id="home-btn" class="title" onclick="NavToAdminPage()">
+                        
+                        <span class="title-text">Home</span>
+                    </div>
+                    <div id="view-all-btn" class="title" onclick="navAllQst()">
+                        
+                        <span class="title-text">View All Questions</span>
+                    </div>
+                </div>
+                
+            </div> 
+
+           
+    
+          <div class="main-cnt">
+            <div class="main-cnt-head">
+                Enter Question
+            </div>
+              <dvi class="qnt-cnt-main">
+                <div class="qnt-cnt-main-2">
+                    <div class="qnt-cnt-main-2-title"  >Question Category</div>
+                    <div>
+                        <select class="qnt-cnt-option-select-cat">
+                            <option value="c programming" selected="selected">C-programming</option>
+                            <option value="Aptitude">Aptitude </option> 
+                        </select>
+                    </div>
+                </div>
+                <div class="qnt-cnt-main-2">
+                    <div class="qnt-cnt-main-2-title"  >Question Difficulty</div>
+                    <div>
+                        <select class="qnt-cnt-option-select-dif">
+                            <option value="Easy" selected="selected">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hard">Hard</option> 
+                        </select>
+                    </div>
+                </div> 
+                <div class="qnt-cnt-main-1">
+                    <div class="qnt-cnt-main-1-title">Question Title</div>
+                    <div>
+                        <textarea id="qnt-cnt-main-1-input-title" class="qnt-cnt-main-1-input" style="height:20vh;"  type="text"/>
+                    </div>
+                </div>
+                <div class="qnt-cnt-main-1-checkbox">
+                    <div class="qnt-cnt-main-1-title">Has C-program</div>
+                    <div>
+                       <input  class="qnt-cnt-main-checkbox"  type="checkbox"/>
+                    </div>
+                </div>
+                <div class="qnt-cnt-main-1">
+                    <div class="qnt-cnt-main-1-title-desc"  >Question Description</div>
+                    <div>
+                        <textarea id="qnt-cnt-main-1-input-desc" class="qnt-cnt-main-1-input" style="height:40vh;"  type="text"/>
+                    </div>
+                </div>
+                <div class="qnt-cnt-main-1">
+                    <div class="qnt-cnt-main-1-title">Option A</div>
+                    <div>
+                        <textarea id="qnt-cnt-main-1-input-opt-1" class="qnt-cnt-main-1-input"  type="text"/>
+                    </div>
+                </div>
+                <div class="qnt-cnt-main-1">
+                    <div class="qnt-cnt-main-1-title">Option B</div>
+                    <div>
+                        <textarea id="qnt-cnt-main-1-input-opt-2"  class="qnt-cnt-main-1-input"  type="text"/>
+                    </div>
+                </div>
+                <div class="qnt-cnt-main-1">
+                    <div class="qnt-cnt-main-1-title">Option C</div>
+                    <div>
+                        <textarea id="qnt-cnt-main-1-input-opt-3"  class="qnt-cnt-main-1-input"  type="text"/>
+                    </div>
+                </div>
+                <div class="qnt-cnt-main-1">
+                    <div class="qnt-cnt-main-1-title">Option D</div>
+                    <div>
+                        <textarea id="qnt-cnt-main-1-input-opt-4"  class="qnt-cnt-main-1-input"  type="text"/>
+                    </div>
+                </div>
+                <div class="qnt-cnt-main-2">
+                    <div class="qnt-cnt-main-2-title"  >Correct Option</div>
+                    <div>
+                        <select class="qnt-cnt-option-select" >
+                            <option value="option_1" selected="selected">Option A</option>
+                            <option value="option_2">Option B</option>
+                            <option value="option_3">Option C</option>
+                            <option value="option_4">Option D</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="qnt-cnt-main-1-btn">
+                    <div class="question-cnt-btn-item finish-color-green " onclick="submitClick()"   >Submit</div>
+                </div>
+
+               
+
+              </dvi>
+            
+            </div>
+            
+          </div>  
+          <script> 
+          showLoader();
+
+            //validatating that only admin can access this page
+            function getUrlParameter(name) {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        return urlParams.get(name);
+              }
+
+            const adminID = getUrlParameter('adminId');
+            if(!adminID)
+            {
+                routeToAdminLogin();
+            }
+
+            function routeToAdminLogin()
+            {
+                var targetPageUrl = '/apex/AdminLogin';
+                window.location.href = targetPageUrl;
+            }
+
+          function navAllQst()
+          {
+                var targetPageUrl = '/apex/GetAllQuestions?adminId=' + adminID;
+                window.location.href = targetPageUrl;
+          }
+          function NavToAdminPage(){
+            var targetPageUrl = '/apex/AdminPage?adminId=' + adminID;
+                window.location.href = targetPageUrl;
+          }
+
+
+
+            function getUrlParameter(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+
+
+
+            const qID = getUrlParameter('qID');
+            
+            if(qID){
+
+                Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.InsertQuestionSetsctrl.getSingleQuestion}',
+                                    qID,
+                                    //callback
+                                    function (result, event) { 
+                                            console.log("success");
+                                            hideLoader();
+                                            console.log(result);
+                                            if(result)
+                                            {
+                                               QuestionCategoryInput = result.question_category__c;
+                                               QuestionDifficultyInput = result.question_difficulty__c;
+                                               QuestionTitleInput = result.question_title__c;
+                                               QuestionHasProgramInput = result.hasProgram__c;
+                                               QuestionDiscrptionInput = result.question_description__c;
+                                               Questionoption_1Input = result.option_1__c;
+                                               Questionoption_2Input = result.option_2__c;
+                                               Questionoption_3Input = result.option_3__c;
+                                               Questionoption_4Input = result.option_4__c;
+                                               QuestionoptionCorrectOptionInput = result.question_correct_answer__c;
+                                               document.querySelector('.qnt-cnt-option-select-cat').value = result.question_category__c;
+                                               document.querySelector('.qnt-cnt-option-select-dif').value = result.question_difficulty__c;
+                                               document.querySelector('#qnt-cnt-main-1-input-title').textContent = result.question_title__c;
+                                               document.querySelector('.qnt-cnt-main-checkbox').checked = result.hasProgram__c;
+                                               document.querySelector('#qnt-cnt-main-1-input-desc').textContent = result.question_description__c;
+                                               document.querySelector('#qnt-cnt-main-1-input-opt-1').textContent = result.option_1__c;
+                                               document.querySelector('#qnt-cnt-main-1-input-opt-2').textContent = result.option_2__c;
+                                               document.querySelector('#qnt-cnt-main-1-input-opt-3').textContent = result.option_3__c;
+                                               document.querySelector('#qnt-cnt-main-1-input-opt-4').textContent = result.option_4__c;
+                                               document.querySelector('.qnt-cnt-option-select').value = result.question_correct_answer__c;
+                                               if(result.hasProgram__c == true){
+                                                    var ele = document.querySelector(".qnt-cnt-main-1-title-desc");
+                                                    ele.textContent = "C-Program";
+                                                }
+                                                else{
+                                                    var ele = document.querySelector(".qnt-cnt-main-1-title-desc");
+                                                    ele.textContent = "Question Description";
+                                                }
+
+                                            }
+                                                 
+                                                
+                                                if (event.status) {
+                                                    console.log(event.status);
+                                                }
+                                                else if (result.type === 'exception') {
+                                                    alert("Exception caught");
+                                                }
+                                                else {
+                                                    alert("Exception caught");
+                                                }
+                                        }
+                                );
+
+
+
+
+
+            }
+            else{
+                hideLoader();
+            }
+
+           
+
+
+
+            function showLoader() {
+                    document.querySelector(".loader").classList.remove("hidden");
+                }
+
+
+                function hideLoader() {
+                    document.querySelector(".loader").classList.add("hidden");
+                }
+            
+             
+            // showLoader();
+
+
+            var QuestionCategoryInput = 'c programming';
+            var QuestionDifficultyInput = 'Easy';
+            var QuestionTitleInput = '';
+            var QuestionHasProgramInput = false;
+            var QuestionDiscrptionInput = '';
+            var Questionoption_1Input = '';
+            var Questionoption_2Input = '';
+            var Questionoption_3Input = '';
+            var Questionoption_4Input = '';
+            var QuestionoptionCorrectOptionInput = 'option_1';
+
+
+            var slectCorrectOption = document.querySelector('.qnt-cnt-option-select');
+             
+ 
+            slectCorrectOption.addEventListener('change', function() { 
+                const selectedOption = slectCorrectOption.value;  
+                 console.log('Selected option: ' + selectedOption);
+                 QuestionoptionCorrectOptionInput = selectedOption;
+            });
+
+             var selectElementcat = document.querySelector('.qnt-cnt-option-select-cat');
+             
+ 
+             selectElementcat.addEventListener('change', function() { 
+                 const selectedCat = selectElementcat.value;
+                 var ele = document.querySelector('.qnt-cnt-main-1-checkbox');
+                 if(selectedCat == 'c programming') { 
+                    ele.classList.remove('hide-checkbox');
+                 }else{  var ele = document.querySelector('.qnt-cnt-main-1-checkbox');
+                    ele.classList.add('hide-checkbox');
+                 }
+                 QuestionCategoryInput = selectedCat;
+                  console.log('Selected cat: ' + selectedCat);
+             });
+
+              var selectElementdif = document.querySelector('.qnt-cnt-option-select-dif');
+             
+ 
+              selectElementdif.addEventListener('change', function() { 
+                 const selecteddiff = selectElementdif.value;  
+                  console.log('Selected diffi: ' + selecteddiff);
+                  QuestionDifficultyInput = selecteddiff;
+             });
+
+             var selectElementCheckbox = document.querySelector('.qnt-cnt-main-checkbox');
+             
+ 
+             selectElementCheckbox.addEventListener('change', function() { 
+                const chekboxValue = selectElementCheckbox.checked;
+                   if(chekboxValue == true){
+                    var ele = document.querySelector(".qnt-cnt-main-1-title-desc");
+                    ele.textContent = "C-Program";
+                   }
+                   else{
+                    var ele = document.querySelector(".qnt-cnt-main-1-title-desc");
+                    ele.textContent = "Question Description";
+                   }
+                   QuestionHasProgramInput = chekboxValue;
+                 console.log('Selected diffi: ' + chekboxValue);
+            });
+
+
+            var titleEle = document.querySelector('#qnt-cnt-main-1-input-title');
+             
+ 
+             titleEle.addEventListener('input', function() { 
+                const titleInp = titleEle.value;   
+                 QuestionTitleInput = titleInp;
+            });
+
+           
+
+            var descEle = document.querySelector('#qnt-cnt-main-1-input-desc');
+             
+ 
+             descEle.addEventListener('input', function() { 
+                const descInp = descEle.value;   
+                 QuestionDiscrptionInput = descInp;
+            });
+           
+
+
+            var opt1Ele = document.querySelector('#qnt-cnt-main-1-input-opt-1');
+             
+ 
+             opt1Ele.addEventListener('input', function() {  
+                const opt1value = opt1Ele.value;   
+                 Questionoption_1Input = opt1value;
+            });
+
+            var opt2Ele = document.querySelector('#qnt-cnt-main-1-input-opt-2');
+             
+ 
+             opt2Ele.addEventListener('input', function() { 
+                const opt2value = opt2Ele.value;   
+                 Questionoption_2Input = opt2value;
+            });
+
+            var opt3Ele = document.querySelector('#qnt-cnt-main-1-input-opt-3'); 
+ 
+             opt3Ele.addEventListener('input', function() { 
+                const opt3value = opt3Ele.value;   
+                 Questionoption_3Input = opt3value;
+            });
+
+            var opt4Ele = document.querySelector('#qnt-cnt-main-1-input-opt-4');
+             
+ 
+             opt4Ele.addEventListener('input', function() { 
+                const opt4value = opt4Ele.value;   
+                 Questionoption_4Input = opt4value;
+            });
+
+    
+            
+
+    function submitClick(){
+        showLoader();
+            console.log('QuestionCategoryInput : ' +QuestionCategoryInput);
+            console.log(' QuestionDifficultyInput : ' +QuestionDifficultyInput);
+            console.log('QuestionTitleInput : ' +QuestionTitleInput);
+            console.log('QuestionHasProgramInput : ' +QuestionHasProgramInput);
+            console.log('QuestionDiscrptionInput : ' + QuestionDiscrptionInput);
+            console.log('Questionoption_1Input :  ' +Questionoption_1Input);
+            console.log('Questionoption_2Input : ' +Questionoption_2Input);
+            console.log('Questionoption_3Input : ' +Questionoption_3Input);
+            console.log('Questionoption_4Input : ' +Questionoption_4Input);
+            console.log('QuestionoptionCorrectOptionInput : ' +QuestionoptionCorrectOptionInput);
+            console.log('qid: ' + qID);
+            var isUpdate = false;
+            if(qID != null)
+            {
+                isUpdate = true;
+            }
+
+            console.log("Is Update Flag: " + isUpdate);
+
+            Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.InsertQuestionSetsctrl.insertQuestion}',
+                                    QuestionDiscrptionInput,
+                                    QuestionDifficultyInput,
+                                    QuestionTitleInput,
+                                    QuestionCategoryInput,
+                                    Questionoption_1Input,
+                                    Questionoption_2Input,
+                                    Questionoption_3Input,
+                                    Questionoption_4Input,
+                                    QuestionoptionCorrectOptionInput,
+                                    QuestionHasProgramInput,
+                                    isUpdate,
+                                    qID,
+
+                                    //callback
+                                    function (result, event) { 
+                                            console.log("success");
+                                            hideLoader();
+                                            console.log("Callback result: " + result);
+
+                                            if(result)
+                                            {
+                                                displaysSuccessMessage("Question Added successfully!");
+                                            }
+                                            else{
+                                                displayErrorMessage("Something went wrong, please try again");
+                                            }
+                                                if (event.status) {
+                                                    console.log(event.status);
+                                                }
+                                                else if (result.type === 'exception') {
+                                                    alert("Exception caught");
+                                                }
+                                                else {
+                                                    alert("Exception caught");
+                                                }
+                                        }
+                                );
+    }    
+    
+    function displayErrorMessage(errorText) {
+                const errorCustom = document.getElementById("errorCustom");
+                const alertText = errorCustom.querySelector("#alertText");
+                const alertImg = errorCustom.querySelector("#alertImg");
+                errorCustom.textContent = "";
+                errorCustom.appendChild(alertImg);
+                errorCustom.appendChild(document.createTextNode("Error: " + errorText));
+                errorCustom.appendChild(alertText);
+    
+                errorCustom.style.display = 'flex';
+                errorCustom.classList.add("alert-animation");
+                setTimeout(() => {
+                    errorCustom.style.display = "none";
+                    errorCustom.classList.remove("alert-animation");
+                }, 5000);
+            }
+    
+            function displayWarningMessage(warningText) {
+                const warningCustom = document.getElementById("warningCustom");
+                const warnText = document.getElementById("warnText"); // Get the warnText element
+                const warnImg = document.getElementById("warnImg"); // Get the warnImg element
+    
+                warningCustom.textContent = ""; // Clear any existing content
+                warningCustom.appendChild(warnImg);
+    
+                // Create a text node and set its content
+                const warningTextNode = document.createTextNode("Warning: " + warningText);
+                warningCustom.appendChild(warningTextNode);
+    
+                warningCustom.appendChild(warnText); // Append the warnText element
+    
+                warningCustom.style.display = 'flex';
+                // warningCustom.classList.add("alert-animation");
+                setTimeout(() => {
+                    warningCustom.style.display = "none";
+                    warningCustom.classList.remove("alert-animation");
+                }, 5000);
+            }
+
+
+            function displaysSuccessMessage(warningText) {
+                const warningCustom = document.getElementById("sucessCustom");
+                const warnText = document.getElementById("alertText"); // Get the warnText element
+                const warnImg = document.getElementById("alertImg"); // Get the warnImg element
+    
+                warningCustom.textContent = ""; // Clear any existing content
+                warningCustom.appendChild(warnImg);
+    
+                // Create a text node and set its content
+                const warningTextNode = document.createTextNode("Sucess: " + warningText);
+                warningCustom.appendChild(warningTextNode);
+    
+                warningCustom.appendChild(warnText); // Append the warnText element
+    
+                warningCustom.style.display = 'flex';
+                // warningCustom.classList.add("alert-animation");
+                setTimeout(() => {
+                    warningCustom.style.display = "none";
+                    warningCustom.classList.remove("alert-animation");
+                }, 5000);
+            }
+         
+        </script>
+         
+    </body>
+    </html>
+</apex:page>

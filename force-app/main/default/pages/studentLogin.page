@@ -1,0 +1,447 @@
+<apex:page standardStylesheets="false" showHeader="false" controller="LoginPageController">
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,800;1,100;1,200;1,300;1,400;1,500;1,800&display=swap" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" />
+        <style>
+            :root {
+                --blue-color: #150958;
+                --blue-color-hover: #200e89;
+                --text-color: black;
+                --background-color: white;
+                --red-color: #EF233C;
+            }
+
+            * {
+                margin: 0;
+                padding: 0; 
+                font-family: 'Oswald', sans-serif; 
+                font-family: 'Poppins', sans-serif;
+            }
+            
+            .messageTag{
+                color: #red;
+                font-size: 20px;
+                font-family: Inter;
+                font-weight: 500;
+                word-wrap: break-word;
+                width: to-fit;
+                display: flex;
+                flex-direction: column;
+            	background-color:#ed3939;
+           		border-radius:10px;
+            }
+            
+            .closeErrorButton{
+            	position:relative;
+            	margin-left:2vh;
+            	margin-right:2vh;
+            	font-size:12px;
+            	font-weight:600;
+            	background-color:#ed3939;
+            	border: 0px;
+            	
+            }
+
+            .main{
+                font-size: 50px;
+                font-family: 'Oswald', sans-serif;
+                font-family: 'Poppins', sans-serif;
+                font-style: italic;
+                font-weight: 200;
+            }
+            
+            .messageDiv{		<!--needs fixing-->
+                position: fixed;
+                top: 9%;
+            	left:45%;
+            	width:to-fit;
+            }
+
+            .header {
+                height: 10vh;
+                width: 100%;
+                background: var(--blue-color);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .inputOverallContainer {
+                position: fixed;
+                left: 35%;
+                top: 19%;
+                height: 250px;
+                width: to-fit;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .login_prompt {
+                color: #150958;
+                font-size: 40px;
+                font-family: Inter;
+                font-weight: 600;
+                word-wrap: break-word;
+                width: 50%;
+                position: relative;
+            }
+
+            .inputFieldContainer {
+                flex-direction: row;
+                align-items: center;
+            	margin-top:10%;
+  		  	    display: flex;
+    			justify-content: right;
+            }
+            
+            .loginButton{
+                color: white;
+                border-radius: 10px;
+                padding: 10px;
+                width: 300px;
+                font-size: 24px;
+                margin-top: 20%;
+                background-color: #150958;
+            	margin-left:8vh;
+            	font-size:18px;
+            	cursor:pointer;
+            }
+            
+            .inputBox{
+            	font-size: 18px; 
+                height: 45px;
+                width : 250px;
+            	border-radius:20px;
+            	text-align:center;
+            }
+            
+            .loginPrompt{
+          		color: #150958;
+                flex-direction: row;
+                align-items: center;
+            	margin-top:10%;
+  		  	    display: flex;
+    			justify-content: center;
+                font-size: 40px;
+                font-family: Inter;
+                font-weight: 600;
+                word-wrap: break-word;
+                width: 100%;
+                margin-bottom:10vh;
+            }
+
+            .textField{
+                height: fit-content;
+                margin-right: 20px;
+                position: relative;
+                color: black;
+                font-size: 25px;
+                font-family: Inter;
+                font-weight: 500;
+                word-wrap: break-word
+            }
+
+            .novigo-icon {
+                height: 6vh;
+                margin-left: 8px;
+            }
+            .novigo-icon-big{
+                opacity: 0.05;
+                position: fixed;
+                bottom: 0;
+                right: 0;
+                z-index: -1; 
+                filter: grayscale(50%);
+            }
+            .title-text {
+                /* margin-right: 1vw; */
+                font-size: 2vw;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 500;
+                color: var(--background-color);
+            }
+            .title {
+                /* margin-top: 4vh; */
+                margin-right:4vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: sticky;
+                top: 0;
+                /* background-color: white; */
+                z-index: 1;
+            }
+
+
+            /* .loginButton-new{
+                   width: 20vw;
+                   height: 6vh;
+                   border: none;
+                   border-radius: 4px;
+                   background: #150958;
+                   color: white;
+                   font-size: 1.2rem;
+                   display: grid;
+                   place-items:center;
+                   cursor: pointer;
+                
+            }
+            .loginButton-new:active{
+                box-shadow: 0 0 10px black;
+            } */
+            .loginButton-new {
+                background-color: var(--blue-color);
+                color: var(--background-color);
+                width: 20vw;
+                height: 5vh;
+                padding: 2px;
+                outline: none;
+                border: 2px transparent;
+                margin: 0.5vw;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: .3s ease;
+                }
+
+            .loginButton-new:hover {
+                background-color: var(--blue-color-hover);
+                }
+
+            .textField-new{
+                
+            	display:grid;
+            	place-items:center;
+                color: black;
+                font-weight: 500;
+                margin-right: 1vw;
+            }
+            .inputBox-new{
+                width: 20vw;
+                height: 5vh;
+            	font-weight:500;
+                border: 2px solid gray;
+                border-radius: 10px;
+                display: grid;
+                padding: 0 10px;
+            }
+            .loginPrompt-new{
+                font-size: 1.5rem;
+                font-weight: 500;
+                width: 100%;
+                color: #020202;
+                text-align: right;
+                padding-right: 6vw;
+            }
+            .inputOverallContainer-new{
+                display: grid;
+                place-items:center;
+                height: 40vh;
+            }
+            .inputFieldContainer-new{
+                     display: grid;
+                     grid-template-columns: 7vw 1fr;
+            }
+            .main-new{
+                display: grid;
+                place-items:center;
+                position: relative;
+            }
+            .input-main{
+                margin-top: 8vh;
+                display: grid;
+                place-items: center;
+                height: 90vh;
+                width: 100%;
+                background-color: var(--background-color);
+                border: 1px solid var(--blue-color);
+                border-radius: 8px;
+                box-shadow: 0px 1px 10px #150958;
+                width: 94vh;
+                height: 60vh;
+            }
+
+            .login-button{
+                display: grid;
+                width: 100%;
+                padding-right: 1vw;
+                justify-content: right;
+            }
+            .closeErrorButton-new{
+
+            }
+            .messageTag-new{
+                background: rgb(218, 4, 4);
+                height: 8vh; 
+                max-width: 60vw; 
+                color: white;
+                font-size: 1.3rem;
+                border-radius: 20px;  
+                display: grid;
+                grid-template-columns: 1fr 5vw;
+                place-items:center;
+                
+                
+            }
+
+            .closeErrortxt-new{
+                    margin: 0 4vw;
+            }
+            .messageDiv-new{
+                height: 8vh;
+                max-width: 60vw ;
+                position: absolute;
+                top: 20%;
+                left: 36%;
+
+            }
+
+            .closeErrorButton-new{
+                     width: 8vh;
+                     height: 8vh;
+                     border-radius: 50%;
+                     border-top-right-radius: 20px;
+                     border-bottom-right-radius: 20px;
+                     background: white;
+                     border:none;
+                     font-size: 1.8rem;
+                     font-weight: 500;
+                     margin-right: -1.4vw;
+                     background: rgb(218, 214, 214);
+                     cursor: pointer;
+                     
+            }
+            .user-icon{
+              height: 5vh;
+              margin-right: 2vw;
+            }
+            .error-image{
+                height:18px; 
+                width:18px; 
+                margin-left:0.5vw;
+                margin-right: 1vw;
+            }
+            .error-alert {
+                position: fixed;
+                z-index: 1000; 
+                top: 8%; 
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: block;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: var(--red-color);
+                color: white;
+                margin-bottom: 15px;
+                align-items: center;
+                justify-content: center;
+                align-content: center;
+            }
+            .alert-animation {
+                animation-name: fade;
+                animation-duration: 0.5s; /* Adjust the duration as needed */
+            }
+
+            @keyframes fade {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+            .reg-text{
+                font-size: 12px;
+                color: var(--blue-color);
+                text-align: center;
+            }
+        </style>
+    </head>
+    <apex:form >
+        <body>
+            <!-- <div class="error-alert" id="errorCustom">
+                <img id="alertImg" src="{!URLFOR($Resource.iconAlertWhite)}" class="error-image"/>
+                <span><a href="https://empathetic-panda-t0xpua-dev-ed--c.trailblaze.vf.force.com/apex/studentRegistrationAlt">Time to go </a></span>
+                <span id="alertText" class="closebtn"  onclick="this.parentElement.style.display='none';">&times;</span>
+            </div> -->
+            <div class="main-new">
+                <div class="header">
+                    <div>
+                        <img class="novigo-icon" src="{!URLFOR($Resource.novigo_logo)}" alt="Novigo Icon"/>
+                    </div>
+                    <!-- <div>
+                        <img class="user-icon" src="{!URLFOR($Resource.user_icon)}" alt="Novigo Icon"/>
+                    </div> -->
+                    <div class="title">
+                        <img style="margin-right: 1vw;" src="{!URLFOR($Resource.user_icon)}" width="24px" height="24px" viewBox="0 0 24 24"></img>
+                        <span class="title-text">Student Login.</span>
+                    </div>
+                </div>
+               
+                   <!-- <div class='messageDiv-new'> -->
+                    <div class='messageDiv-new'>
+                        <apex:outputPanel rendered="{!showErrors}">
+                            <div class="messageTag-new">
+                            <apex:outputText value="{!errorTextValue}" styleClass="closeErrortxt-new" />
+                            <apex:commandButton id="closeError" styleClass="closeErrorButton-new" value="X" action="{!closeErrorPopUp}"  />
+                            </div>
+                        </apex:outputPanel> 
+                     </div>
+                    <!-- <div class='messageDiv-new'> -->
+                       <!-- <apex:outputPanel rendered="{!showErrors}" styleClass="error-alert">
+                        <div class="error-alert" id="errorCustom">
+                            <img id="alertImg" src="{!URLFOR($Resource.iconAlertWhite)}" class="error-image"/>
+                            <span><a href="https://empathetic-panda-t0xpua-dev-ed--c.trailblaze.vf.force.com/apex/studentRegistrationAlt">Time to go </a></span>
+                            <span id="alertText" class="closebtn"  onclick="this.parentElement.style.display='none';">&times;</span>
+                        </div>
+                        </apex:outputPanel>  -->
+                    <!-- </div> -->
+                    <div class="input-main">      
+                        <form class="input-main-form">
+                            <div class="inputOverallContainer-new">
+                                <apex:outputText styleClass="loginPrompt-new" value="Login to Start Test"/>
+                                
+                                <div class="inputFieldContainer-new">
+                                    <apex:outputText styleClass="textField-new" value="Email ID :"/>
+                                    <apex:inputText styleClass="inputBox-new" id="emailID" value="{!emailID}"/>
+                                </div>
+                                
+                                <div class="inputFieldContainer-new">
+                                    <apex:outputText styleClass="textField-new" id="eventid" value="Event ID :"/>
+                                    <apex:inputText styleClass="inputBox-new" value="{!eventID}"/>
+                                </div>
+                                
+                                <div class = 'login-button'>
+                                    <apex:commandButton id="loginButton" styleClass="loginButton-new" value="Login" action="{!Login}" />
+                                    <a id="createAcc" class="reg-text" href="https://empathetic-panda-t0xpua-dev-ed--c.trailblaze.vf.force.com/apex/studentRegistrationAlt"> Don't Have an Acoount? Register Here </a>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+          </div> 
+        </body>
+        <!-- <script>
+            function handleRemoteProcess(result, event) {
+                console.log(result);
+                if (result == true) {
+                    const errorCustom = document.getElementById('errorCustom');
+                    errorCustom.style.display = "block";
+                }
+            }
+
+            function validateAndAllow() {
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.LoginPageController.userAlert}',
+                    handleRemoteProcess
+                );
+            }
+
+            
+        </script> -->
+    </apex:form>
+    <div>
+        <img class="novigo-icon-big" src="{!URLFOR($Resource.novigo_logo_blue)}" alt="Novigo Icon"/>
+    </div>
+</apex:page>
