@@ -64,11 +64,18 @@
         button:hover{
           background-color: var(--red-color);
         }
+        .searchbar{
+            background: var(--blue-color);
+            width: 50%;
+            height: 6%;
+            margin-left: 50vh;
+            margin-top: 25vh;
+        }
                     table {
                     border-collapse: collapse;
                     width: 50%;
                     margin-left: 50vh;
-                    margin-top: 25vh;
+                    /* margin-top: 25vh; */
                     font-size: 0.9em;
                     font-family: sans-serif;
                     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -86,13 +93,63 @@
                     color: var(--red-color);
                 }
 
+                input {
+                    border-radius: 5px;
+                    margin-left: 1.5vw;
+                    margin-top: 1vh;
+                    border: 2.5px solid lightblue;
+                }
+
+                input:active{
+                    border: 2.5px solid red;
+                }
+
 </style>
 <script>
 
     window.onload = showTable('yes',2);
 
+    var activeTable = 'Event';
 
-    
+        function filterTable(viewTable) {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("search");
+        filter = input.value.toUpperCase();
+        if(viewTable == 'Event'){
+            table = document.getElementById("event-list");
+        }
+        else{
+            table = document.getElementById("student-list");
+        }
+        tr = table.getElementsByTagName("tr");
+        console.log("active");
+
+        for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0]; // Change the index to target the desired column (0 for the first column)
+
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+            } else {
+            tr[i].style.display = "none";
+            }
+        }
+        }
+    }
+
+//   function switchActive(checkTable){
+//     if(checkTable == "showEvent"){
+//         activeTable = "showStudent";
+//     }
+//     else{
+//         activeTable = "showEvent";
+//     }
+//   }
+
+
+  
+
             function showTable(eventId,check) {
             // Call an action in the controller to fetch associated contacts and re-render the table
             Visualforce.remoting.Manager.invokeAction(
@@ -103,9 +160,8 @@
                     if (event.status) {
                         // Handle the result and re-render the table
                         var tableHtml = '';
-                        tableHtml += '<table>';
                         if (check == 1){
-                            console.log(result.studentInfoList);
+                            tableHtml += '<table id ="student-list">';
                             tableHtml += '<tr><th>Student Name</th><th>Marks Scored</th><th>Cleared</th></tr>';
                             for (var i = 0; i < result.studentInfoList.length; i++) {
                                 tableHtml += '<tr>';
@@ -115,9 +171,11 @@
                                 tableHtml += '</tr>';
                             }
                             tableHtml += '</table>';
-                            tableHtml += '<button type = "button" onclick = "showTable(\'yes\',2)"> Go back </button>'
+                            tableHtml += '<button type = "button" onclick = "showTable(\'yes\',2,\'showStudent\')"> Go back </button>'
+                            activeTable = 'Student'
                         }
                         else{
+                            tableHtml += '<table id = "event-list">';
                             tableHtml += '<tr><th> Event Name</th><th> Event Date</th></tr>'
                             for (var i = 0; i < result.Event_List.length; i++){
                             
@@ -153,8 +211,10 @@
                                 tableHtml += '</tr>';
                                 }
                                 tableHtml += '</table>';
+                                activeTable = "Event";
 
                         }
+
                         // Replace the existing table with the updated table
                         document.getElementById('displayTable').innerHTML = tableHtml;
                     } 
@@ -166,6 +226,12 @@
                 { escape: false }
             );
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("search").addEventListener("keyup", function(event){
+        filterTable(activeTable);
+    })
+  });
 </script>
 </head>
 <body>
@@ -180,7 +246,10 @@
             <span class="title-text">Events</span>
         </div>
       </div>
-    <div id = "displayTable">
+      <div class = "searchbar">
+        <input type="text" id="search" placeholder="Search by name"></input>
+    </div>
+    <div class = "displayTable" id = "displayTable">
     </div>
 </div>
 </body>

@@ -114,7 +114,7 @@
                 grid-row-gap: 2.9px;
             }
 
-            .qst-nav-btn-item{
+            /* .qst-nav-btn-item{
                width: 5vw;
                height: 9vh;
                background: var(--icon-gray-color);
@@ -127,6 +127,23 @@
                 font-size: 1.2rem;
                 cursor: pointer;
                 transition: width 0.4s ease-in-out, background-color 0.4s ease-in-out;
+                
+            } */
+
+            .qst-nav-btn-item{
+                width: 5vw;
+                height: 9vh;
+                background: var(--icon-gray-color);
+                border-radius: 10px;
+                display: grid; 
+                place-items:center;
+                border: 4px solid black;
+                color: black;
+                font-weight: 400;
+                font-size: 1.2rem;
+                cursor: pointer;
+                transition: width 0.4s ease-in-out, background-color 0.4s ease-in-out;
+                
             }
 
             .main-body-line{
@@ -284,8 +301,7 @@
                 box-shadow: 0 0 10px black;
             }
             .question-cnt-btn-felx{
-                display: flex; 
-                /* grid-template-columns: 1fr auto; */
+                display: flex;  
                 justify-content: center;
                 align-items: center;
                 column-gap: 20px;
@@ -511,9 +527,7 @@
                      place-items:center;
                  }
 
-                 .hide-finish{
-                    display: none;
-                 }
+              
 
 
 
@@ -700,6 +714,131 @@
                 place-items:center; 
             }
 
+            .hide-finish{
+                    display: none;
+                 }
+
+            .main-cnt-3-qnt-cnt{
+                    overflow: scroll;
+            }
+
+            .question-cnt-btn-3{
+                width: 100%;
+                display: grid;
+                place-items: center; 
+            }
+
+            .question-cnt-btn-3{
+                height: 8vh;
+            }
+
+            .main-cnt-3-qnt-cnt{
+                overflow: scroll;
+                height: 64vh;
+                width: 70vw; 
+            }
+
+            .main-cnt-3-qnt-cnt-head{
+                height: 6vh;
+                width: 70vw; 
+                margin-top: 1vh;
+            }
+
+            .main-cnt-3-qnt-cnt::-webkit-scrollbar{
+                display: none;
+            }
+
+            .main-cnt-3-qnt-cnt-item{
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                background: #99fbd6;
+                text-align: center;
+                overflow: hidden;
+                height: 5vh;
+                margin-bottom: 1.5vh;
+                font-weight: 500;
+                font-size: 1.4rem;
+                border-radius: 10px;
+            }
+
+            .main-cnt-3-qnt-cnt-item-head{
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                 
+                text-align: center;
+                overflow: hidden;
+                height: 5vh;
+                margin-bottom: 1.5vh;
+                font-weight: 500;
+                font-size: 1.4rem;
+                border-radius: 10px;
+            }
+
+            .main-cnt-3-qnt-cnt-item-red{
+                 background: #fd8c8c;
+                 display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                 
+                text-align: center;
+                overflow: hidden;
+                height: 5vh;
+                margin-bottom: 1.5vh;
+                font-weight: 500;
+                font-size: 1.4rem;
+                border-radius: 10px;
+            }
+
+            .main-cnt-3-qnt-cnt-item-check{
+                display: grid;
+                place-items:center;
+            }
+
+            .check-hide-true{
+                display: none; 
+            }
+            .check-show-false{ 
+                display: none;
+            }
+
+            /* .qst-num-logo{
+                height: 100%;
+                padding-top: 2px;
+                padding-right: 2px;
+            }
+
+            .qst-num-logo-hide{
+                display: none;
+            }
+
+            .qst-num{
+                display: grid;  
+                place-items: center;
+                justify-content: right;
+                margin-right: -26px;
+            }
+            .qst-num-hide{
+                margin-right: 0;
+            } */
+
+
+            .qst-nav-btn-item-pin-logo{
+                display: grid;
+                place-items: center;
+                grid-template-columns: 1fr 27px;
+            }
+
+            .qst-num-logo-hide{
+                display: none;
+            }
+
+            .qst-flag-hide{
+                display: none;
+            }
+
+            .flaged-qst{
+                background: #ff8300;
+            }
+
 
 
 
@@ -747,6 +886,7 @@
                     <div class="question-cnt-btn">
                         <div class="question-cnt-btn-felx">
                             <div class="question-cnt-btn-item" onclick="BackBtn()" >Go Back</div>
+                            <div class="question-cnt-btn-item" onclick="PreviewTest()" style="background: #0029ff" >Preview</div>
                             <div class="question-cnt-btn-item finish-color-green finish-color-red" onclick="finishBtn()"   >Finish</div>
                         </div>
                     </div>
@@ -755,29 +895,30 @@
 
     </div>
 
-    <div class="main-cnt-3-main hide-finish">
+    <div class="main-cnt-3-main hide-finish ">
 
        
             <div class="main-cnt-3"  > 
-                <div>
-                    <div class="novig-icon-2-main">
-                        <img class="novig-icon-2" src="{!URLFOR($Resource.novigo_logo_blue)}" alt="My PNG Image" />
+                
+                <div class="main-cnt-3-qnt-cnt-head">
+                    <div class="main-cnt-3-qnt-cnt-item-head">
+                        <div>
+                            Question Number
+                        </div> 
+                        <div>Category</div>
+                        <div>Question Attempted</div>
                     </div>
                 </div>
-                <div class="tick-icon">
-                    <iframe class="tick-mark-1 hide-tick"  src="https://lottie.host/?file=432f7734-967a-4583-bfb0-0865ebf2703b/KAB7XxpLX6.json"></iframe>
-                    <iframe class="tick-mark-2 hide-tick"   src="https://lottie.host/?file=7ee787dd-73fc-43f1-be19-43d01965a799/jJdEDRvbT7.json"></iframe>
-                </div>
-            <div class="qnt-count">You have attempted <span class="qnt-count-sp qnt-ount-sp-red"> 0/30</span>  questions.</div>
-            <div class="qnt-count-txt">Your test responses have been recorded.</div>
-            <div class="question-cnt-btn-2">
-                <div class="question-cnt-btn">
-                    <div class="question-cnt-btn-felx">
-                        <div class="question-cnt-btn-item" onclick="BackBtn()" >Go Back</div>
-                        <div class="question-cnt-btn-item finish-color-green finish-color-red" onclick="finishBtn()"   >Finish</div>
+                <div class="main-cnt-3-qnt-cnt"> 
+                </div> 
+                <div class="question-cnt-btn-3">
+                    <div class="question-cnt-btn-3">
+                        <div class="question-cnt-btn-felx">
+                            <div class="question-cnt-btn-item" onclick="BackBtnPreview()" >Go Back</div>
+                            <div class="question-cnt-btn-item finish-color-green finish-color-red" onclick="finishBtn()"   >Finish</div>
+                        </div>
                     </div>
                 </div>
-            </div>
         </div>
 
     </div>
@@ -825,7 +966,7 @@
                     <div  class="header-stopwatch-cton-container-txt" id="timer" > 00:00:00</div>
                 </div>
                 <div class="header-submit-icon-container" >
-                    <button onclick="PreviewTest()" style="background: #0029ff" class="header-submit-icon-container-btn">Preview</button>
+                    <!-- <button onclick="PreviewTest()" style="background: #0029ff" class="header-submit-icon-container-btn">Preview</button> -->
                     <button onclick="submitTest()" class="header-submit-icon-container-btn">Submit</button>
                 </div>
             </div>
@@ -839,6 +980,10 @@
                                 <div class="question-cnt-question-number"></div >
                                 <div class="question-cnt-question-number-2">|</div> 
                                 <div class="question-cnt-question-cat"></div>
+                            </div>
+                            <div style="margin-right:-32vw">
+                                <img onclick="unflagqst()" id="flag-qst" class="qst-flag-hide" src="{!URLFOR($Resource.flag_icon)}" style="height:6vh;width:4vw;cursor: pointer;" alt="My PNG Image" />
+                                <img onclick="flagqst()" id="un-flag-qst" src="{!URLFOR($Resource.flag_icon_fill)}" style="height:6vh;width:4vw;cursor: pointer;" alt="My PNG Image" />
                             </div>
                             <div class="toggle-icon-cnt"> 
                                 <img onclick="toggleButtons()" class="toggle-icon" src="{!URLFOR($Resource.toggle_icon)}" alt="My PNG Image" />
@@ -892,9 +1037,17 @@
                     <div class="qst-nav-btn-item-logo">
                         <img  src="{!URLFOR($Resource.apti_logo)}" alt="My PNG Image" style="width:5vw;height:9vh;" />
                     </div>
+                    <!-- <div class="qst-nav-btn-item">
+                        <div class="qst-num qst-num-hide">
+                            1
+                        </div>
+                        <span class="qst-num-logo qst-num-logo-hide">
+                            <img  src="{!URLFOR($Resource.flag_icon)}" alt="My PNG Image" style="width:1.8rem;height:1.8rem;" />
+                        </span>
+                    </div> -->
                     <div class="qst-nav-btn-item">1</div>
                     <div class="qst-nav-btn-item">2</div>
-                    <div class="qst-nav-btn-item ">3</div>
+                    <div class="qst-nav-btn-item">3</div>
                     <div class="qst-nav-btn-item">4</div>
                     <div class="qst-nav-btn-item">5</div>
                     <div class="qst-nav-btn-item">6</div>
@@ -1062,7 +1215,7 @@
         }
 
         var timerIntervalCounter;
-        var countIntervel = 100000;
+        var countIntervel = 10;
         const fullScreenElement = document.querySelector("html");
 
         function fullscreenchanged(event) {
@@ -1085,7 +1238,7 @@
                 
 
 
-                countIntervel = 100000; 
+                countIntervel = 10; 
                 timerIntervalCounter = setInterval(() => {
                      countIntervel--; 
                      console.log('on load counter ' + countIntervel)
@@ -1140,30 +1293,45 @@
             var isQstAttemptedOption = false;
             
             function PreviewTest(){
-                showLoader();
+                showLoader(); 
+                fillPreview(val);
                 
+                    function fillPreview(result) { 
+                            console.log("success");  
+                            console.log(result);
+                            var container = document.querySelector('.main-cnt-3-qnt-cnt');
+                            container.innerHTML = '';
 
-                Visualforce.remoting.Manager.invokeAction(
-                                    '{!$RemoteAction.QuestionsPageCtrl.GetQuestionCount}',
-                                    studentIdMain, eventIdMain,
-                                    function (result, event) { 
-                                            console.log("success");  
-                                            console.log(result);
-                                            hideLoader(); 
+                            for (var i = 0; i < result.length; i++) {
+                                var itemData = result[i];
+                                var newItem = document.createElement('div');
+                                if(itemData.is_attempted__c || itemData.is_attempted__c || (isQstAttemptedOption && itemData.currentQuestion__c)){
+                                    newItem.classList.add('main-cnt-3-qnt-cnt-item');
+                                }else{
+                                    newItem.classList.add('main-cnt-3-qnt-cnt-item-red');
+                                }
 
-                                            document.querySelector('.main-cnt-3-main').classList.remove('hide-finish');
-                                               
-                                            if (event.status) {
-                                                    console.log(event.status);
-                                                }
-                                                else if (result.type === 'exception') {
-                                                    alert("Exception caught");
-                                                }
-                                                else {
-                                                    alert("Exception caught");
-                                                }
-                                        }
-                                ); 
+                                newItem.innerHTML = `
+                                    <div>${itemData.question_number__c}</div>
+                                    <div>${itemData.question_category__c}</div>
+                                    <div class="main-cnt-3-qnt-cnt-item-check">
+                                        <img  class="check-hide-${itemData.is_attempted__c || (isQstAttemptedOption && itemData.currentQuestion__c)}" src="{!URLFOR($Resource.unchecked_icon)}" alt="My PNG Image" style="width: 30px; height: 30px;" />
+                                        <img  class="check-show-${itemData.is_attempted__c || (isQstAttemptedOption && itemData.currentQuestion__c)}" src="{!URLFOR($Resource.checked_icon)}" alt="My PNG Image" style="width: 30px; height: 30px;" />
+                                    </div>
+                                `;
+
+                                container.appendChild(newItem);
+                            }
+                            hideLoader();
+                            
+                            if(result){
+
+                            }
+
+                            document.querySelector('.main-cnt-3-main').classList.remove('hide-finish');
+                            
+                        }
+                                 
             }
 
             
@@ -1224,6 +1392,10 @@
 
             function BackBtn(){
                 document.querySelector('.main-cnt-2-main').classList.add('hide-finish');
+            }
+
+            function BackBtnPreview(){
+                document.querySelector('.main-cnt-3-main').classList.add('hide-finish');
             }
 
 
@@ -1691,7 +1863,7 @@
 
 
                             if(selectedQuestion.is_attempted__c == true){
-                                isQstAttemptedOption = false;
+                                isQstAttemptedOption = true;
                                 if(selectedQuestion.student_attempt__c == 'option_1'){
                                     question_ele = document.querySelector('.option_1') 
                                     updateOptionOnLoad(question_ele,'option_1');
@@ -2043,7 +2215,9 @@
                     }); 
                     
 
-                    navBtns.forEach(function(navbtn) {
+                    navBtns.forEach(function(navbtn) { 
+                        document.querySelector("#flag-qst").classList.add('qst-flag-hide');
+                        document.querySelector("#un-flag-qst").classList.remove('qst-flag-hide');
                         if(navbtn.classList.contains('qst-nav-btn-item-current')){
                             var getStudentId = val.find(function(question){
                                 return question.question_number__c === (parseInt(navbtn.textContent));
@@ -2086,6 +2260,46 @@
                 isSubmitedQuestion = true;
                 updateOnsubmitandfinish();  
              
+          }
+
+
+          function unflagqst(){
+            var navBtnContainer = document.querySelector('.qst-nav-btn');
+             var navBtns = navBtnContainer.querySelectorAll('.qst-nav-btn-item');
+             for( var i =0;i<val.length;i++){ 
+                if(val[i].currentQuestion__c){
+                    navBtns.forEach(function(navbtn) {
+                           if(parseInt(navbtn.textContent) == val[i].question_number__c){
+                                navbtn.classList.remove("flaged-qst");
+                           }
+                        });
+                }
+
+             }
+            
+
+
+            document.querySelector("#flag-qst").classList.add('qst-flag-hide');
+            document.querySelector("#un-flag-qst").classList.remove('qst-flag-hide');
+
+          }
+
+          function flagqst(){
+            var navBtnContainer = document.querySelector('.qst-nav-btn');
+             var navBtns = navBtnContainer.querySelectorAll('.qst-nav-btn-item');
+             for( var i =0;i<val.length;i++){ 
+                if(val[i].currentQuestion__c){
+                    navBtns.forEach(function(navbtn) {
+                           if(parseInt(navbtn.textContent) == val[i].question_number__c){
+                                navbtn.classList.add("flaged-qst");
+                           }
+                        });
+                }
+
+             }
+            
+            document.querySelector("#flag-qst").classList.remove('qst-flag-hide');
+            document.querySelector("#un-flag-qst").classList.add('qst-flag-hide');
           }
 
 

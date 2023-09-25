@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>event_id__c</fullName>
+    <description>Holds the event which holds these questions</description>
+    <externalId>false</externalId>
+    <label>event_id</label>
+    <referenceTo>RC_event__c</referenceTo>
+    <relationshipLabel>RC_Event_Question_Test_Sets</relationshipLabel>
+    <relationshipName>RC_Event_Question_Test_Sets</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

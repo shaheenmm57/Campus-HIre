@@ -1,4 +1,4 @@
-public with sharing class QuestionsPageCtrl { 
+public without sharing class QuestionsPageCtrl { 
  
 
    //  public static List<RC_student_question__c> questionObj{get;set;}
@@ -107,6 +107,16 @@ public with sharing class QuestionsPageCtrl {
            }
            return QuestionCount;
    }
+
+
+   @RemoteAction
+   public static List<RC_student_question__c> GetQuestionPreiew(Id studentId,Id eventId) {
+           List<RC_student_question__c> res = [SELECT Id,question_number__c, question_title__c ,question_category__c,is_attempted__c FROM RC_student_question__c WHERE student_test_id__c IN (SELECT Id FROM RC_student_test__c WHERE student_id__c = :studentId and event_id__c = :eventId)];     
+           return res;
+   }
+
+
+
 
    public static Integer reulsOfAgre(List<AggregateResult> results){
       if (!results.isEmpty()) {

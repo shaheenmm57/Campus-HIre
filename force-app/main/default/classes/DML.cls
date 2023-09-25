@@ -89,6 +89,33 @@ public class DML
         return true;
     }
 
+    public Boolean linkPanelistsAndEventViaJunctionRecord(String eventId, String[] panelistLinkedToThisEvent)
+    {
+        List<RC_panelists_event_junction__c> panelistsEventJunctions = new List<RC_panelists_event_junction__c>();
+
+        for(Integer i = 0; i < panelistLinkedToThisEvent.size(); i++)
+        {
+            RC_panelists_event_junction__c newJunctionRecord = new RC_panelists_event_junction__c();
+            newJunctionRecord.event__c = eventId;
+            newJunctionRecord.panelists_id__c = panelistLinkedToThisEvent[i];
+            panelistsEventJunctions.add(newJunctionRecord);
+        }
+
+        Database.SaveResult[] srList = Database.insert(panelistsEventJunctions, false);
+
+        for (Database.SaveResult sr : srList) {
+            if (sr.isSuccess()) 
+            {
+                //continue
+            }
+            else{
+                return false;
+            }            
+        }
+
+        return true;
+    }
+
     
     public Boolean insertCollegeRecord(CollegeRegistrationDTO formData)
     {

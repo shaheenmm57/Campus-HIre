@@ -1,4 +1,4 @@
-public class InstructionsPageController 
+public without sharing class InstructionsPageController 
 {
    
    @RemoteAction

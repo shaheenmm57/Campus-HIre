@@ -1,7 +1,7 @@
 public class CreateEventController 
 {
     @RemoteAction
-    public static Boolean createEvent(String eventName, String eventPassword,String eventDate, String eventLocation, String eventStartTime, String eventDuration, String colleges,String cutoff)
+    public static Boolean createEvent(String eventName, String eventPassword,String eventDate, String eventLocation, String eventStartTime, String eventDuration, String colleges,String cutoff, String panelists)
     {
         Boolean flag = false;
         //Create a event Record
@@ -15,7 +15,10 @@ public class CreateEventController
     
         //Setup Link between college and event via junction object
         String[] collegesForThisEvent = colleges.split(',');
-        return DML.getInstance().linkCollegeAndEventViaJunctionRecord(currentEventId,collegesForThisEvent);
+        String[] panelistsForThisEvent = panelists.split(',');
+        flag = DML.getInstance().linkCollegeAndEventViaJunctionRecord(currentEventId,collegesForThisEvent);
+        if(flag == false)  return false;
+        return DML.getInstance().linkPanelistsAndEventViaJunctionRecord(currentEventID,panelistsForThisEvent);
     }
 
     @RemoteAction
