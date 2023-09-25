@@ -1,4 +1,4 @@
-public with sharing class TestSubmitScreenCls { 
+public without sharing class TestSubmitScreenCls { 
 
 
     public TestSubmitScreenCls() {
