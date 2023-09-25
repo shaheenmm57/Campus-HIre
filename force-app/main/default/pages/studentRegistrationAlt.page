@@ -725,7 +725,7 @@
                     
                     <div class="section-wrapper" id= "schoolDetails">
                         <div class="section-text-container">
-                            <p class="section-text">2. SSLC/X<sup>th</sup>Academic Details</p>
+                            <p class="section-text">2. SSLC/X Academic Details</p>
                         </div>
                         
                         <div class="section" style="overflow-y: hidden;">
@@ -1208,7 +1208,11 @@
                             document.getElementById('puMarksInput'),
                             document.getElementById('puPassingYearInput')
                         ];
-    
+
+                        document.getElementById('diplomaCollegeNameInput').value = '';
+                        document.getElementById('diplomaMarksInput').value = '';
+                        document.getElementById('diplomaPassingYearInput').value = '';
+
                         nonDiplomaFields.forEach(inputField => {
                             if (!inputField.value.trim()) {
                                 inputField.classList.add("input-error");
@@ -1235,10 +1239,8 @@
                     }
                     if (currentSectionId === 'degDetails'){
                         degreeInputsContainer.addEventListener("input", (event) => {
-                        console.log(branchType.value);
 
                         const target = event.target;
-                        console.log(degreeTypeContainer.value);
 
                         if (target.matches("#degreeMarksInput, #degreePassingYearInput, #degreeDropdown, #branchDropdown")) {
                             // Remove the 'input-error' class from individual elements
@@ -1263,7 +1265,6 @@
                     const branchType = document.getElementById('branchDropdown').value;
                     const branchTypeId = document.getElementById('branchDropdown').options[document.getElementById('branchDropdown').selectedIndex].id
                     const degreeTypeId = document.getElementById('degreeDropdown').options[document.getElementById('degreeDropdown').selectedIndex].id
-                    console.log(branchTypeId);
 
                     if (!degreeMarks.trim() || !degreePassingYear.trim() || degreeType === "invalid" || branchType === "invalid") {
                         if (!degreeMarks.trim()) {
@@ -1429,7 +1430,7 @@
     
     
         });
-        const degreeTypeContainer = document.getElementById('degreeDropdown');
+            const degreeTypeContainer = document.getElementById('degreeDropdown');
             const branchTypeContainer = document.getElementById('branchDropdown');
     
             degreeTypeContainer.addEventListener("change", function(){
@@ -1444,8 +1445,10 @@
                     console.log("Display Branch Select Option");
                     branchSelect.classList.remove("branch-select");
                 } else {
+                    branchTypeContainer.selectedIndex = 0;
                     console.log("Remove Branch Select Option");
                     branchSelect.classList.add("branch-select");
+
                 }
             });
         const userConfirmationCheckbox = document.getElementById('userConfirmationCheckbox');
@@ -1490,6 +1493,10 @@
                 const branchType = document.getElementById('branchDropdown').value;
                 // Add an event listener to a common parent element that contains degree-related inputs
                 const degreeInputsContainer = document.getElementById('degreeInputsContainer');
+
+                const diplomaCollegeName = document.getElementById('diplomaCollegeNameInput').value;
+                const diplomaMarks = document.getElementById('diplomaMarksInput').value;
+                const diplomaPassingYear = document.getElementById('diplomaPassingYearInput').value;
     
     
                 
@@ -1612,95 +1619,128 @@
                 document.querySelector(".loader").classList.add("hidden");
             }
             function displayDetailsSummary() {
-                // Collect values from input fields
-                const name = document.getElementById('nameInput').value;
-                const phone = document.getElementById('phoneInput').value;
-                const email = document.getElementById('emailInput').value;
-                const address1 = document.getElementById('address1Input').value;
-                // const address2 = document.getElementById('address2Input').value;
-                const city = document.getElementById('cityInput').value;
-                const state = document.getElementById('stateInput').value;
-                const pincode = document.getElementById('pincodeInput').value;
-                const usn = document.getElementById('usnInput').value;
-                const collegeName = document.getElementById('collegeDropdown').options[document.getElementById('collegeDropdown').selectedIndex].text;
-                const schoolName = document.getElementById('schoolNameInput').value;
-                const schoolMarks = document.getElementById('schoolMarksInput').value;
-                const schoolPassYear = document.getElementById('schoolPassingYearInput').value;
-                const secondarySchoolName = document.getElementById('secondarySchoolNameInput').value;
-                const puMarks = document.getElementById('puMarksInput').value;
-                const puPassingYear = document.getElementById('puPassingYearInput').value;
-                const degreeType = document.getElementById('degreeDropdown').options[document.getElementById('degreeDropdown').selectedIndex].text;
-                const degreeMarks = document.getElementById('degreeMarksInput').value;
-                const degreePassingYear = document.getElementById('degreePassingYearInput').value;
-    
-                // Create the summary text
-                const summary = `
-                <div class="preview-section">
-                    <p class="previewTitle">Name:</p>
-                    <p class="previewValue">${name}</p>
-                </div>
-                <div class="preview-section">
-                    <p class="previewTitle">Phone:</p>
-                    <p class="previewValue">${phone}</p>
-                </div>
-                <div class="preview-section">
-                    <p class="previewTitle">Email:</p>
-                    <p class="previewValue">${email}</p>
-                </div>
-                <div class="preview-section">
-                    <p class="previewTitle">Address:</p>
-                    <p class="previewValue">${address1}, ${city}, ${state} - ${pincode}</p>
-                </div>
-                <div class="preview-section">
-                    <p class="previewTitle">USN:</p>
-                    <p class="previewValue">${usn}</p>
-                </div>
-                <div class="preview-section">
-                    <p class="previewTitle">College:</p>
-                    <p class="previewValue">${collegeName}</p>
-                </div>
-                <div class="preview-section">
-                    <p class="previewTitle">SSLC/X Institution:</p>
-                    <p class="previewValue">${schoolName}</p>
-                </div>
-                <div class="preview-section">
-                    <p class="previewTitle">SSLC/X Marks:</p>
-                    <p class="previewValue">${schoolMarks}</p>
-                </div>
-                <div class="preview-section">
-                    <p class="previewTitle">SSLC/X Passing Year:</p>
-                    <p class="previewValue">${schoolPassYear}</p>
-                </div>
-                <div class="preview-section">
-                    <p class="previewTitle">PU Institution Name:</p>
-                    <p class="previewValue">${secondarySchoolName}</p>
-                </div>
-                <div class="preview-section">
-                    <p class="previewTitle">PU Marks:</p>
-                    <p class="previewValue">${puMarks}</p>
-                </div>
-                <div class="preview-section">
-                    <p class="previewTitle">PU Passing Year:</p>
-                    <p class="previewValue">${puPassingYear}</p>
-                </div>
-                <div class="preview-section">
-                    <p class="previewTitle">Degree Type:</p>
-                    <p class="previewValue">${degreeType}</p>
-                </div>
-                <div class="preview-section">
-                    <p class="previewTitle">Degree CGPA:</p>
-                    <p class="previewValue">${degreeMarks}</p>
-                </div>
-                <div class="preview-section">
-                    <p class="previewTitle">Degree Passing Year:</p>
-                    <p class="previewValue">${degreePassingYear}</p>
-                </div>
-            `;
-    
-                // Display the summary in the detailsSummary div
-                const detailsSummary = document.getElementById('detailsSummary');
-                detailsSummary.innerHTML = summary;
-            }
+    // Collect values from input fields
+    const name = document.getElementById('nameInput').value;
+    const phone = document.getElementById('phoneInput').value;
+    const email = document.getElementById('emailInput').value;
+    const address1 = document.getElementById('address1Input').value;
+    // const address2 = document.getElementById('address2Input').value;
+    const city = document.getElementById('cityInput').value;
+    const state = document.getElementById('stateInput').value;
+    const pincode = document.getElementById('pincodeInput').value;
+    const usn = document.getElementById('usnInput').value;
+    const collegeName = document.getElementById('collegeDropdown').options[document.getElementById('collegeDropdown').selectedIndex].text;
+    const schoolName = document.getElementById('schoolNameInput').value;
+    const schoolMarks = document.getElementById('schoolMarksInput').value;
+    const schoolPassYear = document.getElementById('schoolPassingYearInput').value;
+    const secondarySchoolName = document.getElementById('secondarySchoolNameInput').value;
+    const puMarks = document.getElementById('puMarksInput').value;
+    const puPassingYear = document.getElementById('puPassingYearInput').value;
+    const degreeType = document.getElementById('degreeDropdown').options[document.getElementById('degreeDropdown').selectedIndex].text;
+    const degreeMarks = document.getElementById('degreeMarksInput').value;
+    const degreePassingYear = document.getElementById('degreePassingYearInput').value;
+
+    // Optional fields
+    const diplomaCollegeName = document.getElementById('diplomaCollegeNameInput').value;
+    const diplomaMarks = document.getElementById('diplomaMarksInput').value;
+    const diplomaPassingYear = document.getElementById('diplomaPassingYearInput').value;
+    const branchDropdown = document.getElementById('branchDropdown');
+    const selectedBranchOption = branchDropdown.options[branchDropdown.selectedIndex];
+    const branchType = selectedBranchOption.value === 'invalid' ? '' : selectedBranchOption.text;
+
+    // Create the summary text
+    const summary = `
+        <div class="preview-section">
+            <p class="previewTitle">Name:</p>
+            <p class="previewValue">${name}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">Phone:</p>
+            <p class="previewValue">${phone}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">Email:</p>
+            <p class="previewValue">${email}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">Address:</p>
+            <p class="previewValue">${address1}, ${city}, ${state} - ${pincode}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">USN:</p>
+            <p class="previewValue">${usn}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">College:</p>
+            <p class="previewValue">${collegeName}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">SSLC/X Institution:</p>
+            <p class="previewValue">${schoolName}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">SSLC/X Marks:</p>
+            <p class="previewValue">${schoolMarks}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">SSLC/X Passing Year:</p>
+            <p class="previewValue">${schoolPassYear}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">PU Institution Name:</p>
+            <p class="previewValue">${secondarySchoolName}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">PU Marks:</p>
+            <p class="previewValue">${puMarks}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">PU Passing Year:</p>
+            <p class="previewValue">${puPassingYear}</p>
+        </div>
+        ${diplomaCollegeName ? `
+            <div class="preview-section">
+                <p class="previewTitle">Diploma College:</p>
+                <p class="previewValue">${diplomaCollegeName}</p>
+            </div>
+        ` : ''}
+        ${diplomaMarks ? `
+            <div class="preview-section">
+                <p class="previewTitle">Diploma Marks:</p>
+                <p class="previewValue">${diplomaMarks}</p>
+            </div>
+        ` : ''}
+        ${diplomaPassingYear ? `
+            <div class="preview-section">
+                <p class="previewTitle">Diploma Passing Year:</p>
+                <p class="previewValue">${diplomaPassingYear}</p>
+            </div>
+        ` : ''}
+        <div class="preview-section">
+            <p class="previewTitle">Degree Type:</p>
+            <p class="previewValue">${degreeType}</p>
+        </div>
+        ${branchType !== '' ? `
+            <div class="preview-section">
+                <p class="previewTitle">Branch Type:</p>
+                <p class="previewValue">${branchType}</p>
+            </div>
+        ` : ''}
+        <div class="preview-section">
+            <p class="previewTitle">Degree CGPA:</p>
+            <p class="previewValue">${degreeMarks}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">Degree Passing Year:</p>
+            <p class="previewValue">${degreePassingYear}</p>
+        </div>
+    `;
+
+    // Display the summary in the detailsSummary div
+    const detailsSummary = document.getElementById('detailsSummary');
+    detailsSummary.innerHTML = summary;
+}
+
             
     
     
