@@ -663,9 +663,9 @@
                                             <input id="phoneInput" type="text" style="width:12.8vw; border:none;" pattern="[0-9]"></input>
                                         </div>
                                     </div>
-                                    <div class="section-item" style="visibility: hidden;">
+                                    <!-- <div class="section-item" style="visibility: hidden;">
                                         <span class="section-item-text">blankSpace</span>
-                                    </div>
+                                    </div> -->
                                     <div class="section-item">
                                         <span class="section-item-text">Student E-mail:</span>
                                         <input id="emailInput"></input>
@@ -676,7 +676,7 @@
                                     </div>
                                     <div class="section-item" style="visibility: hidden;">
                                         <span class="section-item-text">x</span>
-                                        <!-- <input id="hiddenInput2" style="visibility:none;"></input> -->
+                                        
                                     </div>
                                     <div class="section-item">
                                         <span class="section-item-text">College Name:</span>
@@ -688,9 +688,9 @@
                                         <span class="section-item-text">USN:</span>
                                         <input id="usnInput"></input>
                                     </div>
-                                    <div class="section-item" style="visibility: hidden;">
+                                    <!-- <div class="section-item" style="visibility: hidden;">
                                         <span class="section-item-text">x</span>
-                                    </div>
+                                    </div> -->
                                     <div class="section-item">
                                         <span class="section-item-text">Address</span>
                                         <textarea id="address1Input"></textarea>
@@ -967,14 +967,14 @@
             const inputFields = [
                 { id: 'phoneInput', maxLength: 10, allowDecimal: false },
                 { id: 'pincodeInput', maxLength: 6, allowDecimal: false },
-                { id: 'schoolMarksInput', maxLength: 5, allowDecimal: true },
-                { id: 'puMarksInput', maxLength: 5, allowDecimal: true },
-                { id: 'degreeMarksInput', maxLength: 4, allowDecimal: true },
+                { id: 'schoolMarksInput', maxLength: 3, allowDecimal: true },
+                { id: 'puMarksInput', maxLength: 3, allowDecimal: true },
+                { id: 'degreeMarksInput', maxLength: 3, allowDecimal: true },
                 { id: 'schoolPassingYearInput', maxLength: 4, allowDecimal: false },
                 { id: 'puPassingYearInput', maxLength: 4, allowDecimal: false },
                 { id: 'degreePassingYearInput', maxLength: 4, allowDecimal: false },
                 { id: 'diplomaPassingYearInput', maxLength: 4, allowDecimal: false },
-                { id: 'diplomaMarksInput', maxLength: 5, allowDecimal: true },
+                { id: 'diplomaMarksInput', maxLength: 3, allowDecimal: true },
                 { id: 'usnInput', maxLength: 10, allowDecimal:false},
             ];
             
@@ -1189,6 +1189,14 @@
     
                     console.log(currentSectionId);
                     let hasEmptyFields = false;
+                    if (inputField.id === 'schoolMarksInput' || inputField.id === 'puMarksInput' || inputField.id === 'diplomaMarksInput' || inputField.id === 'degreeMarksInput') {
+                        const numericValue = parseFloat(inputField.value);
+
+                        if (numericValue >= 625) {
+                            displayErrorMessage("Please Enter Valid Marks (less than 625)");
+                            hasWarning = true;
+                        }
+                    }
                     if (includeDiplomaCheckbox.checked && currentSectionId === 'puDetails') {
                         console.log("Diploma Checkbox checked");
                         const diplomaCollege = document.getElementById('diplomaCollegeNameInput').value;
