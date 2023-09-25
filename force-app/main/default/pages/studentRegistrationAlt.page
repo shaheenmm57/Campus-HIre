@@ -976,6 +976,12 @@
                 { id: 'diplomaPassingYearInput', maxLength: 4, allowDecimal: false },
                 { id: 'diplomaMarksInput', maxLength: 3, allowDecimal: true },
                 { id: 'usnInput', maxLength: 10, allowDecimal:false},
+                { id: 'cityInput', maxLength: 30, allowDecimal: false},
+                { id: 'stateInput', maxLength: 30, allowDecimal: false},
+                { id: 'nameInput', maxLength: 50, allowDecimal: false}, 
+                { id: 'schoolNameInput', maxLength: 50, allowDecimal: false}, 
+                { id: 'secondarySchoolNameInput', maxLength: 50, allowDecimal: false}, 
+                { id: 'diplomaCollegeNameInput', maxLength: 50, allowDecimal: false},
             ];
             
             function allowOnlyNumbers(inputField, maxLength, allowDecimal) {
@@ -992,10 +998,8 @@
                     if (inputField.id === 'usnInput'){
                         if (maxLength && value.length > maxLength) {
                             value = value.slice(0, maxLength);
-                            // hasWarning = true;
                         }
                         if (!/^[a-zA-Z0-9\s]+$/.test(value)) {
-                            // Input contains special characters, so remove them
                             value = value.replace(/[^a-zA-Z0-9\s]+/g, '');
                             hasWarning = true;
                         }
@@ -1009,8 +1013,42 @@
                             inputField.classList.remove("input-warning");
                         }
                     }
+
+                    if (
+                        inputField.id === 'cityInput' ||
+                        inputField.id === 'stateInput' ||
+                        inputField.id === 'nameInput' ||
+                        inputField.id === 'schoolNameInput' ||
+                        inputField.id === 'secondarySchoolNameInput' ||
+                        inputField.id === 'diplomaCollegeNameInput'
+                    ) {
+                        if (maxLength && value.length > maxLength) {
+                            console.log("Max Length City");
+                            value = value.slice(0, maxLength);
+                        }
+                        if (!/^[a-zA-Z]*$/.test(value)) {
+                            console.log("Check1");
+                            value = value.replace(/[^a-zA-Z]+/g, '');
+                            hasWarning = true;
+                        }
+
+                        if (hasWarning) {
+                            console.log("Test hasWarning");
+                            console.log("Non Phone Input Error");
+                            displayWarningMessage("Please Enter in Correct Format");
+                            inputField.classList.add("input-warning");
+                        } else {
+                            warningCustom.style.display = "none";
+                            inputField.classList.remove("input-warning");
+                        }
+                    }
                     
-                    if (inputField.id != 'phoneInput' && inputField.id != 'usnInput') {
+                    if (inputField.id != 'phoneInput' && inputField.id != 'usnInput'  && inputField.id != 'cityInput' &&
+                        inputField.id != 'stateInput' &&
+                        inputField.id != 'nameInput' &&
+                        inputField.id != 'schoolNameInput' && 
+                        inputField.id != 'secondarySchoolNameInput' &&
+                        inputField.id != 'diplomaCollegeNameInput') {
                         if (maxLength && value.length > maxLength) {
                             value = value.slice(0, maxLength);
                             // hasWarning = true;
@@ -1186,17 +1224,8 @@
     
                         });
                     });
-    
                     console.log(currentSectionId);
                     let hasEmptyFields = false;
-                    if (inputField.id === 'schoolMarksInput' || inputField.id === 'puMarksInput' || inputField.id === 'diplomaMarksInput' || inputField.id === 'degreeMarksInput') {
-                        const numericValue = parseFloat(inputField.value);
-
-                        if (numericValue >= 625) {
-                            displayErrorMessage("Please Enter Valid Marks (less than 625)");
-                            hasWarning = true;
-                        }
-                    }
                     if (includeDiplomaCheckbox.checked && currentSectionId === 'puDetails') {
                         console.log("Diploma Checkbox checked");
                         const diplomaCollege = document.getElementById('diplomaCollegeNameInput').value;
