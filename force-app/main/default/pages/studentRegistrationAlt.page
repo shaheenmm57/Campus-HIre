@@ -964,6 +964,54 @@
             const branchTypeId = document.getElementById('branchDropdown').id;
     
     
+            const textFields = [                
+                { id: 'cityInput', maxLength: 30, allowDecimal: false},
+                { id: 'stateInput', maxLength: 30, allowDecimal: false},
+                { id: 'nameInput', maxLength: 50, allowDecimal: false}, 
+                { id: 'schoolNameInput', maxLength: 50, allowDecimal: false}, 
+                { id: 'secondarySchoolNameInput', maxLength: 50, allowDecimal: false}, 
+                { id: 'diplomaCollegeNameInput', maxLength: 50, allowDecimal: false},
+            ];
+
+            function allowOnlyText(inputField, maxLength, allowDecimal) {
+                const warningCustom = document.getElementById('warningCustom');
+                const phoneContainer = document.getElementById('phoneContainer');
+    
+                
+                inputField.addEventListener('input', () => {
+                    inputField.classList.remove("input-warning");
+                    let value = inputField.value.trim();
+                    console.log(value);
+                    let hasWarning = false;
+                    let hasPhoneWarning = false;
+
+                    if (maxLength && value.length > maxLength) {
+                            console.log("Max Length City");
+                            value = value.slice(0, maxLength);
+                            inputField.value = value;
+                        }
+                        if (!/^[a-zA-Z\s]*$/.test(value)) {
+                            console.log("Check1");
+                            value = value.slice(0, -1);
+                            inputField.value = value;
+                            hasWarning = true;
+                        }
+
+
+                        if (hasWarning) {
+                            console.log("Test hasWarning");
+                            console.log("Non Phone Input Error");
+                            displayWarningMessage("Please Enter in Correct Format");
+                            inputField.classList.add("input-warning");
+                        } else {
+                            warningCustom.style.display = "none";
+                            inputField.classList.remove("input-warning");
+                        }
+                });
+            }
+
+
+
             const inputFields = [
                 { id: 'phoneInput', maxLength: 10, allowDecimal: false },
                 { id: 'pincodeInput', maxLength: 6, allowDecimal: false },
@@ -976,12 +1024,6 @@
                 { id: 'diplomaPassingYearInput', maxLength: 4, allowDecimal: false },
                 { id: 'diplomaMarksInput', maxLength: 3, allowDecimal: true },
                 { id: 'usnInput', maxLength: 10, allowDecimal:false},
-                { id: 'cityInput', maxLength: 30, allowDecimal: false},
-                { id: 'stateInput', maxLength: 30, allowDecimal: false},
-                { id: 'nameInput', maxLength: 50, allowDecimal: false}, 
-                { id: 'schoolNameInput', maxLength: 50, allowDecimal: false}, 
-                { id: 'secondarySchoolNameInput', maxLength: 50, allowDecimal: false}, 
-                { id: 'diplomaCollegeNameInput', maxLength: 50, allowDecimal: false},
             ];
             
             function allowOnlyNumbers(inputField, maxLength, allowDecimal) {
@@ -1014,41 +1056,8 @@
                         }
                     }
 
-                    if (
-                        inputField.id === 'cityInput' ||
-                        inputField.id === 'stateInput' ||
-                        inputField.id === 'nameInput' ||
-                        inputField.id === 'schoolNameInput' ||
-                        inputField.id === 'secondarySchoolNameInput' ||
-                        inputField.id === 'diplomaCollegeNameInput'
-                    ) {
-                        if (maxLength && value.length > maxLength) {
-                            console.log("Max Length City");
-                            value = value.slice(0, maxLength);
-                        }
-                        if (!/^[a-zA-Z]*$/.test(value)) {
-                            console.log("Check1");
-                            value = value.replace(/[^a-zA-Z]+/g, '');
-                            hasWarning = true;
-                        }
-
-                        if (hasWarning) {
-                            console.log("Test hasWarning");
-                            console.log("Non Phone Input Error");
-                            displayWarningMessage("Please Enter in Correct Format");
-                            inputField.classList.add("input-warning");
-                        } else {
-                            warningCustom.style.display = "none";
-                            inputField.classList.remove("input-warning");
-                        }
-                    }
                     
-                    if (inputField.id != 'phoneInput' && inputField.id != 'usnInput'  && inputField.id != 'cityInput' &&
-                        inputField.id != 'stateInput' &&
-                        inputField.id != 'nameInput' &&
-                        inputField.id != 'schoolNameInput' && 
-                        inputField.id != 'secondarySchoolNameInput' &&
-                        inputField.id != 'diplomaCollegeNameInput') {
+                    if (inputField.id != 'phoneInput' && inputField.id != 'usnInput') {
                         if (maxLength && value.length > maxLength) {
                             value = value.slice(0, maxLength);
                             // hasWarning = true;
@@ -1124,6 +1133,13 @@
                 const inputField = document.getElementById(field.id);
                 if (inputField) {
                     allowOnlyNumbers(inputField, field.maxLength, field.allowDecimal);
+                }
+            });
+
+            textFields.forEach((field) => {
+                const inputField = document.getElementById(field.id);
+                if (inputField) {
+                    allowOnlyText(inputField, field.maxLength, field.allowDecimal);
                 }
             });
     
