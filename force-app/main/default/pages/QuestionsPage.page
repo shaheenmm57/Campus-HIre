@@ -1162,12 +1162,12 @@
  
  
             document.addEventListener('keydown', function(event) {
-            console.log(event.key);
+            // console.log(event.key);
             
-            if (event.key === 'Alt' || event.key === 'Tab' || event.key === 'Meta' || event.key === 'Control') 
+            if (event.key === 'Alt' || event.key === 'Tab' || event.key === 'Meta' || event.key === 'Control' ||event.key === 'End' || event.key === 'F12' ) 
             {
                 document.exitFullscreen();
-                console.log("GO OUT OF FULLSCREEN");
+                 
             }
             else{
                 // event.preventDefault();
@@ -1176,16 +1176,16 @@
             
             }); 
 
-            // document.addEventListener('contextmenu', function (e) {
-            // e.preventDefault();
-            // });
+             document.addEventListener('contextmenu', function (e) {
+             e.preventDefault();
+             });
 
-            // setInterval(function () {
-            // if (typeof console._commandLineAPI !== 'undefined') {
-            //     console._commandLineAPI.clear();
-            //     console._commandLineAPI.reset();
-            // }
-            // }, 1000);
+             setInterval(function () {
+             if (typeof console._commandLineAPI !== 'undefined') {
+                 console._commandLineAPI.clear();
+                 console._commandLineAPI.reset();
+             }
+            }, 1000);
 
 
 
@@ -1204,7 +1204,7 @@
             var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
         
             if (requestMethod) { // Native full screen.
-            console.log("hello");
+            
                 requestMethod.call(element);
             } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
                 var wscript = new ActiveXObject("WScript.Shell");
@@ -1219,7 +1219,7 @@
         const fullScreenElement = document.querySelector("html");
 
         function fullscreenchanged(event) {
-            console.log('hello');
+             
             // document.fullscreenElement will point to the element that
             // is in fullscreen mode if there is one. If there isn't one,
             // the value of the property is null.
@@ -1241,7 +1241,7 @@
                 countIntervel = 10; 
                 timerIntervalCounter = setInterval(() => {
                      countIntervel--; 
-                     console.log('on load counter ' + countIntervel)
+                    //  console.log('on load counter ' + countIntervel)
                      document.querySelector('.fullscreen-count-num').textContent = countIntervel;
                      if(countIntervel <= 0){ 
                                 student_test_warning = 0;  
@@ -1297,8 +1297,8 @@
                 fillPreview(val);
                 
                     function fillPreview(result) { 
-                            console.log("success");  
-                            console.log(result);
+                            // console.log("success");  
+                            // console.log(result);
                             var container = document.querySelector('.main-cnt-3-qnt-cnt');
                             container.innerHTML = '';
 
@@ -1346,8 +1346,8 @@
                                     '{!$RemoteAction.QuestionsPageCtrl.GetQuestionCount}',
                                     studentIdMain, eventIdMain,
                                     function (result, event) { 
-                                            console.log("success");  
-                                            console.log(result);
+                                            // console.log("success");  
+                                            // console.log(result);
                                             hideLoader();
 
                                             if(isQstAttemptedOption == true){
@@ -1374,7 +1374,7 @@
 
                                              }   
                                             if (event.status) {
-                                                    console.log(event.status);
+                                                    // console.log(event.status);
                                                 }
                                                 else if (result.type === 'exception') {
                                                     alert("Exception caught");
@@ -1450,7 +1450,7 @@
                                     '{!$RemoteAction.QuestionsPageCtrl.GetCurrentTimer}',
                                     studentIdMain,eventIdMain,
                                     function (result, event) { 
-                                            console.log("GetCurrentTimer success");     
+                                            // console.log("GetCurrentTimer success");     
                                             totalSeconds = result;
                                             if(totalSeconds <= 0){
                                                 var targetPageUrl = '/apex/TestSubmitScreen?studentId=' + studentIdMain + '&eventId=' + eventIdMain;
@@ -1458,7 +1458,7 @@
                                             }
                                             startTimer();
                                                 if (event.status) {
-                                                    console.log(event.status);
+                                                    // console.log(event.status);
                                                 }
                                                 else if (result.type === 'exception') {
                                                     alert("Exception caught");
@@ -1473,8 +1473,8 @@
                                     '{!$RemoteAction.QuestionsPageCtrl.GetCurrentStudentSession}',
                                     studentIdMain,eventIdMain,
                                     function (result, event) { 
-                                            console.log("GetCurrentStudentSession success");     
-                                            console.log(result);
+                                            // console.log("GetCurrentStudentSession success");     
+                                            // console.log(result);
                                             student_test_isStarted = result.student_test_isStarted__c;
                                             student_test_warning = result.student_test_warning__c;
                                             if( student_test_warning <= 0){
@@ -1494,7 +1494,7 @@
                                                 ele.classList.add("hide-count");
                                                 timerIntervalCounter = setInterval(() => {
                                                     countIntervel--;
-                                                    console.log('on load counter ' + countIntervel); 
+                                                    // console.log('on load counter ' + countIntervel); 
                                                     document.querySelector('.fullscreen-count-num').textContent = countIntervel;
                                                     if(countIntervel <= 0){
                                                         student_test_warning = 0;
@@ -1510,7 +1510,7 @@
                                                 student_test_isStarted = true;
                                             } 
                                                 if (event.status) {
-                                                    console.log(event.status);
+                                                    // console.log(event.status);
                                                 }
                                                 else if (result.type === 'exception') {
                                                     alert("Exception caught");
@@ -1531,9 +1531,9 @@
                                      '{!$RemoteAction.QuestionsPageCtrl.UpdateCurrentTimer}',
                                      totalSeconds,studentIdMain,eventIdMain,true,student_test_warning,
                                      function (result, event) { 
-                                             console.log("success");   
+                                            //  console.log("success");   
                                                  if (event.status) {
-                                                     console.log(event.status);
+                                                    //  console.log(event.status);
                                                  }
                                                  else if (result.type === 'exception') {
                                                      alert("Exception caught");
@@ -1543,28 +1543,28 @@
                                                  }
                                          }
                                  ); 
-                     console.log(totalSeconds)
+                    //  console.log(totalSeconds)
                  }, 60000);
 
 
                  function beforePageRefresh(student_test_warning,isTimerOut) {
-                    console.log("before refresh");
+                    // console.log("before refresh");
                     if(isSubmitedQuestion === true){
                         totalSeconds = 0;
                     }
                     student_test_warning_update = student_test_warning <= 0 ? 0 : student_test_warning - 1 ; 
-                    console.log('student test warning ' + student_test_warning_update); 
+                    // console.log('student test warning ' + student_test_warning_update); 
                        Visualforce.remoting.Manager.invokeAction(
                                     '{!$RemoteAction.QuestionsPageCtrl.UpdateCurrentTimer}',
                                     totalSeconds,studentIdMain,eventIdMain,true,student_test_warning_update,
                                     function (result, event) { 
-                                            console.log("UpdateCurrentTimer success");
+                                            // console.log("UpdateCurrentTimer success");
                                             if(isTimerOut == true){
                                                 // finishBtn();
                                                 updateOnsubmitandfinish();
                                             }   
                                                 if (event.status) {
-                                                    console.log(event.status);
+                                                    // console.log(event.status);
                                                 }
                                                 else if (result.type === 'exception') {
                                                     alert("Exception caught");
@@ -1631,7 +1631,7 @@
                                     '{!$RemoteAction.QuestionsPageCtrl.updateCurrentQuestion}',
                                     selectedQuestion.question_number__c ,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
                                     function (result, event) { 
-                                            console.log("updateCurrentQuestion success");
+                                            // console.log("updateCurrentQuestion success");
                                             initData(result);
                                             val = result;
                                             
@@ -1643,8 +1643,8 @@
                                                     '{!$RemoteAction.QuestionsPageCtrl.updateTestMarks}',
                                                     studentIdMain, eventIdMain,
                                                     function (result, event) { 
-                                                            console.log("updateTestMarks success");  
-                                                            console.log(result);
+                                                            // console.log("updateTestMarks success");  
+                                                            // console.log(result);
                                                             hideLoader();
                                                             
                                                             if(result === true)
@@ -1659,7 +1659,7 @@
                                                                 window.alert("Something went wrong");
                                                             }
                                                             if (event.status) {
-                                                                    console.log(event.status);
+                                                                    // console.log(event.status);
                                                                 }
                                                                 else if (result.type === 'exception') {
                                                                     alert("Exception caught");
@@ -1672,7 +1672,7 @@
                                              
                                                 
                                                 if (event.status) {
-                                                    console.log(event.status);
+                                                    // console.log(event.status);
                                                 }
                                                 else if (result.type === 'exception') {
                                                     alert("Exception caught");
@@ -1714,7 +1714,7 @@
 
               
 
-                console.log(val); 
+                // console.log(val); 
                 
             
                         var selectedQuestion = val.find(function(question) {
@@ -1863,7 +1863,7 @@
 
 
                             if(selectedQuestion.is_attempted__c == true){
-                                isQstAttemptedOption = true;
+                                // isQstAttemptedOption = true;
                                 if(selectedQuestion.student_attempt__c == 'option_1'){
                                     question_ele = document.querySelector('.option_1') 
                                     updateOptionOnLoad(question_ele,'option_1');
@@ -1879,6 +1879,8 @@
                                 }
                                 var clearele = document.querySelector('.clear-btn');
                                 clearele.classList.remove('clear-active');
+                            }else{
+                                isQstAttemptedOption = false;
                             }
 
                             // console.log('initData 2 : isQstAttempted ='+isQstAttempted + '   studentAnswer = ' +studentAnswer + '   questionId ='+questionId  );
@@ -1934,12 +1936,12 @@
                                     '{!$RemoteAction.QuestionsPageCtrl.GetInitialData}',
                                     studentIdMain,eventIdMain,
                                     function (result, event) { 
-                                            console.log("success");    
+                                            // console.log("success");    
                                                 hideLoader();  
                                                 initData(result);
                                                 val = result;
                                                 if (event.status) {
-                                                    console.log(event.status);
+                                                    // console.log(event.status);
                                                 }
                                                 else if (result.type === 'exception') {
                                                     alert("Exception caught");
@@ -1984,14 +1986,14 @@
                                     '{!$RemoteAction.QuestionsPageCtrl.updateCurrentQuestion}',
                                     selectedQuestion.question_number__c,'',questionId,false,studentIdMain,eventIdMain,
                                     function (result, event) { 
-                                            console.log("success");
+                                            // console.log("success");
                                             initData(result);
                                             val = result;
                                             hideLoader(); 
                                              
                                                 
                                                 if (event.status) {
-                                                    console.log(event.status);
+                                                    // console.log(event.status);
                                                 }
                                                 else if (result.type === 'exception') {
                                                     alert("Exception caught");
@@ -2053,7 +2055,8 @@
              var nextbtnele = document.querySelector('.nextbtnclick');
                nextbtnele.addEventListener('click', function(){ 
 
-                console.log('next btn');
+                // console.log('next btn');
+                isQstAttemptedOption = false;
 
                 showLoader(); 
 
@@ -2064,7 +2067,7 @@
                         if( flag === 0 && btn.classList.contains('qst-nav-btn-item-current') ){
                             flag = 1;  
                             
-                                        console.log(parseInt(btn.textContent));
+                                        // console.log(parseInt(btn.textContent));
                                 var getStudentId = val.find(function(question){
                                     return question.question_number__c === (parseInt(btn.textContent));
                                 })
@@ -2082,13 +2085,13 @@
                                                         '{!$RemoteAction.QuestionsPageCtrl.updateCurrentQuestion}',
                                                         selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
                                                         function (result, event) { 
-                                                                console.log("success");
+                                                                // console.log("success");
                                                                 // location.reload();
                                                                 initData(result);
                                                                 val = result;
                                                                 hideLoader();
                                                                     if (event.status) {
-                                                                        console.log(event.status);
+                                                                        // console.log(event.status);
                                                                     }
                                                                     else if (result.type === 'exception') {
                                                                         alert("Exception caught");
@@ -2120,7 +2123,8 @@
                var prvbtnele = document.querySelector('.prvbtnclick');
                prvbtnele.addEventListener('click', function(){ 
 
-                console.log('prv btn');
+                // console.log('prv btn');
+                isQstAttemptedOption = false;
 
                 showLoader(); 
 
@@ -2131,7 +2135,7 @@
                         if( flag === 0 && btn.classList.contains('qst-nav-btn-item-current') ){
                             flag = 1;  
                             
-                                        console.log(parseInt(btn.textContent));
+                                        // console.log(parseInt(btn.textContent));
 
                                         var getStudentId = val.find(function(question){
                                             return question.question_number__c === (parseInt(btn.textContent));
@@ -2151,13 +2155,13 @@
                                                     '{!$RemoteAction.QuestionsPageCtrl.updateCurrentQuestion}',
                                                     selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
                                                     function (result, event) { 
-                                                            console.log("success");
+                                                            // console.log("success");
                                                             initData(result);
                                                             val = result;
                                                             hideLoader();
                                                                 
                                                                 if (event.status) {
-                                                                    console.log(event.status);
+                                                                    // console.log(event.status);
                                                                 }
                                                                 else if (result.type === 'exception') {
                                                                     alert("Exception caught");
@@ -2202,14 +2206,16 @@
             qstnButtons.forEach(function(button) {
                 button.addEventListener('click', function(event) {
 
-                    console.log('click btn');
+                    isQstAttemptedOption = false;
+
+                    // console.log('click btn');
                     showLoader(); 
 
 
                     var number = parseInt(event.currentTarget.textContent) ;
                      
                     
-                    console.log("Button clicked with number:", number);
+                    // console.log("Button clicked with number:", number);
                     var selectedQuestion = val.find(function(question) {
                         return question.question_number__c === number;
                     }); 
@@ -2232,13 +2238,13 @@
                                 '{!$RemoteAction.QuestionsPageCtrl.updateCurrentQuestion}',
                                 selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
                                 function (result, event) { 
-                                           console.log("success");
+                                        //    console.log("success");
                                            initData(result);
                                            val = result;
                                            hideLoader();
                                             
                                             if (event.status) {
-                                                console.log(event.status);
+                                                // console.log(event.status);
                                             }
                                             else if (result.type === 'exception') {
                                                 alert("Exception caught");
