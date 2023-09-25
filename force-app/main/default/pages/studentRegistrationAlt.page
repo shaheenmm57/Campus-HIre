@@ -639,7 +639,7 @@
                 </div>
             </div>
             <div class="content-container">
-                <apex:form >
+                <apex:form>
                 <div class="section-body">
                     <!-- <div class="progress-bar">
                         <div class="progress"></div>
@@ -663,9 +663,9 @@
                                             <input id="phoneInput" type="text" style="width:12.8vw; border:none;" pattern="[0-9]"></input>
                                         </div>
                                     </div>
-                                    <div class="section-item" style="visibility: hidden;">
+                                    <!-- <div class="section-item" style="visibility: hidden;">
                                         <span class="section-item-text">blankSpace</span>
-                                    </div>
+                                    </div> -->
                                     <div class="section-item">
                                         <span class="section-item-text">Student E-mail:</span>
                                         <input id="emailInput"></input>
@@ -676,7 +676,7 @@
                                     </div>
                                     <div class="section-item" style="visibility: hidden;">
                                         <span class="section-item-text">x</span>
-                                        <!-- <input id="hiddenInput2" style="visibility:none;"></input> -->
+                                        
                                     </div>
                                     <div class="section-item">
                                         <span class="section-item-text">College Name:</span>
@@ -688,10 +688,10 @@
                                         <span class="section-item-text">USN:</span>
                                         <input id="usnInput"></input>
                                     </div>
-                                    <div class="section-item" style="visibility: hidden;">
+                                    <!-- <div class="section-item" style="visibility: hidden;">
                                         <span class="section-item-text">x</span>
-                                    </div>
-                                    <div class="section-item">
+                                    </div> -->
+                                    <div class="section-item" id="addressSection"> 
                                         <span class="section-item-text">Address</span>
                                         <textarea id="address1Input"></textarea>
                                     </div>
@@ -720,7 +720,7 @@
                         <div class="section-buttons">
                             <button type="button" class="next-button">Next</button>
                         </div>
-                        <a id="createAcc" class="reg-text" href="/apex/studentLoginPageAlt">Already have an Account? Login Here </a>
+                        <a id="createAcc" class="reg-text" href="https://empathetic-panda-t0xpua-dev-ed--c.trailblaze.vf.force.com/apex/studentLoginPageAlt">Already have an Account? Login Here </a>
                     </div>
                     
                     <div class="section-wrapper" id= "schoolDetails">
@@ -949,6 +949,16 @@
     
     
         const sectionValidationStatus = new Array(sections.length).fill(false);
+
+        // Add an event listener to the "Address" section
+        const addressSection = document.getElementById("addressSection");
+        if (addressSection) {
+            addressSection.addEventListener("click", () => {
+                // Scroll to the "Address" section
+                addressSection.scrollIntoView({ behavior: "smooth" });
+            });
+        }
+
     
         document.addEventListener("DOMContentLoaded", () => {
             
@@ -964,17 +974,65 @@
             const branchTypeId = document.getElementById('branchDropdown').id;
     
     
+            const textFields = [                
+                { id: 'cityInput', maxLength: 30, allowDecimal: false},
+                { id: 'stateInput', maxLength: 30, allowDecimal: false},
+                { id: 'nameInput', maxLength: 50, allowDecimal: false}, 
+                { id: 'schoolNameInput', maxLength: 50, allowDecimal: false}, 
+                { id: 'secondarySchoolNameInput', maxLength: 50, allowDecimal: false}, 
+                { id: 'diplomaCollegeNameInput', maxLength: 50, allowDecimal: false},
+            ];
+
+            function allowOnlyText(inputField, maxLength, allowDecimal) {
+                const warningCustom = document.getElementById('warningCustom');
+                const phoneContainer = document.getElementById('phoneContainer');
+    
+                
+                inputField.addEventListener('input', () => {
+                    inputField.classList.remove("input-warning");
+                    let value = inputField.value.trim();
+                    console.log(value);
+                    let hasWarning = false;
+                    let hasPhoneWarning = false;
+
+                    if (maxLength && value.length > maxLength) {
+                            console.log("Max Length City");
+                            value = value.slice(0, maxLength);
+                            inputField.value = value;
+                        }
+                        if (!/^[a-zA-Z\s]*$/.test(value)) {
+                            console.log("Check1");
+                            value = value.slice(0, -1);
+                            inputField.value = value;
+                            hasWarning = true;
+                        }
+
+
+                        if (hasWarning) {
+                            console.log("Test hasWarning");
+                            console.log("Non Phone Input Error");
+                            displayWarningMessage("Please Enter in Correct Format");
+                            inputField.classList.add("input-warning");
+                        } else {
+                            warningCustom.style.display = "none";
+                            inputField.classList.remove("input-warning");
+                        }
+                });
+            }
+
+
+
             const inputFields = [
                 { id: 'phoneInput', maxLength: 10, allowDecimal: false },
                 { id: 'pincodeInput', maxLength: 6, allowDecimal: false },
-                { id: 'schoolMarksInput', maxLength: 5, allowDecimal: true },
-                { id: 'puMarksInput', maxLength: 5, allowDecimal: true },
-                { id: 'degreeMarksInput', maxLength: 4, allowDecimal: true },
+                { id: 'schoolMarksInput', maxLength: 3, allowDecimal: true },
+                { id: 'puMarksInput', maxLength: 3, allowDecimal: true },
+                { id: 'degreeMarksInput', maxLength: 3, allowDecimal: true },
                 { id: 'schoolPassingYearInput', maxLength: 4, allowDecimal: false },
                 { id: 'puPassingYearInput', maxLength: 4, allowDecimal: false },
                 { id: 'degreePassingYearInput', maxLength: 4, allowDecimal: false },
                 { id: 'diplomaPassingYearInput', maxLength: 4, allowDecimal: false },
-                { id: 'diplomaMarksInput', maxLength: 5, allowDecimal: true },
+                { id: 'diplomaMarksInput', maxLength: 3, allowDecimal: true },
                 { id: 'usnInput', maxLength: 10, allowDecimal:false},
             ];
             
@@ -992,10 +1050,8 @@
                     if (inputField.id === 'usnInput'){
                         if (maxLength && value.length > maxLength) {
                             value = value.slice(0, maxLength);
-                            // hasWarning = true;
                         }
                         if (!/^[a-zA-Z0-9\s]+$/.test(value)) {
-                            // Input contains special characters, so remove them
                             value = value.replace(/[^a-zA-Z0-9\s]+/g, '');
                             hasWarning = true;
                         }
@@ -1009,8 +1065,9 @@
                             inputField.classList.remove("input-warning");
                         }
                     }
+
                     
-                    if (inputField.id != 'phoneInput' && inputField.id != 'usnInput') {
+                    if (inputField.id != 'phoneInput' && inputField.id !=  'usnInput' && inputField.id != 'puMarksInput' && inputField.id != 'degreeMarksInput' && inputField.id != 'schoolMarksInput' && inputField.id != 'diplomaMarksInput') {
                         if (maxLength && value.length > maxLength) {
                             value = value.slice(0, maxLength);
                             // hasWarning = true;
@@ -1035,6 +1092,23 @@
                             inputField.classList.remove("input-warning");
                         }
                     }
+
+                    if (inputField.id === 'puMarksInput' || inputField.id === 'degreeMarksInput' || inputField.id === 'schoolMarksInput' || inputField.id === 'diplomaMarksInput') {
+                        if (value.includes('.')) {
+                            const decimalCount = (value.match(/\./g) || []).length;
+                            if (decimalCount > 1) {
+                                const indexOfLastDecimal = value.lastIndexOf('.');
+                                value = value.slice(0, indexOfLastDecimal) + value.slice(indexOfLastDecimal).replace('.', '');
+                            }
+                            
+                            if (value.length > 4) {
+                                value = value.slice(0, 4);
+                            }
+                        } else {
+                            value = value.slice(0, maxLength);
+                        }
+                    }
+
     
                     inputField.value = value;
     
@@ -1086,6 +1160,13 @@
                 const inputField = document.getElementById(field.id);
                 if (inputField) {
                     allowOnlyNumbers(inputField, field.maxLength, field.allowDecimal);
+                }
+            });
+
+            textFields.forEach((field) => {
+                const inputField = document.getElementById(field.id);
+                if (inputField) {
+                    allowOnlyText(inputField, field.maxLength, field.allowDecimal);
                 }
             });
     
@@ -1186,17 +1267,39 @@
     
                         });
                     });
-    
                     console.log(currentSectionId);
                     let hasEmptyFields = false;
+                    if(currentSectionId==='schoolDetails'){
+                        const schoolMarksCheck = parseInt(document.getElementById('schoolMarksInput').value);
+
+                        if (schoolMarksCheck > 625) {
+                            displayErrorMessage("Please Enter Correct Marks");
+                            return;
+                        }
+                    }
                     if (includeDiplomaCheckbox.checked && currentSectionId === 'puDetails') {
                         console.log("Diploma Checkbox checked");
                         const diplomaCollege = document.getElementById('diplomaCollegeNameInput').value;
                         const diplomaYear = document.getElementById('diplomaPassingYearInput').value;
                         const diplomaMarks = document.getElementById('diplomaMarksInput').value;
     
+                        const puMarksCheck = parseInt(document.getElementById('puMarksInput').value);
+                        const dipMarksCheck = parseInt(document.getElementById('diplomaMarksInput').value);
+
+
+
                         if (!diplomaCollege.trim() || !diplomaYear.trim() || !diplomaMarks.trim()) {
                             displayErrorMessage('Diploma fields are required.');
+                            return;
+                        }
+
+                        if (puMarksCheck > 625) {
+                            displayErrorMessage("Please Enter Correct Marks");
+                            return;
+                        }
+
+                        if(dipMarksCheck > 625){
+                            displayErrorMessage("Please Enter Correct Marks");
                             return;
                         }
     
@@ -1208,6 +1311,13 @@
                             document.getElementById('puMarksInput'),
                             document.getElementById('puPassingYearInput')
                         ];
+
+                        const puMarksCheck = parseInt(document.getElementById('puMarksInput').value);
+
+                        if (puMarksCheck > 625) {
+                            displayErrorMessage("Please Enter Correct Marks");
+                            return;
+                        }
 
                         document.getElementById('diplomaCollegeNameInput').value = '';
                         document.getElementById('diplomaMarksInput').value = '';
@@ -1289,6 +1399,14 @@
                         }
 
                     }
+
+                    const degMarksCheck = parseInt(document.getElementById('degreeMarksInput').value);
+
+                    if (degMarksCheck > 625) {
+                        displayErrorMessage("Please Enter Correct Marks");
+                        return;
+                    }
+                    
                     if (hasEmptyFields) {
                         displayErrorMessage("Please Enter All the Fields");
                         return;
