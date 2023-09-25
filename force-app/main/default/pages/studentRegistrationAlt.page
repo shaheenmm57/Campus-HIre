@@ -691,7 +691,7 @@
                                     <!-- <div class="section-item" style="visibility: hidden;">
                                         <span class="section-item-text">x</span>
                                     </div> -->
-                                    <div class="section-item">
+                                    <div class="section-item" id="addressSection"> 
                                         <span class="section-item-text">Address</span>
                                         <textarea id="address1Input"></textarea>
                                     </div>
@@ -720,7 +720,7 @@
                         <div class="section-buttons">
                             <button type="button" class="next-button">Next</button>
                         </div>
-                        <a id="createAcc" class="reg-text" href="https://empathetic-panda-t0xpua-dev-ed--c.trailblaze.vf.force.com/apex/studentLoginPageAlt">Already have an Account? Login Here </a>
+                        <a id="createAcc" class="reg-text" href="/apex/studentLoginPageAlt">Already have an Account? Login Here </a>
                     </div>
                     
                     <div class="section-wrapper" id= "schoolDetails">
@@ -949,6 +949,16 @@
     
     
         const sectionValidationStatus = new Array(sections.length).fill(false);
+
+        // Add an event listener to the "Address" section
+        const addressSection = document.getElementById("addressSection");
+        if (addressSection) {
+            addressSection.addEventListener("click", () => {
+                // Scroll to the "Address" section
+                addressSection.scrollIntoView({ behavior: "smooth" });
+            });
+        }
+
     
         document.addEventListener("DOMContentLoaded", () => {
             
@@ -1057,7 +1067,7 @@
                     }
 
                     
-                    if (inputField.id != 'phoneInput' && inputField.id != 'usnInput') {
+                    if (inputField.id != 'phoneInput' && inputField.id !=  'usnInput' && inputField.id != 'puMarksInput' && inputField.id != 'degreeMarksInput' && inputField.id != 'schoolMarksInput' && inputField.id != 'diplomaMarksInput') {
                         if (maxLength && value.length > maxLength) {
                             value = value.slice(0, maxLength);
                             // hasWarning = true;
@@ -1082,6 +1092,23 @@
                             inputField.classList.remove("input-warning");
                         }
                     }
+
+                    if (inputField.id === 'puMarksInput' || inputField.id === 'degreeMarksInput' || inputField.id === 'schoolMarksInput' || inputField.id === 'diplomaMarksInput') {
+                        if (value.includes('.')) {
+                            const decimalCount = (value.match(/\./g) || []).length;
+                            if (decimalCount > 1) {
+                                const indexOfLastDecimal = value.lastIndexOf('.');
+                                value = value.slice(0, indexOfLastDecimal) + value.slice(indexOfLastDecimal).replace('.', '');
+                            }
+                            
+                            if (value.length > 4) {
+                                value = value.slice(0, 4);
+                            }
+                        } else {
+                            value = value.slice(0, maxLength);
+                        }
+                    }
+
     
                     inputField.value = value;
     
@@ -1242,14 +1269,37 @@
                     });
                     console.log(currentSectionId);
                     let hasEmptyFields = false;
+                    if(currentSectionId==='schoolDetails'){
+                        const schoolMarksCheck = parseInt(document.getElementById('schoolMarksInput').value);
+
+                        if (schoolMarksCheck > 625) {
+                            displayErrorMessage("Please Enter Correct Marks");
+                            return;
+                        }
+                    }
                     if (includeDiplomaCheckbox.checked && currentSectionId === 'puDetails') {
                         console.log("Diploma Checkbox checked");
                         const diplomaCollege = document.getElementById('diplomaCollegeNameInput').value;
                         const diplomaYear = document.getElementById('diplomaPassingYearInput').value;
                         const diplomaMarks = document.getElementById('diplomaMarksInput').value;
     
+                        const puMarksCheck = parseInt(document.getElementById('puMarksInput').value);
+                        const dipMarksCheck = parseInt(document.getElementById('diplomaMarksInput').value);
+
+
+
                         if (!diplomaCollege.trim() || !diplomaYear.trim() || !diplomaMarks.trim()) {
                             displayErrorMessage('Diploma fields are required.');
+                            return;
+                        }
+
+                        if (puMarksCheck > 625) {
+                            displayErrorMessage("Please Enter Correct Marks");
+                            return;
+                        }
+
+                        if(dipMarksCheck > 625){
+                            displayErrorMessage("Please Enter Correct Marks");
                             return;
                         }
     
@@ -1261,6 +1311,13 @@
                             document.getElementById('puMarksInput'),
                             document.getElementById('puPassingYearInput')
                         ];
+
+                        const puMarksCheck = parseInt(document.getElementById('puMarksInput').value);
+
+                        if (puMarksCheck > 625) {
+                            displayErrorMessage("Please Enter Correct Marks");
+                            return;
+                        }
 
                         document.getElementById('diplomaCollegeNameInput').value = '';
                         document.getElementById('diplomaMarksInput').value = '';
@@ -1342,6 +1399,14 @@
                         }
 
                     }
+
+                    const degMarksCheck = parseInt(document.getElementById('degreeMarksInput').value);
+
+                    if (degMarksCheck > 625) {
+                        displayErrorMessage("Please Enter Correct Marks");
+                        return;
+                    }
+                    
                     if (hasEmptyFields) {
                         displayErrorMessage("Please Enter All the Fields");
                         return;
