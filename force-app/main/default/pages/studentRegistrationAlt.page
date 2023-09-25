@@ -720,7 +720,7 @@
                         <div class="section-buttons">
                             <button type="button" class="next-button">Next</button>
                         </div>
-                        <a id="createAcc" class="reg-text" href="https://empathetic-panda-t0xpua-dev-ed--c.trailblaze.vf.force.com/apex/studentLoginPageAlt">Already have an Account? Login Here </a>
+                        <a id="createAcc" class="reg-text" href="/apex/studentLoginPageAlt">Already have an Account? Login Here </a>
                     </div>
                     
                     <div class="section-wrapper" id= "schoolDetails">
