@@ -12,10 +12,5 @@
     <columns>question_difficulty__c</columns>
     <columns>question_category__c</columns>
     <filterScope>Everything</filterScope>
-    <filters>
-        <field>CREATED_DATE</field>
-        <operation>equals</operation>
-        <value>TODAY</value>
-    </filters>
     <label>All</label>
 </ListView>
