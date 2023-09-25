@@ -1113,7 +1113,8 @@
             
      
                     var val = [];
-
+                    var  StudentQuestionsFromLocal = localStorage.getItem('StudentQuestions');
+                    var StudentTest = {};
 
    
         
@@ -1456,12 +1457,31 @@
                 }
 
 
+                var studentTestObj = {
+                    student_test_warning:0,
+                    student_test_isStarted:false,
+                }
+
+                
+                const LocalTimer = localStorage.getItem('TimeInStorage');
+                if(LocalTimer){
+                    totalSeconds = parseInt(LocalTimer);
+                    console.log("from local storage");
+                    console.log(parseInt(LocalTimer));
+                    if(totalSeconds <= 0){
+                            var targetPageUrl = '/apex/TestSubmitScreen?studentId=' + studentIdMain + '&eventId=' + eventIdMain;
+                            window.location.href = targetPageUrl;
+                        }
+                    startTimer();
+                    hideLoader();
+                }else{
                 Visualforce.remoting.Manager.invokeAction(
                                     '{!$RemoteAction.QuestionsPageCtrlAlt.GetCurrentTimer}',
                                     studentIdMain,eventIdMain,
                                     function (result, event) { 
                                             console.log("GetCurrentTimer success");     
                                             totalSeconds = result;
+                                            localStorage.setItem('TimeInStorage', totalSeconds);
                                             if(totalSeconds <= 0){
                                                 var targetPageUrl = '/apex/TestSubmitScreen?studentId=' + studentIdMain + '&eventId=' + eventIdMain;
                                                 window.location.href = targetPageUrl;
@@ -1478,6 +1498,51 @@
                                                 }
                                         }
                                 );
+
+                        }
+
+                        var  StudentTestFromLocal = localStorage.getItem('StudentTestObjStorage');
+                        if(StudentTestFromLocal){
+                            StudentTestFromLocal = JSON.parse(StudentTestFromLocal);
+                            student_test_isStarted = StudentTestFromLocal.student_test_isStarted__c;
+                            student_test_warning = StudentTestFromLocal.student_test_warning__c;
+                            hideLoader();
+                            if( studentTestObj.student_test_warning <= 0){
+                                                // finishBtn();
+
+                                                updateOnsubmitandfinish();
+                                 }
+                                            
+                                            var ele = document.querySelector(".warning-cls");
+                                            ele.textContent = student_test_warning;
+
+                                            if(student_test_isStarted == true){
+                                                document.querySelector('.start-fullscreen-popup-item').classList.add('fullscreen-popup-item');
+                                                var ele = document.querySelector(".fullscreen-count");
+                                                ele.classList.remove("hide-count");
+                                                ele = document.querySelector(".fullscreen-count-txt");
+                                                ele.classList.add("hide-count");
+                                                timerIntervalCounter = setInterval(() => {
+                                                    countIntervel--;
+                                                    // console.log('on load counter ' + countIntervel); 
+                                                    document.querySelector('.fullscreen-count-num').textContent = countIntervel;
+                                                    if(countIntervel <= 0){
+                                                        student_test_warning = 0;
+                                                        beforePageRefresh(student_test_warning,true); 
+                                                        clearInterval(timerIntervalCounter);
+                                                        // finishBtn();
+                                                        // updateOnsubmitandfinish();
+                                                        
+                                                    }
+                                                }, 1000);
+                                            }
+                                            else{
+                                                student_test_isStarted = true;
+                                            } 
+                        }else{
+
+                        
+
                                 
                                 Visualforce.remoting.Manager.invokeAction(
                                     '{!$RemoteAction.QuestionsPageCtrlAlt.GetCurrentStudentSession}',
@@ -1485,9 +1550,12 @@
                                     function (result, event) { 
                                             console.log("GetCurrentStudentSession success");     
                                             console.log(result);
+                                            studentTestObj.student_test_isStarted = result.student_test_isStarted__c;
+                                            studentTestObj.student_test_warning = result.student_test_warning__c;
                                             student_test_isStarted = result.student_test_isStarted__c;
                                             student_test_warning = result.student_test_warning__c;
-                                            if( student_test_warning <= 0){
+                                            localStorage.setItem('StudentTestObjStorage', JSON.stringify(studentTestObj));
+                                            if(student_test_warning <= 0){
                                                 // finishBtn();
 
                                                 updateOnsubmitandfinish();
@@ -1530,31 +1598,32 @@
                                                 }
                                         }
                                 ); 
+                            }
 
                 var isSubmitedQuestion = false;
 
-                var updateTimerInterval =  setInterval(() => { 
-                     if(isSubmitedQuestion === true){
-                        totalSeconds = 0;
-                     }
-                     Visualforce.remoting.Manager.invokeAction(
-                                     '{!$RemoteAction.QuestionsPageCtrlAlt.UpdateCurrentTimer}',
-                                     totalSeconds,studentIdMain,eventIdMain,true,student_test_warning,
-                                     function (result, event) { 
-                                             console.log("success");   
-                                                 if (event.status) {
-                                                     console.log(event.status);
-                                                 }
-                                                 else if (result.type === 'exception') {
-                                                     alert("Exception caught");
-                                                 }
-                                                 else {
-                                                     alert("Exception caught");
-                                                 }
-                                         }
-                                 ); 
-                     console.log(totalSeconds)
-                 }, 60000);
+                // var updateTimerInterval =  setInterval(() => { 
+                //      if(isSubmitedQuestion === true){
+                //         totalSeconds = 0;
+                //      }
+                //      Visualforce.remoting.Manager.invokeAction(
+                //                      '{!$RemoteAction.QuestionsPageCtrlAlt.UpdateCurrentTimer}',
+                //                      totalSeconds,studentIdMain,eventIdMain,true,student_test_warning,
+                //                      function (result, event) { 
+                //                              console.log("success");   
+                //                                  if (event.status) {
+                //                                      console.log(event.status);
+                //                                  }
+                //                                  else if (result.type === 'exception') {
+                //                                      alert("Exception caught");
+                //                                  }
+                //                                  else {
+                //                                      alert("Exception caught");
+                //                                  }
+                //                          }
+                //                  ); 
+                //      console.log(totalSeconds)
+                //  }, 60000);
 
 
                  function beforePageRefresh(student_test_warning,isTimerOut) {
@@ -1562,28 +1631,43 @@
                     if(isSubmitedQuestion === true){
                         totalSeconds = 0;
                     }
-                    student_test_warning_update = student_test_warning <= 0 ? 0 : student_test_warning - 1 ; 
-                    console.log('student test warning ' + student_test_warning_update); 
-                       Visualforce.remoting.Manager.invokeAction(
-                                    '{!$RemoteAction.QuestionsPageCtrlAlt.UpdateCurrentTimer}',
-                                    totalSeconds,studentIdMain,eventIdMain,true,student_test_warning_update,
-                                    function (result, event) { 
-                                            console.log("UpdateCurrentTimer success");
-                                            if(isTimerOut == true){
+                    student_test_warning_update = student_test_warning <= 0 ? 0 : student_test_warning - 1 ;
+                    
+                    
+                                            studentTestObj.student_test_isStarted = true;
+                                            studentTestObj.student_test_warning = student_test_warning_update;
+                                            localStorage.setItem('StudentTestObjStorage', JSON.stringify(studentTestObj));
+                                          if(isTimerOut == true){
                                                 // finishBtn();
                                                 updateOnsubmitandfinish();
-                                            }   
-                                                if (event.status) {
-                                                    console.log(event.status);
-                                                }
-                                                else if (result.type === 'exception') {
-                                                    alert("Exception caught");
-                                                }
-                                                else {
-                                                    alert("Exception caught");
-                                                }
-                                        }
-                                ); 
+                                            }
+
+
+                    // console.log('student test warning ' + student_test_warning_update); 
+                    //    Visualforce.remoting.Manager.invokeAction(
+                    //                 '{!$RemoteAction.QuestionsPageCtrlAlt.UpdateCurrentTimer}',
+                    //                 totalSeconds,studentIdMain,eventIdMain,true,student_test_warning_update,
+                    //                 function (result, event) { 
+                    //                         console.log("UpdateCurrentTimer success");
+                    //                         if(isTimerOut == true){
+                    //                             // finishBtn();
+                    //                             updateOnsubmitandfinish();
+                    //                         }   
+                    //                             if (event.status) {
+                    //                                 console.log(event.status);
+                    //                             }
+                    //                             else if (result.type === 'exception') {
+                    //                                 alert("Exception caught");
+                    //                             }
+                    //                             else {
+                    //                                 alert("Exception caught");
+                    //                             }
+                    //                     }
+                    //             ); 
+
+
+
+
                          
                     }
 
@@ -1939,12 +2023,14 @@
                 }
                 
                 //load first and current question end 
-                const StudentQuestionsFromLocal = localStorage.getItem('StudentQuestions');
+                
                 if(StudentQuestionsFromLocal){
+                    StudentQuestionsFromLocal = JSON.parse(StudentQuestionsFromLocal);
                     initData(StudentQuestionsFromLocal);
                     console.log('From localstorage');
                     console.log(StudentQuestionsFromLocal);
                     val = StudentQuestionsFromLocal;
+                    hideLoader();
                 }else{
 
                 Visualforce.remoting.Manager.invokeAction(
@@ -1954,8 +2040,9 @@
                                             console.log("success");    
                                                 hideLoader();  
                                                 
-                                                localStorage.setItem('StudentQuestions', result);
+                                                localStorage.setItem('StudentQuestions', JSON.stringify(result));
                                                 initData(result);
+                                                val  = result;
                                                 console.log('From backend');
                                                 console.log(result);
                                                 if (event.status) {
@@ -2099,27 +2186,46 @@
                                         return question.question_number__c  === (parseInt(btn.textContent) + 1);
                                     });  
 
+                                    for(var i = 0 ; i < StudentQuestionsFromLocal.length ;i++){
+                                    // console.log(StudentQuestionsFromLocal[i]);
+                                    if(StudentQuestionsFromLocal[i].question_number__c === selectedQuestion.question_number__c){
+                                                    StudentQuestionsFromLocal[i].currentQuestion__c = true;
 
-                                            Visualforce.remoting.Manager.invokeAction(
-                                                        '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
-                                                        selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
-                                                        function (result, event) { 
-                                                                console.log("success");
-                                                                // location.reload();
-                                                                initData(result);
-                                                                val = result;
-                                                                hideLoader();
-                                                                    if (event.status) {
-                                                                        console.log(event.status);
-                                                                    }
-                                                                    else if (result.type === 'exception') {
-                                                                        alert("Exception caught");
-                                                                    }
-                                                                    else {
-                                                                        alert("Exception caught");
-                                                                    }
-                                                            }
-                                                    );
+                                    }else{
+                                        StudentQuestionsFromLocal[i].currentQuestion__c = false;
+                                    }
+
+                                    if(questionId == StudentQuestionsFromLocal[i].Id){
+                                        StudentQuestionsFromLocal[i].student_attempt__c = studentAnswer;
+                                        StudentQuestionsFromLocal[i].is_attempted__c = isQstAttempted;
+                                    }
+                                }
+                                localStorage.setItem('StudentQuestions', JSON.stringify(StudentQuestionsFromLocal));
+                                initData(StudentQuestionsFromLocal);
+                                val = StudentQuestionsFromLocal;
+                                hideLoader();
+
+
+                                            // Visualforce.remoting.Manager.invokeAction(
+                                            //             '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
+                                            //             selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
+                                            //             function (result, event) { 
+                                            //                     console.log("success");
+                                            //                     // location.reload();
+                                            //                     initData(result);
+                                            //                     val = result;
+                                            //                     hideLoader();
+                                            //                         if (event.status) {
+                                            //                             console.log(event.status);
+                                            //                         }
+                                            //                         else if (result.type === 'exception') {
+                                            //                             alert("Exception caught");
+                                            //                         }
+                                            //                         else {
+                                            //                             alert("Exception caught");
+                                            //                         }
+                                            //                 }
+                                            //         );
                                                     studentAnswer = '';
                                                     questionId  = '';
                                                     isQstAttempted = false;  
@@ -2166,29 +2272,48 @@
                                  if(parseInt(btn.textContent) != 1){
                                             selectedQuestion = val.find(function(question) {
                                             return question.question_number__c  === (parseInt(btn.textContent) - 1);
-                                        });  
+                                        }); 
+                                        
+                                        for(var i = 0 ; i < StudentQuestionsFromLocal.length ;i++){
+                        // console.log(StudentQuestionsFromLocal[i]);
+                                        if(StudentQuestionsFromLocal[i].question_number__c === selectedQuestion.question_number__c){
+                                                        StudentQuestionsFromLocal[i].currentQuestion__c = true;
+
+                                        }else{
+                                            StudentQuestionsFromLocal[i].currentQuestion__c = false;
+                                        }
+
+                                        if(questionId == StudentQuestionsFromLocal[i].Id){
+                                            StudentQuestionsFromLocal[i].student_attempt__c = studentAnswer;
+                                            StudentQuestionsFromLocal[i].is_attempted__c = isQstAttempted;
+                                        }
+                                    }
+                                    localStorage.setItem('StudentQuestions', JSON.stringify(StudentQuestionsFromLocal));
+                                    initData(StudentQuestionsFromLocal);
+                                    val = StudentQuestionsFromLocal;
+                                    hideLoader();
 
 
-                                        Visualforce.remoting.Manager.invokeAction(
-                                                    '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
-                                                    selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
-                                                    function (result, event) { 
-                                                            console.log("success");
-                                                            initData(result);
-                                                            val = result;
-                                                            hideLoader();
+                                        // Visualforce.remoting.Manager.invokeAction(
+                                        //             '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
+                                        //             selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
+                                        //             function (result, event) { 
+                                        //                     console.log("success");
+                                        //                     initData(result);
+                                        //                     val = result;
+                                        //                     hideLoader();
                                                                 
-                                                                if (event.status) {
-                                                                    console.log(event.status);
-                                                                }
-                                                                else if (result.type === 'exception') {
-                                                                    alert("Exception caught");
-                                                                }
-                                                                else {
-                                                                    alert("Exception caught");
-                                                                }
-                                                        }
-                                                );
+                                        //                         if (event.status) {
+                                        //                             console.log(event.status);
+                                        //                         }
+                                        //                         else if (result.type === 'exception') {
+                                        //                             alert("Exception caught");
+                                        //                         }
+                                        //                         else {
+                                        //                             alert("Exception caught");
+                                        //                         }
+                                        //                 }
+                                        //         );
 
                                                 studentAnswer = '';
                                                 questionId  = '';
@@ -2249,27 +2374,46 @@
                     });
 
                     // console.log('onClickbutton    : isQstAttempted ='+isQstAttempted + '   studentAnswer =' +studentAnswer + '   questionId ='+questionId  );
+                     
+                    for(var i = 0 ; i < StudentQuestionsFromLocal.length ;i++){
+                        // console.log(StudentQuestionsFromLocal[i]);
+                         if(StudentQuestionsFromLocal[i].question_number__c === selectedQuestion.question_number__c){
+                                        StudentQuestionsFromLocal[i].currentQuestion__c = true;
 
-                    Visualforce.remoting.Manager.invokeAction(
-                                '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
-                                selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
-                                function (result, event) { 
-                                           console.log("success");
-                                           initData(result);
-                                           val = result;
-                                           hideLoader();
+                         }else{
+                            StudentQuestionsFromLocal[i].currentQuestion__c = false;
+                         }
+
+                         if(questionId == StudentQuestionsFromLocal[i].Id){
+                            StudentQuestionsFromLocal[i].student_attempt__c = studentAnswer;
+                            StudentQuestionsFromLocal[i].is_attempted__c = isQstAttempted;
+                         }
+                    }
+                    localStorage.setItem('StudentQuestions', JSON.stringify(StudentQuestionsFromLocal));
+                    initData(StudentQuestionsFromLocal);
+                    val = StudentQuestionsFromLocal;
+                    hideLoader();
+                    // Visualforce.remoting.Manager.invokeAction(
+                    //             '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
+                    //             selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
+                    //             function (result, event) { 
+                    //                        console.log("success");
+                    //                        initData(result);
+                    //                        val = result;
+                    //                        hideLoader();
                                             
-                                            if (event.status) {
-                                                console.log(event.status);
-                                            }
-                                            else if (result.type === 'exception') {
-                                                alert("Exception caught");
-                                            }
-                                            else {
-                                                alert("Exception caught");
-                                            }
-                                    }
-                            );
+
+                    //                         if (event.status) {
+                    //                             console.log(event.status);
+                    //                         }
+                    //                         else if (result.type === 'exception') {
+                    //                             alert("Exception caught");
+                    //                         }
+                    //                         else {
+                    //                             alert("Exception caught");
+                    //                         }
+                    //                 }
+                    //         );
                             studentAnswer = '';
                             questionId  = '';
                             isQstAttempted = false;  
