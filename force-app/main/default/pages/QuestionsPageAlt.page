@@ -1261,8 +1261,11 @@
         <script>
 
 
+            var val = [];
 
-function displayErrorMessage(errorText) {
+
+
+            function displayErrorMessage(errorText) {
                 const errorCustom = document.getElementById("errorCustom");
                 const alertText = errorCustom.querySelector("#alertText");
                 const alertImg = errorCustom.querySelector("#alertImg");
@@ -1521,7 +1524,7 @@ function displayErrorMessage(errorText) {
                             for (var i = 0; i < result.length; i++) {
                                 var itemData = result[i];
                                 var newItem = document.createElement('div');
-                                if(itemData.is_attempted__c || itemData.is_attempted__c || (isQstAttemptedOption && itemData.currentQuestion__c)){
+                                if(itemData.is_attempted__c ){
                                     newItem.classList.add('main-cnt-3-qnt-cnt-item');
                                 }else{
                                     newItem.classList.add('main-cnt-3-qnt-cnt-item-red');
@@ -1531,8 +1534,8 @@ function displayErrorMessage(errorText) {
                                     <div>${itemData.question_number__c}</div>
                                     <div>${itemData.question_category__c}</div>
                                     <div class="main-cnt-3-qnt-cnt-item-check">
-                                        <img  class="check-hide-${itemData.is_attempted__c || (isQstAttemptedOption && itemData.currentQuestion__c)}" src="{!URLFOR($Resource.unchecked_icon)}" alt="My PNG Image" style="width: 30px; height: 30px;" />
-                                        <img  class="check-show-${itemData.is_attempted__c || (isQstAttemptedOption && itemData.currentQuestion__c)}" src="{!URLFOR($Resource.checked_icon)}" alt="My PNG Image" style="width: 30px; height: 30px;" />
+                                        <img  class="check-hide-${itemData.is_attempted__c}" src="{!URLFOR($Resource.unchecked_icon)}" alt="My PNG Image" style="width: 30px; height: 30px;" />
+                                        <img  class="check-show-${itemData.is_attempted__c}" src="{!URLFOR($Resource.checked_icon)}" alt="My PNG Image" style="width: 30px; height: 30px;" />
                                     </div>
                                 `;
 
@@ -1553,57 +1556,33 @@ function displayErrorMessage(errorText) {
             
            
 
-            function submitTest() {
-
-                showLoader();
+            function submitTest() { 
                 
-
-                Visualforce.remoting.Manager.invokeAction(
-                                    '{!$RemoteAction.QuestionsPageCtrlAlt.GetQuestionCount}',
-                                    studentIdMain, eventIdMain,
-                                    function (result, event) { 
-                                            // console.log("success");  
-                                            // console.log(result);
-                                            hideLoader();
-
-                                            if(isQstAttemptedOption == true){
-                                                result++;
-                                            }
-
-                                            document.querySelector('.main-cnt-2-main').classList.remove('hide-finish');
+               var result = 0;
+                for(var i= 0;i<val.length;i++){
+                        if(val[i].is_attempted__c === true){
+                            result++;
+                        }
+                }
+                document.querySelector('.main-cnt-2-main').classList.remove('hide-finish');
                                             
-                                            var ele = document.querySelector(".qnt-count-sp");
-                                            ele.classList.remove('qnt-ount-sp-red');
-                                            ele.textContent = result + "/" + 30;
-                                            ele = document.querySelector('.tick-mark-2');
-                                            ele.classList.remove('hide-tick');
-                                            ele = document.querySelector('.tick-mark-1');
-                                            ele.classList.remove('hide-tick');
-                                             if(result < 30){
-                                                ele = document.querySelector(".qnt-count-sp"); 
-                                                ele.classList.add('qnt-ount-sp-red');
-                                                ele = document.querySelector('.tick-mark-1');
-                                                ele.classList.add('hide-tick'); 
-                                             }else{
-                                                ele = document.querySelector('.tick-mark-2');
-                                                ele.classList.add('hide-tick');
+                var ele = document.querySelector(".qnt-count-sp");
+                ele.classList.remove('qnt-ount-sp-red');
+                ele.textContent = result + "/" + 30;
+                ele = document.querySelector('.tick-mark-2');
+                ele.classList.remove('hide-tick');
+                ele = document.querySelector('.tick-mark-1');
+                ele.classList.remove('hide-tick');
+                    if(result < 30){
+                    ele = document.querySelector(".qnt-count-sp"); 
+                    ele.classList.add('qnt-ount-sp-red');
+                    ele = document.querySelector('.tick-mark-1');
+                    ele.classList.add('hide-tick'); 
+                    }else{
+                    ele = document.querySelector('.tick-mark-2');
+                    ele.classList.add('hide-tick');
 
-                                             }   
-                                            if (event.status) {
-                                                    // console.log(event.status);
-                                                }
-                                                else if (result.type === 'exception') {
-                                                    alert("Exception caught");
-                                                }
-                                                else {
-                                                    alert("Exception caught");
-                                                }
-                                        }
-                                ); 
-
- 
-                
-              
+                    }  
             }
 
             function BackBtn(){
@@ -1806,7 +1785,7 @@ function displayErrorMessage(errorText) {
                 //timer
 
 
-                var val = [];
+                
 
                 showLoader();
 
@@ -1823,39 +1802,7 @@ function displayErrorMessage(errorText) {
 
                 function updateOnsubmitandfinish(){
                           showLoader();   
-                        var selectedQuestion; 
-                        
-                        navBtns.forEach(function(navbtn) {
-                            if(navbtn.classList.contains('qst-nav-btn-item-current')){
-                                var getStudentId = val.find(function(question){
-                                    return question.question_number__c === (parseInt(navbtn.textContent));
-                                })
-                                questionId = getStudentId.Id;
-                                selectedQuestion = getStudentId;
-                            }
-                        });
-
-                        if(!selectedQuestion){
-                            var targetPageUrl = '/apex/TestSubmitScreen?studentId=' + studentIdMain + '&eventId=' + eventIdMain;
-                            window.location.href = targetPageUrl;
-                            return;
-                        }
-
-                          
-
-                        Visualforce.remoting.Manager.invokeAction(
-                                    '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
-                                    selectedQuestion.question_number__c ,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
-                                    function (result, event) { 
-                                            // console.log("updateCurrentQuestion success");
-                                            initData(result);
-                                            val = result;
-                                            
-                                            
-                                            
-
-
-                                            Visualforce.remoting.Manager.invokeAction(
+                          Visualforce.remoting.Manager.invokeAction(
                                                     '{!$RemoteAction.QuestionsPageCtrlAlt.updateTestMarks}',
                                                     studentIdMain, eventIdMain,
                                                     function (result, event) { 
@@ -1872,7 +1819,7 @@ function displayErrorMessage(errorText) {
                                                                 // navbuttons.classList.toggle("hide-tick");
                                                             }
                                                             else{
-                                                                window.alert("Something went wrong");
+                                                                displayErrorMessage("Something went wrong");
                                                             }
                                                             if (event.status) {
                                                                     // console.log(event.status);
@@ -1884,20 +1831,8 @@ function displayErrorMessage(errorText) {
                                                                     alert("Exception caught");
                                                                 }
                                                         }
-                                                );  
-                                             
-                                                
-                                                if (event.status) {
-                                                    // console.log(event.status);
-                                                }
-                                                else if (result.type === 'exception') {
-                                                    alert("Exception caught");
-                                                }
-                                                else {
-                                                    alert("Exception caught");
-                                                }
-                                        }
-                                ); 
+                                                );   
+                        
                                 studentAnswer = '';
                                 questionId  = '';
                                 isQstAttempted = false;
@@ -2364,6 +2299,7 @@ function displayErrorMessage(errorText) {
             var qstnButtons = document.querySelectorAll('.qst-nav-btn-item');
             qstnButtons.forEach(function(button) {
                 button.addEventListener('click', function(event) {
+                    
 
                     isQstAttemptedOption = false; 
                     showLoader(); 
