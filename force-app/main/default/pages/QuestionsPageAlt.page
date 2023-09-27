@@ -1119,10 +1119,10 @@
                                 <div class="question-cnt-question-number-2">|</div> 
                                 <div class="question-cnt-question-cat"></div>
                             </div>
-                            <div style="margin-right:-32vw">
+                            <!-- <div style="margin-right:-32vw">
                                 <img onclick="unflagqst()" id="flag-qst" class="qst-flag-hide" src="{!URLFOR($Resource.flag_icon)}" style="height:6vh;width:4vw;cursor: pointer;" alt="My PNG Image" />
                                 <img onclick="flagqst()" id="un-flag-qst" src="{!URLFOR($Resource.flag_icon_fill)}" style="height:6vh;width:4vw;cursor: pointer;" alt="My PNG Image" />
-                            </div>
+                            </div> -->
                             <div class="toggle-icon-cnt"> 
                                 <img onclick="toggleButtons()" class="toggle-icon" src="{!URLFOR($Resource.toggle_icon)}" alt="My PNG Image" />
                                 
@@ -1334,10 +1334,10 @@
                                 return urlParams.get(name);
                     }
 
-                    // const studentIdMain = getUrlParameter('studentId');
-                    // const eventIdMain = getUrlParameter('eventId');
-                    const studentIdMain = 'a055j00000WjEpEAAV';
-                    const eventIdMain = 'a025j00000fBPGgAAO';
+                    const studentIdMain = getUrlParameter('studentId');
+                    const eventIdMain = getUrlParameter('eventId');
+                    // const studentIdMain = 'a055j00000WjEpEAAV';
+                    // const eventIdMain = 'a025j00000fBPGgAAO';
                     if((!studentIdMain) || (!eventIdMain)){
                         var targetPageUrl = '/apex/studentLoginPageAlt';
                                 window.location.href = targetPageUrl;
@@ -1459,8 +1459,7 @@
 
                 countIntervel = 100000; 
                 timerIntervalCounter = setInterval(() => {
-                     countIntervel--; 
-                    //  console.log('on load counter ' + countIntervel)
+                     countIntervel--;  
                      document.querySelector('.fullscreen-count-num').textContent = countIntervel;
                      if(countIntervel <= 0){ 
                                 student_test_warning = 0;  
@@ -1471,8 +1470,7 @@
 
                 student_test_warning = student_test_warning <= 0 ? 0 : student_test_warning - 1 ;
                 
-                if(student_test_warning <= 0){ 
-                    // finishBtn();
+                if(student_test_warning <= 0){  
                     updateOnsubmitandfinish();
                 }
                 if(student_test_isStarted){
@@ -1502,22 +1500,15 @@
             });
 
 
-            //fullscreen end
-
-
-   
-
-
-
-            var isQstAttemptedOption = false;
+            //fullscreen end 
             
             function PreviewTest(){
                 showLoader(); 
-                fillPreview(val);
+                setTimeout(()=>{
+                    fillPreview(val);
+                },1000)
                 
-                    function fillPreview(result) { 
-                            // console.log("success");  
-                            // console.log(result);
+                    function fillPreview(result) {  
                             var container = document.querySelector('.main-cnt-3-qnt-cnt');
                             container.innerHTML = '';
 
@@ -1564,25 +1555,28 @@
                             result++;
                         }
                 }
-                document.querySelector('.main-cnt-2-main').classList.remove('hide-finish');
-                                            
-                var ele = document.querySelector(".qnt-count-sp");
-                ele.classList.remove('qnt-ount-sp-red');
-                ele.textContent = result + "/" + 30;
-                ele = document.querySelector('.tick-mark-2');
-                ele.classList.remove('hide-tick');
-                ele = document.querySelector('.tick-mark-1');
-                ele.classList.remove('hide-tick');
-                    if(result < 30){
-                    ele = document.querySelector(".qnt-count-sp"); 
-                    ele.classList.add('qnt-ount-sp-red');
-                    ele = document.querySelector('.tick-mark-1');
-                    ele.classList.add('hide-tick'); 
-                    }else{
+                showLoader();
+                setTimeout(()=>{
+                    document.querySelector('.main-cnt-2-main').classList.remove('hide-finish'); 
+                    var ele = document.querySelector(".qnt-count-sp");
+                    ele.classList.remove('qnt-ount-sp-red');
+                    ele.textContent = result + "/" + 30;
                     ele = document.querySelector('.tick-mark-2');
-                    ele.classList.add('hide-tick');
-
-                    }  
+                    ele.classList.remove('hide-tick');
+                    ele = document.querySelector('.tick-mark-1');
+                    ele.classList.remove('hide-tick');
+                        if(result < 30){
+                        ele = document.querySelector(".qnt-count-sp"); 
+                        ele.classList.add('qnt-ount-sp-red');
+                        ele = document.querySelector('.tick-mark-1');
+                        ele.classList.add('hide-tick'); 
+                        }else{
+                        ele = document.querySelector('.tick-mark-2');
+                        ele.classList.add('hide-tick');
+    
+                        }  
+                        hideLoader();
+                },1000)
             }
 
             function BackBtn(){
@@ -1667,13 +1661,10 @@
                                 Visualforce.remoting.Manager.invokeAction(
                                     '{!$RemoteAction.QuestionsPageCtrlAlt.GetCurrentStudentSession}',
                                     studentIdMain,eventIdMain,
-                                    function (result, event) { 
-                                            // console.log("GetCurrentStudentSession success");     
-                                            // console.log(result);
+                                    function (result, event) {  
                                             student_test_isStarted = result.student_test_isStarted__c;
                                             student_test_warning = result.student_test_warning__c;
-                                            if( student_test_warning <= 0){
-                                                // finishBtn();
+                                            if( student_test_warning <= 0){ 
 
                                                 updateOnsubmitandfinish();
                                             }
@@ -1688,15 +1679,12 @@
                                                 ele = document.querySelector(".fullscreen-count-txt");
                                                 ele.classList.add("hide-count");
                                                 timerIntervalCounter = setInterval(() => {
-                                                    countIntervel--;
-                                                    // console.log('on load counter ' + countIntervel); 
+                                                    countIntervel--; 
                                                     document.querySelector('.fullscreen-count-num').textContent = countIntervel;
                                                     if(countIntervel <= 0){
                                                         student_test_warning = 0;
                                                         beforePageRefresh(student_test_warning,true); 
-                                                        clearInterval(timerIntervalCounter);
-                                                        // finishBtn();
-                                                        // updateOnsubmitandfinish();
+                                                        clearInterval(timerIntervalCounter); 
                                                         
                                                     }
                                                 }, 1000);
@@ -1747,19 +1735,15 @@
                     if(isSubmitedQuestion === true){
                         totalSeconds = 0;
                     }
-                    student_test_warning_update = student_test_warning <= 0 ? 0 : student_test_warning - 1 ; 
-                    // console.log('student test warning ' + student_test_warning_update); 
+                    student_test_warning_update = student_test_warning <= 0 ? 0 : student_test_warning - 1 ;  
                        Visualforce.remoting.Manager.invokeAction(
                                     '{!$RemoteAction.QuestionsPageCtrlAlt.UpdateCurrentTimer}',
                                     totalSeconds,studentIdMain,eventIdMain,true,student_test_warning_update,
-                                    function (result, event) { 
-                                            // console.log("UpdateCurrentTimer success");
-                                            if(isTimerOut == true){
-                                                // finishBtn();
+                                    function (result, event) {  
+                                            if(isTimerOut == true){ 
                                                 updateOnsubmitandfinish();
                                             }   
-                                                if (event.status) {
-                                                    // console.log(event.status);
+                                                if (event.status) { 
                                                 }
                                                 else if (result.type === 'exception') {
                                                     alert("Exception caught");
@@ -2031,8 +2015,7 @@
                             }
 
 
-                            if(selectedQuestion.is_attempted__c == true){
-                                // isQstAttemptedOption = true;
+                            if(selectedQuestion.is_attempted__c == true){ 
                                 if(selectedQuestion.student_attempt__c == 'option_1'){
                                     question_ele = document.querySelector('.option_1') 
                                     updateOptionOnLoad(question_ele,'option_1');
@@ -2050,9 +2033,7 @@
                                 clearele.classList.remove('clear-active');
                                 var clearele = document.querySelector('.save-btn');
                                 clearele.classList.add('hide-save-btn');
-                            }else{
-                                isQstAttemptedOption = false; 
-                            }
+                            } 
 
                             // console.log('dataToUpdate 2 : isQstAttempted ='+isQstAttempted + '   studentAnswer = ' +studentAnswer + '   questionId ='+questionId  );
                             
@@ -2153,8 +2134,7 @@
 
 
             function clearselectionbtnclick(){
-                          showLoader();   
-                          isQstAttemptedOption = false;
+                          showLoader();    
 
                           var selectedQuestion;
                           var questionID;
@@ -2194,8 +2174,7 @@
 
              }
 
-            function updateOption(event,selectedOption) { 
-                    isQstAttemptedOption = true;
+            function updateOption(event,selectedOption) {  
                     const parentDiv = event.currentTarget;
                     var optionAll = document.querySelectorAll('.question-cnt-options-item');
                     optionAll.forEach(function(opt){
@@ -2249,7 +2228,7 @@
                 }
                 initData(val); 
                 setTimeout(()=>{
-                         hideLoader();
+                     hideLoader();
                 },1250)
                });
 
@@ -2277,7 +2256,7 @@
                 }
                 initData(val);
                 setTimeout(()=>{
-                         hideLoader();
+                    hideLoader();
                 },1250)  
                });
 
@@ -2298,10 +2277,7 @@
 
             var qstnButtons = document.querySelectorAll('.qst-nav-btn-item');
             qstnButtons.forEach(function(button) {
-                button.addEventListener('click', function(event) {
-                    
-
-                    isQstAttemptedOption = false; 
+                button.addEventListener('click', function(event) {  
                     showLoader(); 
                         var flag = false;
                     for(var i=0;i<val.length;i++){
@@ -2329,50 +2305,50 @@
              
 
             function finishBtn(){
-                isSubmitedQuestion = true;
+                isSubmitedQuestion = true; 
                 updateOnsubmitandfinish();  
              
           }
 
 
-          function unflagqst(){
-            var navBtnContainer = document.querySelector('.qst-nav-btn');
-             var navBtns = navBtnContainer.querySelectorAll('.qst-nav-btn-item');
-             for( var i =0;i<val.length;i++){ 
-                if(val[i].currentQuestion__c){
-                    navBtns.forEach(function(navbtn) {
-                           if(parseInt(navbtn.textContent) == val[i].question_number__c){
-                                navbtn.classList.remove("flaged-qst");
-                           }
-                        });
-                }
+        //   function unflagqst(){
+        //     var navBtnContainer = document.querySelector('.qst-nav-btn');
+        //      var navBtns = navBtnContainer.querySelectorAll('.qst-nav-btn-item');
+        //      for( var i =0;i<val.length;i++){ 
+        //         if(val[i].currentQuestion__c){
+        //             navBtns.forEach(function(navbtn) {
+        //                    if(parseInt(navbtn.textContent) == val[i].question_number__c){
+        //                         navbtn.classList.remove("flaged-qst");
+        //                    }
+        //                 });
+        //         }
 
-             }
+        //      }
             
 
 
-            document.querySelector("#flag-qst").classList.add('qst-flag-hide');
-            document.querySelector("#un-flag-qst").classList.remove('qst-flag-hide');
+        //     document.querySelector("#flag-qst").classList.add('qst-flag-hide');
+        //     document.querySelector("#un-flag-qst").classList.remove('qst-flag-hide');
 
-          }
+        //   }
 
-          function flagqst(){
-            var navBtnContainer = document.querySelector('.qst-nav-btn');
-             var navBtns = navBtnContainer.querySelectorAll('.qst-nav-btn-item');
-             for( var i =0;i<val.length;i++){ 
-                if(val[i].currentQuestion__c){
-                    navBtns.forEach(function(navbtn) {
-                           if(parseInt(navbtn.textContent) == val[i].question_number__c){
-                                navbtn.classList.add("flaged-qst");
-                           }
-                        });
-                }
+        //   function flagqst(){
+        //     var navBtnContainer = document.querySelector('.qst-nav-btn');
+        //      var navBtns = navBtnContainer.querySelectorAll('.qst-nav-btn-item');
+        //      for( var i =0;i<val.length;i++){ 
+        //         if(val[i].currentQuestion__c){
+        //             navBtns.forEach(function(navbtn) {
+        //                    if(parseInt(navbtn.textContent) == val[i].question_number__c){
+        //                         navbtn.classList.add("flaged-qst");
+        //                    }
+        //                 });
+        //         }
 
-             }
+        //      }
             
-            document.querySelector("#flag-qst").classList.remove('qst-flag-hide');
-            document.querySelector("#un-flag-qst").classList.add('qst-flag-hide');
-          }
+        //     document.querySelector("#flag-qst").classList.remove('qst-flag-hide');
+        //     document.querySelector("#un-flag-qst").classList.add('qst-flag-hide');
+        //   }
 
 
           
