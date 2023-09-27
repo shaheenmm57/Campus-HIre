@@ -1110,18 +1110,6 @@
         <script src="/soap/ajax/32.0/apex.js" type="text/javascript"/>  
         <script>
 
-            
-     
-                    var val = [];
-                    var  StudentQuestionsFromLocal = localStorage.getItem('StudentQuestions');
-                    if(StudentQuestionsFromLocal){
-                        StudentQuestionsFromLocal  = JSON.parse(StudentQuestionsFromLocal);
-                    }
-                    var StudentTest = {};
-
-   
-        
-
 
 
                     function getUrlParameter(name) {
@@ -1132,7 +1120,7 @@
                     // const studentIdMain = getUrlParameter('studentId');
                     // const eventIdMain = getUrlParameter('eventId');
                     const studentIdMain = 'a055j00000WjEpEAAV';
-                    const eventIdMain = 'a025j00000fPTQLAA4';
+                    const eventIdMain = 'a025j00000fBPGgAAO';
                     if((!studentIdMain) || (!eventIdMain)){
                         var targetPageUrl = '/apex/studentLoginPageAlt';
                                 window.location.href = targetPageUrl;
@@ -1175,30 +1163,30 @@
             
  
  
-            document.addEventListener('keydown', function(event) {
-            console.log(event.key);
+            // document.addEventListener('keydown', function(event) {
+            // // console.log(event.key);
             
-            if (event.key === 'Alt' || event.key === 'Tab' || event.key === 'Meta' || event.key === 'Control') 
-            {
-                document.exitFullscreen();
-                console.log("GO OUT OF FULLSCREEN");
-            }
-            else{
-                // event.preventDefault();
-            }
-
-            
-            }); 
-
-            // document.addEventListener('contextmenu', function (e) {
-            // e.preventDefault();
-            // });
-
-            // setInterval(function () {
-            // if (typeof console._commandLineAPI !== 'undefined') {
-            //     console._commandLineAPI.clear();
-            //     console._commandLineAPI.reset();
+            // if (event.key === 'Alt' || event.key === 'Tab' || event.key === 'Meta' || event.key === 'Control' ||event.key === 'End' || event.key === 'F12' ) 
+            // {
+            //     document.exitFullscreen();
+                 
             // }
+            // else{
+            //     // event.preventDefault();
+            // }
+
+            
+            // }); 
+
+            //  document.addEventListener('contextmenu', function (e) {
+            //  e.preventDefault();
+            //  });
+
+            //  setInterval(function () {
+            //  if (typeof console._commandLineAPI !== 'undefined') {
+            //      console._commandLineAPI.clear();
+            //      console._commandLineAPI.reset();
+            //  }
             // }, 1000);
 
 
@@ -1218,7 +1206,7 @@
             var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
         
             if (requestMethod) { // Native full screen.
-            console.log("hello");
+            
                 requestMethod.call(element);
             } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
                 var wscript = new ActiveXObject("WScript.Shell");
@@ -1233,7 +1221,7 @@
         const fullScreenElement = document.querySelector("html");
 
         function fullscreenchanged(event) {
-            console.log('hello');
+             
             // document.fullscreenElement will point to the element that
             // is in fullscreen mode if there is one. If there isn't one,
             // the value of the property is null.
@@ -1268,7 +1256,7 @@
                 
                 if(student_test_warning <= 0){ 
                     // finishBtn();
-                    // updateOnsubmitandfinish(); kk
+                    updateOnsubmitandfinish();
                 }
                 if(student_test_isStarted){
                     document.querySelector('.start-fullscreen-popup-item').classList.add('fullscreen-popup-item');
@@ -1311,8 +1299,8 @@
                 fillPreview(val);
                 
                     function fillPreview(result) { 
-                            console.log("success");  
-                            console.log(result);
+                            // console.log("success");  
+                            // console.log(result);
                             var container = document.querySelector('.main-cnt-3-qnt-cnt');
                             container.innerHTML = '';
 
@@ -1353,81 +1341,51 @@
 
             function submitTest() {
 
-                var result =0;
-                for(var i = 0;i<StudentQuestionsFromLocal.length;i++){
-                    if(StudentQuestionsFromLocal.is_attempted__c){
-                        result++;
-                    }
-                }
-                
-                if(isQstAttemptedOption == true){
-                    result++;
-                }
-                document.querySelector('.main-cnt-2-main').classList.remove('hide-finish');
-
-                var ele = document.querySelector(".qnt-count-sp");
-                ele.classList.remove('qnt-ount-sp-red');
-                ele.textContent = result + "/" + 30;
-                ele = document.querySelector('.tick-mark-2');
-                ele.classList.remove('hide-tick');
-                ele = document.querySelector('.tick-mark-1');
-                ele.classList.remove('hide-tick');
-                if(result < 30){
-                    ele = document.querySelector(".qnt-count-sp"); 
-                    ele.classList.add('qnt-ount-sp-red');
-                    ele = document.querySelector('.tick-mark-1');
-                    ele.classList.add('hide-tick'); 
-                }else{
-                    ele = document.querySelector('.tick-mark-2');
-                    ele.classList.add('hide-tick');
-
-                } 
-
-            
+                showLoader();
                 
 
-                // Visualforce.remoting.Manager.invokeAction(
-                //                     '{!$RemoteAction.QuestionsPageCtrlAlt.GetQuestionCount}',
-                //                     studentIdMain, eventIdMain,
-                //                     function (result, event) { 
-                //                             console.log("success");  
-                //                             console.log(result);
-                //                             hideLoader();
+                Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.QuestionsPageCtrlAlt.GetQuestionCount}',
+                                    studentIdMain, eventIdMain,
+                                    function (result, event) { 
+                                            // console.log("success");  
+                                            // console.log(result);
+                                            hideLoader();
 
-                //                             if(isQstAttemptedOption == true){
-                //                                 result++;
-                //                             }
+                                            if(isQstAttemptedOption == true){
+                                                result++;
+                                            }
 
-                //                             document.querySelector('.main-cnt-2-main').classList.remove('hide-finish');
+                                            document.querySelector('.main-cnt-2-main').classList.remove('hide-finish');
                                             
-                //                             var ele = document.querySelector(".qnt-count-sp");
-                //                             ele.classList.remove('qnt-ount-sp-red');
-                //                             ele.textContent = result + "/" + 30;
-                //                             ele = document.querySelector('.tick-mark-2');
-                //                             ele.classList.remove('hide-tick');
-                //                             ele = document.querySelector('.tick-mark-1');
-                //                             ele.classList.remove('hide-tick');
-                //                              if(result < 30){
-                //                                 ele = document.querySelector(".qnt-count-sp"); 
-                //                                 ele.classList.add('qnt-ount-sp-red');
-                //                                 ele = document.querySelector('.tick-mark-1');
-                //                                 ele.classList.add('hide-tick'); 
-                //                              }else{
-                //                                 ele = document.querySelector('.tick-mark-2');
-                //                                 ele.classList.add('hide-tick');
+                                            var ele = document.querySelector(".qnt-count-sp");
+                                            ele.classList.remove('qnt-ount-sp-red');
+                                            ele.textContent = result + "/" + 30;
+                                            ele = document.querySelector('.tick-mark-2');
+                                            ele.classList.remove('hide-tick');
+                                            ele = document.querySelector('.tick-mark-1');
+                                            ele.classList.remove('hide-tick');
+                                             if(result < 30){
+                                                ele = document.querySelector(".qnt-count-sp"); 
+                                                ele.classList.add('qnt-ount-sp-red');
+                                                ele = document.querySelector('.tick-mark-1');
+                                                ele.classList.add('hide-tick'); 
+                                             }else{
+                                                ele = document.querySelector('.tick-mark-2');
+                                                ele.classList.add('hide-tick');
 
-                //                              }   
-                //                             if (event.status) {
-                //                                     console.log(event.status);
-                //                                 }
-                //                                 else if (result.type === 'exception') {
-                //                                     alert("Exception caught");
-                //                                 }
-                //                                 else {
-                //                                     alert("Exception caught");
-                //                                 }
-                //                         }
-                //                 ); 
+                                             }   
+                                            if (event.status) {
+                                                    // console.log(event.status);
+                                                }
+                                                else if (result.type === 'exception') {
+                                                    alert("Exception caught");
+                                                }
+                                                else {
+                                                    alert("Exception caught");
+                                                }
+                                        }
+                                ); 
 
  
                 
@@ -1490,39 +1448,19 @@
                 }
 
 
-                var studentTestObj = {
-                    student_test_warning:0,
-                    student_test_isStarted:false,
-                    student_test_current_time__c:0,
-                }
-
-                
-                const LocalTimer = localStorage.getItem('TimeInStorage');
-                if(LocalTimer){
-                    totalSeconds = parseInt(LocalTimer);
-                    console.log("from local storage");
-                    console.log(parseInt(LocalTimer));
-                    if(totalSeconds <= 0){
-                            var targetPageUrl = '/apex/TestSubmitScreen?studentId=' + studentIdMain + '&eventId=' + eventIdMain;
-                            window.location.href = targetPageUrl;
-                        }
-                    startTimer();
-                    hideLoader();
-                }else{
                 Visualforce.remoting.Manager.invokeAction(
                                     '{!$RemoteAction.QuestionsPageCtrlAlt.GetCurrentTimer}',
                                     studentIdMain,eventIdMain,
                                     function (result, event) { 
-                                            console.log("GetCurrentTimer success");     
+                                            // console.log("GetCurrentTimer success");     
                                             totalSeconds = result;
-                                            localStorage.setItem('TimeInStorage', totalSeconds);
                                             if(totalSeconds <= 0){
                                                 var targetPageUrl = '/apex/TestSubmitScreen?studentId=' + studentIdMain + '&eventId=' + eventIdMain;
                                                 window.location.href = targetPageUrl;
                                             }
                                             startTimer();
                                                 if (event.status) {
-                                                    console.log(event.status);
+                                                    // console.log(event.status);
                                                 }
                                                 else if (result.type === 'exception') {
                                                     alert("Exception caught");
@@ -1532,67 +1470,19 @@
                                                 }
                                         }
                                 );
-
-                        }
-
-                        var  StudentTestFromLocal = localStorage.getItem('StudentTestObjStorage');
-                        if(StudentTestFromLocal){
-                            StudentTestFromLocal = JSON.parse(StudentTestFromLocal);
-                            student_test_isStarted = StudentTestFromLocal.student_test_isStarted__c;
-                            student_test_warning = StudentTestFromLocal.student_test_warning__c;
-                            hideLoader();
-                            if( studentTestObj.student_test_warning <= 0){
-                                                // finishBtn();
-
-                                                // updateOnsubmitandfinish();  kk
-                                 }
-                                            
-                                            var ele = document.querySelector(".warning-cls");
-                                            ele.textContent = student_test_warning;
-
-                                            if(student_test_isStarted == true){
-                                                document.querySelector('.start-fullscreen-popup-item').classList.add('fullscreen-popup-item');
-                                                var ele = document.querySelector(".fullscreen-count");
-                                                ele.classList.remove("hide-count");
-                                                ele = document.querySelector(".fullscreen-count-txt");
-                                                ele.classList.add("hide-count");
-                                                timerIntervalCounter = setInterval(() => {
-                                                    countIntervel--;
-                                                    // console.log('on load counter ' + countIntervel); 
-                                                    document.querySelector('.fullscreen-count-num').textContent = countIntervel;
-                                                    if(countIntervel <= 0){
-                                                        student_test_warning = 0;
-                                                        beforePageRefresh(student_test_warning,true); 
-                                                        clearInterval(timerIntervalCounter);
-                                                        // finishBtn();
-                                                        // updateOnsubmitandfinish();  kk
-                                                        
-                                                    }
-                                                }, 1000);
-                                            }
-                                            else{
-                                                student_test_isStarted = true;
-                                            } 
-                        }else{
-
-                        
-
                                 
                                 Visualforce.remoting.Manager.invokeAction(
                                     '{!$RemoteAction.QuestionsPageCtrlAlt.GetCurrentStudentSession}',
                                     studentIdMain,eventIdMain,
                                     function (result, event) { 
-                                            console.log("GetCurrentStudentSession success");     
-                                            console.log(result);
-                                            studentTestObj.student_test_isStarted = result.student_test_isStarted__c;
-                                            studentTestObj.student_test_warning = result.student_test_warning__c;
+                                            // console.log("GetCurrentStudentSession success");     
+                                            // console.log(result);
                                             student_test_isStarted = result.student_test_isStarted__c;
                                             student_test_warning = result.student_test_warning__c;
-                                            localStorage.setItem('StudentTestObjStorage', JSON.stringify(studentTestObj));
-                                            if(student_test_warning <= 0){
+                                            if( student_test_warning <= 0){
                                                 // finishBtn();
 
-                                                // updateOnsubmitandfinish();   kk
+                                                updateOnsubmitandfinish();
                                             }
                                             
                                             var ele = document.querySelector(".warning-cls");
@@ -1622,7 +1512,7 @@
                                                 student_test_isStarted = true;
                                             } 
                                                 if (event.status) {
-                                                    console.log(event.status);
+                                                    // console.log(event.status);
                                                 }
                                                 else if (result.type === 'exception') {
                                                     alert("Exception caught");
@@ -1632,7 +1522,6 @@
                                                 }
                                         }
                                 ); 
-                            }
 
                 var isSubmitedQuestion = false;
 
@@ -1640,75 +1529,53 @@
                      if(isSubmitedQuestion === true){
                         totalSeconds = 0;
                      }
-
-                    studentTestObj.student_test_isStarted = true;
-                    studentTestObj.student_test_warning = student_test_warning;
-                    studentTestObj,student_test_current_time__c = totalSeconds;
-                    localStorage.setItem('StudentTestObjStorage', JSON.stringify(studentTestObj));
-
-                    //  Visualforce.remoting.Manager.invokeAction(
-                    //                  '{!$RemoteAction.QuestionsPageCtrlAlt.UpdateCurrentTimer}',
-                    //                  totalSeconds,studentIdMain,eventIdMain,true,student_test_warning,
-                    //                  function (result, event) { 
-                    //                          console.log("success");   
-                    //                              if (event.status) {
-                    //                                  console.log(event.status);
-                    //                              }
-                    //                              else if (result.type === 'exception') {
-                    //                                  alert("Exception caught");
-                    //                              }
-                    //                              else {
-                    //                                  alert("Exception caught");
-                    //                              }
-                    //                      }
-                    //              ); 
+                     Visualforce.remoting.Manager.invokeAction(
+                                     '{!$RemoteAction.QuestionsPageCtrlAlt.UpdateCurrentTimer}',
+                                     totalSeconds,studentIdMain,eventIdMain,true,student_test_warning,
+                                     function (result, event) { 
+                                            //  console.log("success");   
+                                                 if (event.status) {
+                                                    //  console.log(event.status);
+                                                 }
+                                                 else if (result.type === 'exception') {
+                                                     alert("Exception caught");
+                                                 }
+                                                 else {
+                                                     alert("Exception caught");
+                                                 }
+                                         }
+                                 ); 
                     //  console.log(totalSeconds)
-                 }, 1000);
+                 }, 60000);
 
 
                  function beforePageRefresh(student_test_warning,isTimerOut) {
-                    console.log("before refresh");
+                    // console.log("before refresh");
                     if(isSubmitedQuestion === true){
                         totalSeconds = 0;
                     }
-                    var student_test_warning_update = student_test_warning <= 0 ? 0 : student_test_warning - 1 ;
-                    
-                    
-                                            studentTestObj.student_test_isStarted = true;
-                                            studentTestObj.student_test_warning = student_test_warning_update;
-                                            studentTestObj,student_test_current_time__c = totalSeconds;
-                                            localStorage.setItem('StudentTestObjStorage', JSON.stringify(studentTestObj));
-                                          if(isTimerOut == true){
-                                                // finishBtn();
-                                                // updateOnsubmitandfinish(); kk
-                                            }
-
-
+                    student_test_warning_update = student_test_warning <= 0 ? 0 : student_test_warning - 1 ; 
                     // console.log('student test warning ' + student_test_warning_update); 
-                    //    Visualforce.remoting.Manager.invokeAction(
-                    //                 '{!$RemoteAction.QuestionsPageCtrlAlt.UpdateCurrentTimer}',
-                    //                 totalSeconds,studentIdMain,eventIdMain,true,student_test_warning_update,
-                    //                 function (result, event) { 
-                    //                         console.log("UpdateCurrentTimer success");
-                    //                         if(isTimerOut == true){
-                    //                             // finishBtn();
-                    //                             updateOnsubmitandfinish();
-                    //                         }   
-                    //                             if (event.status) {
-                    //                                 console.log(event.status);
-                    //                             }
-                    //                             else if (result.type === 'exception') {
-                    //                                 alert("Exception caught");
-                    //                             }
-                    //                             else {
-                    //                                 alert("Exception caught");
-                    //                             }
-                    //                     }
-                    //             ); 
-
-
-
-
+                       Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.QuestionsPageCtrlAlt.UpdateCurrentTimer}',
+                                    totalSeconds,studentIdMain,eventIdMain,true,student_test_warning_update,
+                                    function (result, event) { 
+                                            // console.log("UpdateCurrentTimer success");
+                                            if(isTimerOut == true){
+                                                // finishBtn();
+                                                updateOnsubmitandfinish();
+                                            }   
+                                                if (event.status) {
+                                                    // console.log(event.status);
+                                                }
+                                                else if (result.type === 'exception') {
+                                                    alert("Exception caught");
+                                                }
+                                                else {
+                                                    alert("Exception caught");
+                                                }
+                                        }
+                                ); 
                          
                     }
 
@@ -1725,7 +1592,7 @@
                 //timer
 
 
-              
+                var val = [];
 
                 showLoader();
 
@@ -1766,7 +1633,7 @@
                                     '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
                                     selectedQuestion.question_number__c ,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
                                     function (result, event) { 
-                                            console.log("updateCurrentQuestion success");
+                                            // console.log("updateCurrentQuestion success");
                                             initData(result);
                                             val = result;
                                             
@@ -1778,8 +1645,8 @@
                                                     '{!$RemoteAction.QuestionsPageCtrlAlt.updateTestMarks}',
                                                     studentIdMain, eventIdMain,
                                                     function (result, event) { 
-                                                            console.log("updateTestMarks success");  
-                                                            console.log(result);
+                                                            // console.log("updateTestMarks success");  
+                                                            // console.log(result);
                                                             hideLoader();
                                                             
                                                             if(result === true)
@@ -1794,7 +1661,7 @@
                                                                 window.alert("Something went wrong");
                                                             }
                                                             if (event.status) {
-                                                                    console.log(event.status);
+                                                                    // console.log(event.status);
                                                                 }
                                                                 else if (result.type === 'exception') {
                                                                     alert("Exception caught");
@@ -1807,7 +1674,7 @@
                                              
                                                 
                                                 if (event.status) {
-                                                    console.log(event.status);
+                                                    // console.log(event.status);
                                                 }
                                                 else if (result.type === 'exception') {
                                                     alert("Exception caught");
@@ -1831,7 +1698,7 @@
         function initData(val){
 
             // console.log('initData 1 : isQstAttempted ='+isQstAttempted + '   studentAnswer =' +studentAnswer + 'questionId ='+questionId  );
- 
+
                var optionAll = document.querySelectorAll('.question-cnt-options-item');
                 optionAll.forEach(function(opt){
                     opt.classList.remove('selected');
@@ -1849,7 +1716,7 @@
 
               
 
-                console.log(val); 
+                // console.log(val); 
                 
             
                         var selectedQuestion = val.find(function(question) {
@@ -1998,7 +1865,7 @@
 
 
                             if(selectedQuestion.is_attempted__c == true){
-                                isQstAttemptedOption = true;
+                                // isQstAttemptedOption = true;
                                 if(selectedQuestion.student_attempt__c == 'option_1'){
                                     question_ele = document.querySelector('.option_1') 
                                     updateOptionOnLoad(question_ele,'option_1');
@@ -2014,6 +1881,8 @@
                                 }
                                 var clearele = document.querySelector('.clear-btn');
                                 clearele.classList.remove('clear-active');
+                            }else{
+                                isQstAttemptedOption = false;
                             }
 
                             // console.log('initData 2 : isQstAttempted ='+isQstAttempted + '   studentAnswer = ' +studentAnswer + '   questionId ='+questionId  );
@@ -2064,30 +1933,17 @@
                 }
                 
                 //load first and current question end 
-                
-                if(StudentQuestionsFromLocal){
-                    StudentQuestionsFromLocal = JSON.parse(StudentQuestionsFromLocal);
-                    initData(StudentQuestionsFromLocal);
-                    console.log('From localstorage');
-                    console.log(StudentQuestionsFromLocal);
-                    val = StudentQuestionsFromLocal;
-                    hideLoader();
-                }else{
 
                 Visualforce.remoting.Manager.invokeAction(
                                     '{!$RemoteAction.QuestionsPageCtrlAlt.GetInitialData}',
                                     studentIdMain,eventIdMain,
                                     function (result, event) { 
-                                            console.log("success GetInitialData");    
+                                            // console.log("success");    
                                                 hideLoader();  
-                                                
-                                                localStorage.setItem('StudentQuestions', JSON.stringify(result));
                                                 initData(result);
-                                                val  = result;
-                                                console.log('From backend');
-                                                console.log(result);
+                                                val = result;
                                                 if (event.status) {
-                                                    console.log(event.status);
+                                                    // console.log(event.status);
                                                 }
                                                 else if (result.type === 'exception') {
                                                     alert("Exception caught");
@@ -2097,8 +1953,6 @@
                                                 }
                                         }
                                 ); 
-
-                    }
 
 
 
@@ -2130,46 +1984,27 @@
                             }
                         });
 
-                        for(var i = 0 ; i < StudentQuestionsFromLocal.length ;i++){
-                                    // console.log(StudentQuestionsFromLocal[i]);
-                                    if(StudentQuestionsFromLocal[i].question_number__c === selectedQuestion.question_number__c){
-                                                    StudentQuestionsFromLocal[i].currentQuestion__c = true;
-
-                                    }else{
-                                        StudentQuestionsFromLocal[i].currentQuestion__c = false;
-                                    }
-
-                                    if(questionId == StudentQuestionsFromLocal[i].Id){
-                                        StudentQuestionsFromLocal[i].student_attempt__c = '';
-                                        StudentQuestionsFromLocal[i].is_attempted__c = false;
-                                    }
-                                }
-                                localStorage.setItem('StudentQuestions', JSON.stringify(StudentQuestionsFromLocal));
-                                initData(StudentQuestionsFromLocal);
-                                val = StudentQuestionsFromLocal;
-                                hideLoader();
-
-                        // Visualforce.remoting.Manager.invokeAction(
-                        //             '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
-                        //             selectedQuestion.question_number__c,'',questionId,false,studentIdMain,eventIdMain,
-                        //             function (result, event) { 
-                        //                     console.log("success");
-                        //                     initData(result);
-                        //                     val = result;
-                        //                     hideLoader(); 
+                        Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
+                                    selectedQuestion.question_number__c,'',questionId,false,studentIdMain,eventIdMain,
+                                    function (result, event) { 
+                                            // console.log("success");
+                                            initData(result);
+                                            val = result;
+                                            hideLoader(); 
                                              
                                                 
-                        //                         if (event.status) {
-                        //                             console.log(event.status);
-                        //                         }
-                        //                         else if (result.type === 'exception') {
-                        //                             alert("Exception caught");
-                        //                         }
-                        //                         else {
-                        //                             alert("Exception caught");
-                        //                         }
-                        //                 }
-                        //         ); 
+                                                if (event.status) {
+                                                    // console.log(event.status);
+                                                }
+                                                else if (result.type === 'exception') {
+                                                    alert("Exception caught");
+                                                }
+                                                else {
+                                                    alert("Exception caught");
+                                                }
+                                        }
+                                ); 
                                 studentAnswer = '';
                                 questionId  = '';
                                 isQstAttempted = false;
@@ -2222,7 +2057,7 @@
              var nextbtnele = document.querySelector('.nextbtnclick');
                nextbtnele.addEventListener('click', function(){ 
 
-                console.log('next btn');
+                // console.log('next btn');
 
                 showLoader(); 
 
@@ -2233,7 +2068,7 @@
                         if( flag === 0 && btn.classList.contains('qst-nav-btn-item-current') ){
                             flag = 1;  
                             
-                                        console.log(parseInt(btn.textContent));
+                                        // console.log(parseInt(btn.textContent));
                                 var getStudentId = val.find(function(question){
                                     return question.question_number__c === (parseInt(btn.textContent));
                                 })
@@ -2246,46 +2081,27 @@
                                         return question.question_number__c  === (parseInt(btn.textContent) + 1);
                                     });  
 
-                                    for(var i = 0 ; i < StudentQuestionsFromLocal.length ;i++){
-                                    // console.log(StudentQuestionsFromLocal[i]);
-                                    if(StudentQuestionsFromLocal[i].question_number__c === selectedQuestion.question_number__c){
-                                                    StudentQuestionsFromLocal[i].currentQuestion__c = true;
 
-                                    }else{
-                                        StudentQuestionsFromLocal[i].currentQuestion__c = false;
-                                    }
-
-                                    if(questionId == StudentQuestionsFromLocal[i].Id){
-                                        StudentQuestionsFromLocal[i].student_attempt__c = studentAnswer;
-                                        StudentQuestionsFromLocal[i].is_attempted__c = isQstAttempted;
-                                    }
-                                }
-                                localStorage.setItem('StudentQuestions', JSON.stringify(StudentQuestionsFromLocal));
-                                initData(StudentQuestionsFromLocal);
-                                val = StudentQuestionsFromLocal;
-                                hideLoader();
-
-
-                                            // Visualforce.remoting.Manager.invokeAction(
-                                            //             '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
-                                            //             selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
-                                            //             function (result, event) { 
-                                            //                     console.log("success");
-                                            //                     // location.reload();
-                                            //                     initData(result);
-                                            //                     val = result;
-                                            //                     hideLoader();
-                                            //                         if (event.status) {
-                                            //                             console.log(event.status);
-                                            //                         }
-                                            //                         else if (result.type === 'exception') {
-                                            //                             alert("Exception caught");
-                                            //                         }
-                                            //                         else {
-                                            //                             alert("Exception caught");
-                                            //                         }
-                                            //                 }
-                                            //         );
+                                            Visualforce.remoting.Manager.invokeAction(
+                                                        '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
+                                                        selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
+                                                        function (result, event) { 
+                                                                // console.log("success");
+                                                                // location.reload();
+                                                                initData(result);
+                                                                val = result;
+                                                                hideLoader();
+                                                                    if (event.status) {
+                                                                        // console.log(event.status);
+                                                                    }
+                                                                    else if (result.type === 'exception') {
+                                                                        alert("Exception caught");
+                                                                    }
+                                                                    else {
+                                                                        alert("Exception caught");
+                                                                    }
+                                                            }
+                                                    );
                                                     studentAnswer = '';
                                                     questionId  = '';
                                                     isQstAttempted = false;  
@@ -2308,7 +2124,7 @@
                var prvbtnele = document.querySelector('.prvbtnclick');
                prvbtnele.addEventListener('click', function(){ 
 
-                console.log('prv btn');
+                // console.log('prv btn');
 
                 showLoader(); 
 
@@ -2319,7 +2135,7 @@
                         if( flag === 0 && btn.classList.contains('qst-nav-btn-item-current') ){
                             flag = 1;  
                             
-                                        console.log(parseInt(btn.textContent));
+                                        // console.log(parseInt(btn.textContent));
 
                                         var getStudentId = val.find(function(question){
                                             return question.question_number__c === (parseInt(btn.textContent));
@@ -2332,48 +2148,29 @@
                                  if(parseInt(btn.textContent) != 1){
                                             selectedQuestion = val.find(function(question) {
                                             return question.question_number__c  === (parseInt(btn.textContent) - 1);
-                                        }); 
-                                        
-                                        for(var i = 0 ; i < StudentQuestionsFromLocal.length ;i++){
-                        // console.log(StudentQuestionsFromLocal[i]);
-                                        if(StudentQuestionsFromLocal[i].question_number__c === selectedQuestion.question_number__c){
-                                                        StudentQuestionsFromLocal[i].currentQuestion__c = true;
-
-                                        }else{
-                                            StudentQuestionsFromLocal[i].currentQuestion__c = false;
-                                        }
-
-                                        if(questionId == StudentQuestionsFromLocal[i].Id){
-                                            StudentQuestionsFromLocal[i].student_attempt__c = studentAnswer;
-                                            StudentQuestionsFromLocal[i].is_attempted__c = isQstAttempted;
-                                        }
-                                    }
-                                    localStorage.setItem('StudentQuestions', JSON.stringify(StudentQuestionsFromLocal));
-                                    initData(StudentQuestionsFromLocal);
-                                    val = StudentQuestionsFromLocal;
-                                    hideLoader();
+                                        });  
 
 
-                                        // Visualforce.remoting.Manager.invokeAction(
-                                        //             '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
-                                        //             selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
-                                        //             function (result, event) { 
-                                        //                     console.log("success");
-                                        //                     initData(result);
-                                        //                     val = result;
-                                        //                     hideLoader();
+                                        Visualforce.remoting.Manager.invokeAction(
+                                                    '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
+                                                    selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
+                                                    function (result, event) { 
+                                                            // console.log("success");
+                                                            initData(result);
+                                                            val = result;
+                                                            hideLoader();
                                                                 
-                                        //                         if (event.status) {
-                                        //                             console.log(event.status);
-                                        //                         }
-                                        //                         else if (result.type === 'exception') {
-                                        //                             alert("Exception caught");
-                                        //                         }
-                                        //                         else {
-                                        //                             alert("Exception caught");
-                                        //                         }
-                                        //                 }
-                                        //         );
+                                                                if (event.status) {
+                                                                    // console.log(event.status);
+                                                                }
+                                                                else if (result.type === 'exception') {
+                                                                    alert("Exception caught");
+                                                                }
+                                                                else {
+                                                                    alert("Exception caught");
+                                                                }
+                                                        }
+                                                );
 
                                                 studentAnswer = '';
                                                 questionId  = '';
@@ -2409,14 +2206,16 @@
             qstnButtons.forEach(function(button) {
                 button.addEventListener('click', function(event) {
 
-                    console.log('click btn');
+                    isQstAttemptedOption = false;
+
+                    // console.log('click btn');
                     showLoader(); 
 
 
                     var number = parseInt(event.currentTarget.textContent) ;
                      
                     
-                    console.log("Button clicked with number:", number);
+                    // console.log("Button clicked with number:", number);
                     var selectedQuestion = val.find(function(question) {
                         return question.question_number__c === number;
                     }); 
@@ -2434,46 +2233,27 @@
                     });
 
                     // console.log('onClickbutton    : isQstAttempted ='+isQstAttempted + '   studentAnswer =' +studentAnswer + '   questionId ='+questionId  );
-                     
-                    for(var i = 0 ; i < StudentQuestionsFromLocal.length ;i++){
-                        // console.log(StudentQuestionsFromLocal[i]);
-                         if(StudentQuestionsFromLocal[i].question_number__c === selectedQuestion.question_number__c){
-                                        StudentQuestionsFromLocal[i].currentQuestion__c = true;
 
-                         }else{
-                            StudentQuestionsFromLocal[i].currentQuestion__c = false;
-                         }
-
-                         if(questionId == StudentQuestionsFromLocal[i].Id){
-                            StudentQuestionsFromLocal[i].student_attempt__c = studentAnswer;
-                            StudentQuestionsFromLocal[i].is_attempted__c = isQstAttempted;
-                         }
-                    }
-                    localStorage.setItem('StudentQuestions', JSON.stringify(StudentQuestionsFromLocal));
-                    initData(StudentQuestionsFromLocal);
-                    val = StudentQuestionsFromLocal;
-                    hideLoader();
-                    // Visualforce.remoting.Manager.invokeAction(
-                    //             '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
-                    //             selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
-                    //             function (result, event) { 
-                    //                        console.log("success");
-                    //                        initData(result);
-                    //                        val = result;
-                    //                        hideLoader();
+                    Visualforce.remoting.Manager.invokeAction(
+                                '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
+                                selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
+                                function (result, event) { 
+                                        //    console.log("success");
+                                           initData(result);
+                                           val = result;
+                                           hideLoader();
                                             
-
-                    //                         if (event.status) {
-                    //                             console.log(event.status);
-                    //                         }
-                    //                         else if (result.type === 'exception') {
-                    //                             alert("Exception caught");
-                    //                         }
-                    //                         else {
-                    //                             alert("Exception caught");
-                    //                         }
-                    //                 }
-                    //         );
+                                            if (event.status) {
+                                                // console.log(event.status);
+                                            }
+                                            else if (result.type === 'exception') {
+                                                alert("Exception caught");
+                                            }
+                                            else {
+                                                alert("Exception caught");
+                                            }
+                                    }
+                            );
                             studentAnswer = '';
                             questionId  = '';
                             isQstAttempted = false;  

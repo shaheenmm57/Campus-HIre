@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>PowerBiApp</label>
+    <protected>false</protected>
+    <values>
+        <field>ClientId__c</field>
+        <value xsi:type="xsd:string">8e8ad385-a2f5-4ea4-9299-04cde62d6d25</value>
+    </values>
+    <values>
+        <field>ClientSecret__c</field>
+        <value xsi:type="xsd:string">edQ8Q~syo3~uLECSr2Q2LQCYugmH_Qm9cqRkicZF</value>
+    </values>
+    <values>
+        <field>TenantId__c</field>
+        <value xsi:type="xsd:string">6f35b842-6dd2-4e28-9c14-624323636888</value>
+    </values>
+</CustomMetadata>
