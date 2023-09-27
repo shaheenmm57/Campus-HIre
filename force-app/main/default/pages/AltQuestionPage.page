@@ -1334,10 +1334,10 @@
                                 return urlParams.get(name);
                     }
 
-                    const studentIdMain = getUrlParameter('studentId');
-                    const eventIdMain = getUrlParameter('eventId');
-                    // const studentIdMain = 'a055j00000WjEpEAAV';
-                    // const eventIdMain = 'a025j00000fBPGgAAO';
+                    // const studentIdMain = getUrlParameter('studentId');
+                    // const eventIdMain = getUrlParameter('eventId');
+                    const studentIdMain = 'a055j00000WjEpEAAV';
+                    const eventIdMain = 'a025j00000fBPGgAAO';
                     if((!studentIdMain) || (!eventIdMain)){
                         var targetPageUrl = '/apex/studentLoginPageAlt';
                                 window.location.href = targetPageUrl;
@@ -1842,9 +1842,9 @@
                 clearele.classList.remove('clear-active');
                 clearele.classList.add('clear-active');
 
-                var clearele = document.querySelector('.save-btn');
-                clearele.classList.remove('hide-save-btn');
-                clearele.classList.add('hide-save-btn');
+                // var clearele = document.querySelector('.save-btn');
+                // clearele.classList.remove('hide-save-btn');
+                // clearele.classList.add('hide-save-btn');
 
 
 
@@ -2032,8 +2032,8 @@
                                 }
                                 var clearele = document.querySelector('.clear-btn');
                                 clearele.classList.remove('clear-active');
-                                var clearele = document.querySelector('.save-btn');
-                                clearele.classList.add('hide-save-btn');
+                                // var clearele = document.querySelector('.save-btn');
+                                // clearele.classList.add('hide-save-btn');
                             } 
 
                             // console.log('dataToUpdate 2 : isQstAttempted ='+isQstAttempted + '   studentAnswer = ' +studentAnswer + '   questionId ='+questionId  );
@@ -2217,8 +2217,8 @@
                     // isQstAttempted = true;
                     var clearele = document.querySelector('.clear-btn');
                     clearele.classList.remove('clear-active');
-                    var clearele = document.querySelector('.save-btn');
-                    clearele.classList.remove('hide-save-btn');
+                    // var clearele = document.querySelector('.save-btn');
+                    // clearele.classList.remove('hide-save-btn');
                     // console.log("save"); 
                     SaveQuestion();
 
