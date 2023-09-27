@@ -4440,6 +4440,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>AltQuestionPage</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>AltQuestionPageCtrl</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ChangePasswordController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -4504,7 +4512,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>PowerBiEmbedManager</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>QuestionsPageCtrl</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>QuestionsPageCtrlAlt</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -4540,11 +4556,19 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>remoteTestControll</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>studentLoginAltCtrl</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>studentRegistrationController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>testStudentLoginCtrl</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <pageAccesses>
@@ -4553,6 +4577,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>AdminPage</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>AltQuestionPage</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
@@ -4604,11 +4632,23 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>IdeasHome</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>InMaintenance</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>InsertQuestionSets</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>InstructionsPage</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>MyProfilePage</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
@@ -4636,11 +4676,23 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>StdExceptionTemplate</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>TestSubmitScreen</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>TestingFullScreen</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>Unauthorized</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>UnderConstruction</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
@@ -4656,6 +4708,10 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>remoteTest</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>studentList</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -4668,6 +4724,10 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>studentReg</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>studentRegistration</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
@@ -4677,6 +4737,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>test</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>testStudentLogin</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <layoutAssignments>

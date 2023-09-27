@@ -790,7 +790,7 @@
 
                                                 console.log( ( currentTimeString >= result));
                                                 if(currentTimeString >= result){   
-                                                     var targetPageUrl = '/apex/QuestionsPageAlt?studentId=' + studentId + '&eventId=' + eventId;
+                                                     var targetPageUrl = '/apex/AltQuestionPage?studentId=' + studentId + '&eventId=' + eventId;
                                                      window.location.href = targetPageUrl;
                                                 }else{
                                                     displayErrorMessage('Test start time is ' +result+ ', please wait. ');

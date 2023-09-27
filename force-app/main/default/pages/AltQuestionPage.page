@@ -1160,9 +1160,9 @@
                             <div class="clear-btn clear-active">
                                 <div class="clear-btn-item" onclick="clearselectionbtnclick()">Clear Selection</div>
                             </div>
-                            <div class="save-btn hide-save-btn">
+                            <!-- <div class="save-btn hide-save-btn">
                                 <div class="save-btn-item" onclick="SaveQuestion()">Save</div>
-                            </div>
+                            </div> -->
                             <!-- <div id="nxt-btn-id" class="question-cnt-btn-item nextbtnclick"  >Next</div> -->
                         </div> 
                     </div>
@@ -1267,8 +1267,8 @@
 
             function displayErrorMessage(errorText) {
                 const errorCustom = document.getElementById("errorCustom");
-                const alertText = errorCustom.querySelector("#alertText");
-                const alertImg = errorCustom.querySelector("#alertImg");
+                const alertText = document.getElementById("alertText");
+                const alertImg = document.getElementById("alertImg");
                 errorCustom.textContent = "";
                 errorCustom.appendChild(alertImg);
                 errorCustom.appendChild(document.createTextNode("Error: " + errorText));
@@ -1334,10 +1334,10 @@
                                 return urlParams.get(name);
                     }
 
-                    // const studentIdMain = getUrlParameter('studentId');
-                    // const eventIdMain = getUrlParameter('eventId');
-                    const studentIdMain = 'a055j00000WjEpEAAV';
-                    const eventIdMain = 'a025j00000fBPGgAAO';
+                    const studentIdMain = getUrlParameter('studentId');
+                    const eventIdMain = getUrlParameter('eventId');
+                    // const studentIdMain = 'a055j00000WjEpEAAV';
+                    // const eventIdMain = 'a025j00000fBPGgAAO';
                     if((!studentIdMain) || (!eventIdMain)){
                         var targetPageUrl = '/apex/studentLoginPageAlt';
                                 window.location.href = targetPageUrl;
@@ -2077,6 +2077,7 @@
                                                     displayErrorMessage("Connection Issues. Try To Contact Admin.");
                                                     hideLoader();
                                                 }
+                                                
                                                 if (event.status) {
                                                     // console.log(event.status);
                                                 }
@@ -2101,24 +2102,28 @@
                                       selectedQuestion = val[i];
                                     }
                                 }
-                                            Visualforce.remoting.Manager.invokeAction(
+ 
+                                           Visualforce.remoting.Manager.invokeAction(
                                                         '{!$RemoteAction.AltQuestionPageCtrl.updateCurrentQuestion}',
                                                         selectedQuestion.question_number__c,studentAnswer,questionID,true,studentIdMain,eventIdMain,
                                                         function (result, event) { 
-                                                            console.log("result");
-                                                            console.log(result);
-                                                            console.log('event')
-                                                            console.log(event);
+                                                            // console.log("result");
+                                                            // console.log(result);
+                                                            // console.log('event')
+                                                            // console.log(event);
                                                                 if(result){
                                                                     val = result;
                                                                     initData(result);
                                                                     hideLoader();
-                                                                    displaysSuccessMessage("Response Saved Sucessfully!")
+                                                                    displaysSuccessMessage("Response Saved Sucessfully!") 
                                                                 }else{
-                                                                    displayErrorMessage("Connection Issues. Try Saving Again.");
                                                                     initData(val);
-                                                                    hideLoader();
+                                                                    hideLoader(); 
+                                                                    displayErrorMessage("Connection Issues. Try Saving Again.");
                                                                 }
+                                                                
+                                                                   
+                                                                
                                                                     if (event.status) {
                                                                         // console.log(event.status);
                                                                     }
@@ -2129,7 +2134,7 @@
                                                                         alert("Exception caught");
                                                                     }
                                                             }
-                                                    );
+                                                    ); 
                                                     studentAnswer = '';
                                                     isQstAttempted = false;
                                     }
@@ -2172,14 +2177,15 @@
                                             // val = result;
                                             // hideLoader(); 
                                             
-                                            if(event && result){
+                                            if(result){
                                                 val = result;
                                                 initData(result);
                                                 hideLoader();
-                                                displayWarningMessage("Cleared Selection!");
+                                                displaysSuccessMessage("Response Saved Sucessfully!") 
                                             }else{
+                                                initData(val);
+                                                hideLoader(); 
                                                 displayErrorMessage("Connection Issues. Try Saving Again.");
-                                                hideLoader();
                                             }
                                              
                                                 
