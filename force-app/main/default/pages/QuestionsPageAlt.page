@@ -1156,18 +1156,27 @@
                     </div>
                     <div class="question-cnt-btn">
                         <div class="question-cnt-btn-felx">
-                            <div id="prv-btn-id" class="question-cnt-btn-item prvbtnclick"  >Previous</div>
+                            <!-- <div id="prv-btn-id" class="question-cnt-btn-item prvbtnclick"  >Previous</div> -->
                             <div class="clear-btn clear-active">
                                 <div class="clear-btn-item" onclick="clearselectionbtnclick()">Clear Selection</div>
                             </div>
                             <div class="save-btn hide-save-btn">
                                 <div class="save-btn-item" onclick="SaveQuestion()">Save</div>
                             </div>
+                            <!-- <div id="nxt-btn-id" class="question-cnt-btn-item nextbtnclick"  >Next</div> -->
+                        </div> 
+                    </div>
+                    <div class="question-cnt-btn">
+                        <div class="question-cnt-btn-felx">
+                            <div id="prv-btn-id" class="question-cnt-btn-item prvbtnclick"  >Previous</div>
+                            <!-- <div class="clear-btn clear-active">
+                                <div class="clear-btn-item" onclick="clearselectionbtnclick()">Clear Selection</div>
+                            </div>
+                            <div class="save-btn hide-save-btn">
+                                <div class="save-btn-item" onclick="SaveQuestion()">Save</div>
+                            </div> -->
                             <div id="nxt-btn-id" class="question-cnt-btn-item nextbtnclick"  >Next</div>
-                        </div>
-                        <!-- <div class="clear-btn clear-active">
-                            <div class="clear-btn-item" onclick="clearselectionbtnclick()">Clear Selection</div>
-                        </div> -->
+                        </div> 
                     </div>
                    
                    
@@ -2129,7 +2138,7 @@ function displayErrorMessage(errorText) {
                             question_ele = document.querySelector('.option-D');
                             question_ele.innerHTML = 'D';   
 
-                            hideLoader();
+                            // hideLoader();
                 }
                 
                 //load first and current question end 
@@ -2304,6 +2313,9 @@ function displayErrorMessage(errorText) {
                     }
                 }
                 initData(val); 
+                setTimeout(()=>{
+                         hideLoader();
+                },1250)
                });
 
 
@@ -2328,7 +2340,10 @@ function displayErrorMessage(errorText) {
                          if(flag === true) break;
                     }
                 }
-                initData(val);  
+                initData(val);
+                setTimeout(()=>{
+                         hideLoader();
+                },1250)  
                });
 
 
@@ -2350,10 +2365,27 @@ function displayErrorMessage(errorText) {
             qstnButtons.forEach(function(button) {
                 button.addEventListener('click', function(event) {
 
-                    isQstAttemptedOption = false;
-
-                    console.log('click jump btn');
+                    isQstAttemptedOption = false; 
                     showLoader(); 
+                        var flag = false;
+                    for(var i=0;i<val.length;i++){
+                        if(val[i].currentQuestion__c === true){
+                            val[i].currentQuestion__c = false;
+                             for(var j = 0;j<val.length;j++){
+                                if(val[j].question_number__c === (parseInt(event.currentTarget.textContent))){
+                                    val[j].currentQuestion__c = true;
+                                    flag = true;
+                                    break;
+                                }
+                             }
+                             if(flag === true) break;
+                        }
+                    }
+                    initData(val);
+                    setTimeout(()=>{
+                         hideLoader();
+                     },1250)
+
 
                 });
             });
