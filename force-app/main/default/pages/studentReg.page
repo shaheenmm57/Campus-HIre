@@ -981,10 +981,12 @@
                         value = value.slice(0, maxLength);
                     }
 
-                    if (validationFunction && !validationFunction(value)) {
-                        console.log("Requires Validation");
-                        value = value.replace(/[^a-zA-Z0-9\s]+/g, '');
-                        hasWarning = true;
+                    if (validationFunction) {
+                        if (!validationFunction(value)) {
+                            value = value.slice(0, -1);
+                            inputField.value = value;
+                            hasWarning = true;
+                        }
                     }
 
                     if (hasWarning) {
@@ -1021,18 +1023,21 @@
                             phoneContainer.classList.remove("input-warning");
                         }
                     }
+
                     inputField.value = value;
                 });
             }
 
             function isNumber(value) {
-                console.log("Found Number");
                 return /^\d*\.?\d*$/.test(value);
             }
 
             function isText(value) {
-                console.log("Found Text");
                 return /^[a-zA-Z\s]*$/.test(value);
+            }
+
+            function isMixed(value) {
+                return /^[a-zA-Z0-9\s]+$/.test(value);
             }
             const allFields = [
                 { id: 'phoneInput', maxLength: 10, allowDecimal: false, validationFunction: isNumber },
@@ -1045,7 +1050,7 @@
                 { id: 'degreePassingYearInput', maxLength: 4, allowDecimal: false, validationFunction: isNumber },
                 { id: 'diplomaPassingYearInput', maxLength: 4, allowDecimal: false, validationFunction: isNumber },
                 { id: 'diplomaMarksInput', maxLength: 3, allowDecimal: true, validationFunction: isNumber },
-                { id: 'usnInput', maxLength: 10, allowDecimal: false, validationFunction: isNumber },
+                { id: 'usnInput', maxLength: 10, allowDecimal: false, validationFunction: isMixed },
                 { id: 'cityInput', maxLength: 30, allowDecimal: false, validationFunction: isText },
                 { id: 'stateInput', maxLength: 30, allowDecimal: false, validationFunction: isText },
                 { id: 'nameInput', maxLength: 50, allowDecimal: false, validationFunction: isText },

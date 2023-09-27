@@ -862,6 +862,10 @@
                             box-shadow: 0 0 10px black;
                  }
 
+                 .hide-save-btn{
+                    display: none;
+                 }
+
 
 
 
@@ -1045,7 +1049,7 @@
                             <div class="clear-btn clear-active">
                                 <div class="clear-btn-item" onclick="clearselectionbtnclick()">Clear Selection</div>
                             </div>
-                            <div class="save-btn ">
+                            <div class="save-btn hide-save-btn">
                                 <div class="save-btn-item" onclick="SaveQuestion()">Save</div>
                             </div>
                             <div class="question-cnt-btn-item nextbtnclick"  >Next</div>
@@ -1721,10 +1725,10 @@
 
 
                             //load first and current question start  
-        function initData(val){
+        function initData(initData){
 
             // console.log('initData 1  : isQstAttempted ='+isQstAttempted + '   studentAnswer =' +studentAnswer + 'questionId ='+questionId  );
-                console.log(val);
+                console.log(initData);
                var optionAll = document.querySelectorAll('.question-cnt-options-item');
                 optionAll.forEach(function(opt){
                     opt.classList.remove('selected');
@@ -1734,6 +1738,12 @@
                 clearele.classList.remove('clear-active');
                 clearele.classList.add('clear-active');
 
+                var clearele = document.querySelector('.save-btn');
+                clearele.classList.remove('hide-save-btn');
+                clearele.classList.add('hide-save-btn');
+
+
+
                 
                 
                 
@@ -1741,24 +1751,12 @@
                 var navBtnContainer = document.querySelector('.qst-nav-btn');
                 var navBtns = navBtnContainer.querySelectorAll('.qst-nav-btn-item');
                 
-               
-
-                 navBtns.forEach(function(navbtn){
-
-                 });
-
-
-
-  
-
-
-
 
 
                  var selectedQuestion;
-                 for(var i = 0;i < val.length ; i++){
-                    if(val[i].currentQuestion__c === true)
-                       selectedQuestion = val[i];
+                 for(var i = 0;i < initData.length ; i++){
+                    if(initData[i].currentQuestion__c === true)
+                       selectedQuestion = initData[i];
                  }
 
 
@@ -1775,11 +1773,11 @@
                             
 
                                 navBtns.forEach(function(navbtn) {
-                                    for(var i = 0;i<val.length;i++){
-                                        if(parseInt(navbtn.textContent) === val[i].question_number__c){
-                                            if(val[i].is_attempted__c == true){ 
+                                    for(var i = 0;i<initData.length;i++){
+                                        if(parseInt(navbtn.textContent) === initData[i].question_number__c){
+                                            if(initData[i].is_attempted__c == true){ 
                                                 navbtn.classList.add('qst-nav-btn-item-answered');
-                                            }else if(val[i].is_attempted__c == false){
+                                            }else if(initData[i].is_attempted__c == false){
                                                 navbtn.classList.remove('qst-nav-btn-item-answered');
                                             }
                                         } 
@@ -1899,7 +1897,7 @@
                                 });
                                 ele.classList.add('selected');
                                 studentAnswer = selectedOption;
-                                isQstAttempted = true;
+                                // isQstAttempted = true;
 
                             }
 
@@ -1921,8 +1919,10 @@
                                 }
                                 var clearele = document.querySelector('.clear-btn');
                                 clearele.classList.remove('clear-active');
+                                var clearele = document.querySelector('.save-btn');
+                                clearele.classList.add('hide-save-btn');
                             }else{
-                                isQstAttemptedOption = false;
+                                isQstAttemptedOption = false; 
                             }
 
                             // console.log('initData 2 : isQstAttempted ='+isQstAttempted + '   studentAnswer = ' +studentAnswer + '   questionId ='+questionId  );
@@ -1942,18 +1942,7 @@
                             question_ele = document.querySelector('.option-DO');
                             question_ele.innerHTML  = selectedQuestion.option_4__c;
                             question_ele = document.querySelector('.option-D');
-                            question_ele.innerHTML = 'D';
-
-
-
-
-
-                            
-                            
-
-                            
-  
-
+                            question_ele.innerHTML = 'D';   
                 }
                 
                 //load first and current question end 
@@ -1979,6 +1968,43 @@
                                 ); 
 
 
+                
+            function SaveQuestion(){
+                showLoader();
+                                var questionID;
+                                var selectedQuestion;
+                                for(var i = 0;i<val.length;i++){
+                                    if(val[i].currentQuestion__c === true){
+                                      questionID = val[i].Id;
+                                      selectedQuestion = val[i];
+                                    }
+                                }
+                                            Visualforce.remoting.Manager.invokeAction(
+                                                        '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
+                                                        selectedQuestion.question_number__c,studentAnswer,questionID,true,studentIdMain,eventIdMain,
+                                                        function (result, event) { 
+                                                                // console.log("success");
+                                                                // location.reload();
+                                                                initData(result);
+                                                                val = result;
+                                                                hideLoader();
+                                                                    if (event.status) {
+                                                                        // console.log(event.status);
+                                                                    }
+                                                                    else if (result.type === 'exception') {
+                                                                        alert("Exception caught");
+                                                                    }
+                                                                    else {
+                                                                        alert("Exception caught");
+                                                                    }
+                                                            }
+                                                    );
+                                                    studentAnswer = '';
+                                                    questionId  = '';
+                                                    // isQstAttempted = false;
+            }
+
+
 
          
 
@@ -1997,20 +2023,20 @@
             function clearselectionbtnclick(){
                           showLoader();   
                           isQstAttemptedOption = false;
-                        var selectedQuestion; 
-                        navBtns.forEach(function(navbtn) {
-                            if(navbtn.classList.contains('qst-nav-btn-item-current')){
-                                var getStudentId = val.find(function(question){
-                                    return question.question_number__c === (parseInt(navbtn.textContent));
-                                })
-                                questionId = getStudentId.Id;
-                                selectedQuestion = getStudentId;
-                            }
-                        });
+
+                          var selectedQuestion;
+                          var questionID;
+                                for(var i = 0;i<val.length;i++){
+                                    if(val[i].currentQuestion__c === true){
+                                      questionID = val[i].Id;
+                                      selectedQuestion = val[i];
+                                    }
+                                }
+
 
                         Visualforce.remoting.Manager.invokeAction(
                                     '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
-                                    selectedQuestion.question_number__c,'',questionId,false,studentIdMain,eventIdMain,
+                                    selectedQuestion.question_number__c,'',questionID,false,studentIdMain,eventIdMain,
                                     function (result, event) { 
                                             // console.log("success");
                                             initData(result);
@@ -2044,9 +2070,11 @@
                     });
                     parentDiv.classList.add('selected');
                     studentAnswer = selectedOption;
-                    isQstAttempted = true;
+                    // isQstAttempted = true;
                     var clearele = document.querySelector('.clear-btn');
                     clearele.classList.remove('clear-active');
+                    var clearele = document.querySelector('.save-btn');
+                    clearele.classList.remove('hide-save-btn');
 
             }
 
@@ -2054,17 +2082,7 @@
             var nextbtnele = document.querySelector('.nextbtnclick');
             var prvbtnele = document.querySelector('.prvbtnclick');
 
-            function disableNextPrv(par){
-                if(par == 2){
-                    prvbtnele.style.display = 'none'; 
-                }else if(par == 29){
-                    nextbtnele.style.display = 'none'; 
-                }else{
-                    prvbtnele.style.display = 'grid';
-                    nextbtnele.style.display = 'grid';
-
-                }
-            }
+        
 
 
             
