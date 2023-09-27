@@ -1,4 +1,4 @@
-<apex:page controller="QuestionsPageCtrlAlt" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true">
+<apex:page controller="AltQuestionPageCtrl" showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true">
     <html >
     <head>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -1334,10 +1334,10 @@
                                 return urlParams.get(name);
                     }
 
-                    const studentIdMain = getUrlParameter('studentId');
-                    const eventIdMain = getUrlParameter('eventId');
-                    // const studentIdMain = 'a055j00000WjEpEAAV';
-                    // const eventIdMain = 'a025j00000fBPGgAAO';
+                    // const studentIdMain = getUrlParameter('studentId');
+                    // const eventIdMain = getUrlParameter('eventId');
+                    const studentIdMain = 'a055j00000WjEpEAAV';
+                    const eventIdMain = 'a025j00000fBPGgAAO';
                     if((!studentIdMain) || (!eventIdMain)){
                         var targetPageUrl = '/apex/studentLoginPageAlt';
                                 window.location.href = targetPageUrl;
@@ -1380,31 +1380,31 @@
             
  
  
-            document.addEventListener('keydown', function(event) {
-            // console.log(event.key);
+            // document.addEventListener('keydown', function(event) {
+            // // console.log(event.key);
             
-            if (event.key === 'Alt' || event.key === 'Tab' || event.key === 'Meta' || event.key === 'Control' ||event.key === 'End' || event.key === 'F12' ) 
-            {
-                document.exitFullscreen();
+            // if (event.key === 'Alt' || event.key === 'Tab' || event.key === 'Meta' || event.key === 'Control' ||event.key === 'End' || event.key === 'F12' ) 
+            // {
+            //     document.exitFullscreen();
                  
-            }
-            else{
-                // event.preventDefault();
-            }
+            // }
+            // else{
+            //     // event.preventDefault();
+            // }
 
             
-            }); 
+            // }); 
 
-             document.addEventListener('contextmenu', function (e) {
-             e.preventDefault();
-             });
+            //  document.addEventListener('contextmenu', function (e) {
+            //  e.preventDefault();
+            //  });
 
-             setInterval(function () {
-             if (typeof console._commandLineAPI !== 'undefined') {
-                 console._commandLineAPI.clear();
-                 console._commandLineAPI.reset();
-             }
-            }, 1000);
+            //  setInterval(function () {
+            //  if (typeof console._commandLineAPI !== 'undefined') {
+            //      console._commandLineAPI.clear();
+            //      console._commandLineAPI.reset();
+            //  }
+            // }, 1000);
 
 
 
@@ -1636,7 +1636,7 @@
 
 
                 Visualforce.remoting.Manager.invokeAction(
-                                    '{!$RemoteAction.QuestionsPageCtrlAlt.GetCurrentTimer}',
+                                    '{!$RemoteAction.AltQuestionPageCtrl.GetCurrentTimer}',
                                     studentIdMain,eventIdMain,
                                     function (result, event) { 
                                             // console.log("GetCurrentTimer success");     
@@ -1659,7 +1659,7 @@
                                 );
                                 
                                 Visualforce.remoting.Manager.invokeAction(
-                                    '{!$RemoteAction.QuestionsPageCtrlAlt.GetCurrentStudentSession}',
+                                    '{!$RemoteAction.AltQuestionPageCtrl.GetCurrentStudentSession}',
                                     studentIdMain,eventIdMain,
                                     function (result, event) {  
                                             student_test_isStarted = result.student_test_isStarted__c;
@@ -1711,7 +1711,7 @@
                         totalSeconds = 0;
                      }
                      Visualforce.remoting.Manager.invokeAction(
-                                     '{!$RemoteAction.QuestionsPageCtrlAlt.UpdateCurrentTimer}',
+                                     '{!$RemoteAction.AltQuestionPageCtrl.UpdateCurrentTimer}',
                                      totalSeconds,studentIdMain,eventIdMain,true,student_test_warning,
                                      function (result, event) { 
                                             //  console.log("success");   
@@ -1737,7 +1737,7 @@
                     }
                     student_test_warning_update = student_test_warning <= 0 ? 0 : student_test_warning - 1 ;  
                        Visualforce.remoting.Manager.invokeAction(
-                                    '{!$RemoteAction.QuestionsPageCtrlAlt.UpdateCurrentTimer}',
+                                    '{!$RemoteAction.AltQuestionPageCtrl.UpdateCurrentTimer}',
                                     totalSeconds,studentIdMain,eventIdMain,true,student_test_warning_update,
                                     function (result, event) {  
                                             if(isTimerOut == true){ 
@@ -1787,7 +1787,7 @@
                 function updateOnsubmitandfinish(){
                           showLoader();   
                           Visualforce.remoting.Manager.invokeAction(
-                                                    '{!$RemoteAction.QuestionsPageCtrlAlt.updateTestMarks}',
+                                                    '{!$RemoteAction.AltQuestionPageCtrl.updateTestMarks}',
                                                     studentIdMain, eventIdMain,
                                                     function (result, event) { 
                                                             // console.log("updateTestMarks success");  
@@ -2010,7 +2010,7 @@
                                     opt.classList.remove('selected');
                                 });
                                 ele.classList.add('selected');
-                                studentAnswer = selectedOption;
+                                studentAnswer = selectedOption; 
                                 // isQstAttempted = true;
 
                             }
@@ -2061,7 +2061,7 @@
                 //load first and current question end 
 
                 Visualforce.remoting.Manager.invokeAction(
-                                    '{!$RemoteAction.QuestionsPageCtrlAlt.GetInitialData}',
+                                    '{!$RemoteAction.AltQuestionPageCtrl.GetInitialData}',
                                     studentIdMain,eventIdMain,
                                     function (result, event) { 
                                             // console.log("success");    
@@ -2102,16 +2102,21 @@
                                     }
                                 }
                                             Visualforce.remoting.Manager.invokeAction(
-                                                        '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
+                                                        '{!$RemoteAction.AltQuestionPageCtrl.updateCurrentQuestion}',
                                                         selectedQuestion.question_number__c,studentAnswer,questionID,true,studentIdMain,eventIdMain,
                                                         function (result, event) { 
-                                                                if(event && result){
+                                                            console.log("result");
+                                                            console.log(result);
+                                                            console.log('event')
+                                                            console.log(event);
+                                                                if(result){
                                                                     val = result;
                                                                     initData(result);
                                                                     hideLoader();
                                                                     displaysSuccessMessage("Response Saved Sucessfully!")
                                                                 }else{
                                                                     displayErrorMessage("Connection Issues. Try Saving Again.");
+                                                                    initData(val);
                                                                     hideLoader();
                                                                 }
                                                                     if (event.status) {
@@ -2125,6 +2130,8 @@
                                                                     }
                                                             }
                                                     );
+                                                    studentAnswer = '';
+                                                    isQstAttempted = false;
                                     }
 
 
@@ -2157,7 +2164,7 @@
 
 
                         Visualforce.remoting.Manager.invokeAction(
-                                    '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
+                                    '{!$RemoteAction.AltQuestionPageCtrl.updateCurrentQuestion}',
                                     selectedQuestion.question_number__c,'',questionID,false,studentIdMain,eventIdMain,
                                     function (result, event) { 
                                             // console.log("success");
@@ -2206,6 +2213,8 @@
                     clearele.classList.remove('clear-active');
                     var clearele = document.querySelector('.save-btn');
                     clearele.classList.remove('hide-save-btn');
+                    // console.log("save"); 
+                    SaveQuestion();
 
             }
 

@@ -1,5 +1,5 @@
-public with sharing class studentLoginAltCtrl {
-    public studentLoginAltCtrl() {
+public with sharing class testStudentLoginCtrl {
+    public testStudentLoginCtrl() {
 
     }
 
@@ -20,9 +20,19 @@ public with sharing class studentLoginAltCtrl {
 
         DateTime todaysDate = System.today();
         String todaysDateStr = todaysDate.format('yyyy-MM-dd');
-
+        
+        List<RC_student__c> studentRes = new List<RC_student__c>();
+        studentRes = [SELECT Id, email__c FROM RC_student__c WHERE email__c = :EmailInput];
        List<RC_event__c> eventRes = [SELECT Id, event_id__c,isTestLive__c, event_date__c FROM RC_event__c WHERE event_id__c = :eventPassword];
-       List<RC_student__c> studentRes = [SELECT Id, email__c FROM RC_student__c WHERE email__c = :EmailInput];
+       
+       if(studentRes.size() == 0)
+       {
+            RC_student__c newStudent = new RC_student__c();
+            newStudent.email__c = EmailInput;
+            insert newStudent;
+            studentRes.Add(newStudent);
+       }
+      
        System.debug('eventRes ' +eventRes);
        System.debug('studentRes '+studentRes);
        if(studentRes.size() == 0 && eventRes.size() == 0)
