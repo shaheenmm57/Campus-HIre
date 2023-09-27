@@ -1380,31 +1380,31 @@
             
  
  
-            // document.addEventListener('keydown', function(event) {
-            // // console.log(event.key);
+            document.addEventListener('keydown', function(event) {
+            // console.log(event.key);
             
-            // if (event.key === 'Alt' || event.key === 'Tab' || event.key === 'Meta' || event.key === 'Control' ||event.key === 'End' || event.key === 'F12' ) 
-            // {
-            //     document.exitFullscreen();
+            if (event.key === 'Alt' || event.key === 'Tab' || event.key === 'Meta' || event.key === 'Control' ||event.key === 'End' || event.key === 'F12' ) 
+            {
+                document.exitFullscreen();
                  
-            // }
-            // else{
-            //     // event.preventDefault();
-            // }
+            }
+            else{
+                // event.preventDefault();
+            }
 
             
-            // }); 
+            }); 
 
-            //  document.addEventListener('contextmenu', function (e) {
-            //  e.preventDefault();
-            //  });
+             document.addEventListener('contextmenu', function (e) {
+             e.preventDefault();
+             });
 
-            //  setInterval(function () {
-            //  if (typeof console._commandLineAPI !== 'undefined') {
-            //      console._commandLineAPI.clear();
-            //      console._commandLineAPI.reset();
-            //  }
-            // }, 1000);
+             setInterval(function () {
+             if (typeof console._commandLineAPI !== 'undefined') {
+                 console._commandLineAPI.clear();
+                 console._commandLineAPI.reset();
+             }
+            }, 1000);
 
 
 
@@ -2065,9 +2065,18 @@
                                     studentIdMain,eventIdMain,
                                     function (result, event) { 
                                             // console.log("success");    
-                                                hideLoader();  
-                                                initData(result);
-                                                val = result;
+                                                // hideLoader();  
+                                                // initData(result);
+                                                // val = result;
+                                                if(event && result){
+                                                    val = result;
+                                                    initData(result);
+                                                    hideLoader();
+                                                    // displaysSuccessMessage("Response Saved Sucessfully!")
+                                                }else{
+                                                    displayErrorMessage("Connection Issues. Try To Contact Admin.");
+                                                    hideLoader();
+                                                }
                                                 if (event.status) {
                                                     // console.log(event.status);
                                                 }
@@ -2097,10 +2106,10 @@
                                                         selectedQuestion.question_number__c,studentAnswer,questionID,true,studentIdMain,eventIdMain,
                                                         function (result, event) { 
                                                                 if(event && result){
-                                                                    initData(result);
                                                                     val = result;
+                                                                    initData(result);
                                                                     hideLoader();
-                                                                    displaysSuccessMessage("Attempt Saved Sucessfully!")
+                                                                    displaysSuccessMessage("Response Saved Sucessfully!")
                                                                 }else{
                                                                     displayErrorMessage("Connection Issues. Try Saving Again.");
                                                                     hideLoader();
@@ -2152,10 +2161,19 @@
                                     selectedQuestion.question_number__c,'',questionID,false,studentIdMain,eventIdMain,
                                     function (result, event) { 
                                             // console.log("success");
-                                            initData(result);
-                                            val = result;
-                                            hideLoader(); 
-                                            displayWarningMessage("Cleared Selection!");
+                                            // initData(result);
+                                            // val = result;
+                                            // hideLoader(); 
+                                            
+                                            if(event && result){
+                                                val = result;
+                                                initData(result);
+                                                hideLoader();
+                                                displayWarningMessage("Cleared Selection!");
+                                            }else{
+                                                displayErrorMessage("Connection Issues. Try Saving Again.");
+                                                hideLoader();
+                                            }
                                              
                                                 
                                                 if (event.status) {
