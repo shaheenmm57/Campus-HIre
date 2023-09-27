@@ -974,7 +974,7 @@
 
                 inputField.addEventListener('input', () => {
                     inputField.classList.remove("input-warning");
-                    let value = inputField.value.trim();
+                    let value = inputField.value;
                     let hasWarning = false;
 
                     if (maxLength && value.length > maxLength) {
@@ -983,6 +983,7 @@
 
                     if (validationFunction) {
                         if (!validationFunction(value)) {
+                            console.log("Denying Input");
                             value = value.slice(0, -1);
                             inputField.value = value;
                             hasWarning = true;
@@ -1029,15 +1030,18 @@
             }
 
             function isNumber(value) {
+                console.log("isNumber");
                 return /^\d*\.?\d*$/.test(value);
             }
 
             function isText(value) {
+                console.log("isText");
                 return /^[a-zA-Z\s]*$/.test(value);
             }
 
-            function isMixed(value) {
-                return /^[a-zA-Z0-9\s]+$/.test(value);
+            function isUsn(value) {
+                console.log("isUsn");
+                return /^[a-zA-Z0-9]+$/.test(value);
             }
             const allFields = [
                 { id: 'phoneInput', maxLength: 10, allowDecimal: false, validationFunction: isNumber },
@@ -1050,7 +1054,7 @@
                 { id: 'degreePassingYearInput', maxLength: 4, allowDecimal: false, validationFunction: isNumber },
                 { id: 'diplomaPassingYearInput', maxLength: 4, allowDecimal: false, validationFunction: isNumber },
                 { id: 'diplomaMarksInput', maxLength: 3, allowDecimal: true, validationFunction: isNumber },
-                { id: 'usnInput', maxLength: 10, allowDecimal: false, validationFunction: isMixed },
+                { id: 'usnInput', maxLength: 10, allowDecimal: false, validationFunction: isUsn },
                 { id: 'cityInput', maxLength: 30, allowDecimal: false, validationFunction: isText },
                 { id: 'stateInput', maxLength: 30, allowDecimal: false, validationFunction: isText },
                 { id: 'nameInput', maxLength: 50, allowDecimal: false, validationFunction: isText },

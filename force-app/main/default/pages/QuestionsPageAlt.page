@@ -16,6 +16,9 @@
 
             --green-color: #539165;
             --blue-color-select: #534798;
+            --yellow-color: #ffb01d;
+            --green-color-msg: #008000;
+
             }
             *{
                 margin: 0;
@@ -401,8 +404,7 @@
                     color: white;
                     display: grid;
                     place-items:center;
-                    cursor: pointer;
-                    margin-right: 10px;
+                    cursor: pointer; 
                  }
                  .clear-btn-item:active{
                             box-shadow: 0 0 10px black;
@@ -855,8 +857,7 @@
                     color: white;
                     display: grid;
                     place-items:center;
-                    cursor: pointer;
-                    margin-right: 10px;
+                    cursor: pointer; 
                  }
                  .save-btn-item:active{
                             box-shadow: 0 0 10px black;
@@ -865,6 +866,104 @@
                  .hide-save-btn{
                     display: none;
                  }
+
+                 .hide-nxt-prv-btn{
+                    display: none;
+                 }
+
+
+
+                 .error-image{
+                height:18px; 
+                width:18px; 
+                margin-left:0.5vw;
+                margin-right: 1vw;
+            }
+            .error-alert {
+                position: fixed;
+                z-index: 1000; 
+                top: 8%; 
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: none;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: var(--red-color);
+                color: white;
+                margin-bottom: 15px;
+                align-items: center;
+                justify-content: center;
+                align-content: center;
+            }
+
+            .sucess-alert {
+                position: fixed;
+                z-index: 1000; 
+                top: 8%; 
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: none;
+                padding: 20px;
+                border-radius: 10px;
+                background-color:  var(--green-color-msg);
+                color: white;
+                margin-bottom: 15px;
+                align-items: center;
+                justify-content: center;
+                align-content: center;
+            }
+            .alert-animation {
+                animation-name: fade;
+                animation-duration: 0.5s; /* Adjust the duration as needed */
+            }
+
+            @keyframes fade {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+            .error-warning {
+                position: fixed;
+                z-index: 1000; 
+                top: 8%; 
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: none;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: var(--yellow-color);
+                color: black;
+                margin-bottom: 15px;
+                align-items: center;
+                justify-content: center;
+                align-content: center;
+            }
+            .closebtn {
+            margin-left: 15px;
+            color: white;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            }
+
+            .closebtn:hover {
+            color: black;
+            }
+            .closebtn-black-color{
+                color: black;
+            }
+            .closebtn-black-color:hover{
+                color: white;
+            }
+            ::selection{
+                color: white;
+                background: var(--blue-color-hover);
+            }
 
 
 
@@ -891,6 +990,18 @@
                       <path class="logo-section-two" d="M60.6489 0.124756H45.0002C47.6293 4.4404 50.1395 8.56784 52.7965 12.9264C55.4326 8.62727 57.9394 4.54276 60.6489 0.124756Z" fill="#EF233C"/>
                  </svg>
               </div> 
+        </div>
+        <div class="error-warning" id="warningCustom">
+            <img id="warnImg" src="{!URLFOR($Resource.iconAlertBlack)}" class="error-image"/>
+            <span id="warnText" class="closebtn closebtn-black-color"  onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+        <div class="error-alert" id="errorCustom">
+            <img id="alertImg" src="{!URLFOR($Resource.iconAlertWhite)}" class="error-image"/>
+            <span id="alertText" class="closebtn"  onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+        <div class="sucess-alert" id="sucessCustom">
+            <img id="alertImg" src="{!URLFOR($Resource.iconAlertWhite)}" class="error-image"/>
+            <span id="alertText" class="closebtn"  onclick="this.parentElement.style.display='none';">&times;</span>
         </div>
 
 
@@ -1045,14 +1156,14 @@
                     </div>
                     <div class="question-cnt-btn">
                         <div class="question-cnt-btn-felx">
-                            <div class="question-cnt-btn-item prvbtnclick"  >Previous</div>
+                            <div id="prv-btn-id" class="question-cnt-btn-item prvbtnclick"  >Previous</div>
                             <div class="clear-btn clear-active">
                                 <div class="clear-btn-item" onclick="clearselectionbtnclick()">Clear Selection</div>
                             </div>
                             <div class="save-btn hide-save-btn">
                                 <div class="save-btn-item" onclick="SaveQuestion()">Save</div>
                             </div>
-                            <div class="question-cnt-btn-item nextbtnclick"  >Next</div>
+                            <div id="nxt-btn-id" class="question-cnt-btn-item nextbtnclick"  >Next</div>
                         </div>
                         <!-- <div class="clear-btn clear-active">
                             <div class="clear-btn-item" onclick="clearselectionbtnclick()">Clear Selection</div>
@@ -1139,6 +1250,70 @@
         <script src="/soap/ajax/32.0/connection.js" type="text/javascript"/>
         <script src="/soap/ajax/32.0/apex.js" type="text/javascript"/>  
         <script>
+
+
+
+function displayErrorMessage(errorText) {
+                const errorCustom = document.getElementById("errorCustom");
+                const alertText = errorCustom.querySelector("#alertText");
+                const alertImg = errorCustom.querySelector("#alertImg");
+                errorCustom.textContent = "";
+                errorCustom.appendChild(alertImg);
+                errorCustom.appendChild(document.createTextNode("Error: " + errorText));
+                errorCustom.appendChild(alertText);
+    
+                errorCustom.style.display = 'flex';
+                errorCustom.classList.add("alert-animation");
+                setTimeout(() => {
+                    errorCustom.style.display = "none";
+                    errorCustom.classList.remove("alert-animation");
+                }, 5000);
+            }
+    
+            function displayWarningMessage(warningText) {
+                const warningCustom = document.getElementById("warningCustom");
+                const warnText = document.getElementById("warnText"); // Get the warnText element
+                const warnImg = document.getElementById("warnImg"); // Get the warnImg element
+    
+                warningCustom.textContent = ""; // Clear any existing content
+                warningCustom.appendChild(warnImg);
+    
+                // Create a text node and set its content
+                const warningTextNode = document.createTextNode("Warning: " + warningText);
+                warningCustom.appendChild(warningTextNode);
+    
+                warningCustom.appendChild(warnText); // Append the warnText element
+    
+                warningCustom.style.display = 'flex';
+                // warningCustom.classList.add("alert-animation");
+                setTimeout(() => {
+                    warningCustom.style.display = "none";
+                    warningCustom.classList.remove("alert-animation");
+                }, 5000);
+            }
+
+
+            function displaysSuccessMessage(warningText) {
+                const warningCustom = document.getElementById("sucessCustom");
+                const warnText = document.getElementById("alertText"); // Get the warnText element
+                const warnImg = document.getElementById("alertImg"); // Get the warnImg element
+    
+                warningCustom.textContent = ""; // Clear any existing content
+                warningCustom.appendChild(warnImg);
+    
+                // Create a text node and set its content
+                const warningTextNode = document.createTextNode("Sucess: " + warningText);
+                warningCustom.appendChild(warningTextNode);
+    
+                warningCustom.appendChild(warnText); // Append the warnText element
+    
+                warningCustom.style.display = 'flex';
+                // warningCustom.classList.add("alert-animation");
+                setTimeout(() => {
+                    warningCustom.style.display = "none";
+                    warningCustom.classList.remove("alert-animation");
+                }, 5000);
+            }
 
 
 
@@ -1725,10 +1900,10 @@
 
 
                             //load first and current question start  
-        function initData(initData){
+        function initData(dataToUpdate){
 
-            // console.log('initData 1  : isQstAttempted ='+isQstAttempted + '   studentAnswer =' +studentAnswer + 'questionId ='+questionId  );
-                console.log(initData);
+            // console.log('dataToUpdate 1  : isQstAttempted ='+isQstAttempted + '   studentAnswer =' +studentAnswer + 'questionId ='+questionId  );
+                console.log(dataToUpdate);
                var optionAll = document.querySelectorAll('.question-cnt-options-item');
                 optionAll.forEach(function(opt){
                     opt.classList.remove('selected');
@@ -1754,9 +1929,19 @@
 
 
                  var selectedQuestion;
-                 for(var i = 0;i < initData.length ; i++){
-                    if(initData[i].currentQuestion__c === true)
-                       selectedQuestion = initData[i];
+                 for(var i = 0;i < dataToUpdate.length ; i++){
+                    if(dataToUpdate[i].currentQuestion__c === true)
+                       selectedQuestion = dataToUpdate[i];
+                 }
+
+                 document.querySelector("#prv-btn-id").classList.remove("hide-nxt-prv-btn");
+                 document.querySelector("#nxt-btn-id").classList.remove("hide-nxt-prv-btn");
+
+                 if(selectedQuestion.question_number__c === 1){
+                    document.querySelector("#prv-btn-id").classList.add("hide-nxt-prv-btn");
+                 }
+                 if(selectedQuestion.question_number__c === 30){
+                    document.querySelector("#nxt-btn-id").classList.add("hide-nxt-prv-btn");
                  }
 
 
@@ -1773,11 +1958,11 @@
                             
 
                                 navBtns.forEach(function(navbtn) {
-                                    for(var i = 0;i<initData.length;i++){
-                                        if(parseInt(navbtn.textContent) === initData[i].question_number__c){
-                                            if(initData[i].is_attempted__c == true){ 
+                                    for(var i = 0;i<dataToUpdate.length;i++){
+                                        if(parseInt(navbtn.textContent) === dataToUpdate[i].question_number__c){
+                                            if(dataToUpdate[i].is_attempted__c == true){ 
                                                 navbtn.classList.add('qst-nav-btn-item-answered');
-                                            }else if(initData[i].is_attempted__c == false){
+                                            }else if(dataToUpdate[i].is_attempted__c == false){
                                                 navbtn.classList.remove('qst-nav-btn-item-answered');
                                             }
                                         } 
@@ -1925,7 +2110,7 @@
                                 isQstAttemptedOption = false; 
                             }
 
-                            // console.log('initData 2 : isQstAttempted ='+isQstAttempted + '   studentAnswer = ' +studentAnswer + '   questionId ='+questionId  );
+                            // console.log('dataToUpdate 2 : isQstAttempted ='+isQstAttempted + '   studentAnswer = ' +studentAnswer + '   questionId ='+questionId  );
                             
                             question_ele = document.querySelector('.option-AO');
                             question_ele.innerHTML  = selectedQuestion.option_1__c;
@@ -1943,6 +2128,8 @@
                             question_ele.innerHTML  = selectedQuestion.option_4__c;
                             question_ele = document.querySelector('.option-D');
                             question_ele.innerHTML = 'D';   
+
+                            hideLoader();
                 }
                 
                 //load first and current question end 
@@ -1988,6 +2175,7 @@
                                                                 initData(result);
                                                                 val = result;
                                                                 hideLoader();
+                                                                displaysSuccessMessage("Answer Saved Sucessfully!")
                                                                     if (event.status) {
                                                                         // console.log(event.status);
                                                                     }
@@ -2042,6 +2230,7 @@
                                             initData(result);
                                             val = result;
                                             hideLoader(); 
+                                            displayWarningMessage("Cleared Selection!");
                                              
                                                 
                                                 if (event.status) {
@@ -2097,66 +2286,24 @@
               
 
              var nextbtnele = document.querySelector('.nextbtnclick');
-               nextbtnele.addEventListener('click', function(){ 
-
-                // console.log('next btn');
-
-                showLoader(); 
-
-                var navBtnNextPrv = document.querySelector('.qst-nav-btn');
-                var navBtnNextPrvAll = navBtnNextPrv.querySelectorAll('.qst-nav-btn-item');  
-                var flag = 0;
-                navBtnNextPrvAll.forEach(function(btn){
-                        if( flag === 0 && btn.classList.contains('qst-nav-btn-item-current') ){
-                            flag = 1;  
-                            
-                                        // console.log(parseInt(btn.textContent));
-                                var getStudentId = val.find(function(question){
-                                    return question.question_number__c === (parseInt(btn.textContent));
-                                })
-                                questionId = getStudentId.Id;
-                                var selectedQuestion = val.find(function(question){
-                                    return question.question_number__c  === (parseInt(btn.textContent));
-                                })
-                                if(parseInt(btn.textContent) != 30){ 
-                                    selectedQuestion = val.find(function(question) {
-                                        return question.question_number__c  === (parseInt(btn.textContent) + 1);
-                                    });  
-
-
-                                            Visualforce.remoting.Manager.invokeAction(
-                                                        '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
-                                                        selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
-                                                        function (result, event) { 
-                                                                // console.log("success");
-                                                                // location.reload();
-                                                                initData(result);
-                                                                val = result;
-                                                                hideLoader();
-                                                                    if (event.status) {
-                                                                        // console.log(event.status);
-                                                                    }
-                                                                    else if (result.type === 'exception') {
-                                                                        alert("Exception caught");
-                                                                    }
-                                                                    else {
-                                                                        alert("Exception caught");
-                                                                    }
-                                                            }
-                                                    );
-                                                    studentAnswer = '';
-                                                    questionId  = '';
-                                                    isQstAttempted = false;  
-
-                            }else{
-                                hideLoader();
+               nextbtnele.addEventListener('click', function(){  
+                console.log('click next btn');
+                showLoader();
+                var flag = false;
+                for(var i=0;i<val.length;i++){
+                    if(val[i].currentQuestion__c === true && val[i].question_number__c != 30){
+                        val[i].currentQuestion__c = false;
+                         for(var j = 0;j<val.length;j++){
+                            if(val[j].question_number__c === (val[i].question_number__c + 1)){
+                                val[j].currentQuestion__c = true;
+                                flag = true;
+                                break;
                             }
- 
-                        } 
-                        
-                    })
-                    
-                        
+                         }
+                         if(flag === true) break;
+                    }
+                }
+                initData(val); 
                });
 
 
@@ -2164,69 +2311,24 @@
 
              // prv btn  down
                var prvbtnele = document.querySelector('.prvbtnclick');
-               prvbtnele.addEventListener('click', function(){ 
-
-                // console.log('prv btn');
-
+               prvbtnele.addEventListener('click', function(){  
+                console.log('click prv btn');
                 showLoader(); 
-
-                var navBtnNextPrv = document.querySelector('.qst-nav-btn');
-                var navBtnNextPrvAll = navBtnNextPrv.querySelectorAll('.qst-nav-btn-item');  
-                var flag = 0;
-                navBtnNextPrvAll.forEach(function(btn){
-                        if( flag === 0 && btn.classList.contains('qst-nav-btn-item-current') ){
-                            flag = 1;  
-                            
-                                        // console.log(parseInt(btn.textContent));
-
-                                        var getStudentId = val.find(function(question){
-                                            return question.question_number__c === (parseInt(btn.textContent));
-                                        })
-                                        questionId = getStudentId.Id;
-                                var selectedOption = val.find(function(question){
-                                    return question.question_number__c  === (parseInt(btn.textContent));
-                                })
-
-                                 if(parseInt(btn.textContent) != 1){
-                                            selectedQuestion = val.find(function(question) {
-                                            return question.question_number__c  === (parseInt(btn.textContent) - 1);
-                                        });  
-
-
-                                        Visualforce.remoting.Manager.invokeAction(
-                                                    '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
-                                                    selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
-                                                    function (result, event) { 
-                                                            // console.log("success");
-                                                            initData(result);
-                                                            val = result;
-                                                            hideLoader();
-                                                                
-                                                                if (event.status) {
-                                                                    // console.log(event.status);
-                                                                }
-                                                                else if (result.type === 'exception') {
-                                                                    alert("Exception caught");
-                                                                }
-                                                                else {
-                                                                    alert("Exception caught");
-                                                                }
-                                                        }
-                                                );
-
-                                                studentAnswer = '';
-                                                questionId  = '';
-                                                isQstAttempted = false;
-                                 }else{
-                                    hideLoader();
-                                 }
-
-                        
-                                    
-                          
-                        }
-                    })      
-                        
+                var flag = false;
+                for(var i=0;i<val.length;i++){
+                    if(val[i].currentQuestion__c === true && val[i].question_number__c != 1){
+                        val[i].currentQuestion__c = false;
+                         for(var j = 0;j<val.length;j++){
+                            if(val[j].question_number__c === (val[i].question_number__c - 1)){
+                                val[j].currentQuestion__c = true;
+                                flag = true;
+                                break;
+                            }
+                         }
+                         if(flag === true) break;
+                    }
+                }
+                initData(val);  
                });
 
 
@@ -2250,55 +2352,9 @@
 
                     isQstAttemptedOption = false;
 
-                    // console.log('click btn');
+                    console.log('click jump btn');
                     showLoader(); 
 
-
-                    var number = parseInt(event.currentTarget.textContent) ;
-                     
-                    
-                    // console.log("Button clicked with number:", number);
-                    var selectedQuestion = val.find(function(question) {
-                        return question.question_number__c === number;
-                    }); 
-                    
-
-                    navBtns.forEach(function(navbtn) { 
-                        document.querySelector("#flag-qst").classList.add('qst-flag-hide');
-                        document.querySelector("#un-flag-qst").classList.remove('qst-flag-hide');
-                        if(navbtn.classList.contains('qst-nav-btn-item-current')){
-                            var getStudentId = val.find(function(question){
-                                return question.question_number__c === (parseInt(navbtn.textContent));
-                            })
-                            questionId = getStudentId.Id;
-                        }
-                    });
-
-                    // console.log('onClickbutton    : isQstAttempted ='+isQstAttempted + '   studentAnswer =' +studentAnswer + '   questionId ='+questionId  );
-
-                    Visualforce.remoting.Manager.invokeAction(
-                                '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
-                                selectedQuestion.question_number__c,studentAnswer,questionId,isQstAttempted,studentIdMain,eventIdMain,
-                                function (result, event) { 
-                                        //    console.log("success");
-                                           initData(result);
-                                           val = result;
-                                           hideLoader();
-                                            
-                                            if (event.status) {
-                                                // console.log(event.status);
-                                            }
-                                            else if (result.type === 'exception') {
-                                                alert("Exception caught");
-                                            }
-                                            else {
-                                                alert("Exception caught");
-                                            }
-                                    }
-                            );
-                            studentAnswer = '';
-                            questionId  = '';
-                            isQstAttempted = false;  
                 });
             });
 
