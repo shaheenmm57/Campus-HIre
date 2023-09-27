@@ -841,6 +841,29 @@
 
 
 
+            .save-btn{
+                display: grid;
+                justify-content: right;
+                align-items: center;
+            }
+
+            .save-btn-item{
+                    width: 15vw;
+                    padding: 5px 10px;
+                    background: rgb(4, 112, 62);
+                    border-radius: 5px;
+                    color: white;
+                    display: grid;
+                    place-items:center;
+                    cursor: pointer;
+                    margin-right: 10px;
+                 }
+                 .save-btn-item:active{
+                            box-shadow: 0 0 10px black;
+                 }
+
+
+
 
 
          
@@ -1021,6 +1044,9 @@
                             <div class="question-cnt-btn-item prvbtnclick"  >Previous</div>
                             <div class="clear-btn clear-active">
                                 <div class="clear-btn-item" onclick="clearselectionbtnclick()">Clear Selection</div>
+                            </div>
+                            <div class="save-btn ">
+                                <div class="save-btn-item" onclick="SaveQuestion()">Save</div>
                             </div>
                             <div class="question-cnt-btn-item nextbtnclick"  >Next</div>
                         </div>
@@ -1697,8 +1723,8 @@
                             //load first and current question start  
         function initData(val){
 
-            // console.log('initData 1 : isQstAttempted ='+isQstAttempted + '   studentAnswer =' +studentAnswer + 'questionId ='+questionId  );
-
+            // console.log('initData 1  : isQstAttempted ='+isQstAttempted + '   studentAnswer =' +studentAnswer + 'questionId ='+questionId  );
+                console.log(val);
                var optionAll = document.querySelectorAll('.question-cnt-options-item');
                 optionAll.forEach(function(opt){
                     opt.classList.remove('selected');
@@ -1708,43 +1734,57 @@
                 clearele.classList.remove('clear-active');
                 clearele.classList.add('clear-active');
 
-
-
+                
+                
+                
                 var question_ele;
                 var navBtnContainer = document.querySelector('.qst-nav-btn');
-               var navBtns = navBtnContainer.querySelectorAll('.qst-nav-btn-item');
-
-              
-
-                // console.log(val); 
+                var navBtns = navBtnContainer.querySelectorAll('.qst-nav-btn-item');
                 
-            
-                        var selectedQuestion = val.find(function(question) {
-                                return question.currentQuestion__c === true;
-                            });
+               
+
+                 navBtns.forEach(function(navbtn){
+
+                 });
+
+
+
+  
+
+
+
+
+
+                 var selectedQuestion;
+                 for(var i = 0;i < val.length ; i++){
+                    if(val[i].currentQuestion__c === true)
+                       selectedQuestion = val[i];
+                 }
+
+
+
+                                navBtns.forEach(function(navbtn) {
+                                    navbtn.classList.remove('qst-nav-btn-item-current');
+                                    if( parseInt(navbtn.textContent) == selectedQuestion.question_number__c  ){
+                                        navbtn.classList.add('qst-nav-btn-item-current');
+                                    }
+                                });
+
 
                            
-                           questionId = selectedQuestion.Id; 
+                            
 
-
-                            if(selectedQuestion.question_number__c == 1  ){
-                                var ele = document.querySelector('.prvbtnclick');
-                                ele.classList.remove('clear-active');
-                                ele.classList.add('clear-active');
-                                
-                            }else if(selectedQuestion.question_number__c == 30){
-                                
-                                var ele = document.querySelector('.nextbtnclick');
-                                ele.classList.remove('clear-active');
-                                ele.classList.add('clear-active');
-                            }else{
-                                var ele = document.querySelector('.nextbtnclick');
-                                ele.classList.remove('clear-active');
-                                ele = document.querySelector('.prvbtnclick');
-                                ele.classList.remove('clear-active');
-                            }
-
-
+                                navBtns.forEach(function(navbtn) {
+                                    for(var i = 0;i<val.length;i++){
+                                        if(parseInt(navbtn.textContent) === val[i].question_number__c){
+                                            if(val[i].is_attempted__c == true){ 
+                                                navbtn.classList.add('qst-nav-btn-item-answered');
+                                            }else if(val[i].is_attempted__c == false){
+                                                navbtn.classList.remove('qst-nav-btn-item-answered');
+                                            }
+                                        } 
+                                    }
+                                });
                             
 
                             question_ele = document.querySelector('.question-cnt-question-number');
@@ -1912,23 +1952,7 @@
                             
 
                             
-
-
-                            navBtns.forEach(function(navbtn) {
-                                    navbtn.classList.remove('qst-nav-btn-item-current');
-                                    if( val[parseInt(navbtn.textContent)-1].currentQuestion__c == true ){
-                                        navbtn.classList.add('qst-nav-btn-item-current');
-                                    }
-                                });
-                            
-
-                                navBtns.forEach(function(navbtn) {
-                                        if(val[parseInt(navbtn.textContent)-1].is_attempted__c == true){ 
-                                            navbtn.classList.add('qst-nav-btn-item-answered');
-                                        }else if(val[parseInt(navbtn.textContent)-1].is_attempted__c == false){
-                                            navbtn.classList.remove('qst-nav-btn-item-answered');
-                                        }
-                                });
+  
 
                 }
                 
