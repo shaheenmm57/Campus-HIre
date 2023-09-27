@@ -330,7 +330,7 @@
                 width: 100%;
                 height: 100%;
                 background-color: rgba(0, 0, 0, 0.5);
-                z-index: 9999;
+                z-index: 999;
                 }
  
 
@@ -1831,7 +1831,8 @@
         function initData(dataToUpdate){
 
             // console.log('dataToUpdate 1  : isQstAttempted ='+isQstAttempted + '   studentAnswer =' +studentAnswer + 'questionId ='+questionId  );
-                console.log(dataToUpdate);
+            console.log("initData Called :");    
+            console.log(dataToUpdate);
                var optionAll = document.querySelectorAll('.question-cnt-options-item');
                 optionAll.forEach(function(opt){
                     opt.classList.remove('selected');
@@ -2095,12 +2096,15 @@
                                                         '{!$RemoteAction.QuestionsPageCtrlAlt.updateCurrentQuestion}',
                                                         selectedQuestion.question_number__c,studentAnswer,questionID,true,studentIdMain,eventIdMain,
                                                         function (result, event) { 
-                                                                // console.log("success");
-                                                                // location.reload();
-                                                                initData(result);
-                                                                val = result;
-                                                                hideLoader();
-                                                                displaysSuccessMessage("Answer Saved Sucessfully!")
+                                                                if(event && result){
+                                                                    initData(result);
+                                                                    val = result;
+                                                                    hideLoader();
+                                                                    displaysSuccessMessage("Attempt Saved Sucessfully!")
+                                                                }else{
+                                                                    displayErrorMessage("Connection Issues. Try Saving Again.");
+                                                                    hideLoader();
+                                                                }
                                                                     if (event.status) {
                                                                         // console.log(event.status);
                                                                     }
@@ -2112,9 +2116,6 @@
                                                                     }
                                                             }
                                                     );
-                                                    studentAnswer = '';
-                                                    questionId  = '';
-                                                    // isQstAttempted = false;
             }
 
 
