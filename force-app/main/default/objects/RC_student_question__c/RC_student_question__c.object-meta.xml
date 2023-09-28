@@ -155,12 +155,12 @@
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>RC_student_question</label>
     <nameField>
-        <label>RC_student Name</label>
+        <label>RC_student_question Name</label>
         <trackHistory>false</trackHistory>
         <type>Text</type>
     </nameField>
     <pluralLabel>RC_student_questions</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts />
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
