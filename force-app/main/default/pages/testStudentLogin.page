@@ -748,7 +748,7 @@
                                  EmailFromInput,EventIdFromInput,
                                 function (result, event) { 
                                            console.log("success"); 
-                                           hideLoader();
+                                           //hideLoader();
                                            console.log(result);
                                            if(result.ErrorMsg === '')
                                            {
@@ -756,6 +756,7 @@
                                            }
                                            else
                                            {
+                                            hideLoader();
                                                 displayErrorMessage(result.ErrorMsg);
 
                                                 if(result.ErrorMsg === 'Email is Not registered and Incorrect Event Password')
