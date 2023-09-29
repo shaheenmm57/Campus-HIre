@@ -2270,6 +2270,15 @@
              var nextbtnele = document.querySelector('.nextbtnclick');
                nextbtnele.addEventListener('click', function(){  
                 // console.log('click next btn');
+                const errorCustom = document.getElementById("errorCustom");
+                errorCustom.style.display = "none";
+                errorCustom.classList.remove("alert-animation");
+                const warningCustom = document.getElementById("warningCustom");
+                warningCustom.style.display = "none";
+                warningCustom.classList.remove("alert-animation");
+                const sucessCustom = document.getElementById("sucessCustom");
+                sucessCustom.style.display = "none";
+                sucessCustom.classList.remove("alert-animation");
                 showLoader();
                 var flag = false;
                 for(var i=0;i<val.length;i++){
@@ -2298,6 +2307,15 @@
                var prvbtnele = document.querySelector('.prvbtnclick');
                prvbtnele.addEventListener('click', function(){  
                 // console.log('click prv btn');
+                const errorCustom = document.getElementById("errorCustom");
+                errorCustom.style.display = "none";
+                errorCustom.classList.remove("alert-animation");
+                const warningCustom = document.getElementById("warningCustom");
+                warningCustom.style.display = "none";
+                warningCustom.classList.remove("alert-animation");
+                const sucessCustom = document.getElementById("sucessCustom");
+                sucessCustom.style.display = "none";
+                sucessCustom.classList.remove("alert-animation");
                 showLoader(); 
                 var flag = false;
                 for(var i=0;i<val.length;i++){
@@ -2337,6 +2355,15 @@
             var qstnButtons = document.querySelectorAll('.qst-nav-btn-item');
             qstnButtons.forEach(function(button) {
                 button.addEventListener('click', function(event) {  
+                const errorCustom = document.getElementById("errorCustom");
+                errorCustom.style.display = "none";
+                errorCustom.classList.remove("alert-animation");
+                const warningCustom = document.getElementById("warningCustom");
+                warningCustom.style.display = "none";
+                warningCustom.classList.remove("alert-animation");
+                const sucessCustom = document.getElementById("sucessCustom");
+                sucessCustom.style.display = "none";
+                sucessCustom.classList.remove("alert-animation");
                     showLoader(); 
                         var flag = false;
                     for(var i=0;i<val.length;i++){

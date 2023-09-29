@@ -9,6 +9,7 @@
     <columns>student_apti_marks__c</columns>
     <columns>student_cprogram_marks__c</columns>
     <columns>code_warnings__c</columns>
+    <columns>CREATED_DATE</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>event_id__c</field>
