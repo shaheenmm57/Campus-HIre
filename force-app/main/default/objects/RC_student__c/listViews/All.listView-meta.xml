@@ -6,6 +6,7 @@
     <columns>isHired__c</columns>
     <columns>email__c</columns>
     <columns>usn__c</columns>
+    <columns>CREATED_DATE</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

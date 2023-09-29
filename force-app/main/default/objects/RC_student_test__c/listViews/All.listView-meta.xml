@@ -10,5 +10,10 @@
     <columns>student_cprogram_marks__c</columns>
     <columns>code_warnings__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>event_id__c</field>
+        <operation>equals</operation>
+        <value>office test 29/09</value>
+    </filters>
     <label>All</label>
 </ListView>
