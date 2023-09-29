@@ -1002,12 +1002,12 @@
             <span id="warnText" class="closebtn closebtn-black-color"  onclick="this.parentElement.style.display='none';">&times;</span>
         </div>
         <div class="error-alert" id="errorCustom">
-            <img id="alertImg" src="{!URLFOR($Resource.iconAlertWhite)}" class="error-image"/>
+            <img id="alertImg" src="{!URLFOR($Resource.popup_error_icon)}" class="error-image"/>
             <span id="alertText" class="closebtn"  onclick="this.parentElement.style.display='none';">&times;</span>
         </div>
         <div class="sucess-alert" id="sucessCustom">
-            <img id="alertImg" src="{!URLFOR($Resource.iconAlertWhite)}" class="error-image"/>
-            <span id="alertText" class="closebtn"  onclick="this.parentElement.style.display='none';">&times;</span>
+            <img id="sucessImg" src="{!URLFOR($Resource.popup_success_icon)}" class="error-image"/>
+            <span id="sucessText" class="closebtn"  onclick="this.parentElement.style.display='none';">&times;</span>
         </div>
 
 
@@ -1313,8 +1313,8 @@
 
             function displaysSuccessMessage(warningText) {
                 const warningCustom = document.getElementById("sucessCustom");
-                const warnText = document.getElementById("alertText"); // Get the warnText element
-                const warnImg = document.getElementById("alertImg"); // Get the warnImg element
+                const warnText = document.getElementById("sucessText"); // Get the warnText element
+                const warnImg = document.getElementById("sucessImg"); // Get the warnImg element
     
                 warningCustom.textContent = ""; // Clear any existing content
                 warningCustom.appendChild(warnImg);
@@ -1721,15 +1721,15 @@
                                      totalSeconds,studentIdMain,eventIdMain,true,student_test_warning,
                                      function (result, event) { 
                                             //  console.log("success");   
-                                                 if (event.status) {
-                                                    //  console.log(event.status);
-                                                 }
-                                                 else if (result.type === 'exception') {
-                                                     alert("Exception caught");
-                                                 }
-                                                 else {
-                                                     alert("Exception caught");
-                                                 }
+                                                //  if (event.status) {
+                                                //     //  console.log(event.status);
+                                                //  }
+                                                //  else if (result.type === 'exception') {
+                                                //      alert("Exception caught");
+                                                //  }
+                                                //  else {
+                                                //      alert("Exception caught");
+                                                //  }
                                          }
                                  ); 
                     //  console.log(totalSeconds)
@@ -1749,14 +1749,14 @@
                                             if(isTimerOut == true){ 
                                                 updateOnsubmitandfinish();
                                             }   
-                                                if (event.status) { 
-                                                }
-                                                else if (result.type === 'exception') {
-                                                    alert("Exception caught");
-                                                }
-                                                else {
-                                                    alert("Exception caught");
-                                                }
+                                                // if (event.status) { 
+                                                // }
+                                                // else if (result.type === 'exception') {
+                                                //     alert("Exception caught");
+                                                // }
+                                                // else {
+                                                //     alert("Exception caught");
+                                                // }
                                         }
                                 ); 
                          
@@ -1811,15 +1811,15 @@
                                                             else{
                                                                 displayErrorMessage("Something went wrong");
                                                             }
-                                                            if (event.status) {
-                                                                    // console.log(event.status);
-                                                                }
-                                                                else if (result.type === 'exception') {
-                                                                    alert("Exception caught");
-                                                                }
-                                                                else {
-                                                                    alert("Exception caught");
-                                                                }
+                                                            // if (event.status) {
+                                                            //         // console.log(event.status);
+                                                            //     }
+                                                            //     else if (result.type === 'exception') {
+                                                            //         alert("Exception caught");
+                                                            //     }
+                                                            //     else {
+                                                            //         alert("Exception caught");
+                                                            //     }
                                                         }
                                                 );   
                         
@@ -2084,15 +2084,15 @@
                                                     hideLoader();
                                                 }
                                                 
-                                                if (event.status) {
-                                                    // console.log(event.status);
-                                                }
-                                                else if (result.type === 'exception') {
-                                                    alert("Exception caught");
-                                                }
-                                                else {
-                                                    alert("Exception caught");
-                                                }
+                                                // if (event.status) {
+                                                //     // console.log(event.status);
+                                                // }
+                                                // else if (result.type === 'exception') {
+                                                //     alert("Exception caught");
+                                                // }
+                                                // else {
+                                                //     alert("Exception caught");
+                                                // }
                                         }
                                 ); 
 
@@ -2121,24 +2121,24 @@
                                                                     val = result;
                                                                     initData(result);
                                                                     hideLoader();
-                                                                    displaysSuccessMessage("Response Saved Sucessfully!") 
+                                                                    displaysSuccessMessage("Option Saved Successfully!"); 
                                                                 }else{
                                                                     initData(val);
                                                                     hideLoader(); 
-                                                                    displayErrorMessage("Connection Issues. Try Saving Again.");
+                                                                    displayErrorMessage("Connection Issues. Try Choosing Option Again.");
                                                                 }
                                                                 
                                                                    
                                                                 
-                                                                    if (event.status) {
-                                                                        // console.log(event.status);
-                                                                    }
-                                                                    else if (result.type === 'exception') {
-                                                                        alert("Exception caught");
-                                                                    }
-                                                                    else {
-                                                                        alert("Exception caught");
-                                                                    }
+                                                                    // if (event.status) {
+                                                                    //     // console.log(event.status);
+                                                                    // }
+                                                                    // else if (result.type === 'exception') {
+                                                                    //     alert("Exception caught");
+                                                                    // }
+                                                                    // else {
+                                                                    //     alert("Exception caught");
+                                                                    // }
                                                             }
                                                     ); 
                                                     studentAnswer = '';
@@ -2187,23 +2187,23 @@
                                                 val = result;
                                                 initData(result);
                                                 hideLoader();
-                                                displaysSuccessMessage("Response Saved Sucessfully!") 
+                                                displayWarningMessage("Option Cleared Successfully!") 
                                             }else{
                                                 initData(val);
                                                 hideLoader(); 
-                                                displayErrorMessage("Connection Issues. Try Saving Again.");
+                                                displayErrorMessage("Connection Issues. Try Clearing Again.");
                                             }
                                              
                                                 
-                                                if (event.status) {
-                                                    // console.log(event.status);
-                                                }
-                                                else if (result.type === 'exception') {
-                                                    alert("Exception caught");
-                                                }
-                                                else {
-                                                    alert("Exception caught");
-                                                }
+                                                // if (event.status) {
+                                                //     // console.log(event.status);
+                                                // }
+                                                // else if (result.type === 'exception') {
+                                                //     alert("Exception caught");
+                                                // }
+                                                // else {
+                                                //     alert("Exception caught");
+                                                // }
                                         }
                                 ); 
                                 studentAnswer = '';
