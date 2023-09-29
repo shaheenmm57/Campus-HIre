@@ -488,7 +488,7 @@
                  }
 
                  .main-cnt-item-2-image{
-                   margin-left: 6vw;
+                   margin-left: 3vw;
                  }
 
                  .main-cnt-image{
@@ -508,6 +508,7 @@
                     font-size: 1.1rem;
                     margin-left: 30px;
                     font-weight: 500; 
+                    margin-top: 5vh;
                  }
 
                  .main-cnt-item-img-txt-sub-main span{
@@ -700,13 +701,25 @@
                     <div class="main-cnt-item-img-txt-sub">a. When the page is forcefully refreshed.</div>
                     <div class="main-cnt-item-img-txt-sub">b. When the page exits fullscreen. </div>
                     <div class="main-cnt-item-img-txt-sub">c. When tabs or app is switched.</div>
-                    <div class="main-cnt-item-img-txt-sub-main"><span>When fullscreen exit warning timer reaches 0 or warnings become 0 test will be auto submited.</span> </div>
+                    <div class="main-cnt-item-img-txt-sub-main"><span>👇 When the fullscreen exit warning timer reaches 0 or warnings become 0, the test will be auto-submitted.</span> </div>
                     <div class="main-cnt-item-2-image">
                         <img class="main-cnt-image" src="{!URLFOR($Resource.warning_instruction_image)}" alt="My PNG Image" />
                     </div>
 
                     <div class="main-cnt-item-2-image">
                         <img class="main-cnt-image" src="{!URLFOR($Resource.TestUI)}" alt="My PNG Image" />
+                    </div>
+                    <div class="main-cnt-item-img-txt-sub-main"><span>👇 When an option is Selected, it will be saved automatically, and a success message will be displayed.</span> </div>
+                    <div class="main-cnt-item-2-image">
+                        <img class="main-cnt-image" src="{!URLFOR($Resource.popup_success_instuction_ss)}" alt="My PNG Image" />
+                    </div>
+                    <div class="main-cnt-item-img-txt-sub-main"><span>👇 When an option is Cleared, it will be saved automatically, and a success message of clearing will be displayed.</span> </div>
+                    <div class="main-cnt-item-2-image">
+                        <img class="main-cnt-image" src="{!URLFOR($Resource.popup_warning_instuction_ss)}" alt="My PNG Image" />
+                    </div>
+                    <div class="main-cnt-item-img-txt-sub-main"><span>👇 If you encounter this message while choosing an option or clearing the selected option, try again or contact the admin.</span> </div>
+                    <div class="main-cnt-item-2-image">
+                        <img class="main-cnt-image" src="{!URLFOR($Resource.popup_error_instuction_ss)}" alt="My PNG Image" />
                     </div>
                 </div>
               </div>
