@@ -2218,6 +2218,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>RC_student_test__c.neg_student_apti_marks__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RC_student_test__c.neg_student_cprogram_marks__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RC_student_test__c.neg_student_marks_scored__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>RC_student_test__c.student_apti_marks__c</field>
         <readable>true</readable>
     </fieldPermissions>
