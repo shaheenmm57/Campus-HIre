@@ -8,5 +8,10 @@
     <columns>usn__c</columns>
     <columns>CREATED_DATE</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>CREATED_DATE</field>
+        <operation>equals</operation>
+        <value>TODAY</value>
+    </filters>
     <label>All</label>
 </ListView>
