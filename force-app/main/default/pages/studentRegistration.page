@@ -660,7 +660,7 @@
                                         <span class="section-item-text">Phone Number:</span>
                                         <div class="phone-container" id='phoneContainer'>
                                             <span class="phone-text">+91</span>
-                                            <input id="phoneInput" type="text" style="width:12.8vw; border:none;" pattern="[0-9]"></input>
+                                            <input id="phoneInput" type="text" style="width:12.8vw; border:none;"></input>
                                         </div>
                                     </div>
                                     <!-- <div class="section-item" style="visibility: hidden;">
@@ -995,6 +995,7 @@
             const successfulSection = document.getElementById("successfulSection");
             const degDetailsSection = document.getElementById("degDetails");
             const prevDetailsSection = document.getElementById("previewDetails");
+            const basicDetailsSection = document.getElementById("basicDetails");
             const failSection = document.getElementById("failSection");
             const nextButtons = document.querySelectorAll(".not-next-button");
             const prevButtons = document.querySelectorAll(".prev-button");
@@ -1061,7 +1062,7 @@
                 { id: 'degreePassingYearInput', maxLength: 4, allowDecimal: false },
                 { id: 'diplomaPassingYearInput', maxLength: 4, allowDecimal: false },
                 { id: 'diplomaMarksInput', maxLength: 3, allowDecimal: true },
-                { id: 'usnInput', maxLength: 100, allowDecimal:false},
+                { id: 'usnInput', maxLength: 10, allowDecimal:false},
             ];
             
             function allowOnlyNumbers(inputField, maxLength, allowDecimal) {
@@ -1240,14 +1241,11 @@
                     const sectionShadow = document.querySelector(".section-body");
                     const progressBar = document.querySelector(".progress");
                     const progressText = document.querySelector(".progress-text");
-                    progressText.style.display = "flex";
+                    // progressText.style.display = "flex";
                     sectionShadow.classList.remove("section-body-red-shadow");
-                    progressBar.classList.remove("progress-red");
-                    prevDetailsSection.style.display = "flex";
-                    progressBar.style.width = `80%`;
-                    progressBar.style.clipPath = "polygon(0 0, 100% 0, 95% 100%, 0% 100%)";
-                    progressBarContainer.style.height = '35px'
-                    updateProgressText(currentSectionIndex)
+                    // progressBar.classList.remove("progress-red");
+                    basicDetailsSection.style.display = "flex";
+
                 });
     
 
@@ -1326,7 +1324,7 @@
                     }
 
                     // Validate branch dropdown
-                    if (branchDropdown.value === "invalid" && degreeTypeId === "be" || degreeTypeId === "btech") {
+                    if (branchDropdown.value === "invalid" && (degreeTypeId === "be" || degreeTypeId === "btech")) {
                         branchDropdown.classList.add("input-error");
                         hasEmptyFields = true;
                     }
@@ -1591,25 +1589,25 @@
                     prevDetailsSection.style.display = "none";
                     successfulSection.style.display = "block";
                     const sectionShadow = document.querySelector(".section-body");
-                    const progressBar = document.querySelector(".progress");
-                    progressText.style.display= "none";
-                    progressBarContainer.style.height = "10px";
-                    progressBar.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0% 100%)";
-                    progressBar.style.width = '100%';
+                    //const progressBar = document.querySelector(".progress");
+                    // progressText.style.display= "none";
+                    // progressBarContainer.style.height = "10px";
+                    // progressBar.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0% 100%)";
+                    // progressBar.style.width = '100%';
                     sectionShadow.classList.add("section-body-green-shadow");
-                    progressBar.classList.add("progress-green");
+                    // progressBar.classList.add("progress-green");
                 } else {
                     prevDetailsSection.style.display = "none";
                     failSection.style.display = "block";
                     const sectionShadow = document.querySelector(".section-body");
-                    const progressBar = document.querySelector(".progress");
-                    const progressBarContainer = document.querySelector(".progress-bar");
-                    progressText.style.display= "none";
-                    progressBarContainer.style.height = "10px";
-                    progressBar.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0% 100%)";
-                    progressBar.style.width = '100%';
-                    sectionShadow.classList.add("section-body-red-shadow");
-                    progressBar.classList.add("progress-red");
+                    // const progressBar = document.querySelector(".progress");
+                    // const progressBarContainer = document.querySelector(".progress-bar");
+                    // progressText.style.display= "none";
+                    // progressBarContainer.style.height = "10px";
+                    // progressBar.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0% 100%)";
+                    // progressBar.style.width = '100%';
+                    // sectionShadow.classList.add("section-body-red-shadow");
+                    // progressBar.classList.add("progress-red");
                     displayErrorMessage(event.message);
     
                 }
