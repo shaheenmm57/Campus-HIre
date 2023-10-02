@@ -1050,6 +1050,24 @@
             }
 
 
+            const basicFields = [
+            { id: 'nameInput' },
+            { id: 'phoneInput' },
+            { id: 'emailInput' },
+            { id: 'reenterEmailInput' },
+            { id: 'usnInput' },
+            { id: 'collegeDropdown' },
+            { id: 'degreeDropdown' },
+            { id: 'branchDropdown' },
+            { id: 'cityInput' }
+            ];
+
+            basicFields.forEach((field) => {
+                field.classList.remove("input-error");
+            });
+
+
+
 
             const inputFields = [
                 { id: 'phoneInput', maxLength: 10, allowDecimal: false },
