@@ -1061,7 +1061,7 @@
                 { id: 'degreePassingYearInput', maxLength: 4, allowDecimal: false },
                 { id: 'diplomaPassingYearInput', maxLength: 4, allowDecimal: false },
                 { id: 'diplomaMarksInput', maxLength: 3, allowDecimal: true },
-                { id: 'usnInput', maxLength: 10, allowDecimal:false},
+                { id: 'usnInput', maxLength: 100, allowDecimal:false},
             ];
             
             function allowOnlyNumbers(inputField, maxLength, allowDecimal) {
@@ -1270,6 +1270,8 @@
                     const branchDropdown = document.getElementById("branchDropdown");
                     const city = document.getElementById("cityInput");
 
+                    const degreeTypeId = document.getElementById('degreeDropdown').options[document.getElementById('degreeDropdown').selectedIndex].id
+
                     
 
                     // Remove any previous validation errors
@@ -1318,13 +1320,13 @@
                     }
 
                     // Validate degree dropdown
-                    if (degreeDropdown.value === "invalid") {
+                    if (degreeDropdown.value === "invalid" ) {
                         degreeDropdown.classList.add("input-error");
                         hasEmptyFields = true;
                     }
 
                     // Validate branch dropdown
-                    if (branchDropdown.value === "invalid") {
+                    if (branchDropdown.value === "invalid" && degreeTypeId === "be" || degreeTypeId === "btech") {
                         branchDropdown.classList.add("input-error");
                         hasEmptyFields = true;
                     }
