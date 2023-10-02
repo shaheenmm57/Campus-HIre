@@ -414,7 +414,7 @@
                                 
                                 <div class = 'login-button'>
                                     <apex:commandButton id="loginButton" styleClass="loginButton-new" value="Login" action="{!Login}" />
-                                    <a id="createAcc" class="reg-text" href="https://empathetic-panda-t0xpua-dev-ed--c.trailblaze.vf.force.com/apex/studentRegistrationAlt"> Don't Have an Acoount? Register Here </a>
+                                    <a id="createAcc" class="reg-text" href="/studentRegistration"> Don't Have an Acoount? Register Here </a>
                                 </div>
 
                             </div>

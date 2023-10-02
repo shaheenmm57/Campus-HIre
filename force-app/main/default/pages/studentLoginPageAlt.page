@@ -700,7 +700,7 @@
             }
 
             function NavToLoginPage(){
-                var targetPageUrl = '/apex/studentRegistrationAlt';
+                var targetPageUrl = '/apex/studentRegistration';
                 window.location.href = targetPageUrl;
             }
     
