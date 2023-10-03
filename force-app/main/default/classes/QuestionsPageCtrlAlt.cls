@@ -21,7 +21,8 @@ public without sharing class QuestionsPageCtrlAlt {
    public static List<RC_student_question__c> GetInitialData(Id studentId, Id eventId) {  
       List<RC_student_question__c> student_test_questions = [SELECT Id, Name, student_test_id__c, is_attempted__c, currentQuestion__c,  question_description__c, hasProgram__c, question_title__c, student_attempt__c, question_category__c, question_difficulty__c, option_1__c, option_2__c, option_3__c, option_4__c, question_number__c
       FROM RC_student_question__c
-      WHERE student_test_id__c IN (SELECT Id FROM RC_student_test__c WHERE student_id__c = :studentId and event_id__c = :eventId) ORDER BY question_number__c];
+      WHERE student_test_id__c IN (SELECT Id FROM RC_student_test__c WHERE student_id__c = :studentId and event_id__c = :eventId)];
+      // List<RC_student_question__c> student_question_list = [SELECT Id, Name, student_test_id__c, is_attempted__c, currentQuestion__c, question_correct_answer__c, question_description__c, hasProgram__c, question_title__c, student_attempt__c, question_category__c, question_difficulty__c, option_1__c, option_2__c, option_3__c, option_4__c, question_number__c FROM RC_student_question__c];
       return student_test_questions;
    }
 
@@ -55,10 +56,15 @@ public without sharing class QuestionsPageCtrlAlt {
 
     @RemoteAction
     public static List<RC_student_question__c> updateCurrentQuestion(Integer updatedQuestionNumber,String studentAnswer, Id questionId,Boolean isQstAttempted,Id studentId, Id eventId) {  
+      // SELECT Id, Name, student_test_id__c, is_attempted__c, currentQuestion__c, question_correct_answer__c, question_description__c, hasProgram__c, question_title__c, student_attempt__c, question_category__c, question_difficulty__c, option_1__c, option_2__c, option_3__c, option_4__c, question_number__c
+      // FROM RC_student_question__c
+      // WHERE student_test_id__c IN (SELECT Id FROM RC_student_test__c WHERE student_id__c = 'a055j00000U7D9WAAV')
+
         System.debug('k* ' + updatedQuestionNumber   +studentAnswer);
+         // List<RC_student_question__c> student_question_list = [SELECT Id, Name, student_test_id__c, is_attempted__c, currentQuestion__c, question_correct_answer__c, question_description__c, hasProgram__c, question_title__c, student_attempt__c, question_category__c, question_difficulty__c, option_1__c, option_2__c, option_3__c, option_4__c, question_number__c FROM RC_student_question__c];
          List<RC_student_question__c> student_question_list = [SELECT Id, Name, student_test_id__c, is_attempted__c, currentQuestion__c, question_correct_answer__c, question_description__c, hasProgram__c, question_title__c, student_attempt__c, question_category__c, question_difficulty__c, option_1__c, option_2__c, option_3__c, option_4__c, question_number__c
          FROM RC_student_question__c
-         WHERE student_test_id__c IN (SELECT Id FROM RC_student_test__c WHERE student_id__c = :studentId and event_id__c = :eventId) ORDER BY question_number__c];
+         WHERE student_test_id__c IN (SELECT Id FROM RC_student_test__c WHERE student_id__c = :studentId and event_id__c = :eventId)];
          for( Integer i = 0 ;i< student_question_list.size();i++){
                   if(updatedQuestionNumber == student_question_list[i].question_number__c){
                      student_question_list[i].currentQuestion__c = true; 
@@ -86,28 +92,28 @@ public without sharing class QuestionsPageCtrlAlt {
        
    //  }
 
-   // @RemoteAction
-   // public static Integer GetQuestionCount(Id studentId,Id eventId) {
-   //        Integer QuestionCount = 0;
-   //         List<AggregateResult> results = [SELECT COUNT(Id) cnt
-   //         FROM RC_student_question__c
-   //         WHERE student_test_id__c IN (SELECT Id FROM RC_student_test__c WHERE student_id__c = :studentId and event_id__c = :eventId) and is_attempted__c = true];
+   @RemoteAction
+   public static Integer GetQuestionCount(Id studentId,Id eventId) {
+          Integer QuestionCount = 0;
+           List<AggregateResult> results = [SELECT COUNT(Id) cnt
+           FROM RC_student_question__c
+           WHERE student_test_id__c IN (SELECT Id FROM RC_student_test__c WHERE student_id__c = :studentId and event_id__c = :eventId) and is_attempted__c = true];
 
-   //         if (!results.isEmpty()) {
-   //             AggregateResult aggregateResult = results[0];
-   //             QuestionCount = Integer.valueOf(aggregateResult.get('cnt'));
-   //         } else {
-   //             QuestionCount = 0; 
-   //         }
-   //         return QuestionCount;
-   // }
+           if (!results.isEmpty()) {
+               AggregateResult aggregateResult = results[0];
+               QuestionCount = Integer.valueOf(aggregateResult.get('cnt'));
+           } else {
+               QuestionCount = 0; 
+           }
+           return QuestionCount;
+   }
 
 
-   // @RemoteAction
-   // public static List<RC_student_question__c> GetQuestionPreiew(Id studentId,Id eventId) {
-   //         List<RC_student_question__c> res = [SELECT Id,question_number__c, question_title__c ,question_category__c,is_attempted__c FROM RC_student_question__c WHERE student_test_id__c IN (SELECT Id FROM RC_student_test__c WHERE student_id__c = :studentId and event_id__c = :eventId)];     
-   //         return res;
-   // }
+   @RemoteAction
+   public static List<RC_student_question__c> GetQuestionPreiew(Id studentId,Id eventId) {
+           List<RC_student_question__c> res = [SELECT Id,question_number__c, question_title__c ,question_category__c,is_attempted__c FROM RC_student_question__c WHERE student_test_id__c IN (SELECT Id FROM RC_student_test__c WHERE student_id__c = :studentId and event_id__c = :eventId)];     
+           return res;
+   }
 
 
 

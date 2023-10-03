@@ -1,4 +1,4 @@
-public with sharing class studentLoginAltCtrl {
+public without sharing class studentLoginAltCtrl {
     public studentLoginAltCtrl() {
 
     }

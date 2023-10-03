@@ -5295,6 +5295,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>PowerBiEmbedManager</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>QuestionsPageCtrl</apexClass>
         <enabled>true</enabled>
     </classAccesses>
