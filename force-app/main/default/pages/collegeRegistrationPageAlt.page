@@ -691,14 +691,14 @@
             </apex:form>
             </div>
             <div class="sucess" id="sucessimage">
-                <iframe style="border:none; outline:none" src="https://lottie.host/?file=1521adaf-50d7-4b7e-b108-3d1c14fa48c9/GH1hTRgtm2.json"></iframe>
-                A new college has been created!
-              </div>
-              <div class="fail" id="failimage">
+                <iframe style="border:none; outline:none" src="https://lottie.host/?file=23e143eb-ddcf-4f90-9e78-3a2c47e57e6a/ueqFzJupr2.json"></iframe>
+                A new College has been created!
+            </div>
+            <div class="fail" id="failimage">
                 <iframe style="border:none; outline:none" src="https://lottie.host/?file=6c7fe4bc-b7f3-4b6c-88ba-70c4f6e504b4/vsOF6MZHZd.json"></iframe>
                 <div id="failText">
                     We encountered an error.
-                    Please Refresh the page and try again.
+                    Please Refresh the page and try again
                 </div>
                 
               </div>

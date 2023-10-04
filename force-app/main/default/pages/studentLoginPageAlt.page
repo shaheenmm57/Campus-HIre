@@ -700,7 +700,7 @@
             }
 
             function NavToLoginPage(){
-                var targetPageUrl = '/apex/studentRegistrationAlt';
+                var targetPageUrl = '/apex/studentRegistration';
                 window.location.href = targetPageUrl;
             }
     
@@ -750,15 +750,16 @@
                                  EmailFromInput,EventIdFromInput,
                                 function (result, event) { 
                                            console.log("success"); 
-                                           hideLoader();
                                            console.log(result);
                                            if(result.ErrorMsg === '')
                                            {
-                                                routeToStudentLogin(result.EventId, result.StudentId);
+                                               routeToStudentLogin(result.EventId, result.StudentId);
+                                            //    hideLoader();
                                            }
                                            else
                                            {
-                                                displayErrorMessage(result.ErrorMsg);
+                                                hideLoader();
+                                                displayErrorMessage(result);
 
                                                 if(result.ErrorMsg === 'Email is Not registered and Incorrect Event Password')
                                                 {
@@ -774,18 +775,9 @@
                                                 {
                                                     document.getElementById("eventIdInput").classList.add('input-error');
                                                 }
-                                           }
-                                           
-                                            
-                                            if (event.status) {
-                                                console.log(event.status);
-                                            }
-                                            else if (result.type === 'exception') {
-                                                alert("Exception caught");
-                                            }
-                                            else {
-                                                alert("Exception caught");
-                                            }
+                                                
+                                           }  
+                                         
                                     }
                             );
              }

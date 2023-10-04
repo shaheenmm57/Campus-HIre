@@ -37,12 +37,6 @@
             </value>
         </filters>
         <inputAssignments>
-            <field>student_test_current_time__c</field>
-            <value>
-                <elementReference>$Record.event_duration__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>student_test_duration__c</field>
             <value>
                 <elementReference>$Record.event_duration__c</elementReference>
@@ -60,5 +54,5 @@
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Obsolete</status>
+    <status>Draft</status>
 </Flow>

@@ -1,0 +1,1469 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" controller="studentRegistrationController">
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,800;1,100;1,200;1,300;1,400;1,500;1,800&display=swap" rel="stylesheet"/>
+        <title>Novigo | Student Profile</title>
+        <style>
+            :root {
+                --blue-color: #150958;
+                --blue-color-hover: #200e89;
+                --blue-color-hover-alt: #312a5a;
+                --blue-color-select: #534798;
+                --text-color: black;
+                --background-color: white;
+                --red-color: #EF233C;
+                --yellow-color: #ffb01d;
+
+                --green-color: #008000;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: 'Poppins', sans-serif;
+            }
+            input{
+                width: 15vw;
+                height: 3vh;
+                border: 1.5px solid var(--blue-color);
+                padding: 2px;
+                font-size: 1.25vw;
+            }
+            textarea{
+                width: 15vw;
+                height: 10vh;
+                border: 1.5px solid var(--blue-color);
+                padding: 2px;
+                font-size: 1.25vw;
+                resize: none;
+            }
+            textarea:focus{
+                outline: none;
+            }
+            .phone-text{
+                padding-right: 2px;
+                font-size: 1.2vw;
+            
+                border-right: 1px dashed var(--blue-color);
+            }
+            input:focus{
+                outline: none;
+            }
+            option{
+                color: solid var(--blue-color)!important;
+                width: 15vw;
+                border: 1.5px solid var(--blue-color);
+                background-color: none;
+
+            }
+
+            .phone-container{
+                border: 1.5px solid var(--blue-color);
+                display: flex;
+            }
+            .phone-container-error{
+                border: 1.5px solid var(--red-color);
+            }
+
+
+            .select-style{
+                width: 15.5vw !important;
+                height: 4vh !important;
+                border: 1.5px solid var(--blue-color);
+                /* padding-left:2px; */
+                padding-right: 2px; 
+                background-color: none;
+                font-size:1.25vw;
+
+            }
+            .input-error{
+                border: 1.5px solid var(--red-color);
+            }
+            .input-warning{
+                border: 1.5px solid var(--yellow-color);
+            }
+
+
+            .main {
+                height: 100vh;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .header {
+                height: 10vh;
+                width: 100%;
+                background: var(--blue-color);
+                display: flex;
+                align-items: center;
+                justify-content: space-between
+            }
+
+            .novigo-icon {
+                height: 6vh;
+                margin-left: 8px;
+            }
+            .novigo-icon-big{
+                opacity: 0.05;
+                position: fixed;
+                bottom: 0;
+                right: 0;
+                z-index: -1; 
+                filter: grayscale(50%);
+            }
+            .title {
+                /* margin-top: 4vh; */
+                margin-right:4vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: sticky;
+                top: 0;
+                /* background-color: white; */
+                z-index: 1;
+            }
+            .content-container {
+                
+                /* justify-content: center; */
+            }
+
+            .title-text {
+                font-size: 2vw;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 500;
+                color: var(--background-color);
+            }
+            .section-body{
+                margin-top:4vh;
+                background-color: var(--background-color);
+                border: 1px solid var(--blue-color);
+                border-radius: 8px;
+                box-shadow: 0px 1px 10px #150958;
+                height: 60%;
+            }
+            .section-body-green-shadow{
+                box-shadow: 0px 1px 10px var(--green-color);
+            }
+            .section-body-red-shadow{
+                box-shadow: 0px 1px 10px var(--red-color);
+            }
+
+            .section-wrapper{
+                padding: 1.5vh;
+                margin-bottom: 2vh;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+
+            }
+            .section {
+                
+                padding: 1.5vh;
+                /* cursor: pointer; */
+                transition: border 0.2s, transform 0.2s;
+                width: 40vw;
+                max-height: 50vh;
+                overflow-y: scroll;
+
+            }
+
+
+            .section-text-container{
+                display:flex;
+                flex-direction: column;
+            }
+
+            .section-text {
+                font-weight: 500;
+                font-size: 1.5vw;
+                margin-left: 1vh;
+                margin-bottom: 0.5vh;
+                display: none;
+
+            }
+            .section-text-small{
+                font-weight: 300;
+                font-size: 0.8vw;
+                margin-left: 1vh;
+                margin-bottom: 0.5vh;
+                color: var(--red-color);
+            }
+
+            .section-items {
+                padding: 2vh;
+                display: flex;
+                flex-direction: column;
+                gap: 1.5vh;
+            }
+
+            .section-item {
+                display: flex;
+                justify-content: space-between;
+                padding: 1;
+                margin: 2vh;
+            }
+
+            .section-item-text {
+                margin-right: 1vw;
+                font-size: 1.2vw;
+            }
+            .section-buttons{
+                display: flex;
+                justify-content: space-around;
+                flex-direction: row;
+                margin-top: 1.5vh;
+            }
+
+            .prev-button, .next-button, .go-back-button {
+                background-color: var(--blue-color);
+                color: var(--background-color);
+                width: 50%;
+                height: 5vh;
+                padding: 2px;
+                outline: none;
+                border: 2px transparent;
+                margin: 0.5vw;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: .3s ease;
+                }
+
+            .prev-button:hover, .next-button:hover {
+                background-color: var(--blue-color-hover);
+                }
+
+            .submit-button{
+                background-color: var(--green-color);
+                color: var(--background-color);
+                width: 50%;
+                height: 5vh;
+                padding: 2px;
+                outline: none;
+                border:2px transparent;
+                margin: 0.5vw;
+                border-radius: 10px;
+                cursor: pointer;
+            }
+
+
+
+            .progress-bar {
+                width: 100%;
+                height: 35px;
+                background-color: white;
+                position: sticky;
+                border-radius: 7px;
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+                top: 0;
+                z-index: 1;
+            }
+
+            .progress {
+                height: 100%;
+                border-top: 1px solid var(--blue-color);
+                display: flex;
+                justify-content: flex-start;
+                background-color: var(--blue-color);
+                width: 25%;
+                clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+                transition: width 0.5s;
+                align-items: flex-end;
+            }
+            .progress-green {
+                background-image: linear-gradient(45deg, var(--green-color), #026d02);
+            }
+            .progress-red {
+                background-image: linear-gradient(45deg, var(--red-color), red);
+            }
+            .progress-text{
+                margin-left: 1vw;
+                color: white;
+                font-size: 22px;
+                font-weight: 400;
+            }
+            .custom-checkbox{
+                width: 20px;
+                height: 3vh;
+            }
+            #successfulSection, #failSection{
+                display: none;
+            }
+            
+            .success-section{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .error-image{
+                height:18px; 
+                width:18px; 
+                margin-left:0.5vw;
+                margin-right: 1vw;
+            }
+            .error-alert {
+                position: fixed;
+                z-index: 1000; 
+                top: 8%; 
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: none;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: var(--red-color);
+                color: white;
+                margin-bottom: 15px;
+                align-items: center;
+                justify-content: center;
+                align-content: center;
+            }
+            .alert-animation {
+                animation-name: fade;
+                animation-duration: 0.5s; /* Adjust the duration as needed */
+            }
+
+            @keyframes fade {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+            .error-warning {
+                position: fixed;
+                z-index: 1000; 
+                top: 8%; 
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: none;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: var(--yellow-color);
+                color: black;
+                margin-bottom: 15px;
+                align-items: center;
+                justify-content: center;
+                align-content: center;
+            }
+            .closebtn {
+            margin-left: 15px;
+            color: white;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            }
+
+            .closebtn:hover {
+            color: black;
+            }
+            .closebtn-black-color{
+                color: black;
+            }
+            .closebtn-black-color:hover{
+                color: white;
+            }
+            ::selection{
+                color: white;
+                background: var(--blue-color-hover);
+            }
+
+            .hide {display: none;}
+            .loader {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 9999;
+            }
+
+            .loader-logo{
+                position: absolute;
+                top: 50;
+                left: 50;
+            }
+
+            .loader-logo .logo-section-one {
+                animation: moveOne 1.25s infinite alternate;
+            }
+
+            .loader-logo .logo-section-two {
+                animation: moveTwo 1.25s infinite alternate;
+            }
+
+            @keyframes moveOne {
+                0%, 100% {
+                    fill: white;
+                    transform: translate(-15px, -25px);
+                    opacity: 0;
+                    
+                }
+                50% {
+                    fill: var(--red-color);
+                    transform: translate(0, 0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes moveTwo {
+                0%, 100% {
+                    fill: white;
+                    transform: translate(10px, 10px);
+                    opacity: 0;
+                }
+                50% {
+                    fill: var(--red-color);
+                    transform: translate(0, 0);
+                    opacity: 1;
+                }
+            }
+            .hidden {
+                display: none;
+            }
+
+            ::-webkit-scrollbar {
+                    width: 12px;
+                }
+
+            ::-webkit-scrollbar-track {
+                    background-color: rgb(244, 244, 244);
+                    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 25, 88, 0.3);  */
+                    border-radius: 10px;
+                }
+
+            ::-webkit-scrollbar-thumb {
+                    border-radius: 10px;
+                    background-color: var(--blue-color);
+                    transition: 0.3s;
+                }
+            ::-webkit-scrollbar-thumb:hover {
+                    background-color: var(--blue-color-hover);
+                }
+
+
+
+                body {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                }
+                input[type=checkbox]{
+                    height: 0;
+                    width: 0;
+                    visibility: hidden;
+                }
+
+                label {
+                    cursor: pointer;
+                    text-indent: -9999px;
+                    width: 4vw;
+                    height: 4vh;
+                    background: white;
+                    display: block;
+                    border-radius: 100px;
+                    position: relative;
+                    border: 2px solid var(--blue-color);
+                }
+
+                label:after {
+                    content: '';
+                    position: absolute;
+                    top: 5px;
+                    left: 8px;
+                    width: 1vw;
+                    height: 2vh;
+                    background: var(--blue-color);
+                    border-radius: 90px;
+                    transition: 0.3s;
+                }
+
+                input:checked + label {
+                    background: var(--blue-color);
+                }
+
+                input:checked + label:after {
+                    left: calc(100% - 5px);
+                    transform: translateX(-100%);
+                    background: white;
+                }
+
+                label:active:after {
+                    background: white;
+                    width: 40px;
+                }
+
+                .preview-section {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr; /* Two columns for .previewTitle and .previewValue */
+                    align-items: center; /* Center items vertically */
+                    gap: 2vh; /* Gap between columns */
+                    padding: 1;
+                    margin: 2vh;
+                }
+
+                    .previewTitle {
+                    color: var(--blue-color);
+                    font-size: 1.25vw;
+                    margin-left: 2vw;
+                }
+
+                    .previewValue {
+                    color: var(--blue-color);
+                    font-size: 1.25vw;
+                    font-weight: 500;
+                    margin-left: 2vw; /* Adjust margin if needed */
+                }
+
+                .details-summary{
+                    display: flex;
+                    flex-direction: column;
+                    overflow-y: scroll;
+                    max-height: 60vh;
+                }
+                .reg-text{
+                    margin-top: 1vh;
+                    font-size: 12px;
+                    color: var(--blue-color);
+                    text-align: center;
+                }
+                .branch-select{
+                    display:none;
+                }
+                .profile-banner{
+                    display: flex;
+                    padding: 2vh;
+                    justify-content: flex-start;
+                }
+                .profile-image{
+                    height: 30vh;
+                    width:15vw;
+                    background-color: whitesmoke;
+                    border:2px solid var(--blue-color);
+                }
+                .profile-basic-details{
+                    display:flex;
+                    flex-direction: column;
+                    margin-left:1vw;
+                }
+                .profile-basic-section{
+                    display:flex;
+                }
+
+    </style>
+    
+    </head>
+    <body>
+        <div class="loader hidden">
+            <div class="loader-logo loader-logo-animation">
+                <svg width="120" height="120" viewBox="0 0 61 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30.8919 50.5334C33.472 46.3136 35.8983 42.4107 38.2198 38.4516C38.447 38.062 38.1813 37.2563 37.8911 36.7808C30.6681 24.8707 23.4241 12.9705 16.1242 1.10328C15.7781 0.541945 14.9355 0.0697652 14.2502 0.0565574C9.65982 -0.0325952 5.0659 0.0103303 0 0.0103303C10.3486 16.9361 20.5293 33.5845 30.8919 50.5334Z" fill="white"/>
+                    <path class="logo-section-one" d="M21.9257 0.0785001C28.4739 10.7867 34.8054 21.135 41.3047 31.7607C43.8779 27.5738 46.3182 23.6643 48.6536 19.7053C48.8844 19.3123 48.6641 18.5133 48.3844 18.0444C44.9897 12.4146 41.567 6.80127 38.0743 1.22428C37.7422 0.692662 36.8996 0.137935 36.2843 0.124727C31.6869 0.0322727 27.0825 0.0751975 21.9257 0.0751975V0.0785001Z" fill="#EF233C"/>
+                    <path class="logo-section-two" d="M60.6489 0.124756H45.0002C47.6293 4.4404 50.1395 8.56784 52.7965 12.9264C55.4326 8.62727 57.9394 4.54276 60.6489 0.124756Z" fill="#EF233C"/>
+                </svg>
+            </div>
+            <div class="loader-inner"></div>
+        </div>
+        <div class="error-warning" id="warningCustom">
+            <img id="warnImg" src="{!URLFOR($Resource.iconAlertBlack)}" class="error-image"/>
+            <span id="warnText" class="closebtn closebtn-black-color"  onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+        <div class="error-alert" id="errorCustom">
+            <img id="alertImg" src="{!URLFOR($Resource.iconAlertWhite)}" class="error-image"/>
+            <span id="alertText" class="closebtn"  onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+        <div class="main">
+            <div class="header">
+                <div>
+                    <img class="novigo-icon" src="{!URLFOR($Resource.novigo_logo)}" alt="Novigo Icon"/>
+                </div>
+                <div class="title">
+                    <svg style="margin-right: 1vw;" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="white" d="M11 9c0 1.66-1.34 3-3 3s-3-1.34-3-3s1.34-3 3-3s3 1.34 3 3m3 11H2v-2c0-2.21 2.69-4 6-4s6 1.79 6 4m8-6v2h-9v-2m9-4v2h-9V8m9-4v2h-9V4Z"/></svg>
+                    <span class="title-text">Student Profile</span>
+                </div>
+            </div>
+            <div class="profile-banner">
+                <div class="profile-image">
+                </div>
+                <div class="profile-basic-details">
+                    <div class="profile-name">
+                        <span class = "profile-basic-details-text-header">Name</span>
+                        <span class = "profile-basic-details-text-value">TestName</span>
+                    </div>
+                    <div class="profile-basic-section">
+                        <div class="profile-usn">
+                            <span class = "profile-basic-details-text-header">Name</span>
+                            <span class = "profile-basic-details-text-value">TestName</span>
+                        </div>
+                        <div class="profile-email">
+                            <span class = "profile-basic-details-text-header">Name</span>
+                            <span class = "profile-basic-details-text-value">TestName</span>
+                        </div>
+                        <div class="profile-phone">
+                            <span class = "profile-basic-details-text-header">Name</span>
+                            <span class = "profile-basic-details-text-value">TestName</span>
+                        </div>
+                    </div>
+                    <div class = "profile-basic-section">
+                        <div class="profile-college">
+                            <span class = "profile-basic-details-text-header">Name</span>
+                            <span class = "profile-basic-details-text-value">TestName</span>
+                        </div>
+                        <div class="profile-degree">
+                            <span class = "profile-basic-details-text-header">Name</span>
+                            <span class = "profile-basic-details-text-value">TestName</span>
+                        </div>
+                        <div class="profile-branch">
+                            <span class = "profile-basic-details-text-header">Name</span>
+                            <span class = "profile-basic-details-text-value">TestName</span>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+        <div>
+            <img class="novigo-icon-big" src="{!URLFOR($Resource.novigo_logo_blue)}" alt="Novigo Icon"/>
+        </div>
+    </body>
+    <script>
+    
+        let sections = [];
+        let currentSectionIndex = 0;
+        const collegeListFromDataBase = [];
+        const CollegeIDAndName = {};
+        let usnEmailCheckSuccessful = false;
+        let emailValidation = false;
+
+        // Add an event listener to the "Address" section
+        const addressSection = document.getElementById("addressSection");
+        if (addressSection) {
+            addressSection.addEventListener("click", () => {
+                // Scroll to the "Address" section
+                addressSection.scrollIntoView({ behavior: "smooth" });
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            sections = document.querySelectorAll(".section-wrapper");
+            const sectionIds = Array.from(sections).map((section) => section.id);
+            const successfulSection = document.getElementById("successfulSection");
+            const degDetailsSection = document.getElementById("degDetails");
+            const prevDetailsSection = document.getElementById("previewDetails");
+            const failSection = document.getElementById("failSection");
+            const nextButtons = document.querySelectorAll(".next-button");
+            const prevButtons = document.querySelectorAll(".prev-button");
+            const goBackButton = document.getElementById("goBackButton");
+            const branchTypeId = document.getElementById('branchDropdown').id;
+
+            function addInputValidation(inputField, maxLength, allowDecimal, validationFunction) {
+                const warningCustom = document.getElementById('warningCustom');
+                const phoneContainer = document.getElementById('phoneContainer');
+
+                if (!inputField) return;
+
+                inputField.addEventListener('input', () => {
+                    inputField.classList.remove("input-warning");
+                    let value = inputField.value;
+                    let hasWarning = false;
+
+                    if (maxLength && value.length > maxLength) {
+                        value = value.slice(0, maxLength);
+                    }
+
+                    if (validationFunction) {
+                        if (!validationFunction(value)) {
+                            console.log("Denying Input");
+                            value = value.slice(0, -1);
+                            inputField.value = value;
+                            hasWarning = true;
+                        }
+                    }
+
+                    if (hasWarning) {
+                        displayWarningMessage("Please Enter in Correct Format");
+                        inputField.classList.add("input-warning");
+                    } else {
+                        warningCustom.style.display = "none";
+                        inputField.classList.remove("input-warning");
+                    }
+
+                    inputField.value = value;
+
+                    if (inputField.id === 'phoneInput') {
+                        // PhoneInput specific validation
+                        if (maxLength && value.length > maxLength) {
+                            value = value.slice(0, maxLength);
+                        }
+
+                        if (!/^\d*\.?\d*$/.test(value)) {
+                            value = value.replace(/[^\d.]/g, '');
+                            hasWarning = true;
+                        }
+
+                        if (!allowDecimal && value.includes('.')) {
+                            value = value.split('.')[0];
+                            hasWarning = true;
+                        }
+
+                        if (hasWarning) {
+                            displayWarningMessage("Please Enter in Correct Format");
+                            phoneContainer.classList.add("input-warning");
+                        } else {
+                            warningCustom.style.display = "none";
+                            phoneContainer.classList.remove("input-warning");
+                        }
+                    }
+
+                    inputField.value = value;
+                });
+            }
+
+            function isNumber(value) {
+                console.log("isNumber");
+                return /^\d*\.?\d*$/.test(value);
+            }
+
+            function isText(value) {
+                console.log("isText");
+                return /^[a-zA-Z\s]*$/.test(value);
+            }
+
+            function isUsn(value) {
+                console.log("isUsn");
+                return /^[a-zA-Z0-9]+$/.test(value);
+            }
+            const allFields = [
+                { id: 'phoneInput', maxLength: 10, allowDecimal: false, validationFunction: isNumber },
+                { id: 'pincodeInput', maxLength: 6, allowDecimal: false, validationFunction: isNumber },
+                { id: 'schoolMarksInput', maxLength: 3, allowDecimal: true, validationFunction: isNumber },
+                { id: 'puMarksInput', maxLength: 3, allowDecimal: true, validationFunction: isNumber },
+                { id: 'degreeMarksInput', maxLength: 3, allowDecimal: true, validationFunction: isNumber },
+                { id: 'schoolPassingYearInput', maxLength: 4, allowDecimal: false, validationFunction: isNumber },
+                { id: 'puPassingYearInput', maxLength: 4, allowDecimal: false, validationFunction: isNumber },
+                { id: 'degreePassingYearInput', maxLength: 4, allowDecimal: false, validationFunction: isNumber },
+                { id: 'diplomaPassingYearInput', maxLength: 4, allowDecimal: false, validationFunction: isNumber },
+                { id: 'diplomaMarksInput', maxLength: 3, allowDecimal: true, validationFunction: isNumber },
+                { id: 'usnInput', maxLength: 10, allowDecimal: false, validationFunction: isUsn },
+                { id: 'cityInput', maxLength: 30, allowDecimal: false, validationFunction: isText },
+                { id: 'stateInput', maxLength: 30, allowDecimal: false, validationFunction: isText },
+                { id: 'nameInput', maxLength: 50, allowDecimal: false, validationFunction: isText },
+                { id: 'schoolNameInput', maxLength: 50, allowDecimal: false, validationFunction: isText },
+                { id: 'secondarySchoolNameInput', maxLength: 50, allowDecimal: false, validationFunction: isText },
+                { id: 'diplomaCollegeNameInput', maxLength: 50, allowDecimal: false, validationFunction: isText },
+            ];
+
+            allFields.forEach((field) => {
+                const inputField = document.getElementById(field.id);
+                addInputValidation(inputField, field.maxLength, field.allowDecimal, field.validationFunction);
+            });
+
+
+            getCollegeNames();
+
+            const includeDiplomaCheckbox = document.getElementById("includeDiploma");
+            const diplomaDetailsSection = document.getElementById("diplomaDetails");
+
+            includeDiplomaCheckbox.addEventListener("change", () => {
+                diplomaDetailsSection.style.display = includeDiplomaCheckbox.checked ? "block" : "none";
+            });
+
+            let clipWidth = 85;
+            const progressBar = document.querySelector(".progress");
+            const progressBarContainer = document.querySelector(".progress-bar");
+
+            function updateProgressBar(index) {
+                const sectionCount = sections.length - 1;
+                const initialWidth = 25;
+                clipWidth = 85 + (index * 2.6);
+                progressBarContainer.style.height = "35px";
+                progressBar.style.clipPath = `polygon(0 0, 100% 0, ${clipWidth}% 100%, 0% 100%)`;
+                let progressPercentage = ((index / sectionCount) * 100);
+                if (index > 0) {
+                    progressPercentage = ((index / sectionCount) * 100) - 7;
+                }
+                progressBar.style.width = `${initialWidth + progressPercentage}%`;
+            }
+
+            const sectionTexts = document.querySelectorAll(".section-text");
+            progressText.textContent = sectionTexts[0].textContent;
+
+            function updateProgressText(index) {
+                const sectionTexts = document.querySelectorAll(".section-text");
+                progressText.textContent = sectionTexts[index].textContent;
+            }
+
+    
+            sections.forEach((section, index) => {
+                section.style.display = "none";
+                if (index === 0) {
+                    section.style.display = "flex";
+                }
+    
+                goBackButton.addEventListener("click", () => {
+                    failSection.style.display = "none";
+                    const sectionShadow = document.querySelector(".section-body");
+                    const progressBar = document.querySelector(".progress");
+                    const progressText = document.querySelector(".progress-text");
+                    progressText.style.display = "flex";
+                    sectionShadow.classList.remove("section-body-red-shadow");
+                    progressBar.classList.remove("progress-red");
+                    prevDetailsSection.style.display = "flex";
+                    progressBar.style.width = `80%`;
+                    progressBar.style.clipPath = "polygon(0 0, 100% 0, 95% 100%, 0% 100%)";
+                    progressBarContainer.style.height = '35px'
+                    updateProgressText(currentSectionIndex)
+                });
+    
+                prevButtons[index].addEventListener("click", () => {
+                    sections[currentSectionIndex].style.display = "none";
+                    currentSectionIndex = index;
+    
+                    if (currentSectionIndex >= 0) {
+                        if (currentSectionIndex == 0) { usnEmailCheckSuccessful = false; }
+                        sections[currentSectionIndex].style.display = "flex";
+                        
+                        updateProgressBar(currentSectionIndex);
+                        updateProgressText(currentSectionIndex);
+                    }
+                });
+    
+                nextButtons[index].addEventListener("click", () => {
+                    displayDetailsSummary();
+                    const isValidUsnMail = false;
+                    const emailInput = document.getElementById('emailInput');
+                    const email = emailInput.value;
+                    const reenterEmailInput = document.getElementById('reenterEmailInput');
+                    const reenterEmail = reenterEmailInput.value;
+                    const errorAlert = document.getElementById('errorAlert');
+                    const emailValid = document.getElementById('emailValid');
+                    const emailMatch = document.getElementById('emailMatch');
+                    const currentSection = sections[currentSectionIndex];
+                    const currentSectionId = sectionIds[currentSectionIndex];
+                    const inputFields = currentSection.querySelectorAll(`#${currentSectionId} input`);
+                    const phoneContainer = document.getElementById('phoneContainer');
+                    const degreeDropdown = document.getElementById('degreeDropdown');
+                    const branchDropdown = document.getElementById('branchDropdown');
+                    const textAreaField = document.getElementById("address1Input");
+    
+                    const collegeDropdown = document.getElementById("collegeDropdown");
+                    const selectedCollege = collegeDropdown.options[collegeDropdown.selectedIndex].value;
+                    degreeDropdown.addEventListener('input', () => { degreeDropdown.classList.remove("input-error") });
+                    branchDropdown.addEventListener('input', () => { branchDropdown.classList.remove("input-error") });
+                    collegeDropdown.addEventListener('input', () => { collegeDropdown.classList.remove("input-error") });
+                    textAreaField.addEventListener('input', () => { textAreaField.classList.remove("input-error"); });
+                    phoneInput.addEventListener('input', () => { phoneContainer.classList.remove("phone-container-error") });
+                    inputFields.forEach(inputField => {
+                        inputField.addEventListener('input', () => {
+                            inputField.classList.remove("input-error");
+    
+                        });
+                    });
+                    console.log(currentSectionId);
+                    let hasEmptyFields = false;
+                    if(currentSectionId==='schoolDetails'){
+                        const schoolMarksCheck = parseInt(document.getElementById('schoolMarksInput').value);
+
+                        if (schoolMarksCheck > 625) {
+                            displayErrorMessage("Please Enter Correct Marks");
+                            return;
+                        }
+                    }
+                    if (includeDiplomaCheckbox.checked && currentSectionId === 'puDetails') {
+                        console.log("Diploma Checkbox checked");
+                        const diplomaCollege = document.getElementById('diplomaCollegeNameInput').value;
+                        const diplomaYear = document.getElementById('diplomaPassingYearInput').value;
+                        const diplomaMarks = document.getElementById('diplomaMarksInput').value;
+    
+                        const puMarksCheck = parseInt(document.getElementById('puMarksInput').value);
+                        const dipMarksCheck = parseInt(document.getElementById('diplomaMarksInput').value);
+
+
+
+                        if (!diplomaCollege.trim() || !diplomaYear.trim() || !diplomaMarks.trim()) {
+                            displayErrorMessage('Diploma fields are required.');
+                            return;
+                        }
+
+                        if (puMarksCheck > 625) {
+                            displayErrorMessage("Please Enter Correct Marks");
+                            return;
+                        }
+
+                        if(dipMarksCheck > 625){
+                            displayErrorMessage("Please Enter Correct Marks");
+                            return;
+                        }
+    
+                    } else if (!includeDiplomaCheckbox.checked && currentSectionId === 'puDetails') {
+                        console.log("Diploma Checkbox Unchecked");
+                        // For other sections (non-diploma sections), loop through and validate the input fields
+                        const nonDiplomaFields = [
+                            document.getElementById('secondarySchoolNameInput'),
+                            document.getElementById('puMarksInput'),
+                            document.getElementById('puPassingYearInput')
+                        ];
+
+                        const puMarksCheck = parseInt(document.getElementById('puMarksInput').value);
+
+                        if (puMarksCheck > 625) {
+                            displayErrorMessage("Please Enter Correct Marks");
+                            return;
+                        }
+
+                        document.getElementById('diplomaCollegeNameInput').value = '';
+                        document.getElementById('diplomaMarksInput').value = '';
+                        document.getElementById('diplomaPassingYearInput').value = '';
+
+                        nonDiplomaFields.forEach(inputField => {
+                            if (!inputField.value.trim()) {
+                                inputField.classList.add("input-error");
+                                hasEmptyFields = true;
+                            }
+                        });
+                    } else if (currentSectionId != 'puDetails') {
+                        console.log("Normal Validation");
+                        const textAreaField = document.getElementById("address1Input");
+                        if (!textAreaField.value.trim()) {
+                                textAreaField.classList.add("input-error");
+                                hasEmptyFields = true;
+                        }
+                        else{
+                            textAreaField.classList.remove("input-error");
+                                hasEmptyFields = false;
+                        }
+                        inputFields.forEach(inputField => {
+                            if (!inputField.value.trim()) {
+                                inputField.classList.add("input-error");
+                                hasEmptyFields = true;
+                            }
+                        });
+                    }
+                    if (currentSectionId === 'degDetails'){
+                        degreeInputsContainer.addEventListener("input", (event) => {
+
+                        const target = event.target;
+
+                        if (target.matches("#degreeMarksInput, #degreePassingYearInput, #degreeDropdown, #branchDropdown")) {
+                            // Remove the 'input-error' class from individual elements
+                            if (target.id === "degreeMarksInput") {
+                                target.classList.remove("input-error");
+                            }
+                            if (target.id === "degreePassingYearInput") {
+                                target.classList.remove("input-error");
+                            }
+                            if (target.id === "degreeDropdown") {
+                                target.classList.remove("input-error");
+                            }
+                            if (target.id === "branchDropdown") {
+                                target.classList.remove("input-error");
+                            }
+                        }
+                    });
+                    // Validation logic for degree-related inputs
+                    const degreeMarks = document.getElementById('degreeMarksInput').value;
+                    const degreePassingYear = document.getElementById('degreePassingYearInput').value;
+                    const degreeType = document.getElementById('degreeDropdown').value;
+                    const branchType = document.getElementById('branchDropdown').value;
+                    const branchTypeId = document.getElementById('branchDropdown').options[document.getElementById('branchDropdown').selectedIndex].id
+                    const degreeTypeId = document.getElementById('degreeDropdown').options[document.getElementById('degreeDropdown').selectedIndex].id
+
+                    if (!degreeMarks.trim() || !degreePassingYear.trim() || degreeType === "invalid" || branchType === "invalid") {
+                        if (!degreeMarks.trim()) {
+                            console.log('Degree Marks Error');
+                            degreeMarksContainer.classList.add("input-error");
+                            hasEmptyFields = true;
+                        }
+                        if (!degreePassingYear.trim()) {
+                            console.log('Degree Year Error');
+                            degreePassingYearContainer.classList.add("input-error");
+                            hasEmptyFields = true;
+                        }
+                        if (degreeType === "invalid") {
+                            console.log('Degree Type Error');
+                            degreeTypeContainer.classList.add("input-error");
+                            hasEmptyFields = true;
+                        }
+                        if (branchTypeId === "invalid" && (degreeTypeId === "be" || degreeTypeId ==="btech")) {
+                            console.log('Degree Type Error');
+                            branchTypeContainer.classList.add("input-error");
+                            hasEmptyFields = true;
+                        }
+
+                    }
+
+                    const degMarksCheck = parseInt(document.getElementById('degreeMarksInput').value);
+
+                    if (degMarksCheck > 625) {
+                        displayErrorMessage("Please Enter Correct Marks");
+                        return;
+                    }
+                    
+                    if (hasEmptyFields) {
+                        displayErrorMessage("Please Enter All the Fields");
+                        return;
+                    }
+                    }
+    
+                    if (selectedCollege === "invalid") {
+                        collegeDropdown.classList.add("input-error");
+                        hasEmptyFields = true;
+                    }
+
+                    // if(document.getElementById("address1Input").value.trim()){
+                    //     address1Input.classList.add("input-error");
+                    //     hasEmptyFields = true;
+                    // }
+    
+                    if (!phoneInput.value.trim()) {
+                        phoneContainer.classList.add("phone-container-error");
+                        hasEmptyFields = true;
+                    }
+    
+                    if (hasEmptyFields) {
+                        displayErrorMessage("Please Enter All the Fields");
+                        return;
+                    }
+    
+                    if (phoneInput.value.length < 10) {
+                        phoneContainer.classList.add("phone-container-error");
+                        displayErrorMessage("Please Enter a 10 Digit Phone Number");
+                        return;
+                    }
+    
+                    if (!validateEmailFormat(email) && hasEmptyFields == false) {
+                        emailInput.classList.add('input-error');
+                        displayErrorMessage("Wrong Email Format");
+                        return;
+                    }
+    
+                    if (email !== reenterEmail && hasEmptyFields == false) {
+                        reenterEmailInput.classList.add('input-error');
+                        displayErrorMessage("Email Does Not Match");
+                        return;
+                    }
+                    if (currentSectionIndex === 0) {
+                        const usn = document.getElementById('usnInput').value;
+                        const email = document.getElementById('emailInput').value;
+    
+                        if (usn.trim() !== '' && email.trim() !== '') {
+                            if (!sectionValidationStatus[currentSectionIndex]) {
+                                showLoader();
+                                Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.studentRegistrationController.checkIfUsnAndEmailExist}',
+                                    usn,
+                                    email,
+                                    (result, event) => {
+                                        if (event.status) {
+                                            hideLoader();
+                                            if (result === true) {
+                                                displayErrorMessage("USN/Mail Already Exists");
+                                                return;
+                                            } else {
+                                                usnEmailCheckSuccessful = true;
+                                                sections[currentSectionIndex].style.display = "none";
+                                                const nextSectionIndex = sectionIds.indexOf(sectionIds[currentSectionIndex]) + 1;
+                                                if (nextSectionIndex < sections.length) {
+                                                    currentSectionIndex = nextSectionIndex;
+                                                    sections[currentSectionIndex].style.display = "block";
+                                                    updateProgressBar(currentSectionIndex);
+                                                    updateProgressText(currentSectionIndex)
+                                                }
+                                            }
+                                        } else {
+                                            displayErrorMessage("!!Apex Error!! unable to check USN and email existence.");
+                                        }
+                                    }
+                                );
+                            }
+                        }
+                    }
+    
+                    if (usnEmailCheckSuccessful == true) {
+                        sections[currentSectionIndex].style.display = "none";
+                        const nextSectionIndex = sectionIds.indexOf(currentSectionId) + 1;
+    
+                        if (nextSectionIndex < sections.length) {
+                            currentSectionIndex = nextSectionIndex;
+                            sections[currentSectionIndex].style.display = "block";
+                            updateProgressBar(currentSectionIndex);
+                            updateProgressText(currentSectionIndex);
+                        }
+                    }
+    
+                });
+                section.addEventListener("click", (event) => {
+                    event.stopPropagation();
+                });
+            });
+    
+            function getCollegeNames() {
+                if (collegeListFromDataBase.length === 0) {
+                    Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.studentRegistrationController.getAllCollegeNames}',
+                        handleCollegeNameResult
+                    );
+                }
+            }
+    
+            function handleCollegeNameResult(result, event) {
+                for (let i = 0; i < result.length; i++) {
+                    collegeListFromDataBase.push(result[i].Name);
+                    const collegeName = result[i].Name;
+                    CollegeIDAndName[collegeName] = result[i].Id;
+                }
+                PopulateDropDown();
+            }
+    
+            function PopulateDropDown() {
+                const collegeDropdown = document.getElementById("collegeDropdown");
+                for (let i = 0; i < collegeListFromDataBase.length; i++) {
+                    const option = document.createElement("option");
+                    option.value = CollegeIDAndName[collegeListFromDataBase[i]];
+                    option.text = collegeListFromDataBase[i];
+                    collegeDropdown.appendChild(option);
+                }
+            }
+    
+            function handleCollegeSelection() {
+                const collegeDropdown = document.getElementById("collegeDropdown");
+                const selectedCollege = collegeDropdown.options[collegeDropdown.selectedIndex].text;
+                console.log("Selected College:", selectedCollege);
+            }
+    
+            document.getElementById("collegeDropdown").addEventListener("change", handleCollegeSelection);
+    
+            function validateEmailFormat(email) {
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailPattern.test(email);
+            }
+    
+    
+        });
+            const degreeTypeContainer = document.getElementById('degreeDropdown');
+            const branchTypeContainer = document.getElementById('branchDropdown');
+    
+            degreeTypeContainer.addEventListener("change", function(){
+
+                console.log("Degree Changed");
+                const selectedId = degreeTypeContainer.options[degreeTypeContainer.selectedIndex].id;
+                const branchSelectClass = document.querySelector("branch-selector");
+                const branchSelect = document.getElementById('branchDropdownContainer');
+                console.log("Selected ID: " + selectedId);
+    
+                if (selectedId === "be" || selectedId === "btech") {
+                    console.log("Display Branch Select Option");
+                    branchSelect.classList.remove("branch-select");
+                } else {
+                    branchTypeContainer.selectedIndex = 0;
+                    console.log("Remove Branch Select Option");
+                    branchSelect.classList.add("branch-select");
+
+                }
+            });
+        const userConfirmationCheckbox = document.getElementById('userConfirmationCheckbox');
+        const submitButton = document.getElementById('submitButton');
+    
+        userConfirmationCheckbox.addEventListener('change', function () {
+            if (this.checked) {
+                submitButton.removeAttribute('disabled');
+            } else {
+                submitButton.setAttribute('disabled', 'disabled');
+            }
+        });
+    
+        function validateAndCreateStudent() {
+                let hasEmptyFields = false;
+                const name = document.getElementById('nameInput').value;
+                const phone = document.getElementById('phoneInput').value;
+                const email = document.getElementById('emailInput').value;
+                const address1 = document.getElementById('address1Input').value;
+                // const address2 = document.getElementById('address2Input').value;
+                const city = document.getElementById('cityInput').value;
+                const state = document.getElementById('stateInput').value;
+                const pincode = document.getElementById('pincodeInput').value;
+                const usn = document.getElementById('usnInput').value;
+                const collegeId = document.getElementById('collegeDropdown').value;
+                const schoolName = document.getElementById('schoolNameInput').value;
+                const schoolMarks = document.getElementById('schoolMarksInput').value;
+                const schoolPassYear = document.getElementById('schoolPassingYearInput').value;
+                const secondarySchoolName = document.getElementById('secondarySchoolNameInput').value;
+                const puMarks = document.getElementById('puMarksInput').value;
+                const puPassingYear = document.getElementById('puPassingYearInput').value;
+                const includeDiploma = document.getElementById('includeDiploma').value;
+                // Define these variables outside of the event listener
+                const degreeMarksContainer = document.getElementById('degreeMarksInput');
+                const degreePassingYearContainer = document.getElementById('degreePassingYearInput');
+                const degreeTypeContainer = document.getElementById('degreeDropdown');
+                const branchTypeContainer = document.getElementById('branchDropdown');
+    
+                const degreeMarks = document.getElementById('degreeMarksInput').value;
+                const degreePassingYear = document.getElementById('degreePassingYearInput').value;
+                const degreeType = document.getElementById('degreeDropdown').value;
+                const branchType = document.getElementById('branchDropdown').value;
+                // Add an event listener to a common parent element that contains degree-related inputs
+                const degreeInputsContainer = document.getElementById('degreeInputsContainer');
+
+                const diplomaCollegeName = document.getElementById('diplomaCollegeNameInput').value;
+                const diplomaMarks = document.getElementById('diplomaMarksInput').value;
+                const diplomaPassingYear = document.getElementById('diplomaPassingYearInput').value;
+    
+    
+                
+    
+                showLoader();
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.studentRegistrationController.createStudentBasicAccount}',
+                    name,
+                    phone,
+                    email,
+                    address1,
+                    // address2,
+                    usn,
+                    city,
+                    state,
+                    pincode,
+                    collegeId,
+                    schoolName,
+                    schoolMarks,
+                    schoolPassYear,
+                    secondarySchoolName,
+                    puMarks,
+                    puPassingYear,
+                    degreeType,
+                    branchType,
+                    degreeMarks,
+                    degreePassingYear,
+                    handleResult
+                );
+            }
+    
+            function handleResult(result, event) {
+                hideLoader();
+                const successfulSection = document.getElementById("successfulSection");
+                const failSection = document.getElementById("failSection");
+                const degDetailsSection = document.getElementById("degDetails");
+                const prevDetailsSection = document.getElementById("previewDetails");
+                const progressBarContainer = document.querySelector(".progress-bar");
+                const progressText = document.querySelector(".progress-text");
+                if (event.status) {
+                    prevDetailsSection.style.display = "none";
+                    successfulSection.style.display = "block";
+                    const sectionShadow = document.querySelector(".section-body");
+                    const progressBar = document.querySelector(".progress");
+                    progressText.style.display= "none";
+                    progressBarContainer.style.height = "10px";
+                    progressBar.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0% 100%)";
+                    progressBar.style.width = '100%';
+                    sectionShadow.classList.add("section-body-green-shadow");
+                    progressBar.classList.add("progress-green");
+                } else {
+                    prevDetailsSection.style.display = "none";
+                    failSection.style.display = "block";
+                    const sectionShadow = document.querySelector(".section-body");
+                    const progressBar = document.querySelector(".progress");
+                    const progressBarContainer = document.querySelector(".progress-bar");
+                    progressText.style.display= "none";
+                    progressBarContainer.style.height = "10px";
+                    progressBar.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0% 100%)";
+                    progressBar.style.width = '100%';
+                    sectionShadow.classList.add("section-body-red-shadow");
+                    progressBar.classList.add("progress-red");
+                    displayErrorMessage(event.message);
+    
+                }
+            }
+    
+    
+            function displayErrorMessage(errorText) {
+                const errorCustom = document.getElementById("errorCustom");
+                const alertText = errorCustom.querySelector("#alertText");
+                const alertImg = errorCustom.querySelector("#alertImg");
+                errorCustom.textContent = "";
+                errorCustom.appendChild(alertImg);
+                errorCustom.appendChild(document.createTextNode("Error: " + errorText));
+                errorCustom.appendChild(alertText);
+    
+                errorCustom.style.display = 'flex';
+                errorCustom.classList.add("alert-animation");
+                setTimeout(() => {
+                    errorCustom.style.display = "none";
+                    errorCustom.classList.remove("alert-animation");
+                }, 5000);
+            }
+    
+            function displayWarningMessage(warningText) {
+                const warningCustom = document.getElementById("warningCustom");
+                const warnText = document.getElementById("warnText"); // Get the warnText element
+                const warnImg = document.getElementById("warnImg"); // Get the warnImg element
+    
+                warningCustom.textContent = ""; // Clear any existing content
+                warningCustom.appendChild(warnImg);
+    
+                // Create a text node and set its content
+                const warningTextNode = document.createTextNode("Warning: " + warningText);
+                warningCustom.appendChild(warningTextNode);
+    
+                warningCustom.appendChild(warnText); // Append the warnText element
+    
+                warningCustom.style.display = 'flex';
+                // warningCustom.classList.add("alert-animation");
+                setTimeout(() => {
+                    warningCustom.style.display = "none";
+                    warningCustom.classList.remove("alert-animation");
+                }, 5000);
+            }
+    
+            function routeToStudentLogin() {
+                var targetPageUrl = '/apex/studentLoginPageAlt';
+                showLoader();
+                window.location.href = targetPageUrl;
+                hideLoader();
+                
+            }
+            function showLoader() {
+                document.querySelector(".loader").classList.remove("hidden");
+            }
+    
+            function hideLoader() {
+                document.querySelector(".loader").classList.add("hidden");
+            }
+            function displayDetailsSummary() {
+    // Collect values from input fields
+    const name = document.getElementById('nameInput').value;
+    const phone = document.getElementById('phoneInput').value;
+    const email = document.getElementById('emailInput').value;
+    const address1 = document.getElementById('address1Input').value;
+    // const address2 = document.getElementById('address2Input').value;
+    const city = document.getElementById('cityInput').value;
+    const state = document.getElementById('stateInput').value;
+    const pincode = document.getElementById('pincodeInput').value;
+    const usn = document.getElementById('usnInput').value;
+    const collegeName = document.getElementById('collegeDropdown').options[document.getElementById('collegeDropdown').selectedIndex].text;
+    const schoolName = document.getElementById('schoolNameInput').value;
+    const schoolMarks = document.getElementById('schoolMarksInput').value;
+    const schoolPassYear = document.getElementById('schoolPassingYearInput').value;
+    const secondarySchoolName = document.getElementById('secondarySchoolNameInput').value;
+    const puMarks = document.getElementById('puMarksInput').value;
+    const puPassingYear = document.getElementById('puPassingYearInput').value;
+    const degreeType = document.getElementById('degreeDropdown').options[document.getElementById('degreeDropdown').selectedIndex].text;
+    const degreeMarks = document.getElementById('degreeMarksInput').value;
+    const degreePassingYear = document.getElementById('degreePassingYearInput').value;
+
+    // Optional fields
+    const diplomaCollegeName = document.getElementById('diplomaCollegeNameInput').value;
+    const diplomaMarks = document.getElementById('diplomaMarksInput').value;
+    const diplomaPassingYear = document.getElementById('diplomaPassingYearInput').value;
+    const branchDropdown = document.getElementById('branchDropdown');
+    const selectedBranchOption = branchDropdown.options[branchDropdown.selectedIndex];
+    const branchType = selectedBranchOption.value === 'invalid' ? '' : selectedBranchOption.text;
+
+    // Create the summary text
+    const summary = `
+        <div class="preview-section">
+            <p class="previewTitle">Name:</p>
+            <p class="previewValue">${name}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">Phone:</p>
+            <p class="previewValue">${phone}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">Email:</p>
+            <p class="previewValue">${email}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">Address:</p>
+            <p class="previewValue">${address1}, ${city}, ${state} - ${pincode}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">USN:</p>
+            <p class="previewValue">${usn}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">College:</p>
+            <p class="previewValue">${collegeName}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">SSLC/X Institution:</p>
+            <p class="previewValue">${schoolName}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">SSLC/X Marks:</p>
+            <p class="previewValue">${schoolMarks}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">SSLC/X Passing Year:</p>
+            <p class="previewValue">${schoolPassYear}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">PU Institution Name:</p>
+            <p class="previewValue">${secondarySchoolName}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">PU Marks:</p>
+            <p class="previewValue">${puMarks}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">PU Passing Year:</p>
+            <p class="previewValue">${puPassingYear}</p>
+        </div>
+        ${diplomaCollegeName ? `
+            <div class="preview-section">
+                <p class="previewTitle">Diploma College:</p>
+                <p class="previewValue">${diplomaCollegeName}</p>
+            </div>
+        ` : ''}
+        ${diplomaMarks ? `
+            <div class="preview-section">
+                <p class="previewTitle">Diploma Marks:</p>
+                <p class="previewValue">${diplomaMarks}</p>
+            </div>
+        ` : ''}
+        ${diplomaPassingYear ? `
+            <div class="preview-section">
+                <p class="previewTitle">Diploma Passing Year:</p>
+                <p class="previewValue">${diplomaPassingYear}</p>
+            </div>
+        ` : ''}
+        <div class="preview-section">
+            <p class="previewTitle">Degree Type:</p>
+            <p class="previewValue">${degreeType}</p>
+        </div>
+        ${branchType !== '' ? `
+            <div class="preview-section">
+                <p class="previewTitle">Branch Type:</p>
+                <p class="previewValue">${branchType}</p>
+            </div>
+        ` : ''}
+        <div class="preview-section">
+            <p class="previewTitle">Degree CGPA:</p>
+            <p class="previewValue">${degreeMarks}</p>
+        </div>
+        <div class="preview-section">
+            <p class="previewTitle">Degree Passing Year:</p>
+            <p class="previewValue">${degreePassingYear}</p>
+        </div>
+    `;
+
+    // Display the summary in the detailsSummary div
+    const detailsSummary = document.getElementById('detailsSummary');
+    detailsSummary.innerHTML = summary;
+}
+
+            
+    
+    
+    </script>
+</apex:page>

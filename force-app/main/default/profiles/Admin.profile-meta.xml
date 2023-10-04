@@ -5515,6 +5515,10 @@
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>studentProfile</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>studentReg</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
