@@ -56,7 +56,7 @@ public without sharing class AltQuestionPageCtrl {
      @RemoteAction
      public static List<RC_student_question__c> updateCurrentQuestion(Integer updatedQuestionNumber,String studentAnswer, Id questionId,Boolean isQstAttempted,Id studentId, Id eventId) {  
          System.debug('k* ' + updatedQuestionNumber   +studentAnswer);
-          List<RC_student_question__c> student_question_list = [SELECT Id, Name, student_test_id__c, is_attempted__c, currentQuestion__c,  question_description__c, hasProgram__c, question_title__c, student_attempt__c, question_category__c, question_difficulty__c, option_1__c, option_2__c, option_3__c, option_4__c, question_number__c
+          List<RC_student_question__c> student_question_list = [SELECT Id, Name, student_test_id__c, is_attempted__c, currentQuestion__c, question_correct_answer__c, question_description__c, hasProgram__c, question_title__c, student_attempt__c, question_category__c, question_difficulty__c, option_1__c, option_2__c, option_3__c, option_4__c, question_number__c
           FROM RC_student_question__c
           WHERE student_test_id__c IN (SELECT Id FROM RC_student_test__c WHERE student_id__c = :studentId and event_id__c = :eventId) ORDER BY question_number__c];
           for( Integer i = 0 ;i< student_question_list.size();i++){
@@ -126,35 +126,17 @@ public without sharing class AltQuestionPageCtrl {
     public static Boolean updateTestMarks(Id studentId,Id eventId) {
           RC_student_test__c studentTestIDRecord =  [SELECT Id, student_marks_scored__c, isLoggedIn__c  FROM RC_student_test__c where student_id__c = :studentId and event_id__c = :eventId];
           List<AggregateResult> results = [SELECT count(Id) cnt FROM RC_student_question__c where isStudentAnswerdCorrect__c = true and student_test_id__c = :studentTestIDRecord.Id];
-          List<AggregateResult> Aptiresults = [SELECT count(Id) cnt FROM RC_student_question__c where isStudentAnswerdCorrect__c = true and student_test_id__c = :studentTestIDRecord.Id AND question_category__c = 'Aptitude'];
+          List<AggregateResult> Aptiresults = [SELECT count(Id) cnt FROM RC_student_question__c where isStudentAnswerdCorrect__c = true AND student_test_id__c = :studentTestIDRecord.Id AND question_category__c = 'Aptitude'];
           List<AggregateResult> Cprogramresults = [SELECT count(Id) cnt FROM RC_student_question__c where isStudentAnswerdCorrect__c = true and student_test_id__c = :studentTestIDRecord.Id AND question_category__c = 'c programming'];
-          
-
-          List<AggregateResult> neg_results = [SELECT count(Id) cnt FROM RC_student_question__c where isStudentAnswerdCorrect__c = false and is_attempted__c = true and student_test_id__c = :studentTestIDRecord.Id];
-          List<AggregateResult> neg_Aptiresults = [SELECT count(Id) cnt FROM RC_student_question__c where isStudentAnswerdCorrect__c = false and is_attempted__c = true and student_test_id__c = :studentTestIDRecord.Id AND question_category__c = 'Aptitude'];
-          List<AggregateResult> neg_Cprogramresults = [SELECT count(Id) cnt FROM RC_student_question__c where isStudentAnswerdCorrect__c = false and is_attempted__c = true and student_test_id__c = :studentTestIDRecord.Id AND question_category__c = 'c programming'];
-
-
           Integer marksScored, AptiMarks, CMarks;
-          Integer neg_marksScored, neg_AptiMarks, neg_CMarks;
  
           marksScored = reulsOfAgre(results);
           AptiMarks = reulsOfAgre(Aptiresults);
           CMarks = reulsOfAgre(Cprogramresults);
-
-          neg_marksScored = reulsOfAgre(neg_results);
-          neg_AptiMarks = reulsOfAgre(neg_Aptiresults);
-          neg_CMarks = reulsOfAgre(neg_Cprogramresults);
         
           studentTestIDRecord.student_marks_scored__c = marksScored;
           studentTestIDRecord.student_apti_marks__c = AptiMarks;
           studentTestIDRecord.student_cprogram_marks__c = CMarks;
-
-          studentTestIDRecord.neg_student_marks_scored__c = neg_marksScored;
-          studentTestIDRecord.neg_student_apti_marks__c = neg_AptiMarks;
-          studentTestIDRecord.neg_student_cprogram_marks__c = neg_CMarks;
-
-
           studentTestIDRecord.isLoggedIn__c = false; 
           Database.SaveResult sr = Database.update(studentTestIDRecord, false);
  

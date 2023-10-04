@@ -647,7 +647,7 @@
                 </div>
                 <div class="main-cnt-item">
                     <div>2.</div> 
-                    <div class="main-cnt-item-2">Topics: The test will cover two main topics: <span> C Programming and Aptitude</span>.</div>
+                    <div class="main-cnt-item-2">Topics: The test will cover three main topics: <span> C Programming and Aptitude</span>.</div>
                 </div>
                 <div class="main-cnt-item-a">
                     <div  class="main-cnt-item">
@@ -665,42 +665,38 @@
                 </div>
                 <div class="main-cnt-item">
                     <div>4.</div>
-                    <div class="main-cnt-item-2">Scoring: Each correct answer will carry <span>1 mark</span>.</div>
+                    <div class="main-cnt-item-2">Scoring: Each correct answer will carry <span>1 point</span>.</div>
                 </div>
                 <div class="main-cnt-item">
                     <div>5.</div>
-                    <div class="main-cnt-item-2"><span style="color:red;font-style: normal;">Negative Marking:</span> There will be <span style="color:red">-1 mark</span> for every incorrect answers.</div>
+                    <div class="main-cnt-item-2">Negative Marking: There will be <span>no negative marking</span> for incorrect answers.</div>
                 </div>
                 <div class="main-cnt-item">
                     <div>6.</div>
-                    <div class="main-cnt-item-2">Negative Marking can be avoided by not answering the question.</div>
-                </div>
-                <div class="main-cnt-item">
-                    <div>7.</div>
                     <div class="main-cnt-item-2">Submission: All answers must be submitted before the test timer expires.</div>
                 </div>
                 <div class="main-cnt-item">
-                    <div>8.</div>
+                    <div>7.</div>
                     <div class="main-cnt-item-2">No External Resources: Participants are not allowed to use any external resources, including books, notes, or online references, during the test.</div>
                 </div>
                 <div class="main-cnt-item">
-                    <div>9.</div>
+                    <div>8.</div>
                     <div class="main-cnt-item-2">No Collaboration: Collaboration or discussion with other participants during the test is strictly prohibited.</div>
                 </div>
                 <div class="main-cnt-item">
-                    <div>10.</div>
+                    <div>9.</div>
                     <div class="main-cnt-item-2">Technical Issues: In case of any technical issues faced by the participant, they should <span>immediately notify the invigilator</span>.</div>
                 </div>
                 <div class="main-cnt-item"> 
-                    <div>11.</div>
+                    <div>10.</div>
                     <div class="main-cnt-item-2">Respectful Conduct: All participants are expected to maintain a respectful and ethical conduct throughout the test.</div>
                 </div>
                 <div class="main-cnt-item">
-                    <div>12.</div>
+                    <div>11.</div>
                     <div class="main-cnt-item-2">Violation of Rules: Any violation of the test rules may lead to <span>disqualification and invalidation</span> of the test results.</div>
                 </div>
                 <div class="main-cnt-item-img">
-                    <div class="main-cnt-item-img-txt" >13. Please follow these rules and regulations during Test:</div>
+                    <div class="main-cnt-item-img-txt" >12. Please follow these rules and regulations during Test:</div>
                     <div class="main-cnt-item-img-txt-sub-main"><span>Maximum 6 warnings will be given</span>, Warnings will be considered when:</div>
                     <div class="main-cnt-item-img-txt-sub">a. When the page is forcefully refreshed.</div>
                     <div class="main-cnt-item-img-txt-sub">b. When the page exits fullscreen. </div>

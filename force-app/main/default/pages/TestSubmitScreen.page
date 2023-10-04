@@ -485,13 +485,13 @@
                 </div>
             <div class="qnt-count" >Good Luck!</div>
             <div class="qnt-count-txt">Your test responses have been recorded.</div>
-            <!-- <div class="question-cnt-btn-2">
+            <div class="question-cnt-btn-2">
                 <div class="question-cnt-btn">
                     <div class="question-cnt-btn-felx">
                         <div class="question-cnt-btn-item" onclick="closeTab()" >Done</div> 
                     </div>
                 </div>
-            </div> -->
+            </div>
          </div>
          <div class="main-cnt-2 hide-main-cnt-2" id = "main-cnt-2-id"  >  
             <div class="tick-icon">
@@ -503,13 +503,13 @@
                 We discovered suspicious behaviour in your test, please contact with the administrator or instructor nearby.
             </div> 
         </div>
-        <!-- <div class="question-cnt-btn-2">
+        <div class="question-cnt-btn-2">
             <div class="question-cnt-btn">
                 <div class="question-cnt-btn-felx">
                     <div class="question-cnt-btn-item" onclick="closeTab()" >Done</div> 
                 </div>
             </div>
-        </div> -->
+        </div>
      </div>
         </div>
 

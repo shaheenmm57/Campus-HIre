@@ -1285,7 +1285,7 @@
                 setTimeout(() => {
                     errorCustom.style.display = "none";
                     errorCustom.classList.remove("alert-animation");
-                }, 3000);
+                }, 5000);
             }
     
             function displayWarningMessage(warningText) {
@@ -1307,7 +1307,7 @@
                 setTimeout(() => {
                     warningCustom.style.display = "none";
                     warningCustom.classList.remove("alert-animation");
-                }, 3000);
+                }, 5000);
             }
 
 
@@ -1330,7 +1330,7 @@
                 setTimeout(() => {
                     warningCustom.style.display = "none";
                     warningCustom.classList.remove("alert-animation");
-                }, 3000);
+                }, 5000);
             }
 
 
@@ -1838,8 +1838,8 @@
         function initData(dataToUpdate){
 
             // console.log('dataToUpdate 1  : isQstAttempted ='+isQstAttempted + '   studentAnswer =' +studentAnswer + 'questionId ='+questionId  );
-            // console.log("initData Called :");    
-            // console.log(dataToUpdate);
+            console.log("initData Called :");    
+            console.log(dataToUpdate);
                var optionAll = document.querySelectorAll('.question-cnt-options-item');
                 optionAll.forEach(function(opt){
                     opt.classList.remove('selected');
@@ -2100,15 +2100,6 @@
 
                 
             function SaveQuestion(){
-                const errorCustom = document.getElementById("errorCustom");
-                errorCustom.style.display = "none";
-                errorCustom.classList.remove("alert-animation");
-                const warningCustom = document.getElementById("warningCustom");
-                warningCustom.style.display = "none";
-                warningCustom.classList.remove("alert-animation");
-                const sucessCustom = document.getElementById("sucessCustom");
-                sucessCustom.style.display = "none";
-                sucessCustom.classList.remove("alert-animation");
                 showLoader();
                                 var questionID;
                                 var selectedQuestion;
@@ -2172,16 +2163,7 @@
 
 
             function clearselectionbtnclick(){
-                        const errorCustom = document.getElementById("errorCustom");
-                        errorCustom.style.display = "none";
-                        errorCustom.classList.remove("alert-animation");
-                        const warningCustom = document.getElementById("warningCustom");
-                        warningCustom.style.display = "none";
-                        warningCustom.classList.remove("alert-animation");
-                        const sucessCustom = document.getElementById("sucessCustom");
-                        sucessCustom.style.display = "none";
-                        sucessCustom.classList.remove("alert-animation");
-                        showLoader();    
+                          showLoader();    
 
                           var selectedQuestion;
                           var questionID;
@@ -2270,15 +2252,6 @@
              var nextbtnele = document.querySelector('.nextbtnclick');
                nextbtnele.addEventListener('click', function(){  
                 // console.log('click next btn');
-                const errorCustom = document.getElementById("errorCustom");
-                errorCustom.style.display = "none";
-                errorCustom.classList.remove("alert-animation");
-                const warningCustom = document.getElementById("warningCustom");
-                warningCustom.style.display = "none";
-                warningCustom.classList.remove("alert-animation");
-                const sucessCustom = document.getElementById("sucessCustom");
-                sucessCustom.style.display = "none";
-                sucessCustom.classList.remove("alert-animation");
                 showLoader();
                 var flag = false;
                 for(var i=0;i<val.length;i++){
@@ -2307,15 +2280,6 @@
                var prvbtnele = document.querySelector('.prvbtnclick');
                prvbtnele.addEventListener('click', function(){  
                 // console.log('click prv btn');
-                const errorCustom = document.getElementById("errorCustom");
-                errorCustom.style.display = "none";
-                errorCustom.classList.remove("alert-animation");
-                const warningCustom = document.getElementById("warningCustom");
-                warningCustom.style.display = "none";
-                warningCustom.classList.remove("alert-animation");
-                const sucessCustom = document.getElementById("sucessCustom");
-                sucessCustom.style.display = "none";
-                sucessCustom.classList.remove("alert-animation");
                 showLoader(); 
                 var flag = false;
                 for(var i=0;i<val.length;i++){
@@ -2355,15 +2319,6 @@
             var qstnButtons = document.querySelectorAll('.qst-nav-btn-item');
             qstnButtons.forEach(function(button) {
                 button.addEventListener('click', function(event) {  
-                const errorCustom = document.getElementById("errorCustom");
-                errorCustom.style.display = "none";
-                errorCustom.classList.remove("alert-animation");
-                const warningCustom = document.getElementById("warningCustom");
-                warningCustom.style.display = "none";
-                warningCustom.classList.remove("alert-animation");
-                const sucessCustom = document.getElementById("sucessCustom");
-                sucessCustom.style.display = "none";
-                sucessCustom.classList.remove("alert-animation");
                     showLoader(); 
                         var flag = false;
                     for(var i=0;i<val.length;i++){
