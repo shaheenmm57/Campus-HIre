@@ -37,7 +37,7 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>$Record.event_id__c</elementReference>
+                <elementReference>$Record.event_id__r.Id</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -49,6 +49,12 @@
         <label>update_sutudent_test_duration</label>
         <locationX>176</locationX>
         <locationY>395</locationY>
+        <inputAssignments>
+            <field>student_test_current_time__c</field>
+            <value>
+                <elementReference>event_duration_flow_value.event_duration__c</elementReference>
+            </value>
+        </inputAssignments>
         <inputAssignments>
             <field>student_test_duration__c</field>
             <value>

@@ -542,25 +542,65 @@
                 .branch-select{
                     display:none;
                 }
-                .profile-banner{
-                    display: flex;
-                    padding: 2vh;
-                    justify-content: flex-start;
+
+                .profile-basic-details-name-header{
+                    font-size: 24px;
+                    font-weight: 500;
                 }
-                .profile-image{
+                .profile-basic-section-item{
+                    margin-right: 1vw;
+                }
+                .profile-banner {
+                    width:90%;
+                    padding: 2vh;
+                    display: grid;
+                    grid-template-columns: auto 1fr;
+                    grid-template-rows: auto auto; /* Two rows: one for image, one for basic details */
+                    gap: 10px; /* Adjust gap as needed */
+                    align-items: start; /* Align items at the top */
+                }
+
+                .profile-image {
+                    grid-column: 1 / span 1; /* Profile image spans one column */
+                    grid-row: 1 / span 2; /* Profile image spans two rows */
                     height: 30vh;
                     width:15vw;
                     background-color: whitesmoke;
                     border:2px solid var(--blue-color);
                 }
-                .profile-basic-details{
+
+                .profile-basic-details {
+                    margin-left:1vw;
+                    /* grid-column: 2 / span 1; */
+                    grid-row: 1 / span 1; /* Basic details occupy one row */
+                    display: grid;
+                  
+                    gap: 10px; /* Adjust gap as needed */
+                }
+
+                .profile-basic-section-1 {
+                    grid-row: 2 / span 1; /* Basic details occupy the second row */
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr); /* Two columns for basic section items */
+                    gap: 10px; /* Adjust gap as needed */
+                }
+                .profile-basic-section-2 {
+                    grid-row: 3 / span 1; /* Basic details occupy the second row */
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr); /* Two columns for basic section items */
+                    gap: 10px; /* Adjust gap as needed */
+                }
+                .profile-basic-section-item{
                     display:flex;
                     flex-direction: column;
-                    margin-left:1vw;
                 }
-                .profile-basic-section{
-                    display:flex;
+                .profile-basic-details-text-header{
+                    font-size: 12px;
                 }
+                .profile-basic-details-text-value{
+                    font-size: 18px;
+                }
+
 
     </style>
     
@@ -599,35 +639,34 @@
                 </div>
                 <div class="profile-basic-details">
                     <div class="profile-name">
-                        <span class = "profile-basic-details-text-header">Name</span>
-                        <span class = "profile-basic-details-text-value">TestName</span>
+                        <span class = "profile-basic-details-name-header">Arjun Abin</span>
                     </div>
-                    <div class="profile-basic-section">
-                        <div class="profile-usn">
-                            <span class = "profile-basic-details-text-header">Name</span>
-                            <span class = "profile-basic-details-text-value">TestName</span>
+                    <div class="profile-basic-section-1">
+                        <div class="profile-basic-section-item">
+                            <span class = "profile-basic-details-text-header">USN</span>
+                            <span class = "profile-basic-details-text-value">4JK19CS009</span>
                         </div>
-                        <div class="profile-email">
-                            <span class = "profile-basic-details-text-header">Name</span>
-                            <span class = "profile-basic-details-text-value">TestName</span>
+                        <div class="profile-basic-section-item">
+                            <span class = "profile-basic-details-text-header">Email</span>
+                            <span class = "profile-basic-details-text-value">arjun.abin@gmail.com</span>
                         </div>
-                        <div class="profile-phone">
-                            <span class = "profile-basic-details-text-header">Name</span>
-                            <span class = "profile-basic-details-text-value">TestName</span>
+                        <div class="profile-basic-section-item">
+                            <span class = "profile-basic-details-text-header">Phone</span>
+                            <span class = "profile-basic-details-text-value">+91-9834123445</span>
                         </div>
                     </div>
-                    <div class = "profile-basic-section">
-                        <div class="profile-college">
-                            <span class = "profile-basic-details-text-header">Name</span>
-                            <span class = "profile-basic-details-text-value">TestName</span>
+                    <div class = "profile-basic-section-2">
+                        <div class="profile-basic-section-item">
+                            <span class = "profile-basic-details-text-header">College</span>
+                            <span class = "profile-basic-details-text-value">NITTE Yenapoya</span>
                         </div>
-                        <div class="profile-degree">
-                            <span class = "profile-basic-details-text-header">Name</span>
-                            <span class = "profile-basic-details-text-value">TestName</span>
+                        <div class="profile-basic-section-item">
+                            <span class = "profile-basic-details-text-header">Degree</span>
+                            <span class = "profile-basic-details-text-value">B.Tech</span>
                         </div>
-                        <div class="profile-branch">
-                            <span class = "profile-basic-details-text-header">Name</span>
-                            <span class = "profile-basic-details-text-value">TestName</span>
+                        <div class="profile-basic-section-item">
+                            <span class = "profile-basic-details-text-header">Branch</span>
+                            <span class = "profile-basic-details-text-value">(CSE) Computer Science and Engineering</span>
                         </div>
                     </div>
                 </div>
