@@ -759,7 +759,7 @@
                                            else
                                            {
                                                 hideLoader();
-                                                displayErrorMessage(result);
+                                                displayErrorMessage(result.ErrorMsg);
 
                                                 if(result.ErrorMsg === 'Email is Not registered and Incorrect Event Password')
                                                 {

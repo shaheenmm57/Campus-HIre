@@ -32,10 +32,10 @@
             }
             textarea{
                 width: 15vw;
-                height: 12.5vh;
+                height: 10vh;
                 border: 1.5px solid var(--blue-color);
                 padding: 2px;
-                font-size: 1vw;
+                font-size: 1.25vw;
                 resize: none;
             }
             .phone-text{
@@ -778,9 +778,15 @@
             { id: 'phoneInput', maxLength: 10, allowDecimal: false },
             { id: 'zipCodeInput', maxLength: 6, allowDecimal: false },
         ];
+
+        function validateEmailFormat(email) {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailPattern.test(email);
+        }
+
         function allowOnlyNumbers(inputField, maxLength, allowDecimal) {
             const warningCustom = document.getElementById('warningCustom');
-            const phoneContainer = document.getElementById('phoneContainer');
+            const phoneContainer = document.getElementById('phoneInput');
 
             
             inputField.addEventListener('input', () => {
@@ -871,8 +877,8 @@
             inputElement.classList.remove("input-error");
         }
 
-        function saveDataToBackend() {
-            // Get the values from the form fields
+        function ValidateInputValues()
+        {
             var collegeName = document.getElementById("collegeNameInput");
             var tpoName = document.getElementById("tpoNameInput");
             var collegeTPOEmail = document.getElementById("mailInput");
@@ -881,9 +887,11 @@
             var collegeAddress = document.getElementById('collegeAddressInput');
             var AffiliatedUniversity = document.getElementById('uniInput');
             var ZipCode = document.getElementById('zipCodeInput');
+            var collegeTPOEmailReenter = document.getElementById("reEnterMailInput");
 
-            // Remove "input-error" class from all input fields
-            var inputFields = [collegeName, tpoName, collegeTPOEmail, collegeTPOPhone, collegeCode, collegeAddress, AffiliatedUniversity, ZipCode];
+
+             // Remove "input-error" class from all input fields
+             var inputFields = [collegeName, tpoName, collegeTPOEmail, collegeTPOPhone, collegeCode, collegeAddress, AffiliatedUniversity, ZipCode,collegeTPOEmailReenter];
             inputFields.forEach(function (inputField) {
                 inputField.classList.remove("input-error");
             });
@@ -908,37 +916,83 @@
                     }
                 });
 
-                return;
+                return false;
+            }
+           
+            collegeTPOEmailReenter.classList.remove('input-error');
+
+
+            //check if email is in valid format
+            if (!validateEmailFormat(collegeTPOEmail.value)) 
+            {
+                collegeTPOEmail.classList.add('input-error');
+                displayErrorMessage("Wrong Email Format");
+                return false;
             }
 
-            // Rest of your code to submit the form
-            showLoader();
-            console.log("before insert");
-            Visualforce.remoting.Manager.invokeAction(
-                '{!$RemoteAction.CollegeRegistration.saveForm}',
-                formData,
-                InsertCollegeCallBack
-            );
+
+            //Check if the email is matching
+            if(collegeTPOEmail.value != collegeTPOEmailReenter.value)
+            {
+                var emailfields = [collegeTPOEmail,collegeTPOEmailReenter];
+
+                emailfields.forEach(function (emailfield) {
+                    emailfield.classList.add('input-error');
+                });
+
+                displayErrorMessage("The E-mails do not match!");
+                return false;
+            }
+
+            return true;
+
         }
 
-            function InsertCollegeCallBack(result, event) {
-                hideLoader();
-                if (event.status) {
-                    console.log(event.status);
-                    document.getElementById("form").classList.toggle("hide");
-                    document.getElementById("button").classList.toggle("hide");
-                    document.getElementById("sucessimage").classList.toggle("reveal");
-                } else {
-                    displayErrorMessage("Something Went Wrong");
-                    document.getElementById("form").classList.toggle("hide");
-                    document.getElementById("button").classList.toggle("hide");
-                    document.getElementById("failimage").classList.toggle("reveal");
-                    console.log(event.message);
-                }
+        function saveDataToBackend() {
+
+            var formData = {
+            // Get the values from the form fields
+             collegeName : document.getElementById("collegeNameInput").value,
+             tpoName : document.getElementById("tpoNameInput").value,
+             collegeTPOEmail : document.getElementById("mailInput").value,
+             collegeTPOPhone : document.getElementById('phoneInput').value,
+             collegeCode : document.getElementById('collegeCodeInput').value,
+             collegeAddress : document.getElementById('collegeAddressInput').value,
+             AffiliatedUniversity : document.getElementById('uniInput').value,
+             ZipCode : document.getElementById('zipCodeInput').value
+            };
+
+            if(ValidateInputValues())
+            {
+                 // Rest of your code to submit the form
+                showLoader();
+                console.log("before insert");
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.CollegeRegistration.saveForm}',
+                    formData,
+                    InsertCollegeCallBack
+                );
             }
+        }
 
-
-
+        function InsertCollegeCallBack(result, event) {
+            hideLoader();
+            if (event.status) 
+            {
+                console.log(event.status);
+                document.getElementById("form").classList.toggle("hide");
+                document.getElementById("button").classList.toggle("hide");
+                document.getElementById("sucessimage").classList.toggle("reveal");
+            } 
+            else 
+            {
+                displayErrorMessage("Something Went Wrong");
+                document.getElementById("form").classList.toggle("hide");
+                document.getElementById("button").classList.toggle("hide");
+                document.getElementById("failimage").classList.toggle("reveal");
+                console.log(event.message);
+            }
+        }
         </script>
     </body>
 </apex:page>

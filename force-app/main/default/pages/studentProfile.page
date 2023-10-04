@@ -551,7 +551,7 @@
                     margin-right: 1vw;
                 }
                 .profile-banner {
-                    width:90%;
+                    width:95%;
                     padding: 2vh;
                     display: grid;
                     grid-template-columns: auto 1fr;
@@ -598,7 +598,32 @@
                     font-size: 12px;
                 }
                 .profile-basic-details-text-value{
-                    font-size: 18px;
+                    font-size: 16px;
+                }
+                .marks-banner{
+                    width:95%;
+                    margin-top:1vh;
+                    height: 50vh;
+                    padding: 2vh;
+                    display: flex;
+                    justify-content: space-between;
+                }
+                .large-card-section{
+                    margin-right: 1vw;
+                    width: 30vw;
+                    height: 60vh;
+                    background-color: whitesmoke;
+                    border: 1px solid var(--blue-color);
+                }
+                .card-details{
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    grid-template-rows: repeat(4, 1fr);
+                    grid-column-gap: 10px;
+                    grid-row-gap: 5px;
+                }
+                .card-detail-row{
+
                 }
 
 
@@ -670,7 +695,53 @@
                         </div>
                     </div>
                 </div>
-            </div>  
+            </div>
+            <div class="marks-banner">
+                <div class="large-card-section">
+                    <div class="card-contents">
+                        <div class="card-title-container">
+                            <span class="card-title">Round 1 Result</span>
+                        </div>
+                        <div class="card-details">
+                            <div class="card-detail-row" style="gird-row:1; grid-column:1">
+                                <span>HiTestTime</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-1; grid-column:2"> 
+                                <span>HiTestTime2</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-1; grid-column:3"> 
+                                <span>HiTestTime2</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-2; grid-column:1"> 
+                                <span>HiTestTime2</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-2; grid-column:2"> 
+                                <span>HiTestTime2</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-2; grid-column:3"> 
+                                <span>HiTestTime2</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-3; grid-column:1"> 
+                                <span>HiTestTime2</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-3; grid-column:2"> 
+                                <span>HiTestTime2</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-3; grid-column:3"> 
+                                <span>HiTestTime2</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="large-card-section">
+
+                </div>
+                <div class="large-card-section">
+
+                </div>
+            </div>
+            <div class="result-banner">
+            </div>
         </div>
         <div>
             <img class="novigo-icon-big" src="{!URLFOR($Resource.novigo_logo_blue)}" alt="Novigo Icon"/>

@@ -1386,31 +1386,31 @@
             
  
  
-            document.addEventListener('keydown', function(event) {
-            // console.log(event.key);
+            // document.addEventListener('keydown', function(event) {
+            // // console.log(event.key);
             
-            if (event.key === 'Alt' || event.key === 'Tab' || event.key === 'Meta' || event.key === 'Control' ||event.key === 'End' || event.key === 'F12' ) 
-            {
-                document.exitFullscreen();
+            // if (event.key === 'Alt' || event.key === 'Tab' || event.key === 'Meta' || event.key === 'Control' ||event.key === 'End' || event.key === 'F12' ) 
+            // {
+            //     document.exitFullscreen();
                  
-            }
-            else{
-                // event.preventDefault();
-            }
+            // }
+            // else{
+            //     // event.preventDefault();
+            // }
 
             
-            }); 
+            // }); 
 
-             document.addEventListener('contextmenu', function (e) {
-             e.preventDefault();
-             });
+            //  document.addEventListener('contextmenu', function (e) {
+            //  e.preventDefault();
+            //  });
 
-             setInterval(function () {
-             if (typeof console._commandLineAPI !== 'undefined') {
-                 console._commandLineAPI.clear();
-                 console._commandLineAPI.reset();
-             }
-            }, 1000);
+            //  setInterval(function () {
+            //  if (typeof console._commandLineAPI !== 'undefined') {
+            //      console._commandLineAPI.clear();
+            //      console._commandLineAPI.reset();
+            //  }
+            // }, 1000);
 
 
 
@@ -1440,7 +1440,7 @@
         }
 
         var timerIntervalCounter;
-        var countIntervel = 10;
+        var countIntervel = 10000000;
         const fullScreenElement = document.querySelector("html");
 
         function fullscreenchanged(event) {
@@ -1463,7 +1463,7 @@
                 
 
 
-                countIntervel = 10; 
+                countIntervel = 10000000; 
                 timerIntervalCounter = setInterval(() => {
                      countIntervel--;  
                      document.querySelector('.fullscreen-count-num').textContent = countIntervel;
@@ -1624,8 +1624,9 @@
                         clearInterval(timerInterval);
                         clearInterval(updateTimerInterval); 
                         // document.getElementById('startButton').disabled = false;
-                        var targetPageUrl = '/apex/TestSubmitScreen?studentId=' + studentIdMain + '&eventId=' + eventIdMain;
-                        window.location.href = targetPageUrl;
+                        // var targetPageUrl = '/apex/TestSubmitScreen?studentId=' + studentIdMain + '&eventId=' + eventIdMain;
+                        // window.location.href = targetPageUrl;
+                        updateOnsubmitandfinish();
                         return;
                     }
 
@@ -1649,8 +1650,9 @@
                                             // console.log("GetCurrentTimer success");     
                                             totalSeconds = result;
                                             if(totalSeconds <= 0){
-                                                var targetPageUrl = '/apex/TestSubmitScreen?studentId=' + studentIdMain + '&eventId=' + eventIdMain;
-                                                window.location.href = targetPageUrl;
+                                                // var targetPageUrl = '/apex/TestSubmitScreen?studentId=' + studentIdMain + '&eventId=' + eventIdMain;
+                                                // window.location.href = targetPageUrl;
+                                                updateOnsubmitandfinish();
                                             }
                                             startTimer();
                                                 if (event.status) {
@@ -1799,13 +1801,15 @@
                                                     function (result, event) { 
                                                             // console.log("updateTestMarks success");  
                                                             // console.log(result);
-                                                            hideLoader();
+                                                            // hideLoader();
                                                             
                                                             if(result === true)
                                                             {
 
-                                                                var targetPageUrl = '/apex/TestSubmitScreen?studentId=' + studentIdMain + '&eventId=' + eventIdMain;
-                                                                window.location.href = targetPageUrl;
+                                                               setTimeout(()=>{
+                                                                   var targetPageUrl = '/apex/TestSubmitScreen?studentId=' + studentIdMain + '&eventId=' + eventIdMain;
+                                                                   window.location.href = targetPageUrl;
+                                                               },4000)
                                                                 // var navbuttons = document.querySelector(".question-cnt-btn-felx");
                                                                 // navbuttons.classList.toggle("hide-tick");
                                                             }
