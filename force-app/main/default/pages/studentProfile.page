@@ -782,10 +782,102 @@
                     </div>
                 </div>
                 <div class="large-card-section">
-
+                    <div class="card-contents">
+                        <div class="card-title-container">
+                            <span class="card-title">2<sup>nd</sup> Round Report</span>
+                        </div>
+                        <div class="card-details">
+                            <div class="card-detail-row" style="gird-row:1; grid-column:1">
+                                <span class="card-detail-heading">Total Marks</span>
+                                <span class="card-detail-value">20</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-1; grid-column:2"> 
+                                <span class="card-detail-heading">Total Positve Marks</span>
+                                <span class="card-detail-value">20</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-1; grid-column:3"> 
+                                <span class="card-detail-heading">Total Negative Marks</span>
+                                <span class="card-detail-value">-10</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-2; grid-column:1"> 
+                                <span class="card-detail-heading">Total Aptitude Marks</span>
+                                <span class="card-detail-value">12</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-2; grid-column:2"> 
+                                <span class="card-detail-heading">Aptitude Positive Marks</span>
+                                <span class="card-detail-value">12</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-2; grid-column:3"> 
+                                <span class="card-detail-heading">Aptitude Negative Marks</span>
+                                <span class="card-detail-value">12</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-3; grid-column:1"> 
+                                <span class="card-detail-heading">C Programming Marks</span>
+                                <span class="card-detail-value">12</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-3; grid-column:2"> 
+                                <span class="card-detail-heading">C Programming Positive Marks</span>
+                                <span class="card-detail-value">12</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-3; grid-column:3"> 
+                                <span class="card-detail-heading">C Programming Negative Marks</span>
+                                <span class="card-detail-value">12</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row: 4; grid-column: 1 / span 3;">
+                                <span class="card-detail-heading">Remark</span>
+                                <span class="card-detail-value">Good in coding, was able to answer about Trees and Graphs</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="large-card-section">
-
+                    <div class="card-contents">
+                        <div class="card-title-container">
+                            <span class="card-title">3<sup>rd</sup> Round Report</span>
+                        </div>
+                        <div class="card-details">
+                            <div class="card-detail-row" style="gird-row:1; grid-column:1">
+                                <span class="card-detail-heading">Total Marks</span>
+                                <span class="card-detail-value">20</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-1; grid-column:2"> 
+                                <span class="card-detail-heading">Total Positve Marks</span>
+                                <span class="card-detail-value">20</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-1; grid-column:3"> 
+                                <span class="card-detail-heading">Total Negative Marks</span>
+                                <span class="card-detail-value">-10</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-2; grid-column:1"> 
+                                <span class="card-detail-heading">Total Aptitude Marks</span>
+                                <span class="card-detail-value">12</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-2; grid-column:2"> 
+                                <span class="card-detail-heading">Aptitude Positive Marks</span>
+                                <span class="card-detail-value">12</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-2; grid-column:3"> 
+                                <span class="card-detail-heading">Aptitude Negative Marks</span>
+                                <span class="card-detail-value">12</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-3; grid-column:1"> 
+                                <span class="card-detail-heading">C Programming Marks</span>
+                                <span class="card-detail-value">12</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-3; grid-column:2"> 
+                                <span class="card-detail-heading">C Programming Positive Marks</span>
+                                <span class="card-detail-value">12</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-3; grid-column:3"> 
+                                <span class="card-detail-heading">C Programming Negative Marks</span>
+                                <span class="card-detail-value">12</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row: 4; grid-column: 1 / span 3;">
+                                <span class="card-detail-heading">Remark</span>
+                                <span class="card-detail-value">Good person, give him 8LPA</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="marks-banner">
