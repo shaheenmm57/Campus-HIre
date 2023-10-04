@@ -600,10 +600,10 @@
                 .profile-basic-details-text-value{
                     font-size: 16px;
                 }
-                .marks-banner{
+                .marks-banner, .result-banner{
                     width:95%;
                     margin-top:1vh;
-                    height: 50vh;
+                    height: auto;
                     padding: 2vh;
                     display: flex;
                     justify-content: space-between;
@@ -616,6 +616,14 @@
                     border: 1px solid var(--blue-color);
                     border-radius: 5px;
                 }
+                .wide-card-section{
+                    margin-right: 1vw;
+                    width: 100%;
+                    height: auto;
+                    background-color: whitesmoke;
+                    border: 1px solid var(--blue-color);
+                    border-radius: 5px;
+                }
                 .card-details{
                     display: grid;
                     grid-template-columns: repeat(3, 1fr);
@@ -623,6 +631,12 @@
                     grid-column-gap: 10px;
                     grid-row-gap: 20px;
                 }
+                .marks-card-adjusted{
+                    grid-template-columns: repeat(4, 1fr);
+                    grid-template-rows: repeat(1, 1fr);
+                }
+
+
                 .card-contents{
                     padding: 2vh;
                 }
@@ -638,6 +652,9 @@
                 }
                 .card-detail-value{
                     font-size: 14px;
+                }
+                .bold{
+                    font-weight: bold;
                 }
 
 
@@ -710,11 +727,11 @@
                     </div>
                 </div>
             </div>
-            <div class="marks-banner">
+            <div class="result-banner">
                 <div class="large-card-section">
                     <div class="card-contents">
                         <div class="card-title-container">
-                            <span class="card-title">Round 1 Results</span>
+                            <span class="card-title">1<sup>st</sup> Round Report</span>
                         </div>
                         <div class="card-details">
                             <div class="card-detail-row" style="gird-row:1; grid-column:1">
@@ -771,56 +788,32 @@
 
                 </div>
             </div>
-            <div class="result-banner">
-                <div class="large-card-section">
+            <div class="marks-banner">
+                <div class="wide-card-section">
                     <div class="card-contents">
                         <div class="card-title-container">
-                            <span class="card-title">Round 1 Results</span>
+                            <span class="card-title">Marks Overview</span>
                         </div>
-                        <div class="card-details">
+                        <div class="card-details marks-card-adjusted">
                             <div class="card-detail-row" style="gird-row:1; grid-column:1">
-                                <span class="card-detail-heading">Total Marks</span>
-                                <span class="card-detail-value">20</span>
+                                <span class="card-detail-heading">School Acaedmic Details</span>
+                                <span class="card-detail-heading bold">GOVERNMENT SCHOOL</span>
+                                <span class="card-detail-value">75%</span>
                             </div>
                             <div class="card-detail-row" style="grid-row-1; grid-column:2"> 
-                                <span class="card-detail-heading">Total Positve Marks</span>
-                                <span class="card-detail-value">20</span>
+                                <span class="card-detail-heading">PU Acaedmic Details</span>
+                                <span class="card-detail-heading bold">MAHESH PU COLLEGE</span>
+                                <span class="card-detail-value">74%</span>
                             </div>
                             <div class="card-detail-row" style="grid-row-1; grid-column:3"> 
-                                <span class="card-detail-heading">Total Negative Marks</span>
-                                <span class="card-detail-value">-10</span>
+                                <span class="card-detail-heading">Diploma Acaedmic Details</span>
+                                <span class="card-detail-heading bold">MAHESH PU COLLEGE</span>
+                                <span class="card-detail-value">60%</span>
                             </div>
-                            <div class="card-detail-row" style="grid-row-2; grid-column:1"> 
-                                <span class="card-detail-heading">Total Aptitude Marks</span>
-                                <span class="card-detail-value">12</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row-2; grid-column:2"> 
-                                <span class="card-detail-heading">Aptitude Positive Marks</span>
-                                <span class="card-detail-value">12</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row-2; grid-column:3"> 
-                                <span class="card-detail-heading">Aptitude Negative Marks</span>
-                                <span class="card-detail-value">12</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row-3; grid-column:1"> 
-                                <span class="card-detail-heading">C Programming Marks</span>
-                                <span class="card-detail-value">12</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row-3; grid-column:2"> 
-                                <span class="card-detail-heading">C Programming Positive Marks</span>
-                                <span class="card-detail-value">12</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row-3; grid-column:3"> 
-                                <span class="card-detail-heading">C Programming Negative Marks</span>
-                                <span class="card-detail-value">12</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row-4; grid-column:1"> 
-                                <span class="card-detail-heading">Status</span>
-                                <span class="card-detail-value">On-Hold</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row-4; grid-column:3"> 
-                                <span class="card-detail-heading">Is Reffered</span>
-                                <span class="card-detail-value">No, He is a clown</span>
+                            <div class="card-detail-row" style="grid-row-1; grid-column:4"> 
+                                <span class="card-detail-heading">Degree Academic Details</span>
+                                <span class="card-detail-heading bold">NITTE YENNAPOAY</span>
+                                <span class="card-detail-value">CGPA: 7.5</span>
                             </div>
                         </div>
                     </div>

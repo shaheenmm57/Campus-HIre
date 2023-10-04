@@ -189,6 +189,7 @@
                 display: flex;
                 color: black;
                 font-weight: 500;
+                padding-right: 3vw;
             }
 
             .question-cnt-options{
@@ -651,26 +652,29 @@
                 justify-content: space-between
             }
 
-            .toggle-icon{
-                height: 7vh;
-                cursor: pointer;
-                border-radius: 50%; 
+            .toggle-icon{ 
+                cursor: pointer; 
+                height: 7vh; 
+                margin-right: -22px;
+                transition: 0.5s; 
+                border-radius: 8px;
             }
-            .toggle-icon:active{
+            .toggle-icon:hover{
                   box-shadow: 0 0 20px var(--blue-color);
             }
 
             .toggle-icon-cnt{
-                height: 7vh;
-                border-radius: 50%;
+                height: 7vh; 
                 margin-right: -22px;
-                transition: 0.5s;
-
-
+                transition: 0.5s;  
+                border-radius: 8px; 
             }
 
             .toggle-icon-rotate{
                 transform: rotate(180deg);
+            }
+            .toggle-icon-hide{
+                display: none;
             }
             .header-stopwatch-cton-container-txt{
                 margin-top: 6px;
@@ -1129,10 +1133,10 @@
                                 <img onclick="unflagqst()" id="flag-qst" class="qst-flag-hide" src="{!URLFOR($Resource.flag_icon)}" style="height:6vh;width:4vw;cursor: pointer;" alt="My PNG Image" />
                                 <img onclick="flagqst()" id="un-flag-qst" src="{!URLFOR($Resource.flag_icon_fill)}" style="height:6vh;width:4vw;cursor: pointer;" alt="My PNG Image" />
                             </div> -->
-                            <div class="toggle-icon-cnt"> 
-                                <img onclick="toggleButtons()" class="toggle-icon" src="{!URLFOR($Resource.toggle_icon)}" alt="My PNG Image" />
-                                
-                            </div>
+                            <!-- <div class="toggle-icon-cnt">  -->
+                                <img onclick="toggleButtons()" id="toggle-icon-close" class="toggle-icon toggle-icon-hide" src="{!URLFOR($Resource.toggle_open_icon)}" alt="My PNG Image" />
+                                <img onclick="toggleButtons()" id="toggle-icon-open" class="toggle-icon" src="{!URLFOR($Resource.toggle_close_icon)}" alt="My PNG Image" />
+                            <!-- </div> -->
                          </div>
                          <div class="question-cnt-title">
                            
@@ -1360,8 +1364,10 @@
             butonsele.classList.toggle('qst-nav-btn-full');
             // var lineele = document.querySelector(".main-body-line");
             // lineele.classList.toggle('main-body-line-full');
-            var toggeIcon = document.querySelector('.toggle-icon-cnt');
-            toggeIcon.classList.toggle('toggle-icon-rotate');
+            var toggeIcon = document.querySelector('#toggle-icon-close'); 
+             toggeIcon.classList.toggle('toggle-icon-hide');
+            toggeIcon = document.querySelector('#toggle-icon-open'); 
+            toggeIcon.classList.toggle('toggle-icon-hide');
         }
 
 
