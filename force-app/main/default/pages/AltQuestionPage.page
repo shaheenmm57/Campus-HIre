@@ -1967,7 +1967,7 @@
                  if(selectedQuestion.question_number__c === 1){
                     document.querySelector("#prv-btn-id").classList.add("hide-nxt-prv-btn");
                  }
-                 if(selectedQuestion.question_number__c === 30){
+                 if(selectedQuestion.question_number__c === dataToUpdate.length){
                     document.querySelector("#nxt-btn-id").classList.add("hide-nxt-prv-btn");
                  }
 
@@ -2375,7 +2375,7 @@
                 showLoader();
                 var flag = false;
                 for(var i=0;i<val.length;i++){
-                    if(val[i].currentQuestion__c === true && val[i].question_number__c <= val.length){
+                    if(val[i].currentQuestion__c === true && val[i].question_number__c != val.length){
                         val[i].currentQuestion__c = false;
                          for(var j = 0;j<val.length;j++){
                             if(val[j].question_number__c === (val[i].question_number__c + 1)){

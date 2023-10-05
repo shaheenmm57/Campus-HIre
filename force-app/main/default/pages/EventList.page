@@ -104,12 +104,47 @@
                     border: 2.5px solid red;
                 }
 
+                .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* CSS for the modal content */
+.modal-content {
+    background-color: #f4f4f4;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+}
+
+/* CSS for the close button */
+.close {
+    color: #888;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
 </style>
 <script>
 
     window.onload = showTable('random',2);
 
-    var input, filter, table, tr, td, i, txtValue, cpinput, cutoffinput, studentcutoff, studentcpcutoff, clickedevent;
+    var input, filter, table, tr, td, i, txtValue, cpinput, cutoffinput, studentcutoff, studentcpcutoff;
 
     var activeTable = 'Event';
     var cpsearch = document.createElement("input");
@@ -125,7 +160,7 @@
     var printButton = document.createElement("button");
     printButton.id = "print-button";
     printButton.innerText = "Print";
-    printButton.onclick = function(){exportTableToExcel("student-list", "table_data.xlsx");};
+    printButton.onclick = function(){openFilenameModal();};
 
 
 
@@ -135,6 +170,36 @@
     backButton.onclick = function() {showTable('yes',2);};
 
 
+    function openFilenameModal() {
+    var modal = document.getElementById("filenameModal");
+    modal.style.display = "block";
+}
+
+function closeFilenameModal() {
+    var modal = document.getElementById("filenameModal");
+    modal.style.display = "none";
+}
+
+function exportWithFilename() {
+    var filenameInput = document.getElementById("filenameInput");
+    var filename = filenameInput.value;
+
+    if (!filename.toLowerCase().endsWith(".xlsx")) {
+        filename += ".xlsx";
+    }
+    
+    // Call your export function with the filename
+    exportTableToExcel("student-list", filename);
+    
+    // Close the modal
+    closeFilenameModal();
+}
+
+
+
+
+
+    
  // Load the xlsx library dynamically
  var script = document.createElement('script');
     script.src = '{!URLFOR($Resource.xlsxLib)}';
@@ -152,41 +217,41 @@
         var table = document.getElementById(tableId);
 
 // Filter the rows based on your criteria (e.g., using the display style)
-var filteredRows = [];
-var rows = table.getElementsByTagName("tr");
-for (var i = 0; i < rows.length; i++) {
-    if (rows[i].style.display !== "none") {
-        filteredRows.push(rows[i]);
-    }
-}
+            var filteredRows = [];
+            var rows = table.getElementsByTagName("tr");
+            for (var i = 0; i < rows.length; i++) {
+                if (rows[i].style.display !== "none") {
+                    filteredRows.push(rows[i]);
+                }
+            }
 
-// Create a new table containing only the visible rows
-var filteredTable = document.createElement("table");
+            // Create a new table containing only the visible rows
+            var filteredTable = document.createElement("table");
 
-// Create and add the table headers to the filtered table
-var headerRow = filteredTable.insertRow(0);
-var headerCells = table.rows[0].cells;
-for (var i = 0; i < headerCells.length; i++) {
-    var newHeaderCell = headerRow.insertCell(i);
-    newHeaderCell.innerHTML = headerCells[i].innerHTML;
-}
+            // Create and add the table headers to the filtered table
+            var headerRow = filteredTable.insertRow(0);
+            var headerCells = table.rows[0].cells;
+            for (var i = 0; i < headerCells.length; i++) {
+                var newHeaderCell = headerRow.insertCell(i);
+                newHeaderCell.innerHTML = headerCells[i].innerHTML; // Copy cell content
+            }
 
-// Add the visible rows to the filtered table
-for (var i = 0; i < filteredRows.length; i++) {
-    var newRow = filteredTable.insertRow(-1); // Append a new row to the filtered table
-    var cells = filteredRows[i].getElementsByTagName("td");
-    for (var j = 0; j < cells.length; j++) {
-        var newCell = newRow.insertCell(j); // Append a new cell to the row
-        newCell.innerHTML = cells[j].innerHTML; // Copy cell content
-    }
-}
+            // Add the visible rows to the filtered table, excluding the header row
+            for (var i = 1; i < filteredRows.length; i++) {
+                var newRow = filteredTable.insertRow(i);
+                var cells = filteredRows[i].getElementsByTagName("td");
+                for (var j = 0; j < cells.length; j++) {
+                    var newCell = newRow.insertCell(j);
+                    newCell.innerHTML = cells[j].innerHTML; // Copy cell content
+                }
+            }
 
-// Export the filtered data to Excel using the new filtered table
-var wb = XLSX.utils.table_to_book(filteredTable, { sheet: "Sheet1" });
-XLSX.writeFile(wb, filename);
+            // Export the filtered data to Excel using the new filtered table
+            var wb = XLSX.utils.table_to_book(filteredTable, { sheet: "Sheet1" });
+            XLSX.writeFile(wb, filename);
 
-// Discard the filtered table (not appended to the document)
-filteredTable = null;
+            // Discard the filtered table (not appended to the document)
+            filteredTable = null;
             };
 
 
@@ -404,6 +469,13 @@ filteredTable = null;
         <input type="text" id="search" placeholder="Search by name"></input>
     </div>
     <div class = "displayTable" id = "displayTable">
+    </div>
+    <div id="filenameModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close" onclick="closeFilenameModal()">&times;</span>
+            <input type="text" id="filenameInput" placeholder="Enter a filename"></input>
+            <button onclick="exportWithFilename()">Export</button>
+        </div>
     </div>
 </div>
 </body>
