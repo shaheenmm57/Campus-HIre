@@ -231,7 +231,7 @@ filteredTable = null;
             }
             else{
                 studentcutoff = parseInt(tr[i].getElementsByTagName("td")[1].textContent);
-                studentcpcutoff = parseInt(tr[i].getElementsByTagName("td")[3].textContent);
+                studentcpcutoff = parseInt(tr[i].getElementsByTagName("td")[2].textContent);
 
                 if (!isNaN(cutoffinput) ||  !isNaN(cpinput) ){
 
@@ -287,12 +287,11 @@ filteredTable = null;
                             document.getElementById("searchbar").appendChild(printButton);
                             document.getElementById("searchbar").appendChild(backButton);
                             tableHtml += '<table id ="student-list">';
-                            tableHtml += '<tr><th>Student Name</th><th>Marks Scored</th><th>Cleared</th><th>C Programming Marks</th><th>Aptitude Marks</th><th>Negative Marks</th> <th>Negative C Programming Marks</th> <th>Negative Aptitude Marks</th></tr>';
+                            tableHtml += '<tr><th>Student Name</th><th>Marks Scored</th><th>C Programming Marks</th><th>Aptitude Marks</th><th>Negative Marks</th> <th>Negative C Programming Marks</th> <th>Negative Aptitude Marks</th></tr>';
                             for (var i = 0; i < result.studentInfoList.length; i++) {
                                 tableHtml += '<tr>';
                                 tableHtml += '<td><a href="javascript:void(0);" onclick = "routeToStudentPage(\'' + eventId + '\' , \'' + result.studentInfoList[i].Id + '\')">' + result.studentInfoList[i].studentName + '</td>';
                                 tableHtml += '<td>' + result.studentInfoList[i].marksScored + '</td>';
-                                tableHtml += '<td>' + result.studentInfoList[i].clearedCutoff + '</td>';
                                 tableHtml += '<td>' + result.studentInfoList[i].cpMarks + '</td>';
                                 tableHtml += '<td>' + result.studentInfoList[i].aptiMarks + '</td>';
                                 tableHtml += '<td>' + result.studentInfoList[i].negtotalMarks + '</td>';

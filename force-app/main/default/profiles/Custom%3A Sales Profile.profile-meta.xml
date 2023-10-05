@@ -2103,7 +2103,37 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>RC_event__c.CEasy__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RC_event__c.CHard__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RC_event__c.CMeduim__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>RC_event__c.Colleges__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RC_event__c.aptiEasy__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RC_event__c.aptiHard__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RC_event__c.aptiMeduim__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2119,11 +2149,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>RC_event__c.event_location__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>RC_event__c.setSize__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

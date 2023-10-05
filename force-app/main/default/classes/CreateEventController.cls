@@ -56,4 +56,65 @@ public class CreateEventController
     {
         return DML.getInstance().getPanelistNames();
     }
+
+    public class QuestionSetData
+    {
+        Integer aptiEasy,aptiMeduim,aptiHard,CEasy,CMeduim,CHard;
+
+        QuestionSetData(Integer aptiEasy, Integer aptiMeduim, Integer aptiHard, Integer CEasy, Integer CMeduim, Integer CHard)
+        {
+            this.aptiEasy = aptiEasy;
+            this.aptiMeduim = aptiMeduim;
+            this.aptiHard = aptiHard;
+            this.CEasy = CEasy;
+            this.CMeduim = CMeduim;
+            this.CHard = CHard;
+        }
+    }
+
+    @RemoteAction
+    public static QuestionSetData getQuestionSetData()
+    {
+        Integer aptiEasy = 0,aptiMeduim = 0,aptiHard = 0,CEasy = 0,CMeduim = 0,CHard = 0;
+        List<RC_question_set__c> questionSet = DML.getInstance().getQuestionSetData();
+        
+        
+        for(Integer i = 0; i < questionSet.size(); i++)
+        {
+            if(questionSet[i].question_category__c == 'Aptitude')
+            {
+                if(questionSet[i].question_difficulty__c == 'Easy')
+                {
+                    aptiEasy++;
+                }
+                else if(questionSet[i].question_difficulty__c == 'Medium')
+                {
+                    aptiMeduim++;
+                }
+                else if(questionSet[i].question_difficulty__c == 'Hard')
+                {
+                   aptiHard++;
+                }
+                
+            }
+            else
+            {
+               if(questionSet[i].question_difficulty__c == 'Easy')
+                {
+                    CEasy++;
+                }
+                else if(questionSet[i].question_difficulty__c == 'Medium')
+                {
+                   CMeduim++;
+                }
+                else if(questionSet[i].question_difficulty__c == 'Hard')
+                {
+                   CHard++;
+                }
+            }
+        }
+
+        QuestionSetData qdata = new QuestionSetData(aptiEasy,aptiMeduim, aptiHard, CEasy, CMeduim, CHard);
+        return qdata;
+    }
 }

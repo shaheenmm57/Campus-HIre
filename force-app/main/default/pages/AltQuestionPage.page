@@ -109,13 +109,7 @@
                 border: 4px solid gray;
                 background: white;
             } */
-            .qst-nav-btn{
-                display: grid; 
-                grid-template-rows: 1fr 1fr;
-                place-items: center;
-                height: 90vh;
-                grid-row-gap: 2.9px; 
-            }
+
 
             /* .qst-nav-btn-item{
                width: 5vw;
@@ -610,17 +604,28 @@
                 animation-name: movePanel;
                 animation-duration: 0.5s;
             }
+            .qst-nav-btn{
+                display: grid; 
+                grid-template-rows: 1fr 1fr;
+                place-items: center;
+                height: 90vh;
+                grid-row-gap: 2.9px; 
+            }
+            .qst-nav-btn-new{
+                display: none; 
+            }
 
             @keyframes movePanel{
                 0%{
                     display: grid;
-                    grid-template-columns: 1fr 2px 26vw;
+                    grid-template-columns: 1fr 2px 26vw; 
                 }
                 100%{
                     display: none;
                     grid-template-columns: 1fr 0px 0vw;
                 }
             }
+            
             .main-body-full-alt{
                 animation-name: movePanelAlt;
                 animation-duration: 0.5s;
@@ -1382,9 +1387,12 @@
 
         function toggleButtons() {
             var mainele = document.querySelector('.main-body');
+            var scrollBar = document.querySelector('.qst-nav-btn');
+            scrollBar.classList.toggle('qst-nav-btn-new');
             mainele.classList.toggle('main-body-full');
             mainele.classList.toggle('main-body-full-alt');
             mainele.classList.toggle('new-main-body');
+            
             var butonsele = document.querySelector(".qst-nav-btn");
             butonsele.classList.toggle('qst-nav-btn-full');
             // var lineele = document.querySelector(".main-body-line");

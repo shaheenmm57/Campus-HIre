@@ -46,7 +46,6 @@ public class DML
         newEvent.cutoff__c = Integer.valueOf(cutoff);
         newEvent.event_date__c = Date.valueOf(eventDate); 
         newEvent.event_start_time__c = eventStartTime;
-        newEvent.setSize__c = noOfQuestions;
         Database.SaveResult sr = Database.insert(newEvent, false);
 
         if(sr.isSuccess()){
@@ -365,6 +364,11 @@ public class DML
         Utility.getInstance().AssignRandomQuestions(cHardSize,cProgrammingQuestionsHard,questionsForStudent);
          
          return questionsForStudent;
+    }
+
+    public List<RC_question_set__c> getQuestionSetData()
+    {
+        return [SELECT Id, question_category__c, question_difficulty__c FROM RC_question_set__c];
     }
 
     public List<RC_Event_Question_Test_Set__c> getRandomQuestionsForStudent(String eventID, Integer noOfQuestions)

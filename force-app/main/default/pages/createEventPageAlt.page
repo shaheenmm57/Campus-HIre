@@ -710,9 +710,10 @@
 
         //get all colleges from the DB once the page loads
         window.onload = (event) => {
-            
+            showLoader();
             GetCollegeNamesFromDatabase();
             GetPanelistsNameFromDatabase();
+            GetQuestionSetData();
         };
 
         //global Variables
@@ -728,6 +729,13 @@
 
         var isShowingColleges = false;
         var isShowingPanelists = false;
+
+        var aptiEasySize = 0;
+        var aptiMedSize = 0;
+        var aptiHardSize = 0;
+        var CEasySize = 0;
+        var CMeduimSize = 0;
+        var CHardSize = 0;
 
        
         
@@ -793,6 +801,44 @@
                 }
            }
         
+        }
+
+        function GetQuestionSetData()
+        {
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.CreateEventController.getQuestionSetData}',
+                GetQuestionSetDataCallBack
+                );
+        }
+
+        function PopulateSelectTag(SelectHTMLID, listSize)
+        {
+            select = document.getElementById(SelectHTMLID);
+
+            for (var i = 1; i<=listSize; i++){
+                var opt = document.createElement('option');
+                opt.value = i;
+                opt.innerHTML = i;
+                select.appendChild(opt);
+            }
+        }
+
+        function GetQuestionSetDataCallBack(result, event)
+        {
+            aptiEasySize = result.aptiEasy;
+            aptiMedSize = result.aptiMeduim;
+            aptiHardSize = result.aptiHard;
+            CEasySize = result.CEasy;
+            CMeduimSize = result.CMeduim;
+            CHardSize = result.CHard;
+
+            PopulateSelectTag('aptiEasy',aptiEasySize);
+            PopulateSelectTag('aptiMed', aptiMedSize);
+            PopulateSelectTag('aptiHard', aptiHardSize);
+            PopulateSelectTag('CEasy',CEasySize);
+            PopulateSelectTag('CMed', CMeduimSize);
+            PopulateSelectTag('CHard', CHardSize);
+            hideLoader();
         }
         
         function GetCollegeNamesFromDatabase(){
@@ -1407,10 +1453,34 @@
                                     </div>
 
                                     <div class = "section-item">
-                                        <div class = "section-item-text">No. of Questions: </div>
-                                        <input type="number" id="NoOfQuestions" class="field"/>
+                                        <div class = "section-item-text">No. of Aptitude Easy Questions: </div>
+                                        <select id="aptiEasy" class="field"/>
+                                    </div> 
+
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">No. of Aptitude Meduim Questions: </div>
+                                        <select id="aptiMed" class="field"/>
                                     </div> 
                                     
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">No. of Aptitude Hard Questions: </div>
+                                        <select id="aptiHard" class="field"/>
+                                    </div> 
+
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">No. of C Easy Questions: </div>
+                                        <select id="CEasy" class="field"/>
+                                    </div> 
+
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">No. of C Meduim Questions: </div>
+                                        <select id="CMed" class="field"/>
+                                    </div> 
+
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">No. of C Hard Questions: </div>
+                                        <select id="CHard" class="field"/>
+                                    </div> 
                                 </div>
                             </div>
 
