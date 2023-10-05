@@ -632,6 +632,8 @@
                     grid-row-gap: 20px;
                 }
                 .second-round-adjusted{
+                    grid-template-columns: auto;
+                    grid-template-rows: auto;
                     grid-column-gap: 10px;
                     grid-row-gap: 5px;
                 }
@@ -794,7 +796,7 @@
                             <span class="card-title">2<sup>nd</sup> Round Report</span>
                         </div>
                         <div class="card-details second-round-adjusted">
-                            <div class="card-detail-row" style="gird-row:1; grid-column:1">
+                            <div class="card-detail-row" style="gird-row:1; grid-column:1/ span 3">
                                 <span class="card-detail-heading">Professional/Technical Knowledge</span>
                             </div>
                             <div class="card-detail-row" style="gird-row:2; grid-column:1">
@@ -805,7 +807,7 @@
                                 <span class="card-detail-heading"> </span>
                                 <span class="card-detail-value ">Had Very Good Technical Knowledge</span>
                             </div>
-                            <div class="card-detail-row" style="grid-row-3; grid-column:1"> 
+                            <div class="card-detail-row" style="grid-row-3; grid-column:1/ span 3"> 
                                 <span class="card-detail-heading">Communication Skills</span>
                             </div>
                             <div class="card-detail-row" style="grid-row-4; grid-column:1"> 
@@ -815,7 +817,7 @@
                                 <span class="card-detail-heading"> </span>
                                 <span class="card-detail-value">Well Spoken</span>
                             </div>
-                            <div class="card-detail-row" style="grid-row-5; grid-column:1"> 
+                            <div class="card-detail-row" style="grid-row-5; grid-column:1/ span 3"> 
                                 <span class="card-detail-heading">Attitude/Promptness in Response</span>
                             </div>
                             <div class="card-detail-row" style="grid-row-6; grid-column:1"> 

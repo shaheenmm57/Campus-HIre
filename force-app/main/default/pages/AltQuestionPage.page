@@ -94,7 +94,7 @@
 
             .main-body{
                 display: grid;
-                grid-template-columns: 1fr 2px 28vw;
+                grid-template-columns: 1fr 2px 26vw;
                 height: 90vh;
                 width:100%;
                 background: var(--blue-color);
@@ -136,7 +136,8 @@
             .qst-nav-btn-item{
                 width: 5vw;
                 height: 9vh;
-                margin-top: 1vh;
+                margin-top: 0.5vh;
+                margin-bottom: 0.5vh;
                 background: var(--icon-gray-color);
                 border-radius: 10px;
                 display: grid; 
@@ -613,7 +614,7 @@
             @keyframes movePanel{
                 0%{
                     display: grid;
-                    grid-template-columns: 1fr 2px 25vw;
+                    grid-template-columns: 1fr 2px 26vw;
                 }
                 100%{
                     display: none;
@@ -630,7 +631,7 @@
                     grid-template-columns: 1fr 0px 0vw;
                 }
                 100%{
-                    grid-template-columns: 1fr 2px 25vw;
+                    grid-template-columns: 1fr 2px 26vw;
                     
                 }
             }
@@ -693,8 +694,8 @@
                 overflow: scroll;
             }
 
-            .qst-nav-btn-split::-webkit-scrollbar{
-                display: none;
+            .qst-nav-btn-split{
+                overflow-x: hidden;
             }
 
             .qst-nav-btn-item-logo{
@@ -979,6 +980,31 @@
             ::selection{
                 color: white;
                 background: var(--blue-color-hover);
+            }
+
+
+            ::-webkit-scrollbar {
+                width: 12px;
+            }
+
+
+
+            ::-webkit-scrollbar-track { 
+                background-color: rgb(244, 244, 244); 
+                /* -webkit-box-shadow: inset 0 0 6px rgba(0, 25, 88, 0.3);  */ 
+                border-radius: 10px; 
+            }
+
+
+
+            ::-webkit-scrollbar-thumb { 
+                border-radius: 10px; 
+                background-color: var(--blue-color); 
+                transition: 0.3s; 
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background-color: var(--blue-color-hover);
             }
 
 

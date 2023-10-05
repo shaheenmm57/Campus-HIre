@@ -3,6 +3,7 @@
     <fullName>All</fullName>
     <columns>panelistsName__c</columns>
     <columns>panelistsEmail__c</columns>
+    <columns>panelistsPassword__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

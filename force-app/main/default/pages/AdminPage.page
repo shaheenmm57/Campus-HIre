@@ -14,7 +14,7 @@
                 --background-color: white;
                 --red-color: #EF233C;
                 --yellow-color: #ffb01d;
-
+                --grey-color: #51504e;
                 --green-color: #008000;
             }
 
@@ -671,7 +671,7 @@
                     </div>
                     
                     <div class="section-buttons">
-                        <button type="button" class="next-button" onclick="QstView()">View</button>
+                        <button type="button"  id="viewAllQuestions" class="next-button" onclick="QstView()">View</button>
                     </div>
                 </div>
                 
@@ -690,7 +690,7 @@
                     </div>
                     
                     <div class="section-buttons">
-                        <button type="button" class="next-button" onclick="AddQst()">Add</button>
+                        <button type="button" id="addQuestions" class="next-button" onclick="AddQst()">Add</button>
                     </div>
                 </div>
                 
@@ -709,7 +709,7 @@
                     </div>
                     
                     <div class="section-buttons">
-                        <button type="button" class="next-button" onclick="updateSingleStudent()">Update</button>
+                        <button type="button" id="updateTestStatus" class="next-button" onclick="updateSingleStudent()">Update</button>
                     </div>
                 </div>
                 
@@ -767,8 +767,8 @@
                         <span class="section-text">Create a new Event</span> 
                     </div>
                     
-                    <div class="section-buttons">
-                        <button type="button" class="next-button" onclick="routeToCreateEventPage()">Create</button>
+                    <div class="section-buttons" >
+                        <button type="button" id="createNewEvent" class="next-button" onclick="routeToCreateEventPage()">Create</button>
                     </div>
                 </div>
                 
@@ -788,7 +788,7 @@
                     </div>
                     
                     <div class="section-buttons">
-                        <button type="button" class="next-button" onclick="AddCollege()">Add</button>
+                        <button type="button" id="addCollege" class="next-button" onclick="AddCollege()">Add</button>
                     </div>
                 </div>
                 
@@ -807,7 +807,7 @@
                     </div>
                     
                     <div class="section-buttons">
-                        <button type="button" class="next-button" onclick="UpdateEvent()">Update</button>
+                        <button type="button" id="updateEventInfo" class="next-button" onclick="UpdateEvent()">Update</button>
                     </div>
                 </div>
                 
@@ -836,7 +836,27 @@
               }
 
             const adminID = getUrlParameter('adminId');
-            if(!adminID)
+            const panelistID = getUrlParameter('panelistId');
+            console.log(panelistID);
+            console.log(adminID);
+
+            if(panelistID)
+            {
+                DisableButtons();
+            }
+
+            function DisableButtons()
+            {
+                var style = getComputedStyle(document.body);
+                document.getElementById("createNewEvent").style.backgroundColor = style.getPropertyValue('--grey-color');
+                document.getElementById("viewAllQuestions").style.backgroundColor = style.getPropertyValue('--grey-color'); 
+                document.getElementById("addQuestions").style.backgroundColor = style.getPropertyValue('--grey-color'); 
+                document.getElementById("updateTestStatus").style.backgroundColor = style.getPropertyValue('--grey-color'); 
+                document.getElementById("addCollege").style.backgroundColor = style.getPropertyValue('--grey-color'); 
+                document.getElementById("updateEventInfo").style.backgroundColor = style.getPropertyValue('--grey-color');  
+            }
+
+            if(!adminID && !panelistID)
             {
                 routeToAdminLogin();
             }
@@ -845,6 +865,18 @@
             {
                 var targetPageUrl = '/apex/AdminLogin';
                 window.location.href = targetPageUrl;
+            }
+
+            function IsAdmin()
+            {
+                if(adminID)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
 
             function displayErrorMessage(errorText) {
@@ -925,6 +957,13 @@
            
 
             function AddQst(){
+                
+                if(!IsAdmin())
+                {
+                    displayErrorMessage("Only Admins can access this page!");
+                    return;
+                }
+
                 var targetPageUrl = '/apex/InsertQuestionSets?adminId=' + adminID;
                 window.location.href = targetPageUrl;
             }
@@ -936,12 +975,26 @@
 
 
              function updateSingleStudent(){
+
+                if(!IsAdmin())
+                {
+                    displayErrorMessage("Only Admins can access this page!");
+                    return;
+                }
+
                 var targetPageUrl = '/apex/UpdateStudentTest?adminId=' + adminID;
                 window.location.href = targetPageUrl;
                 
              }
 
              function QstView(){
+
+
+                if(!IsAdmin())
+                {
+                    displayErrorMessage("Only Admins can access this page!");
+                    return;
+                }
                 var targetPageUrl = '/apex/GetAllQuestions?adminId=' + adminID;
                 window.location.href = targetPageUrl;
              }
@@ -954,6 +1007,12 @@
 
             function routeToCreateEventPage()
             {
+                if(!IsAdmin())
+                {
+                    displayErrorMessage("Only Admins can access this page!");
+                    return;
+                }
+
                 var targetPageUrl = '/apex/createEventPageAlt?adminId=' + adminID;
                 window.location.href = targetPageUrl;
             }
@@ -964,7 +1023,14 @@
                 window.location.href = targetPageUrl;
             }
 
-            function AddCollege(){
+            function AddCollege()
+            {
+                if(!IsAdmin())
+                {
+                    displayErrorMessage("Only Admins can access this page!");
+                    return;
+                }
+
                 var targetPageUrl = '/apex/collegeRegistrationPageAlt';
                  window.location.href = targetPageUrl;
             }
