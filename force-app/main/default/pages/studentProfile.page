@@ -646,6 +646,9 @@
                 .card-contents{
                     padding: 2vh;
                 }
+                .card-group{
+                    margin-bottom: 2vh;
+                }
                 .card-detail-row{
                     display: flex;
                     flex-direction: column;
@@ -704,37 +707,37 @@
                 </div>
                 <div class="profile-basic-details">
                     <div class="profile-name">
-                        <span class = "profile-basic-details-name-header">Arjun Abin</span>
+                        <span id="profileName" class="profile-basic-details-name-header">Arjun Abin</span>
                     </div>
                     <div class="profile-basic-section-1">
                         <div class="profile-basic-section-item">
-                            <span class = "profile-basic-details-text-header">USN</span>
-                            <span class = "profile-basic-details-text-value">4JK19CS009</span>
+                            <span id="profileUSN" class="profile-basic-details-text-header">USN</span>
+                            <span class="profile-basic-details-text-value">4JK19CS009</span>
                         </div>
                         <div class="profile-basic-section-item">
-                            <span class = "profile-basic-details-text-header">Email</span>
-                            <span class = "profile-basic-details-text-value">arjun.abin@gmail.com</span>
+                            <span id="profileEmail" class="profile-basic-details-text-header">Email</span>
+                            <span class="profile-basic-details-text-value">arjun.abin@gmail.com</span>
                         </div>
                         <div class="profile-basic-section-item">
-                            <span class = "profile-basic-details-text-header">Phone</span>
-                            <span class = "profile-basic-details-text-value">+91-9834123445</span>
+                            <span id="profilePhone" class="profile-basic-details-text-header">Phone</span>
+                            <span class="profile-basic-details-text-value">+91-9834123445</span>
                         </div>
                     </div>
-                    <div class = "profile-basic-section-2">
+                    <div class="profile-basic-section-2">
                         <div class="profile-basic-section-item">
-                            <span class = "profile-basic-details-text-header">College</span>
-                            <span class = "profile-basic-details-text-value">NITTE Yenapoya</span>
+                            <span id="profileCollege" class="profile-basic-details-text-header">College</span>
+                            <span class="profile-basic-details-text-value">NITTE Yenapoya</span>
                         </div>
                         <div class="profile-basic-section-item">
-                            <span class = "profile-basic-details-text-header">Degree</span>
-                            <span class = "profile-basic-details-text-value">B.Tech</span>
+                            <span id="profileDegree" class="profile-basic-details-text-header">Degree</span>
+                            <span class="profile-basic-details-text-value">B.Tech</span>
                         </div>
                         <div class="profile-basic-section-item">
-                            <span class = "profile-basic-details-text-header">Branch</span>
-                            <span class = "profile-basic-details-text-value">(CSE) Computer Science and Engineering</span>
+                            <span id="profileBranch" class="profile-basic-details-text-header">Branch</span>
+                            <span class="profile-basic-details-text-value">(CSE) Computer Science and Engineering</span>
                         </div>
                     </div>
-                </div>
+                </div>                
             </div>
             <div class="result-banner">
                 <div class="large-card-section">
@@ -796,46 +799,54 @@
                             <span class="card-title">2<sup>nd</sup> Round Report</span>
                         </div>
                         <div class="card-details second-round-adjusted">
-                            <div class="card-detail-row" style="gird-row:1; grid-column:1/ span 3">
-                                <span class="card-detail-heading">Professional/Technical Knowledge</span>
+                            <div class="card-group">
+                                <div class="card-detail-row">
+                                    <span class="card-detail-heading">Professional/Technical Knowledge</span>
+                                </div>
+                                <div class="card-detail-row">
+                                    <span class="card-detail-value">Excellent</span>
+                                </div>
+                                <div class="card-detail-row">
+                                    <span class="card-detail-value">Had Very Good Technical Knowledge</span>
+                                </div>
                             </div>
-                            <div class="card-detail-row" style="gird-row:2; grid-column:1">
-                                <span class="card-detail-value">Excellent</span>
+                            <div class="card-group">
+                                <div class="card-detail-row">
+                                    <span class="card-detail-heading">Communication Skills</span>
+                                </div>
+                                <div class="card-detail-row">
+                                    <span class="card-detail-value">Good</span>
+                                </div>
+                                <div class="card-detail-row">
+                                    <span class="card-detail-value">Well Spoken</span>
+                                </div>
                             </div>
-                            <div class="card-detail-row" style="grid-row-2; grid-column:2 / span 3"> 
-                                <!-- <span class="card-detail-heading">Total Positve Marks</span> -->
-                                <span class="card-detail-heading"> </span>
-                                <span class="card-detail-value ">Had Very Good Technical Knowledge</span>
+                            <div class="card-group">
+                                <div class="card-detail-row">
+                                    <span class="card-detail-heading">Attitude/Promptness in Response</span>
+                                </div>
+                                <div class="card-detail-row">
+                                    <span class="card-detail-value">Excellent</span>
+                                </div>
+                                <div class="card-detail-row">
+                                    <span class="card-detail-value">Had Proper Attitude</span>
+                                </div>
                             </div>
-                            <div class="card-detail-row" style="grid-row-3; grid-column:1/ span 3"> 
-                                <span class="card-detail-heading">Communication Skills</span>
+                            <div class="card-group">
+                                <div class="card-detail-row">
+                                    <span class="card-detail-heading">Status</span>
+                                </div>
+                                <div class="card-detail-row">
+                                    <span class="card-detail-value">On-Hold</span>
+                                </div>
+                                <div class="card-detail-row">
+                                    <span class="card-detail-heading">Interviewed By</span>
+                                </div>
+                                <div class="card-detail-row">
+                                    <span class="card-detail-value">Ashish Kishore Kumar</span>
+                                </div>
                             </div>
-                            <div class="card-detail-row" style="grid-row-4; grid-column:1"> 
-                                <span class="card-detail-value">Good</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row-4; grid-column:2 / span 3"> 
-                                <span class="card-detail-heading"> </span>
-                                <span class="card-detail-value">Well Spoken</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row-5; grid-column:1/ span 3"> 
-                                <span class="card-detail-heading">Attitude/Promptness in Response</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row-6; grid-column:1"> 
-                                <span class="card-detail-value">Excellent</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row-6; grid-column:2 / span 3"> 
-                                <span class="card-detail-heading"> </span>
-                                <span class="card-detail-value">Had Proper Attitude </span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row-7; grid-column:1"> 
-                                <span class="card-detail-heading">Status</span>
-                                <span class="card-detail-value">On-Hold</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row-7; grid-column:3"> 
-                                <span class="card-detail-heading">Interviewd By</span>
-                                <span class="card-detail-value">Ashish Kishore Kumar</span>
-                            </div>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
                 <div class="large-card-section">
@@ -926,722 +937,43 @@
     </body>
     <script>
     
-        let sections = [];
-        let currentSectionIndex = 0;
-        const collegeListFromDataBase = [];
-        const CollegeIDAndName = {};
-        let usnEmailCheckSuccessful = false;
-        let emailValidation = false;
+        document.addEventListener("DOMContentLoaded", () => {
+            invokeRemoteActionWithParameters()
+        });
 
-        // Add an event listener to the "Address" section
-        const addressSection = document.getElementById("addressSection");
-        if (addressSection) {
-            addressSection.addEventListener("click", () => {
-                // Scroll to the "Address" section
-                addressSection.scrollIntoView({ behavior: "smooth" });
-            });
+        function getURLParameters() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var studentId = urlParams.get('studentId');
+            var param2 = urlParams.get('param2');
+            return { studentId: studentId, param2: param2 };
+        }
+        
+        function invokeRemoteActionWithParameters() {
+            var params = getURLParameters();
+            var studentId = params.studentId;
+            var param2 = params.param2;
+
+            console.log(studentId);
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.studentProfileController.retriveStudentDetails}',
+                studentId,
+                function(result, event) {
+                    if (event.status) {
+                        console.log(result.Id);
+                        console.log(result.Name);
+                        document.getElementById('profileName').textContent = result.Name;
+                        document.getElementById('profileUSN').textContent = result.usn__c;
+                        document.getElementById('profileEmail').textContent = result.email__c;
+                        document.getElementById('profilePhone').textContent = result.phone__c;
+                        document.getElementById('profileCollege').textContent = result.college_id__c;
+                        document.getElementById('profileDegree').textContent = result.degree_pursuing__c;
+                        document.getElementById('profileBranch').textContent = result.branch_type__c;
+                    } else {
+                        console.error('Error:', event.message);
+                    }
+                }
+            );
         }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            sections = document.querySelectorAll(".section-wrapper");
-            const sectionIds = Array.from(sections).map((section) => section.id);
-            const successfulSection = document.getElementById("successfulSection");
-            const degDetailsSection = document.getElementById("degDetails");
-            const prevDetailsSection = document.getElementById("previewDetails");
-            const failSection = document.getElementById("failSection");
-            const nextButtons = document.querySelectorAll(".next-button");
-            const prevButtons = document.querySelectorAll(".prev-button");
-            const goBackButton = document.getElementById("goBackButton");
-            const branchTypeId = document.getElementById('branchDropdown').id;
-
-            function addInputValidation(inputField, maxLength, allowDecimal, validationFunction) {
-                const warningCustom = document.getElementById('warningCustom');
-                const phoneContainer = document.getElementById('phoneContainer');
-
-                if (!inputField) return;
-
-                inputField.addEventListener('input', () => {
-                    inputField.classList.remove("input-warning");
-                    let value = inputField.value;
-                    let hasWarning = false;
-
-                    if (maxLength && value.length > maxLength) {
-                        value = value.slice(0, maxLength);
-                    }
-
-                    if (validationFunction) {
-                        if (!validationFunction(value)) {
-                            console.log("Denying Input");
-                            value = value.slice(0, -1);
-                            inputField.value = value;
-                            hasWarning = true;
-                        }
-                    }
-
-                    if (hasWarning) {
-                        displayWarningMessage("Please Enter in Correct Format");
-                        inputField.classList.add("input-warning");
-                    } else {
-                        warningCustom.style.display = "none";
-                        inputField.classList.remove("input-warning");
-                    }
-
-                    inputField.value = value;
-
-                    if (inputField.id === 'phoneInput') {
-                        // PhoneInput specific validation
-                        if (maxLength && value.length > maxLength) {
-                            value = value.slice(0, maxLength);
-                        }
-
-                        if (!/^\d*\.?\d*$/.test(value)) {
-                            value = value.replace(/[^\d.]/g, '');
-                            hasWarning = true;
-                        }
-
-                        if (!allowDecimal && value.includes('.')) {
-                            value = value.split('.')[0];
-                            hasWarning = true;
-                        }
-
-                        if (hasWarning) {
-                            displayWarningMessage("Please Enter in Correct Format");
-                            phoneContainer.classList.add("input-warning");
-                        } else {
-                            warningCustom.style.display = "none";
-                            phoneContainer.classList.remove("input-warning");
-                        }
-                    }
-
-                    inputField.value = value;
-                });
-            }
-
-            function isNumber(value) {
-                console.log("isNumber");
-                return /^\d*\.?\d*$/.test(value);
-            }
-
-            function isText(value) {
-                console.log("isText");
-                return /^[a-zA-Z\s]*$/.test(value);
-            }
-
-            function isUsn(value) {
-                console.log("isUsn");
-                return /^[a-zA-Z0-9]+$/.test(value);
-            }
-            const allFields = [
-                { id: 'phoneInput', maxLength: 10, allowDecimal: false, validationFunction: isNumber },
-                { id: 'pincodeInput', maxLength: 6, allowDecimal: false, validationFunction: isNumber },
-                { id: 'schoolMarksInput', maxLength: 3, allowDecimal: true, validationFunction: isNumber },
-                { id: 'puMarksInput', maxLength: 3, allowDecimal: true, validationFunction: isNumber },
-                { id: 'degreeMarksInput', maxLength: 3, allowDecimal: true, validationFunction: isNumber },
-                { id: 'schoolPassingYearInput', maxLength: 4, allowDecimal: false, validationFunction: isNumber },
-                { id: 'puPassingYearInput', maxLength: 4, allowDecimal: false, validationFunction: isNumber },
-                { id: 'degreePassingYearInput', maxLength: 4, allowDecimal: false, validationFunction: isNumber },
-                { id: 'diplomaPassingYearInput', maxLength: 4, allowDecimal: false, validationFunction: isNumber },
-                { id: 'diplomaMarksInput', maxLength: 3, allowDecimal: true, validationFunction: isNumber },
-                { id: 'usnInput', maxLength: 10, allowDecimal: false, validationFunction: isUsn },
-                { id: 'cityInput', maxLength: 30, allowDecimal: false, validationFunction: isText },
-                { id: 'stateInput', maxLength: 30, allowDecimal: false, validationFunction: isText },
-                { id: 'nameInput', maxLength: 50, allowDecimal: false, validationFunction: isText },
-                { id: 'schoolNameInput', maxLength: 50, allowDecimal: false, validationFunction: isText },
-                { id: 'secondarySchoolNameInput', maxLength: 50, allowDecimal: false, validationFunction: isText },
-                { id: 'diplomaCollegeNameInput', maxLength: 50, allowDecimal: false, validationFunction: isText },
-            ];
-
-            allFields.forEach((field) => {
-                const inputField = document.getElementById(field.id);
-                addInputValidation(inputField, field.maxLength, field.allowDecimal, field.validationFunction);
-            });
-
-
-            getCollegeNames();
-
-            const includeDiplomaCheckbox = document.getElementById("includeDiploma");
-            const diplomaDetailsSection = document.getElementById("diplomaDetails");
-
-            includeDiplomaCheckbox.addEventListener("change", () => {
-                diplomaDetailsSection.style.display = includeDiplomaCheckbox.checked ? "block" : "none";
-            });
-
-            let clipWidth = 85;
-            const progressBar = document.querySelector(".progress");
-            const progressBarContainer = document.querySelector(".progress-bar");
-
-            function updateProgressBar(index) {
-                const sectionCount = sections.length - 1;
-                const initialWidth = 25;
-                clipWidth = 85 + (index * 2.6);
-                progressBarContainer.style.height = "35px";
-                progressBar.style.clipPath = `polygon(0 0, 100% 0, ${clipWidth}% 100%, 0% 100%)`;
-                let progressPercentage = ((index / sectionCount) * 100);
-                if (index > 0) {
-                    progressPercentage = ((index / sectionCount) * 100) - 7;
-                }
-                progressBar.style.width = `${initialWidth + progressPercentage}%`;
-            }
-
-            const sectionTexts = document.querySelectorAll(".section-text");
-            progressText.textContent = sectionTexts[0].textContent;
-
-            function updateProgressText(index) {
-                const sectionTexts = document.querySelectorAll(".section-text");
-                progressText.textContent = sectionTexts[index].textContent;
-            }
-
-    
-            sections.forEach((section, index) => {
-                section.style.display = "none";
-                if (index === 0) {
-                    section.style.display = "flex";
-                }
-    
-                goBackButton.addEventListener("click", () => {
-                    failSection.style.display = "none";
-                    const sectionShadow = document.querySelector(".section-body");
-                    const progressBar = document.querySelector(".progress");
-                    const progressText = document.querySelector(".progress-text");
-                    progressText.style.display = "flex";
-                    sectionShadow.classList.remove("section-body-red-shadow");
-                    progressBar.classList.remove("progress-red");
-                    prevDetailsSection.style.display = "flex";
-                    progressBar.style.width = `80%`;
-                    progressBar.style.clipPath = "polygon(0 0, 100% 0, 95% 100%, 0% 100%)";
-                    progressBarContainer.style.height = '35px'
-                    updateProgressText(currentSectionIndex)
-                });
-    
-                prevButtons[index].addEventListener("click", () => {
-                    sections[currentSectionIndex].style.display = "none";
-                    currentSectionIndex = index;
-    
-                    if (currentSectionIndex >= 0) {
-                        if (currentSectionIndex == 0) { usnEmailCheckSuccessful = false; }
-                        sections[currentSectionIndex].style.display = "flex";
-                        
-                        updateProgressBar(currentSectionIndex);
-                        updateProgressText(currentSectionIndex);
-                    }
-                });
-    
-                nextButtons[index].addEventListener("click", () => {
-                    displayDetailsSummary();
-                    const isValidUsnMail = false;
-                    const emailInput = document.getElementById('emailInput');
-                    const email = emailInput.value;
-                    const reenterEmailInput = document.getElementById('reenterEmailInput');
-                    const reenterEmail = reenterEmailInput.value;
-                    const errorAlert = document.getElementById('errorAlert');
-                    const emailValid = document.getElementById('emailValid');
-                    const emailMatch = document.getElementById('emailMatch');
-                    const currentSection = sections[currentSectionIndex];
-                    const currentSectionId = sectionIds[currentSectionIndex];
-                    const inputFields = currentSection.querySelectorAll(`#${currentSectionId} input`);
-                    const phoneContainer = document.getElementById('phoneContainer');
-                    const degreeDropdown = document.getElementById('degreeDropdown');
-                    const branchDropdown = document.getElementById('branchDropdown');
-                    const textAreaField = document.getElementById("address1Input");
-    
-                    const collegeDropdown = document.getElementById("collegeDropdown");
-                    const selectedCollege = collegeDropdown.options[collegeDropdown.selectedIndex].value;
-                    degreeDropdown.addEventListener('input', () => { degreeDropdown.classList.remove("input-error") });
-                    branchDropdown.addEventListener('input', () => { branchDropdown.classList.remove("input-error") });
-                    collegeDropdown.addEventListener('input', () => { collegeDropdown.classList.remove("input-error") });
-                    textAreaField.addEventListener('input', () => { textAreaField.classList.remove("input-error"); });
-                    phoneInput.addEventListener('input', () => { phoneContainer.classList.remove("phone-container-error") });
-                    inputFields.forEach(inputField => {
-                        inputField.addEventListener('input', () => {
-                            inputField.classList.remove("input-error");
-    
-                        });
-                    });
-                    console.log(currentSectionId);
-                    let hasEmptyFields = false;
-                    if(currentSectionId==='schoolDetails'){
-                        const schoolMarksCheck = parseInt(document.getElementById('schoolMarksInput').value);
-
-                        if (schoolMarksCheck > 625) {
-                            displayErrorMessage("Please Enter Correct Marks");
-                            return;
-                        }
-                    }
-                    if (includeDiplomaCheckbox.checked && currentSectionId === 'puDetails') {
-                        console.log("Diploma Checkbox checked");
-                        const diplomaCollege = document.getElementById('diplomaCollegeNameInput').value;
-                        const diplomaYear = document.getElementById('diplomaPassingYearInput').value;
-                        const diplomaMarks = document.getElementById('diplomaMarksInput').value;
-    
-                        const puMarksCheck = parseInt(document.getElementById('puMarksInput').value);
-                        const dipMarksCheck = parseInt(document.getElementById('diplomaMarksInput').value);
-
-
-
-                        if (!diplomaCollege.trim() || !diplomaYear.trim() || !diplomaMarks.trim()) {
-                            displayErrorMessage('Diploma fields are required.');
-                            return;
-                        }
-
-                        if (puMarksCheck > 625) {
-                            displayErrorMessage("Please Enter Correct Marks");
-                            return;
-                        }
-
-                        if(dipMarksCheck > 625){
-                            displayErrorMessage("Please Enter Correct Marks");
-                            return;
-                        }
-    
-                    } else if (!includeDiplomaCheckbox.checked && currentSectionId === 'puDetails') {
-                        console.log("Diploma Checkbox Unchecked");
-                        // For other sections (non-diploma sections), loop through and validate the input fields
-                        const nonDiplomaFields = [
-                            document.getElementById('secondarySchoolNameInput'),
-                            document.getElementById('puMarksInput'),
-                            document.getElementById('puPassingYearInput')
-                        ];
-
-                        const puMarksCheck = parseInt(document.getElementById('puMarksInput').value);
-
-                        if (puMarksCheck > 625) {
-                            displayErrorMessage("Please Enter Correct Marks");
-                            return;
-                        }
-
-                        document.getElementById('diplomaCollegeNameInput').value = '';
-                        document.getElementById('diplomaMarksInput').value = '';
-                        document.getElementById('diplomaPassingYearInput').value = '';
-
-                        nonDiplomaFields.forEach(inputField => {
-                            if (!inputField.value.trim()) {
-                                inputField.classList.add("input-error");
-                                hasEmptyFields = true;
-                            }
-                        });
-                    } else if (currentSectionId != 'puDetails') {
-                        console.log("Normal Validation");
-                        const textAreaField = document.getElementById("address1Input");
-                        if (!textAreaField.value.trim()) {
-                                textAreaField.classList.add("input-error");
-                                hasEmptyFields = true;
-                        }
-                        else{
-                            textAreaField.classList.remove("input-error");
-                                hasEmptyFields = false;
-                        }
-                        inputFields.forEach(inputField => {
-                            if (!inputField.value.trim()) {
-                                inputField.classList.add("input-error");
-                                hasEmptyFields = true;
-                            }
-                        });
-                    }
-                    if (currentSectionId === 'degDetails'){
-                        degreeInputsContainer.addEventListener("input", (event) => {
-
-                        const target = event.target;
-
-                        if (target.matches("#degreeMarksInput, #degreePassingYearInput, #degreeDropdown, #branchDropdown")) {
-                            // Remove the 'input-error' class from individual elements
-                            if (target.id === "degreeMarksInput") {
-                                target.classList.remove("input-error");
-                            }
-                            if (target.id === "degreePassingYearInput") {
-                                target.classList.remove("input-error");
-                            }
-                            if (target.id === "degreeDropdown") {
-                                target.classList.remove("input-error");
-                            }
-                            if (target.id === "branchDropdown") {
-                                target.classList.remove("input-error");
-                            }
-                        }
-                    });
-                    // Validation logic for degree-related inputs
-                    const degreeMarks = document.getElementById('degreeMarksInput').value;
-                    const degreePassingYear = document.getElementById('degreePassingYearInput').value;
-                    const degreeType = document.getElementById('degreeDropdown').value;
-                    const branchType = document.getElementById('branchDropdown').value;
-                    const branchTypeId = document.getElementById('branchDropdown').options[document.getElementById('branchDropdown').selectedIndex].id
-                    const degreeTypeId = document.getElementById('degreeDropdown').options[document.getElementById('degreeDropdown').selectedIndex].id
-
-                    if (!degreeMarks.trim() || !degreePassingYear.trim() || degreeType === "invalid" || branchType === "invalid") {
-                        if (!degreeMarks.trim()) {
-                            console.log('Degree Marks Error');
-                            degreeMarksContainer.classList.add("input-error");
-                            hasEmptyFields = true;
-                        }
-                        if (!degreePassingYear.trim()) {
-                            console.log('Degree Year Error');
-                            degreePassingYearContainer.classList.add("input-error");
-                            hasEmptyFields = true;
-                        }
-                        if (degreeType === "invalid") {
-                            console.log('Degree Type Error');
-                            degreeTypeContainer.classList.add("input-error");
-                            hasEmptyFields = true;
-                        }
-                        if (branchTypeId === "invalid" && (degreeTypeId === "be" || degreeTypeId ==="btech")) {
-                            console.log('Degree Type Error');
-                            branchTypeContainer.classList.add("input-error");
-                            hasEmptyFields = true;
-                        }
-
-                    }
-
-                    const degMarksCheck = parseInt(document.getElementById('degreeMarksInput').value);
-
-                    if (degMarksCheck > 625) {
-                        displayErrorMessage("Please Enter Correct Marks");
-                        return;
-                    }
-                    
-                    if (hasEmptyFields) {
-                        displayErrorMessage("Please Enter All the Fields");
-                        return;
-                    }
-                    }
-    
-                    if (selectedCollege === "invalid") {
-                        collegeDropdown.classList.add("input-error");
-                        hasEmptyFields = true;
-                    }
-
-                    // if(document.getElementById("address1Input").value.trim()){
-                    //     address1Input.classList.add("input-error");
-                    //     hasEmptyFields = true;
-                    // }
-    
-                    if (!phoneInput.value.trim()) {
-                        phoneContainer.classList.add("phone-container-error");
-                        hasEmptyFields = true;
-                    }
-    
-                    if (hasEmptyFields) {
-                        displayErrorMessage("Please Enter All the Fields");
-                        return;
-                    }
-    
-                    if (phoneInput.value.length < 10) {
-                        phoneContainer.classList.add("phone-container-error");
-                        displayErrorMessage("Please Enter a 10 Digit Phone Number");
-                        return;
-                    }
-    
-                    if (!validateEmailFormat(email) && hasEmptyFields == false) {
-                        emailInput.classList.add('input-error');
-                        displayErrorMessage("Wrong Email Format");
-                        return;
-                    }
-    
-                    if (email !== reenterEmail && hasEmptyFields == false) {
-                        reenterEmailInput.classList.add('input-error');
-                        displayErrorMessage("Email Does Not Match");
-                        return;
-                    }
-    
-                    if (usnEmailCheckSuccessful == true) {
-                        sections[currentSectionIndex].style.display = "none";
-                        const nextSectionIndex = sectionIds.indexOf(currentSectionId) + 1;
-    
-                        if (nextSectionIndex < sections.length) {
-                            currentSectionIndex = nextSectionIndex;
-                            sections[currentSectionIndex].style.display = "block";
-                            updateProgressBar(currentSectionIndex);
-                            updateProgressText(currentSectionIndex);
-                        }
-                    }
-    
-                });
-                section.addEventListener("click", (event) => {
-                    event.stopPropagation();
-                });
-            });
-    
-    
-            function handleCollegeNameResult(result, event) {
-                for (let i = 0; i < result.length; i++) {
-                    collegeListFromDataBase.push(result[i].Name);
-                    const collegeName = result[i].Name;
-                    CollegeIDAndName[collegeName] = result[i].Id;
-                }
-                PopulateDropDown();
-            }
-    
-            function PopulateDropDown() {
-                const collegeDropdown = document.getElementById("collegeDropdown");
-                for (let i = 0; i < collegeListFromDataBase.length; i++) {
-                    const option = document.createElement("option");
-                    option.value = CollegeIDAndName[collegeListFromDataBase[i]];
-                    option.text = collegeListFromDataBase[i];
-                    collegeDropdown.appendChild(option);
-                }
-            }
-    
-            function handleCollegeSelection() {
-                const collegeDropdown = document.getElementById("collegeDropdown");
-                const selectedCollege = collegeDropdown.options[collegeDropdown.selectedIndex].text;
-                console.log("Selected College:", selectedCollege);
-            }
-    
-            document.getElementById("collegeDropdown").addEventListener("change", handleCollegeSelection);
-    
-            function validateEmailFormat(email) {
-                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return emailPattern.test(email);
-            }
-    
-    
-        });
-            const degreeTypeContainer = document.getElementById('degreeDropdown');
-            const branchTypeContainer = document.getElementById('branchDropdown');
-    
-            degreeTypeContainer.addEventListener("change", function(){
-
-                console.log("Degree Changed");
-                const selectedId = degreeTypeContainer.options[degreeTypeContainer.selectedIndex].id;
-                const branchSelectClass = document.querySelector("branch-selector");
-                const branchSelect = document.getElementById('branchDropdownContainer');
-                console.log("Selected ID: " + selectedId);
-    
-                if (selectedId === "be" || selectedId === "btech") {
-                    console.log("Display Branch Select Option");
-                    branchSelect.classList.remove("branch-select");
-                } else {
-                    branchTypeContainer.selectedIndex = 0;
-                    console.log("Remove Branch Select Option");
-                    branchSelect.classList.add("branch-select");
-
-                }
-            });
-        const userConfirmationCheckbox = document.getElementById('userConfirmationCheckbox');
-        const submitButton = document.getElementById('submitButton');
-    
-        userConfirmationCheckbox.addEventListener('change', function () {
-            if (this.checked) {
-                submitButton.removeAttribute('disabled');
-            } else {
-                submitButton.setAttribute('disabled', 'disabled');
-            }
-        });
-
-    
-            function handleResult(result, event) {
-                hideLoader();
-                const successfulSection = document.getElementById("successfulSection");
-                const failSection = document.getElementById("failSection");
-                const degDetailsSection = document.getElementById("degDetails");
-                const prevDetailsSection = document.getElementById("previewDetails");
-                const progressBarContainer = document.querySelector(".progress-bar");
-                const progressText = document.querySelector(".progress-text");
-                if (event.status) {
-                    prevDetailsSection.style.display = "none";
-                    successfulSection.style.display = "block";
-                    const sectionShadow = document.querySelector(".section-body");
-                    const progressBar = document.querySelector(".progress");
-                    progressText.style.display= "none";
-                    progressBarContainer.style.height = "10px";
-                    progressBar.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0% 100%)";
-                    progressBar.style.width = '100%';
-                    sectionShadow.classList.add("section-body-green-shadow");
-                    progressBar.classList.add("progress-green");
-                } else {
-                    prevDetailsSection.style.display = "none";
-                    failSection.style.display = "block";
-                    const sectionShadow = document.querySelector(".section-body");
-                    const progressBar = document.querySelector(".progress");
-                    const progressBarContainer = document.querySelector(".progress-bar");
-                    progressText.style.display= "none";
-                    progressBarContainer.style.height = "10px";
-                    progressBar.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0% 100%)";
-                    progressBar.style.width = '100%';
-                    sectionShadow.classList.add("section-body-red-shadow");
-                    progressBar.classList.add("progress-red");
-                    displayErrorMessage(event.message);
-    
-                }
-            }
-    
-    
-            function displayErrorMessage(errorText) {
-                const errorCustom = document.getElementById("errorCustom");
-                const alertText = errorCustom.querySelector("#alertText");
-                const alertImg = errorCustom.querySelector("#alertImg");
-                errorCustom.textContent = "";
-                errorCustom.appendChild(alertImg);
-                errorCustom.appendChild(document.createTextNode("Error: " + errorText));
-                errorCustom.appendChild(alertText);
-    
-                errorCustom.style.display = 'flex';
-                errorCustom.classList.add("alert-animation");
-                setTimeout(() => {
-                    errorCustom.style.display = "none";
-                    errorCustom.classList.remove("alert-animation");
-                }, 5000);
-            }
-    
-            function displayWarningMessage(warningText) {
-                const warningCustom = document.getElementById("warningCustom");
-                const warnText = document.getElementById("warnText"); // Get the warnText element
-                const warnImg = document.getElementById("warnImg"); // Get the warnImg element
-    
-                warningCustom.textContent = ""; // Clear any existing content
-                warningCustom.appendChild(warnImg);
-    
-                // Create a text node and set its content
-                const warningTextNode = document.createTextNode("Warning: " + warningText);
-                warningCustom.appendChild(warningTextNode);
-    
-                warningCustom.appendChild(warnText); // Append the warnText element
-    
-                warningCustom.style.display = 'flex';
-                // warningCustom.classList.add("alert-animation");
-                setTimeout(() => {
-                    warningCustom.style.display = "none";
-                    warningCustom.classList.remove("alert-animation");
-                }, 5000);
-            }
-    
-            function routeToStudentLogin() {
-                var targetPageUrl = '/apex/studentLoginPageAlt';
-                showLoader();
-                window.location.href = targetPageUrl;
-                hideLoader();
-                
-            }
-            function showLoader() {
-                document.querySelector(".loader").classList.remove("hidden");
-            }
-    
-            function hideLoader() {
-                document.querySelector(".loader").classList.add("hidden");
-            }
-            function displayDetailsSummary() {
-    // Collect values from input fields
-    const name = document.getElementById('nameInput').value;
-    const phone = document.getElementById('phoneInput').value;
-    const email = document.getElementById('emailInput').value;
-    const address1 = document.getElementById('address1Input').value;
-    // const address2 = document.getElementById('address2Input').value;
-    const city = document.getElementById('cityInput').value;
-    const state = document.getElementById('stateInput').value;
-    const pincode = document.getElementById('pincodeInput').value;
-    const usn = document.getElementById('usnInput').value;
-    const collegeName = document.getElementById('collegeDropdown').options[document.getElementById('collegeDropdown').selectedIndex].text;
-    const schoolName = document.getElementById('schoolNameInput').value;
-    const schoolMarks = document.getElementById('schoolMarksInput').value;
-    const schoolPassYear = document.getElementById('schoolPassingYearInput').value;
-    const secondarySchoolName = document.getElementById('secondarySchoolNameInput').value;
-    const puMarks = document.getElementById('puMarksInput').value;
-    const puPassingYear = document.getElementById('puPassingYearInput').value;
-    const degreeType = document.getElementById('degreeDropdown').options[document.getElementById('degreeDropdown').selectedIndex].text;
-    const degreeMarks = document.getElementById('degreeMarksInput').value;
-    const degreePassingYear = document.getElementById('degreePassingYearInput').value;
-
-    // Optional fields
-    const diplomaCollegeName = document.getElementById('diplomaCollegeNameInput').value;
-    const diplomaMarks = document.getElementById('diplomaMarksInput').value;
-    const diplomaPassingYear = document.getElementById('diplomaPassingYearInput').value;
-    const branchDropdown = document.getElementById('branchDropdown');
-    const selectedBranchOption = branchDropdown.options[branchDropdown.selectedIndex];
-    const branchType = selectedBranchOption.value === 'invalid' ? '' : selectedBranchOption.text;
-
-    // Create the summary text
-    const summary = `
-        <div class="preview-section">
-            <p class="previewTitle">Name:</p>
-            <p class="previewValue">${name}</p>
-        </div>
-        <div class="preview-section">
-            <p class="previewTitle">Phone:</p>
-            <p class="previewValue">${phone}</p>
-        </div>
-        <div class="preview-section">
-            <p class="previewTitle">Email:</p>
-            <p class="previewValue">${email}</p>
-        </div>
-        <div class="preview-section">
-            <p class="previewTitle">Address:</p>
-            <p class="previewValue">${address1}, ${city}, ${state} - ${pincode}</p>
-        </div>
-        <div class="preview-section">
-            <p class="previewTitle">USN:</p>
-            <p class="previewValue">${usn}</p>
-        </div>
-        <div class="preview-section">
-            <p class="previewTitle">College:</p>
-            <p class="previewValue">${collegeName}</p>
-        </div>
-        <div class="preview-section">
-            <p class="previewTitle">SSLC/X Institution:</p>
-            <p class="previewValue">${schoolName}</p>
-        </div>
-        <div class="preview-section">
-            <p class="previewTitle">SSLC/X Marks:</p>
-            <p class="previewValue">${schoolMarks}</p>
-        </div>
-        <div class="preview-section">
-            <p class="previewTitle">SSLC/X Passing Year:</p>
-            <p class="previewValue">${schoolPassYear}</p>
-        </div>
-        <div class="preview-section">
-            <p class="previewTitle">PU Institution Name:</p>
-            <p class="previewValue">${secondarySchoolName}</p>
-        </div>
-        <div class="preview-section">
-            <p class="previewTitle">PU Marks:</p>
-            <p class="previewValue">${puMarks}</p>
-        </div>
-        <div class="preview-section">
-            <p class="previewTitle">PU Passing Year:</p>
-            <p class="previewValue">${puPassingYear}</p>
-        </div>
-        ${diplomaCollegeName ? `
-            <div class="preview-section">
-                <p class="previewTitle">Diploma College:</p>
-                <p class="previewValue">${diplomaCollegeName}</p>
-            </div>
-        ` : ''}
-        ${diplomaMarks ? `
-            <div class="preview-section">
-                <p class="previewTitle">Diploma Marks:</p>
-                <p class="previewValue">${diplomaMarks}</p>
-            </div>
-        ` : ''}
-        ${diplomaPassingYear ? `
-            <div class="preview-section">
-                <p class="previewTitle">Diploma Passing Year:</p>
-                <p class="previewValue">${diplomaPassingYear}</p>
-            </div>
-        ` : ''}
-        <div class="preview-section">
-            <p class="previewTitle">Degree Type:</p>
-            <p class="previewValue">${degreeType}</p>
-        </div>
-        ${branchType !== '' ? `
-            <div class="preview-section">
-                <p class="previewTitle">Branch Type:</p>
-                <p class="previewValue">${branchType}</p>
-            </div>
-        ` : ''}
-        <div class="preview-section">
-            <p class="previewTitle">Degree CGPA:</p>
-            <p class="previewValue">${degreeMarks}</p>
-        </div>
-        <div class="preview-section">
-            <p class="previewTitle">Degree Passing Year:</p>
-            <p class="previewValue">${degreePassingYear}</p>
-        </div>
-    `;
-
-    // Display the summary in the detailsSummary div
-    const detailsSummary = document.getElementById('detailsSummary');
-    detailsSummary.innerHTML = summary;
-}
-
-            
-    
-    
     </script>
 </apex:page>

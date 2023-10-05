@@ -351,8 +351,8 @@ public class DML
             }
         }
 
-        Utility.getInstance().AssignRandomQuestionsStudents(aptiSize,aptiQuestions,questionsForStudent);
         Utility.getInstance().AssignRandomQuestionsStudents(cprogsize,cprogramQuestions,questionsForStudent);
+        Utility.getInstance().AssignRandomQuestionsStudents(aptiSize,aptiQuestions,questionsForStudent);
          
         return questionsForStudent;
     }

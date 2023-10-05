@@ -1105,7 +1105,9 @@
         document.getElementById('eventPasswordConfirm').classList.remove('input-error');
         document.getElementById('dropDownHeaderCollege').classList.remove('input-error');
         document.getElementById('dropDownHeaderPanelists').classList.remove('input-error');
+        document.getElementById('NoOfQuestions').classList.remove('input-error');
     }
+
 
     function submitData() {
         clearRedHighLight();
@@ -1117,12 +1119,13 @@
         var cutoff = document.getElementById('cutoff').value;
         var eventPass = document.getElementById('eventPassword').value;
         var eventPassConfirm = document.getElementById('eventPasswordConfirm').value;
+        var NoOfQuestions = document.getElementById('NoOfQuestions').value;
 
        colleges = GetCollegeIDFromCollegeName(collegesSelected);
        panelists = GetPanelistIDFromPanelistName(PanelistsSelected);
        eduration = ConvertDurationToMins(eduration);
 
-       if(ename == '' || edate == '' || elocation == '' || estartTime == '' || isNaN(eduration) || cutoff == '' || eventPass == '' || eventPassConfirm == '' || collegesSelected == ''){
+       if(ename == '' || edate == '' || elocation == '' || estartTime == '' || isNaN(eduration) || cutoff == '' || eventPass == '' || eventPassConfirm == '' || collegesSelected == '' || NoOfQuestions == ''){
             showAlertMessage("Please Fill all the fields");
             
             if(ename == '') document.getElementById('eventName').classList.add('input-error');
@@ -1135,6 +1138,7 @@
             if(eventPassConfirm == '') document.getElementById('eventPasswordConfirm').classList.add('input-error');         
             if(collegesSelected == '') document.getElementById('dropDownHeaderCollege').classList.add('input-error');
             if(PanelistsSelected == '') document.getElementById('dropDownHeaderPanelists').classList.add('input-error');
+            if(NoOfQuestions == '') document.getElementById('NoOfQuestions');
             return;
         }
 
@@ -1384,6 +1388,11 @@
                                             <img class="clear-icon" src="{!URLFOR($Resource.clearicon)}" alt="Clear Icon" onclick="clearPanelistsSelected()"/>
                                         </div> 
                                     </div>
+
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">No. of Questions: </div>
+                                        <input type="number" id="NoOfQuestions" class="field"/>
+                                    </div> 
                                     
                                 </div>
                             </div>

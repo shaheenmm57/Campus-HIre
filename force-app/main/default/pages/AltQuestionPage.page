@@ -1225,10 +1225,10 @@
             </div>
             <div class="main-body-line" ></div>
             <div class="qst-nav-btn">
-                <div class="qst-nav-btn-split"> 
+                <div class="qst-nav-btn-split" id="c_program-btn-split"> 
                     <div class="qst-nav-btn-item-logo">
-                        <img  src="{!URLFOR($Resource.apti_logo)}" alt="My PNG Image" style="width:5vw;height:9vh;" />
-                    </div> 
+                        <img  src="{!URLFOR($Resource.c_logo)}" alt="My PNG Image" style="width:4vw;height:8vh;" />
+                    </div>
                     <div class="qst-nav-btn-item">1</div>
                     <div class="qst-nav-btn-item">2</div>
                     <div class="qst-nav-btn-item">3</div>
@@ -1244,22 +1244,12 @@
                     <div class="qst-nav-btn-item">13</div>
                     <div class="qst-nav-btn-item">14</div>
                     <div class="qst-nav-btn-item">15</div>
-                    <div class="qst-nav-btn-item">5</div>
-                    <div class="qst-nav-btn-item">6</div>
-                    <div class="qst-nav-btn-item">7</div>
-                    <div class="qst-nav-btn-item">8</div>
-                    <div class="qst-nav-btn-item">9</div>
-                    <div class="qst-nav-btn-item">10</div>
-                    <div class="qst-nav-btn-item">11</div>
-                    <div class="qst-nav-btn-item">12</div>
-                    <div class="qst-nav-btn-item">13</div>
-                    <div class="qst-nav-btn-item">14</div>
-                    <div class="qst-nav-btn-item">15</div>
                 </div>
-                <div class="qst-nav-btn-split"> 
+                <div class="qst-nav-btn-split" id="apti-btn-split"> 
+                    
                     <div class="qst-nav-btn-item-logo">
-                        <img  src="{!URLFOR($Resource.c_logo)}" alt="My PNG Image" style="width:4vw;height:8vh;" />
-                    </div>
+                        <img  src="{!URLFOR($Resource.apti_logo)}" alt="My PNG Image" style="width:5vw;height:9vh;" />
+                    </div> 
                     <div class="qst-nav-btn-item">16</div>
                     <div class="qst-nav-btn-item">17</div>
                     <div class="qst-nav-btn-item">18</div>
@@ -1381,7 +1371,7 @@
 
                     // const studentIdMain = getUrlParameter('studentId');
                     // const eventIdMain = getUrlParameter('eventId');
-                    const studentIdMain = 'a055j00000WlW4pAAF';
+                    const studentIdMain = 'a055j00000WlgFgAAJ';
                     const eventIdMain = 'a025j00000gPbJgAAK';
                     if((!studentIdMain) || (!eventIdMain)){
                         var targetPageUrl = '/apex/studentLoginPageAlt';
@@ -1881,6 +1871,12 @@
 
                             //load first and current question start  
         function initData(dataToUpdate){
+
+
+
+
+
+
 
             // console.log('dataToUpdate 1  : isQstAttempted ='+isQstAttempted + '   studentAnswer =' +studentAnswer + 'questionId ='+questionId  );
             // console.log("initData Called :");    
