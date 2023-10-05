@@ -1,7 +1,7 @@
 public with sharing class EventList {
 
     public class StudentInfo {
-        public String studentName { get; set; }
+        public StudentPersonalInfo studentData { get; set; }
         public Decimal marksScored { get; set; }
         public Decimal cpMarks { get; set; }
         public Decimal aptiMarks { get; set; }
@@ -10,8 +10,8 @@ public with sharing class EventList {
         public Decimal negaptiMarks { get; set; }
         public String Id { get; set; }
     
-        public StudentInfo(String fid, String name, Decimal marks, Decimal cpm, Decimal aptim, Decimal negtm, Decimal negcpm, Decimal negaptim) {
-            studentName = name;
+        public StudentInfo(String fid, StudentPersonalInfo sdata, Decimal marks, Decimal cpm, Decimal aptim, Decimal negtm, Decimal negcpm, Decimal negaptim) {
+            studentData = sdata;
             marksScored = marks;
             cpMarks = cpm;
             aptiMarks = aptim;
@@ -21,6 +21,21 @@ public with sharing class EventList {
             Id = fid;
 
         }
+    }
+
+    public class StudentPersonalInfo{
+        public String name { get; set; }
+        public String phone { get; set; }
+        public String email { get; set; }
+        public String usn { get; set; }
+
+        public StudentPersonalInfo(String sname, String sphone, String semail, String susn){
+            name = sname;
+            phone = sphone;
+            email = semail;
+            usn = susn;
+        }
+
     }
 
     public class MyWrapper {
@@ -48,21 +63,22 @@ public with sharing class EventList {
             studentIds.add(junctionRecord.student_id__c);
         }
 
-        result.student_list = [SELECT Name FROM RC_student__c WHERE Id IN :studentIds];
+        result.student_list = [SELECT Name,	phone__c,email__c,	usn__c FROM RC_student__c WHERE Id IN :studentIds];
 
 
-        Map<Id, String> studentNameMap = new Map<Id, String>();
+        Map<Id, StudentPersonalInfo> studentNameMap = new Map<Id, StudentPersonalInfo>();
 
         // Populate a map of student Ids to student names
         for (RC_student__c student : result.student_list) {
-            studentNameMap.put(student.Id, student.Name);
+            StudentPersonalInfo info = new StudentPersonalInfo(student.Name,student.phone__c,student.email__c,student.usn__c);
+            studentNameMap.put(student.Id, info);
         }
 
 
         for (RC_student_test__c junctionRecord : result.student_test_details) {
-            String studentName = studentNameMap.get(junctionRecord.student_id__c);
-            if (studentName != null) {
-                StudentInfo studentInfo = new StudentInfo(junctionRecord.student_id__c, studentName, junctionRecord.student_marks_scored__c,junctionRecord.student_cprogram_marks__c, junctionRecord.student_apti_marks__c, junctionRecord.neg_student_marks_scored__c, junctionRecord.neg_student_cprogram_marks__c, junctionRecord.neg_student_apti_marks__c);
+            StudentPersonalInfo studentData = studentNameMap.get(junctionRecord.student_id__c);
+            if (studentData != null) {
+                StudentInfo studentInfo = new StudentInfo(junctionRecord.student_id__c, studentData, junctionRecord.student_marks_scored__c,junctionRecord.student_cprogram_marks__c, junctionRecord.student_apti_marks__c, junctionRecord.neg_student_marks_scored__c, junctionRecord.neg_student_cprogram_marks__c, junctionRecord.neg_student_apti_marks__c);
                 result.studentInfoList.add(studentInfo);
             }
         }

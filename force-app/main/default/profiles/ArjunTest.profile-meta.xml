@@ -5751,6 +5751,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>autoEventSubmitCtrl</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>studentLoginAltCtrl</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -5876,6 +5880,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>UpdateStudentTest</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>autoEventTestSubmit</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

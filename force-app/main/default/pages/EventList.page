@@ -66,15 +66,15 @@
 
         .searchbar{
             background: var(--blue-color);
-            width: 70%;
+            width: 89%;
             height: 6%;
-            margin-left: 35vh;
+            margin-left: 10vh;
             margin-top: 15vh;
         }
                     table {
                     border-collapse: collapse;
-                    width: 70%;
-                    margin-left: 35vh;
+                    width: 89%;
+                    margin-left: 10vh;
                     /* margin-top: 25vh; */
                     font-size: 0.9em;
                     font-family: sans-serif;
@@ -352,10 +352,13 @@ function exportWithFilename() {
                             document.getElementById("searchbar").appendChild(printButton);
                             document.getElementById("searchbar").appendChild(backButton);
                             tableHtml += '<table id ="student-list">';
-                            tableHtml += '<tr><th>Student Name</th><th>Marks Scored</th><th>C Programming Marks</th><th>Aptitude Marks</th><th>Negative Marks</th> <th>Negative C Programming Marks</th> <th>Negative Aptitude Marks</th></tr>';
+                            tableHtml += '<tr><th>Student Name</th> <th>Phone</th><th>Email</th><th>USN</th><th>Marks Scored</th><th>C Programming Marks</th><th>Aptitude Marks</th><th>Negative Marks</th> <th>Negative C Programming Marks</th> <th>Negative Aptitude Marks</th></tr>';
                             for (var i = 0; i < result.studentInfoList.length; i++) {
                                 tableHtml += '<tr>';
-                                tableHtml += '<td><a href="javascript:void(0);" onclick = "routeToStudentPage(\'' + eventId + '\' , \'' + result.studentInfoList[i].Id + '\')">' + result.studentInfoList[i].studentName + '</td>';
+                                tableHtml += '<td><a href="javascript:void(0);" onclick = "routeToStudentPage(\'' + eventId + '\' , \'' + result.studentInfoList[i].Id + '\')">' + result.studentInfoList[i].studentData.name + '</td>';
+                                tableHtml += '<td>' + result.studentInfoList[i].studentData.phone + '</td>';
+                                tableHtml += '<td>' + result.studentInfoList[i].studentData.email + '</td>';
+                                tableHtml += '<td>' + result.studentInfoList[i].studentData.usn + '</td>';
                                 tableHtml += '<td>' + result.studentInfoList[i].marksScored + '</td>';
                                 tableHtml += '<td>' + result.studentInfoList[i].cpMarks + '</td>';
                                 tableHtml += '<td>' + result.studentInfoList[i].aptiMarks + '</td>';
