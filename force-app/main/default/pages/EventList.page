@@ -63,6 +63,7 @@
         button:hover{
           background-color: var(--text-color);
         }
+
         .searchbar{
             background: var(--blue-color);
             width: 70%;
@@ -121,10 +122,77 @@
     cutoffsearch.id = "cutoffsearch";
     cutoffsearch.placeholder = "Enter Cutoff";
 
+    var printButton = document.createElement("button");
+    printButton.id = "print-button";
+    printButton.innerText = "Print";
+    printButton.onclick = function(){exportTableToExcel("student-list", "table_data.xlsx");};
+
+
+
     var backButton = document.createElement("button");
     backButton.id = "go-back-button";
     backButton.innerText = "Go Back";
     backButton.onclick = function() {showTable('yes',2);};
+
+
+ // Load the xlsx library dynamically
+ var script = document.createElement('script');
+    script.src = '{!URLFOR($Resource.xlsxLib)}';
+    script.type = 'text/javascript';
+    script.onload = function() {
+        // The xlsx library is now loaded and you can use it
+    };
+    document.head.appendChild(script);
+
+
+
+
+
+    function exportTableToExcel(tableId, filename) {
+        var table = document.getElementById(tableId);
+
+// Filter the rows based on your criteria (e.g., using the display style)
+var filteredRows = [];
+var rows = table.getElementsByTagName("tr");
+for (var i = 0; i < rows.length; i++) {
+    if (rows[i].style.display !== "none") {
+        filteredRows.push(rows[i]);
+    }
+}
+
+// Create a new table containing only the visible rows
+var filteredTable = document.createElement("table");
+
+// Create and add the table headers to the filtered table
+var headerRow = filteredTable.insertRow(0);
+var headerCells = table.rows[0].cells;
+for (var i = 0; i < headerCells.length; i++) {
+    var newHeaderCell = headerRow.insertCell(i);
+    newHeaderCell.innerHTML = headerCells[i].innerHTML;
+}
+
+// Add the visible rows to the filtered table
+for (var i = 0; i < filteredRows.length; i++) {
+    var newRow = filteredTable.insertRow(-1); // Append a new row to the filtered table
+    var cells = filteredRows[i].getElementsByTagName("td");
+    for (var j = 0; j < cells.length; j++) {
+        var newCell = newRow.insertCell(j); // Append a new cell to the row
+        newCell.innerHTML = cells[j].innerHTML; // Copy cell content
+    }
+}
+
+// Export the filtered data to Excel using the new filtered table
+var wb = XLSX.utils.table_to_book(filteredTable, { sheet: "Sheet1" });
+XLSX.writeFile(wb, filename);
+
+// Discard the filtered table (not appended to the document)
+filteredTable = null;
+            };
+
+
+
+
+
 
 
 
@@ -167,12 +235,22 @@
 
                 if (!isNaN(cutoffinput) ||  !isNaN(cpinput) ){
 
-                    if (txtValue.toUpperCase().indexOf(filter) > -1 && ((!isNaN(cutoffinput) && studentcutoff > cutoffinput) || (!isNaN(cpinput) && studentcpcutoff > cpinput) )) {
-                        tr[i].style.display = "";
-                } else{
-                    tr[i].style.display = "none";
-                }
-
+                    if (!isNaN(cutoffinput) &&  !isNaN(cpinput) ){
+                        if (txtValue.toUpperCase().indexOf(filter) > -1 && (!isNaN(cutoffinput) && studentcutoff >= cutoffinput) && (!isNaN(cpinput) && studentcpcutoff >= cpinput) ) {
+                                tr[i].style.display = "";
+                        }else{
+                                tr[i].style.display = "none";
+                            }
+                            
+                    }
+                    
+                    else{
+                        if (txtValue.toUpperCase().indexOf(filter) > -1 && ((!isNaN(cutoffinput) && studentcutoff >= cutoffinput) || (!isNaN(cpinput) && studentcpcutoff >= cpinput) )) {
+                                tr[i].style.display = "";
+                        } else{
+                            tr[i].style.display = "none";
+                        }
+                    }
                 }
                 else{
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -206,6 +284,7 @@
                         if (check == 1){
                             document.getElementById("searchbar").appendChild(cutoffsearch);
                             document.getElementById("searchbar").appendChild(cpsearch);
+                            document.getElementById("searchbar").appendChild(printButton);
                             document.getElementById("searchbar").appendChild(backButton);
                             tableHtml += '<table id ="student-list">';
                             tableHtml += '<tr><th>Student Name</th><th>Marks Scored</th><th>Cleared</th><th>C Programming Marks</th><th>Aptitude Marks</th><th>Negative Marks</th> <th>Negative C Programming Marks</th> <th>Negative Aptitude Marks</th></tr>';
@@ -233,21 +312,22 @@
                                 document.getElementById("cutoffsearch").addEventListener("keyup", function(event){
                                 filterTable(activeTable);
                             });
+
+
                         }, 2000);
 
-
-                           
-   
                             
 
                         }
                         else{
                             var checkcpsearch = document.getElementById("cpsearch");
                             var checkcutoffsearch = document.getElementById("cutoffsearch");
+                            var checkprintbutton = document.getElementById("print-button");
                             var checkbackbutton = document.getElementById("go-back-button");
                             if (checkcpsearch && checkcutoffsearch){
                                 checkcpsearch.parentNode.removeChild(checkcpsearch);
                                 checkcutoffsearch.parentNode.removeChild(checkcutoffsearch);
+                                checkprintbutton.parentNode.removeChild(checkprintbutton);
                                 checkbackbutton.parentNode.removeChild(checkbackbutton);
                             }
                             tableHtml += '<table id = "event-list">';

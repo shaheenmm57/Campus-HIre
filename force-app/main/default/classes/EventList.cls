@@ -64,7 +64,7 @@ public with sharing class EventList {
         for (RC_student_test__c junctionRecord : result.student_test_details) {
             String studentName = studentNameMap.get(junctionRecord.student_id__c);
             if (studentName != null) {
-                StudentInfo studentInfo = new StudentInfo(junctionRecord.Id, studentName, junctionRecord.student_marks_scored__c, junctionRecord.has_cleared_cutoff__c, junctionRecord.student_cprogram_marks__c, junctionRecord.student_apti_marks__c, junctionRecord.neg_student_marks_scored__c, junctionRecord.neg_student_cprogram_marks__c, junctionRecord.neg_student_apti_marks__c);
+                StudentInfo studentInfo = new StudentInfo(junctionRecord.student_id__c, studentName, junctionRecord.student_marks_scored__c, junctionRecord.has_cleared_cutoff__c, junctionRecord.student_cprogram_marks__c, junctionRecord.student_apti_marks__c, junctionRecord.neg_student_marks_scored__c, junctionRecord.neg_student_cprogram_marks__c, junctionRecord.neg_student_apti_marks__c);
                 result.studentInfoList.add(studentInfo);
             }
         }

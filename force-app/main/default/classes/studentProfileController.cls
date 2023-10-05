@@ -3,7 +3,7 @@ public with sharing class studentProfileController {
 
     }
     @RemoteAction
-    public static Map<String, Object> retriveStudentDetails(String studentId){
+    public static Map<String, Object> retriveStudentDetails(String studentId, String eventId){
         Map<String, Object> result = new Map<String, Object>();
         
         try {
@@ -39,6 +39,33 @@ public with sharing class studentProfileController {
             result.put('degree_cgpa__c', student.degree_cgpa__c);
             result.put('degree_pass_year__c', student.degree_pass_year__c);
             
+            result.put('success', true);
+        } catch (Exception e) {
+            result.put('success', false);
+            result.put('errorMessage', e.getMessage());
+        }
+
+        try {
+            RC_student_test__c studentTest = [SELECT Name, Id, student_id__c, event_id__c, student_marks_scored__c, has_cleared_cutoff__c, event_cutoff__c, student_test_current_time__c, student_test_duration__c, student_test_start_time__c, student_test_isStarted__c, student_test_warning__c, isLoggedIn__c, code_warnings__c, student_apti_marks__c, student_cprogram_marks__c, neg_student_marks_scored__c, neg_student_apti_marks__c, neg_student_cprogram_marks__c FROM RC_student_test__c WHERE student_id__c = :studentId AND event_id__c = :eventId];
+            
+            if (studentTest != null) {
+                result.put('StudentTestId', studentTest.Id);
+                result.put('StudentMarksScored', studentTest.student_marks_scored__c);
+                result.put('HasClearedCutoff', studentTest.has_cleared_cutoff__c);
+                result.put('EventCutoff', studentTest.event_cutoff__c);
+                result.put('StudentTestCurrentTime', studentTest.student_test_current_time__c);
+                result.put('StudentTestDuration', studentTest.student_test_duration__c);
+                result.put('StudentTestStartTime', studentTest.student_test_start_time__c);
+                result.put('StudentTestIsStarted', studentTest.student_test_isStarted__c);
+                result.put('StudentTestWarning', studentTest.student_test_warning__c);
+                result.put('IsLoggedIn', studentTest.isLoggedIn__c);
+                result.put('CodeWarnings', studentTest.code_warnings__c);
+                result.put('StudentAptitudeMarks', studentTest.student_apti_marks__c);
+                result.put('StudentCProgramMarks', studentTest.student_cprogram_marks__c);
+                result.put('NegStudentMarksScored', studentTest.neg_student_marks_scored__c);
+                result.put('NegStudentAptitudeMarks', studentTest.neg_student_apti_marks__c);
+                result.put('NegStudentCProgramMarks', studentTest.neg_student_cprogram_marks__c);
+            }
             result.put('success', true);
         } catch (Exception e) {
             result.put('success', false);

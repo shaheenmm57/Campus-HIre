@@ -231,8 +231,9 @@ public class DML
 
     public Integer getSetSizeForEvent(String eventID)
     {
-        RC_event__c tempEvent = [SELECT setSize__c FROM RC_event__c WHERE Id = :eventID];
-        return (Integer.valueOf(tempEvent.setSize__c));
+        // RC_event__c tempEvent = [SELECT setSize__c FROM RC_event__c WHERE Id = :eventID];
+        // return (Integer.valueOf(tempEvent.setSize__c));
+        return 0;
     }
 
     public Boolean createStudentTestQuestions(String studentTestID, String eventID)

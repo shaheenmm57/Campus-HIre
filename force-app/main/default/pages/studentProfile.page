@@ -957,6 +957,7 @@
             Visualforce.remoting.Manager.invokeAction(
                 '{!$RemoteAction.studentProfileController.retriveStudentDetails}',
                 studentId,
+                eventId,
                 function(result, event) {
                     if (event.status) {
                         console.log(result.Id);

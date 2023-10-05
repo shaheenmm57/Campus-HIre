@@ -17,7 +17,7 @@ public class CreateEventController
     {
         Boolean flag = false;
         //Create a event Record
-        String currentEventId = DML.getInstance().insertEventRecord(eventName,eventPassword,eventDate,eventLocation,eventStartTime,eventDuration,cutoff);
+        String currentEventId = DML.getInstance().insertEventRecord(eventName,eventPassword,eventDate,eventLocation,eventStartTime,eventDuration,cutoff,noOfQuestions);
 
         if(currentEventId == 'failed') return false; //couldn't create an event
 

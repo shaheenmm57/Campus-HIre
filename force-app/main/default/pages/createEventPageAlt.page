@@ -1088,8 +1088,9 @@
             colleges = GetCollegeIDFromCollegeName(collegesSelected);
             panelists = GetPanelistIDFromPanelistName(PanelistsSelected);
             eduration = ConvertDurationToMins(eduration);
+            var NoOfQuestions = parseInt(noOfQuestions);
 
-            CreateEvent(ename,eventPass,edate,elocation,estartTime,eduration,colleges,cutoff,panelists,noOfQuestions);
+            CreateEvent(ename,eventPass,edate,elocation,estartTime,eduration,colleges,cutoff,panelists,NoOfQuestions);
         }
         
         
@@ -1176,13 +1177,13 @@
 
         if(NoOfQuestions < 30 || NoOfQuestions > 60)
         {
-
             showAlertMessage("Please Enter Valid Size for questions.");
+            return;
+        }
 
-            if(NoOfQuestions % 2 != 0)
-            {
-                showAlertMessage("Please Enter a even number for Size for questions.");
-            }
+        if(NoOfQuestions % 2 != 0)
+        {
+            showAlertMessage("Please Enter a even number for Size for questions.");
             return;
         }
 

@@ -3,13 +3,12 @@ public with sharing class LoginPageController {
     public String eventID { get; set; }
     public String messageScript{get; set;}
     public Boolean showErrors{get;set;}
+   // public Boolean userError{get;set;}
     public String errorTextValue{get;set;}
     public List<RC_student_test__c> validation{get;set;}
     public List<RC_student__c> stud{get;set;}
     public  List<RC_event__c> event_id_list{get;set;}
-    public ID event_id_q{get;set;}
-    public ID studID{get;set;}
-    public RC_student_test__c newStudTest{get;set;}
+    // public Boolean isLoggedIn{get;set;}
     
     public LoginPageController(){
         emailID=null;
@@ -17,6 +16,7 @@ public with sharing class LoginPageController {
         validation=null;
         showErrors=false;
         errorTextValue=null;
+     //   userError=false;
     }
 
     public PageReference successfulLogin(String eventID, String studentID){
@@ -32,6 +32,12 @@ public with sharing class LoginPageController {
         errorTextValue=message;
         showErrors=true;
     }
+
+    // @RemoteAction
+    // public static Boolean userAlert(Boolean userError){
+    //     if (userError = true){return true;}
+    //     else{return false;}
+    // }
     
     public void closeErrorPopUp(){
         showErrors=false;
@@ -58,6 +64,8 @@ public with sharing class LoginPageController {
 
             if(stud.size()==0)
             {
+             // userError = true;
+            //   userAlert(userError);
 
               showAlert('Email ID not registered');
               return null; 
@@ -65,7 +73,7 @@ public with sharing class LoginPageController {
             }
             else
             {
-				studID=stud[0].id;
+				ID studID=stud[0].id;
                 System.debug('Student ID '+studID);
 
                 event_id_list=[select event_id__c from RC_event__c where event_id__c=:eventID]; //valid event exists
@@ -79,10 +87,10 @@ public with sharing class LoginPageController {
                 }
                 else
                 {
-                    event_id_q=event_id_list[0].id;
+                    ID event_id_q=event_id_list[0].id;
                     System.debug('Event ID retreived '+event_id_q);
                     
-                    newStudTest=new RC_student_test__c(student_id__c=studID,event_id__c=event_id_q,isLoggedIn__c=true);
+                    RC_student_test__c newStudTest=new RC_student_test__c(student_id__c=studID,event_id__c=event_id_q,isLoggedIn__c=true);
                     System.debug('New studTest : '+newStudTest);
                     insert newStudTest;
 
@@ -99,21 +107,24 @@ public with sharing class LoginPageController {
                 }
             }
         }
-            else{
-                
-                System.debug('Entered a valid login');
-                Boolean isLoggedIn = validation[0].isLoggedIn__c;
-                if(isLoggedIn == true){
-                    showAlert('User Already Logged in, Please Contact Admin');
-                    return null;
-                }
-                validation[0].isLoggedIn__c = true;
-                update validation;
-                
-                
-               
-                return successfulLogin(event_id_q,studID);
-           }
+        else{
+            
+            System.debug('Entered a valid login');
+            Boolean isLoggedIn = validation[0].isLoggedIn__c;
+            if(isLoggedIn == true){
+                showAlert('User Already Logged in, Please Contact Admin');
+                return null;
+            }
+            validation[0].isLoggedIn__c = true;
+            update validation;
+            
+            System.debug('Validation log : '+validation);
+            
+            ID event_id_q=event_id_list[0].id;
+            ID studID=stud[0].id;
+            
+            return successfulLogin(event_id_q,studID);
+        }
     }
 
     public PageReference OpenPage() {   //on create new student
