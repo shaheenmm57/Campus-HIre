@@ -1065,7 +1065,7 @@
                         <iframe class="tick-mark-1 hide-tick"  src="https://lottie.host/?file=432f7734-967a-4583-bfb0-0865ebf2703b/KAB7XxpLX6.json"></iframe>
                         <iframe class="tick-mark-2 hide-tick"   src="https://lottie.host/?file=7ee787dd-73fc-43f1-be19-43d01965a799/jJdEDRvbT7.json"></iframe>
                     </div>
-                <div class="qnt-count">You have attempted <span class="qnt-count-sp qnt-ount-sp-red"> 0/30</span>  questions.</div>
+                <div class="qnt-count">You have attempted <span class="qnt-count-sp qnt-ount-sp-red"> 0/0</span>  questions.</div>
                 <div class="qnt-count-txt">Your test responses have been recorded.</div>
                 <div class="question-cnt-btn-2">
                     <div class="question-cnt-btn">
@@ -1606,12 +1606,12 @@
                     document.querySelector('.main-cnt-2-main').classList.remove('hide-finish'); 
                     var ele = document.querySelector(".qnt-count-sp");
                     ele.classList.remove('qnt-ount-sp-red');
-                    ele.textContent = result + "/" + 30;
+                    ele.textContent = result + "/" + (val.length);
                     ele = document.querySelector('.tick-mark-2');
                     ele.classList.remove('hide-tick');
                     ele = document.querySelector('.tick-mark-1');
                     ele.classList.remove('hide-tick');
-                        if(result < 30){
+                        if(result < (val.length)){
                         ele = document.querySelector(".qnt-count-sp"); 
                         ele.classList.add('qnt-ount-sp-red');
                         ele = document.querySelector('.tick-mark-1');
@@ -2375,7 +2375,7 @@
                 showLoader();
                 var flag = false;
                 for(var i=0;i<val.length;i++){
-                    if(val[i].currentQuestion__c === true && val[i].question_number__c != 30){
+                    if(val[i].currentQuestion__c === true && val[i].question_number__c <= val.length){
                         val[i].currentQuestion__c = false;
                          for(var j = 0;j<val.length;j++){
                             if(val[j].question_number__c === (val[i].question_number__c + 1)){

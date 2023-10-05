@@ -1129,14 +1129,19 @@
             var cutoff = document.getElementById('cutoff').value;
             var eventPass = document.getElementById('eventPassword').value;
             var eventPassConfirm = document.getElementById('eventPasswordConfirm').value;
-            var noOfQuestions = document.getElementById('NoOfQuestions').value;
+             //Category Assignement
+            var aptiEasy = parseInt(document.getElementById('aptiEasy').value);
+            var aptiMed = parseInt(document.getElementById('aptiMed').value);
+            var aptiHard = parseInt(document.getElementById('aptiHard').value);
+            var CEasy = parseInt(document.getElementById('CEasy').value);
+            var CMeduim = parseInt(document.getElementById('CMed').value);
+            var CHard = parseInt(document.getElementById('CHard').value);
 
             colleges = GetCollegeIDFromCollegeName(collegesSelected);
             panelists = GetPanelistIDFromPanelistName(PanelistsSelected);
             eduration = ConvertDurationToMins(eduration);
-            var NoOfQuestions = parseInt(noOfQuestions);
 
-            CreateEvent(ename,eventPass,edate,elocation,estartTime,eduration,colleges,cutoff,panelists,NoOfQuestions);
+            CreateEvent(ename,eventPass,edate,elocation,estartTime,eduration,colleges,cutoff,panelists,aptiEasy, aptiMed, aptiHard, CEasy, CMeduim, CHard);
         }
         
         
@@ -1153,7 +1158,6 @@
         document.getElementById('eventPasswordConfirm').classList.remove('input-error');
         document.getElementById('dropDownHeaderCollege').classList.remove('input-error');
         document.getElementById('dropDownHeaderPanelists').classList.remove('input-error');
-        document.getElementById('NoOfQuestions').classList.remove('input-error');
     }
 
 
@@ -1167,13 +1171,15 @@
         var cutoff = document.getElementById('cutoff').value;
         var eventPass = document.getElementById('eventPassword').value;
         var eventPassConfirm = document.getElementById('eventPasswordConfirm').value;
-        var NoOfQuestions = document.getElementById('NoOfQuestions').value;
+
+       
+
 
        colleges = GetCollegeIDFromCollegeName(collegesSelected);
        panelists = GetPanelistIDFromPanelistName(PanelistsSelected);
        eduration = ConvertDurationToMins(eduration);
 
-       if(ename == '' || edate == '' || elocation == '' || estartTime == '' || isNaN(eduration) || cutoff == '' || eventPass == '' || eventPassConfirm == '' || collegesSelected == '' || NoOfQuestions == ''){
+       if(ename == '' || edate == '' || elocation == '' || estartTime == '' || isNaN(eduration) || cutoff == '' || eventPass == '' || eventPassConfirm == '' || collegesSelected == ''){
             showAlertMessage("Please Fill all the fields");
             
             if(ename == '') document.getElementById('eventName').classList.add('input-error');
@@ -1186,7 +1192,6 @@
             if(eventPassConfirm == '') document.getElementById('eventPasswordConfirm').classList.add('input-error');         
             if(collegesSelected == '') document.getElementById('dropDownHeaderCollege').classList.add('input-error');
             if(PanelistsSelected == '') document.getElementById('dropDownHeaderPanelists').classList.add('input-error');
-            if(NoOfQuestions == '') document.getElementById('NoOfQuestions').classList.add('input-error');
             return;
         }
 
@@ -1219,24 +1224,27 @@
             return;
         }
 
-
-
-        if(NoOfQuestions < 30 || NoOfQuestions > 60)
-        {
-            showAlertMessage("Please Enter Valid Size for questions.");
-            return;
-        }
-
-        if(NoOfQuestions % 2 != 0)
-        {
-            showAlertMessage("Please Enter a even number for Size for questions.");
-            return;
-        }
-
         IsPasswordTaken(eventPass);
     }
 
-    function CreateEvent(ename,eventPass,edate,elocation,estartTime,eduration,colleges,cutoff,panelists,noOfQuestions)
+    function CreateEvent
+    (
+        ename,
+        eventPass,
+        edate,
+        elocation,
+        estartTime,
+        eduration,
+        colleges,
+        cutoff,
+        panelists,
+        aptiEasy, 
+        aptiMed, 
+        aptiHard, 
+        CEasy, 
+        CMeduim, 
+        CHard
+    )
     {
         showLoader();
         Visualforce.remoting.Manager.invokeAction(
@@ -1250,7 +1258,12 @@
             colleges,
             cutoff,
             panelists,
-            noOfQuestions,
+            aptiEasy, 
+            aptiMed, 
+            aptiHard, 
+            CEasy, 
+            CMeduim, 
+            CHard,
             SubmitRecordCallBack
             );
     }

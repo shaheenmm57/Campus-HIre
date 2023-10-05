@@ -12,16 +12,21 @@ public class CreateEventController
         String colleges,
         String cutoff, 
         String panelists,
-        Integer noOfQuestions
+        Integer aptiEasy,
+        Integer aptiMed,
+        Integer aptiHard,
+        Integer CEasy,
+        Integer CMed,
+        Integer CHard
     )
     {
         Boolean flag = false;
         //Create a event Record
-        String currentEventId = DML.getInstance().insertEventRecord(eventName,eventPassword,eventDate,eventLocation,eventStartTime,eventDuration,cutoff,noOfQuestions);
+        String currentEventId = DML.getInstance().insertEventRecord(eventName,eventPassword,eventDate,eventLocation,eventStartTime,eventDuration,cutoff,aptiEasy, aptiMed, aptiHard, CEasy, CMed, CHard);
 
         if(currentEventId == 'failed') return false; //couldn't create an event
 
-        flag = DML.getInstance().createEventQuestionTestSet(currentEventId,noOfQuestions); //creates a test for the event
+        flag = DML.getInstance().createEventQuestionTestSet(currentEventId,aptiEasy,aptiMed,aptiHard,CEasy,CMed,CHard); //creates a test for the event
         
         if(flag == false)  return false;
     
@@ -39,11 +44,11 @@ public class CreateEventController
         return DML.getInstance().isPasswordTaken(password);
     }
 
-    public Boolean createEventQuestionsTestSet(String currentEventID, Integer noOfQuestions)
-    {
-        Boolean result = DML.getInstance().createEventQuestionTestSet(currentEventID,noOfQuestions);
-        return result;
-    }
+    // public Boolean createEventQuestionsTestSet(String currentEventID, Integer noOfQuestions)
+    // {
+    //     Boolean result = DML.getInstance().createEventQuestionTestSet(currentEventID,noOfQuestions);
+    //     return result;
+    // }
 
     @RemoteAction
     public static List<RC_college__c> getAllCollegeNames()

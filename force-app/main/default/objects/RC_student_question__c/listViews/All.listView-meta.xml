@@ -8,11 +8,13 @@
     <columns>is_attempted__c</columns>
     <columns>isStudentAnswerdCorrect__c</columns>
     <columns>currentQuestion__c</columns>
+    <columns>question_category__c</columns>
+    <columns>question_difficulty__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>student_test_id__c</field>
         <operation>equals</operation>
-        <value>OF-0162</value>
+        <value>OF-0207</value>
     </filters>
     <label>All</label>
 </ListView>

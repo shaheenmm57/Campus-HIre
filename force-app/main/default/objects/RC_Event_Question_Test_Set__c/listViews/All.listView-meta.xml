@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>question_Category__c</columns>
+    <columns>question_difficulty__c</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>event_id__c</field>
+        <operation>equals</operation>
+        <value>dynamic question test 1</value>
+    </filters>
     <label>All</label>
 </ListView>

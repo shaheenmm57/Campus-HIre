@@ -34,7 +34,7 @@ public class DML
     }
 
     
-    public String insertEventRecord(String eventName, String eventPassword, String eventDate, String eventLocation, String eventStartTimeString, String eventDuration, String cutoff, Integer noOfQuestions)
+    public String insertEventRecord(String eventName, String eventPassword, String eventDate, String eventLocation, String eventStartTimeString, String eventDuration, String cutoff, Integer aptiEasy, Integer aptiMed, Integer aptiHard, Integer CEasy, Integer CMed, Integer CHard)
     {
         Time eventStartTime = Utility.getInstance().convertStringToTime(eventStartTimeString);
 
@@ -46,6 +46,12 @@ public class DML
         newEvent.cutoff__c = Integer.valueOf(cutoff);
         newEvent.event_date__c = Date.valueOf(eventDate); 
         newEvent.event_start_time__c = eventStartTime;
+        newEvent.aptiEasy__c = aptiEasy;
+        newEvent.aptiMeduim__c = aptiMed;
+        newEvent.aptiHard__c = aptiHard;
+        newEvent.CEasy__c = CEasy;
+        newEvent.CMeduim__c = CMed;
+        newEvent.CHard__c = CHard;
         Database.SaveResult sr = Database.insert(newEvent, false);
 
         if(sr.isSuccess()){
@@ -188,9 +194,9 @@ public class DML
         }
     }
 
-    public Boolean createEventQuestionTestSet(String eventID, Integer noOfQuestions)
+    public Boolean createEventQuestionTestSet(String eventID, Integer aptiEasy, Integer aptiMed, Integer aptiHard, Integer CEasy, Integer CMed, Integer CHard)
     {
-        List<RC_question_set__c> questionForEvent = DML.getInstance().getRandomQuestionsForEvent(noOfQuestions);
+        List<RC_question_set__c> questionForEvent = DML.getInstance().getRandomQuestionsForEvent(aptiEasy, aptiMed, aptiHard, CEasy, CMed, CHard);
 
         List<RC_Event_Question_Test_Set__c> eventQuestions = new List<RC_Event_Question_Test_Set__c>();
 
@@ -228,17 +234,24 @@ public class DML
 
     }
 
-    public Integer getSetSizeForEvent(String eventID)
-    {
-        // RC_event__c tempEvent = [SELECT setSize__c FROM RC_event__c WHERE Id = :eventID];
-        // return (Integer.valueOf(tempEvent.setSize__c));
-        return 0;
-    }
-
     public Boolean createStudentTestQuestions(String studentTestID, String eventID)
     {
-        Integer noOfQuestions = DML.getInstance().getSetSizeForEvent(eventID);
-        List<RC_Event_Question_Test_Set__c> questionsForStudent = DML.getInstance().getRandomQuestionsForStudent(eventID,noOfQuestions);
+        //Get the question Count for Apti and C
+        RC_event__c tempEvent = [SELECT aptiEasy__c,aptiHard__c,aptiMeduim__c,CEasy__c,CHard__c,CMeduim__c FROM RC_event__c WHERE Id = :eventID];
+        Integer noOfCQuestions = 0, noOfAptiQuestions = 0;
+
+        noOfAptiQuestions += Integer.valueOf(tempEvent.aptiEasy__c);
+        noOfAptiQuestions += Integer.valueOf(tempEvent.aptiHard__c);
+        noOfAptiQuestions += Integer.valueOf(tempEvent.aptiMeduim__c);
+        noOfCQuestions += Integer.valueOf(tempEvent.CEasy__c);
+        noOfCQuestions += Integer.valueOf(tempEvent.CMeduim__c);
+        noOfCQuestions +=  Integer.valueOf(tempEvent.CHard__c);
+
+        System.debug('No Of C Questions For Students: ' + noOfCQuestions);
+        System.debug('No Of Apti Questions For Students: ' + noOfAptiQuestions);
+
+        //Generate Random Set
+        List<RC_Event_Question_Test_Set__c> questionsForStudent = DML.getInstance().getRandomQuestionsForStudent(eventID,noOfAptiQuestions, noOfCQuestions);
 
         List<RC_student_question__c> studentQuestions = new List<RC_student_question__c>();
 
@@ -279,35 +292,8 @@ public class DML
         return true;
     }
 
-    public List<RC_question_set__c> getRandomQuestionsForEvent(Integer noOfQuestions)
+    public List<RC_question_set__c> getRandomQuestionsForEvent(Integer aptiEasySize, Integer aptiMedSize, Integer aptiHardSize, Integer CEasySize, Integer CMedSize, Integer CHardSize)
     {
-        Integer aptiEzSize, aptiMedSize, aptiHardSize, cEzSize, cMedSize, cHardSize, aptiPool, cPool;
-        aptiPool = noOfQuestions/2;
-        cPool = noOfQuestions/2;
-
-        if( (math.mod(aptiPool,3)) != 0)
-        {
-            Integer ezpool = aptiPool / 3;
-            Integer HardPool = aptiPool - (2*ezpool);
-
-            aptiEzSize = ezpool;
-            aptiMedSize = ezpool;
-            aptiHardSize = HardPool;
-            cEzSize = ezpool;
-            cMedSize = ezpool;
-            cHardSize = HardPool;
-        }
-        else{
-            Integer samePool = aptiPool/3;
-            aptiEzSize = samePool;
-            aptiMedSize = samePool;
-            aptiHardSize = samePool;
-            cEzSize = samePool;
-            cMedSize = samePool;
-            cHardSize = samePool;
-        }
-
-        
         List<RC_question_set__c> questionsForStudent = new List<RC_question_set__c>();
         List<RC_question_set__c> aptitudeQuestionsEasy = new List<RC_question_set__c>();
         List<RC_question_set__c> aptitudeQuestionsMedium = new List<RC_question_set__c>();
@@ -354,16 +340,16 @@ public class DML
         }
         
         //get apti set
-        Utility.getInstance().AssignRandomQuestions(aptiEzSize,aptitudeQuestionsEasy,questionsForStudent);
+        Utility.getInstance().AssignRandomQuestions(aptiEasySize,aptitudeQuestionsEasy,questionsForStudent);
         Utility.getInstance().AssignRandomQuestions(aptiMedSize,aptitudeQuestionsMedium,questionsForStudent);
         Utility.getInstance().AssignRandomQuestions(aptiHardSize,aptitudeQuestionsHard,questionsForStudent);
         
         //get CQuestions set
-        Utility.getInstance().AssignRandomQuestions(cEzSize,cProgrammingQuestionsEasy,questionsForStudent);
-        Utility.getInstance().AssignRandomQuestions(cMedSize,cProgrammingQuestionsMedium,questionsForStudent);
-        Utility.getInstance().AssignRandomQuestions(cHardSize,cProgrammingQuestionsHard,questionsForStudent);
+        Utility.getInstance().AssignRandomQuestions(CEasySize,cProgrammingQuestionsEasy,questionsForStudent);
+        Utility.getInstance().AssignRandomQuestions(CMedSize,cProgrammingQuestionsMedium,questionsForStudent);
+        Utility.getInstance().AssignRandomQuestions(CHardSize,cProgrammingQuestionsHard,questionsForStudent);
          
-         return questionsForStudent;
+        return questionsForStudent;
     }
 
     public List<RC_question_set__c> getQuestionSetData()
@@ -371,13 +357,15 @@ public class DML
         return [SELECT Id, question_category__c, question_difficulty__c FROM RC_question_set__c];
     }
 
-    public List<RC_Event_Question_Test_Set__c> getRandomQuestionsForStudent(String eventID, Integer noOfQuestions)
+    public List<RC_Event_Question_Test_Set__c> getRandomQuestionsForStudent(String eventID, Integer noOfAptiQuestions, Integer noOfCQuestions)
     {
-        Integer aptisize = noOfQuestions/2 , cprogsize = noOfQuestions/2;
+        Integer aptisize = noOfAptiQuestions , cprogsize = noOfCQuestions;
         List<RC_Event_Question_Test_Set__c> questionsForStudent = new List<RC_Event_Question_Test_Set__c>();
         List<RC_Event_Question_Test_Set__c> allQuestions = [SELECT Id,Name, event_id__c, hasProgram__c, option_1__c, option_2__c, option_3__c, option_4__c, question_Category__c, question_Correct_Answer__c, question_Description__c, question_Title__c, question_difficulty__c FROM RC_Event_Question_Test_Set__c where event_id__c = :eventID];
         List<RC_Event_Question_Test_Set__c> aptiQuestions = new List<RC_Event_Question_Test_Set__c>();
         List<RC_Event_Question_Test_Set__c> cprogramQuestions = new List<RC_Event_Question_Test_Set__c>();
+
+
         for(Integer i = 0; i < allQuestions.size(); i++)
         {
             if(allQuestions[i].question_category__c == 'Aptitude')
