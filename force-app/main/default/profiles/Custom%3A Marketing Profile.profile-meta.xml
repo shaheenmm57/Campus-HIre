@@ -2118,6 +2118,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>RC_event__c.setSize__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>RC_panelist__c.panelistsEmail__c</field>
         <readable>true</readable>
     </fieldPermissions>

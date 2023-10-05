@@ -34,7 +34,7 @@ public class DML
     }
 
     
-    public String insertEventRecord(String eventName, String eventPassword, String eventDate, String eventLocation, String eventStartTimeString, String eventDuration, String cutoff)
+    public String insertEventRecord(String eventName, String eventPassword, String eventDate, String eventLocation, String eventStartTimeString, String eventDuration, String cutoff, Integer noOfQuestions)
     {
         Time eventStartTime = Utility.getInstance().convertStringToTime(eventStartTimeString);
 
@@ -46,6 +46,7 @@ public class DML
         newEvent.cutoff__c = Integer.valueOf(cutoff);
         newEvent.event_date__c = Date.valueOf(eventDate); 
         newEvent.event_start_time__c = eventStartTime;
+        newEvent.setSize__c = noOfQuestions;
         Database.SaveResult sr = Database.insert(newEvent, false);
 
         if(sr.isSuccess()){
@@ -228,9 +229,16 @@ public class DML
 
     }
 
+    public Integer getSetSizeForEvent(String eventID)
+    {
+        RC_event__c tempEvent = [SELECT setSize__c FROM RC_event__c WHERE Id = :eventID];
+        return (Integer.valueOf(tempEvent.setSize__c));
+    }
+
     public Boolean createStudentTestQuestions(String studentTestID, String eventID)
     {
-        List<RC_Event_Question_Test_Set__c> questionsForStudent = DML.getInstance().getRandomQuestionsForStudent(eventID);
+        Integer noOfQuestions = DML.getInstance().getSetSizeForEvent(eventID);
+        List<RC_Event_Question_Test_Set__c> questionsForStudent = DML.getInstance().getRandomQuestionsForStudent(eventID,noOfQuestions);
 
         List<RC_student_question__c> studentQuestions = new List<RC_student_question__c>();
 
@@ -358,9 +366,9 @@ public class DML
          return questionsForStudent;
     }
 
-    public List<RC_Event_Question_Test_Set__c> getRandomQuestionsForStudent(String eventID)
+    public List<RC_Event_Question_Test_Set__c> getRandomQuestionsForStudent(String eventID, Integer noOfQuestions)
     {
-        Integer aptisize = 15, cprogsize = 15;
+        Integer aptisize = noOfQuestions/2 , cprogsize = noOfQuestions/2;
         List<RC_Event_Question_Test_Set__c> questionsForStudent = new List<RC_Event_Question_Test_Set__c>();
         List<RC_Event_Question_Test_Set__c> allQuestions = [SELECT Id,Name, event_id__c, hasProgram__c, option_1__c, option_2__c, option_3__c, option_4__c, question_Category__c, question_Correct_Answer__c, question_Description__c, question_Title__c, question_difficulty__c FROM RC_Event_Question_Test_Set__c where event_id__c = :eventID];
         List<RC_Event_Question_Test_Set__c> aptiQuestions = new List<RC_Event_Question_Test_Set__c>();

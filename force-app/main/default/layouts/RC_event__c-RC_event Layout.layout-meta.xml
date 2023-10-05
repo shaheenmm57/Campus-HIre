@@ -43,6 +43,10 @@
                 <behavior>Edit</behavior>
                 <field>isTestLive__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>setSize__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

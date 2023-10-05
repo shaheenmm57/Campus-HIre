@@ -1369,10 +1369,10 @@
                                 return urlParams.get(name);
                     }
 
-                    // const studentIdMain = getUrlParameter('studentId');
-                    // const eventIdMain = getUrlParameter('eventId');
-                    const studentIdMain = 'a055j00000WlgFgAAJ';
-                    const eventIdMain = 'a025j00000gPbJgAAK';
+                    const studentIdMain = getUrlParameter('studentId');
+                    const eventIdMain = getUrlParameter('eventId');
+                    // const studentIdMain = 'a055j00000WlgFgAAJ';
+                    // const eventIdMain = 'a025j00000gPbJgAAK';
                     if((!studentIdMain) || (!eventIdMain)){
                         var targetPageUrl = '/apex/studentLoginPageAlt';
                                 window.location.href = targetPageUrl;

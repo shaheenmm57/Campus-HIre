@@ -748,39 +748,39 @@
                         <div class="card-details">
                             <div class="card-detail-row" style="gird-row:1; grid-column:1">
                                 <span class="card-detail-heading">Total Marks</span>
-                                <span class="card-detail-value">20</span>
+                                <span id = "studentMarksScored" class="card-detail-value">20</span>
                             </div>
                             <div class="card-detail-row" style="grid-row-1; grid-column:2"> 
                                 <span class="card-detail-heading">Total Positve Marks</span>
-                                <span class="card-detail-value">20</span>
+                                <span id = "posStudentMarksScored" class="card-detail-value">20</span>
                             </div>
                             <div class="card-detail-row" style="grid-row-1; grid-column:3"> 
                                 <span class="card-detail-heading">Total Negative Marks</span>
-                                <span class="card-detail-value">-10</span>
+                                <span id = "negStudentMarksScored" class="card-detail-value">-10</span>
                             </div>
                             <div class="card-detail-row" style="grid-row-2; grid-column:1"> 
                                 <span class="card-detail-heading">Total Aptitude Marks</span>
-                                <span class="card-detail-value">12</span>
+                                <span id = "studentAptitudeMarks" class="card-detail-value">12</span>
                             </div>
                             <div class="card-detail-row" style="grid-row-2; grid-column:2"> 
                                 <span class="card-detail-heading">Aptitude Positive Marks</span>
-                                <span class="card-detail-value">12</span>
+                                <span id = "posStudentAptitudeMarks" class="card-detail-value">12</span>
                             </div>
                             <div class="card-detail-row" style="grid-row-2; grid-column:3"> 
                                 <span class="card-detail-heading">Aptitude Negative Marks</span>
-                                <span class="card-detail-value">12</span>
+                                <span id = "negStudentAptitudeMarks" class="card-detail-value">12</span>
                             </div>
                             <div class="card-detail-row" style="grid-row-3; grid-column:1"> 
                                 <span class="card-detail-heading">C Programming Marks</span>
-                                <span class="card-detail-value">12</span>
+                                <span id = "studentCProgramMarks" class="card-detail-value">12</span>
                             </div>
                             <div class="card-detail-row" style="grid-row-3; grid-column:2"> 
                                 <span class="card-detail-heading">C Programming Positive Marks</span>
-                                <span class="card-detail-value">12</span>
+                                <span id = "posStudentCProgramMarks" class="card-detail-value">12</span>
                             </div>
                             <div class="card-detail-row" style="grid-row-3; grid-column:3"> 
                                 <span class="card-detail-heading">C Programming Negative Marks</span>
-                                <span class="card-detail-value">12</span>
+                                <span id = "negStudentCProgramMarks" class="card-detail-value">12</span>
                             </div>
                             <div class="card-detail-row" style="grid-row-4; grid-column:1"> 
                                 <span class="card-detail-heading">Status</span>
@@ -944,14 +944,14 @@
         function getURLParameters() {
             var urlParams = new URLSearchParams(window.location.search);
             var studentId = urlParams.get('studentId');
-            var param2 = urlParams.get('param2');
-            return { studentId: studentId, param2: param2 };
+            var eventId = urlParams.get('eventId');
+            return { studentId: studentId, eventId: eventId };
         }
         
         function invokeRemoteActionWithParameters() {
             var params = getURLParameters();
             var studentId = params.studentId;
-            var param2 = params.param2;
+            var eventId = params.eventId;
 
             console.log(studentId);
             Visualforce.remoting.Manager.invokeAction(
@@ -981,7 +981,21 @@
             else{
                 document.getElementById('profileBranch').textContent = result.branch_type__c;
             }
-            
+            document.getElementById('studentMarksScored').textContent =
+                result.StudentMarksScored - result.NegStudentMarksScored;
+
+            document.getElementById('studentAptitudeMarks').textContent =
+                result.StudentAptitudeMarks - result.NegStudentAptitudeMarks;
+
+            document.getElementById('studentCProgramMarks').textContent =
+                result.StudentCProgramMarks - result.NegStudentCProgramMarks;
+
+            document.getElementById('posStudentMarksScored').textContent = result.StudentMarksScored;
+            document.getElementById('posStudentAptitudeMarks').textContent = result.StudentAptitudeMarks;
+            document.getElementById('posStudentCProgramMarks').textContent = result.StudentCProgramMarks;
+            document.getElementById('negStudentMarksScored').textContent = result.NegStudentMarksScored;
+            document.getElementById('negStudentAptitudeMarks').textContent = result.NegStudentAptitudeMarks;
+            document.getElementById('negStudentCProgramMarks').textContent = result.NegStudentCProgramMarks;
         }
 
     </script>
