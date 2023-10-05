@@ -52,29 +52,28 @@
 
         button{
             width: 10vw;
-            margin-left: 50vh;
-            margin-top: 5vh;
-            background-color: #150958; 
+            margin-left: 1.5vw;
+            background-color: var(--red-color); 
             color: white; 
             border-radius: 5px; 
-            border: 2px solid #150958; 
+            border: 2px solid var(--red-color); 
             cursor: pointer;
             transition: ease-in-out 0.2s;
         }
         button:hover{
-          background-color: var(--red-color);
+          background-color: var(--text-color);
         }
         .searchbar{
             background: var(--blue-color);
-            width: 50%;
+            width: 70%;
             height: 6%;
-            margin-left: 50vh;
-            margin-top: 25vh;
+            margin-left: 35vh;
+            margin-top: 15vh;
         }
                     table {
                     border-collapse: collapse;
-                    width: 50%;
-                    margin-left: 50vh;
+                    width: 70%;
+                    margin-left: 35vh;
                     /* margin-top: 25vh; */
                     font-size: 0.9em;
                     font-family: sans-serif;
@@ -107,12 +106,36 @@
 </style>
 <script>
 
-    window.onload = showTable('yes',2);
+    window.onload = showTable('random',2);
+
+    var input, filter, table, tr, td, i, txtValue, cpinput, cutoffinput, studentcutoff, studentcpcutoff, clickedevent;
 
     var activeTable = 'Event';
+    var cpsearch = document.createElement("input");
+    cpsearch.type = "number";
+    cpsearch.id = "cpsearch";
+    cpsearch.placeholder = "Enter C Programming Cutoff";
+
+    var cutoffsearch = document.createElement("input");
+    cutoffsearch.type = "number";
+    cutoffsearch.id = "cutoffsearch";
+    cutoffsearch.placeholder = "Enter Cutoff";
+
+    var backButton = document.createElement("button");
+    backButton.id = "go-back-button";
+    backButton.innerText = "Go Back";
+    backButton.onclick = function() {showTable('yes',2);};
+
+
+
+    function routeToStudentPage(eventId,studentId) {
+                var targetPageUrl = '/apex/studentProfile?eventId=' + eventId  + '&studentId=' + studentId;
+                window.location.href = targetPageUrl;
+                
+            }
+
 
         function filterTable(viewTable) {
-        var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("search");
         filter = input.value.toUpperCase();
         if(viewTable == 'Event'){
@@ -120,32 +143,52 @@
         }
         else{
             table = document.getElementById("student-list");
+            cpinput = parseInt(document.getElementById("cpsearch").value.trim());
+            cutoffinput = parseInt(document.getElementById("cutoffsearch").value.trim());
+            
         }
         tr = table.getElementsByTagName("tr");
-        console.log("active");
 
         for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[0]; // Change the index to target the desired column (0 for the first column)
 
         if (td) {
             txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-            } else {
-            tr[i].style.display = "none";
+            if(viewTable == 'Event'){
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+                } else {
+                tr[i].style.display = "none";
+                }
             }
+            else{
+                studentcutoff = parseInt(tr[i].getElementsByTagName("td")[1].textContent);
+                studentcpcutoff = parseInt(tr[i].getElementsByTagName("td")[3].textContent);
+
+                if (!isNaN(cutoffinput) ||  !isNaN(cpinput) ){
+
+                    if (txtValue.toUpperCase().indexOf(filter) > -1 && ((!isNaN(cutoffinput) && studentcutoff > cutoffinput) || (!isNaN(cpinput) && studentcpcutoff > cpinput) )) {
+                        tr[i].style.display = "";
+                } else{
+                    tr[i].style.display = "none";
+                }
+
+                }
+                else{
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    } else {
+                    tr[i].style.display = "none";
+                    }
+
+                }
+
+                
+            }
+            
         }
         }
     }
-
-//   function switchActive(checkTable){
-//     if(checkTable == "showEvent"){
-//         activeTable = "showStudent";
-//     }
-//     else{
-//         activeTable = "showEvent";
-//     }
-//   }
 
 
   
@@ -161,20 +204,52 @@
                         // Handle the result and re-render the table
                         var tableHtml = '';
                         if (check == 1){
+                            document.getElementById("searchbar").appendChild(cutoffsearch);
+                            document.getElementById("searchbar").appendChild(cpsearch);
+                            document.getElementById("searchbar").appendChild(backButton);
                             tableHtml += '<table id ="student-list">';
-                            tableHtml += '<tr><th>Student Name</th><th>Marks Scored</th><th>Cleared</th></tr>';
+                            tableHtml += '<tr><th>Student Name</th><th>Marks Scored</th><th>Cleared</th><th>C Programming Marks</th><th>Aptitude Marks</th><th>Negative Marks</th> <th>Negative C Programming Marks</th> <th>Negative Aptitude Marks</th></tr>';
                             for (var i = 0; i < result.studentInfoList.length; i++) {
                                 tableHtml += '<tr>';
-                                tableHtml += '<td>' + result.studentInfoList[i].studentName + '</td>';
+                                tableHtml += '<td><a href="javascript:void(0);" onclick = "routeToStudentPage(\'' + eventId + '\' , \'' + result.studentInfoList[i].Id + '\')">' + result.studentInfoList[i].studentName + '</td>';
                                 tableHtml += '<td>' + result.studentInfoList[i].marksScored + '</td>';
                                 tableHtml += '<td>' + result.studentInfoList[i].clearedCutoff + '</td>';
+                                tableHtml += '<td>' + result.studentInfoList[i].cpMarks + '</td>';
+                                tableHtml += '<td>' + result.studentInfoList[i].aptiMarks + '</td>';
+                                tableHtml += '<td>' + result.studentInfoList[i].negtotalMarks + '</td>';
+                                tableHtml += '<td>' + result.studentInfoList[i].negcpMarks + '</td>';
+                                tableHtml += '<td>' + result.studentInfoList[i].negaptiMarks + '</td>';
                                 tableHtml += '</tr>';
+
                             }
                             tableHtml += '</table>';
-                            tableHtml += '<button type = "button" onclick = "showTable(\'yes\',2,\'showStudent\')"> Go back </button>'
-                            activeTable = 'Student'
+                            activeTable = 'Student';
+
+                            setTimeout(() => {
+                                document.getElementById("cpsearch").addEventListener("keyup", function(event){
+                                filterTable(activeTable);
+                            });
+
+                                document.getElementById("cutoffsearch").addEventListener("keyup", function(event){
+                                filterTable(activeTable);
+                            });
+                        }, 2000);
+
+
+                           
+   
+                            
+
                         }
                         else{
+                            var checkcpsearch = document.getElementById("cpsearch");
+                            var checkcutoffsearch = document.getElementById("cutoffsearch");
+                            var checkbackbutton = document.getElementById("go-back-button");
+                            if (checkcpsearch && checkcutoffsearch){
+                                checkcpsearch.parentNode.removeChild(checkcpsearch);
+                                checkcutoffsearch.parentNode.removeChild(checkcutoffsearch);
+                                checkbackbutton.parentNode.removeChild(checkbackbutton);
+                            }
                             tableHtml += '<table id = "event-list">';
                             tableHtml += '<tr><th> Event Name</th><th> Event Date</th></tr>'
                             for (var i = 0; i < result.Event_List.length; i++){
@@ -246,7 +321,7 @@
             <span class="title-text">Events</span>
         </div>
       </div>
-      <div class = "searchbar">
+      <div class = "searchbar" id = "searchbar">
         <input type="text" id="search" placeholder="Search by name"></input>
     </div>
     <div class = "displayTable" id = "displayTable">

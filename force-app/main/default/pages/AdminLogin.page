@@ -684,8 +684,18 @@
                 }, 5000);
             }
     
-            function routeToAdminPage(adminID) {
-                var targetPageUrl = '/apex/adminPage?adminId=' + adminID ;
+            function routeToAdminPage(loginDetails) {
+                var targetPageUrl;
+                //assiging ID as per login
+                if(loginDetails.isAdmin)
+                {
+                    targetPageUrl = '/apex/adminPage?adminId=' + loginDetails.recordID;
+                }
+                else
+                {
+                    targetPageUrl = '/apex/adminPage?panelistId=' + loginDetails.recordID;
+                }
+
                 window.location.href = targetPageUrl;
                 
             }
@@ -750,7 +760,7 @@
                                            console.log("success"); 
                                            hideLoader();
                                            console.log(result);
-                                           if(result)
+                                           if(result.recordID != '')
                                            {
                                                 routeToAdminPage(result);
                                            }

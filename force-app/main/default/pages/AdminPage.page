@@ -652,7 +652,7 @@
                     </div>
                     
                     <div class="section-buttons">
-                        <button type="button" class="next-button" onclick="viewAllStudents()">View</button>
+                        <button type="button" class="next-button" onclick="routeToViewAllStudents()">View</button>
                     </div>
                 </div>
                 
@@ -955,7 +955,13 @@
             function routeToCreateEventPage()
             {
                 var targetPageUrl = '/apex/createEventPageAlt?adminId=' + adminID;
-                 window.location.href = targetPageUrl;
+                window.location.href = targetPageUrl;
+            }
+
+            function routeToViewAllStudents()
+            {
+                var targetPageUrl = '/apex/EventList';
+                window.location.href = targetPageUrl;
             }
 
             function AddCollege(){

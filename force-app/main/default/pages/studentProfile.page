@@ -1,4 +1,4 @@
-<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" controller="studentRegistrationController">
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="true" controller="studentProfileController">
     <head>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
@@ -631,6 +631,10 @@
                     grid-column-gap: 10px;
                     grid-row-gap: 20px;
                 }
+                .second-round-adjusted{
+                    grid-column-gap: 10px;
+                    grid-row-gap: 5px;
+                }
                 .marks-card-adjusted{
                     grid-template-columns: repeat(4, 1fr);
                     grid-template-rows: repeat(1, 1fr);
@@ -652,6 +656,9 @@
                 }
                 .card-detail-value{
                     font-size: 14px;
+                }
+                .value-height-adjust{
+                    margin-top: 16px;
                 }
                 .bold{
                     font-weight: bold;
@@ -786,46 +793,45 @@
                         <div class="card-title-container">
                             <span class="card-title">2<sup>nd</sup> Round Report</span>
                         </div>
-                        <div class="card-details">
+                        <div class="card-details second-round-adjusted">
                             <div class="card-detail-row" style="gird-row:1; grid-column:1">
-                                <span class="card-detail-heading">Total Marks</span>
-                                <span class="card-detail-value">20</span>
+                                <span class="card-detail-heading">Professional/Technical Knowledge</span>
                             </div>
-                            <div class="card-detail-row" style="grid-row-1; grid-column:2"> 
-                                <span class="card-detail-heading">Total Positve Marks</span>
-                                <span class="card-detail-value">20</span>
+                            <div class="card-detail-row" style="gird-row:2; grid-column:1">
+                                <span class="card-detail-value">Excellent</span>
                             </div>
-                            <div class="card-detail-row" style="grid-row-1; grid-column:3"> 
-                                <span class="card-detail-heading">Total Negative Marks</span>
-                                <span class="card-detail-value">-10</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row-2; grid-column:1"> 
-                                <span class="card-detail-heading">Total Aptitude Marks</span>
-                                <span class="card-detail-value">12</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row-2; grid-column:2"> 
-                                <span class="card-detail-heading">Aptitude Positive Marks</span>
-                                <span class="card-detail-value">12</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row-2; grid-column:3"> 
-                                <span class="card-detail-heading">Aptitude Negative Marks</span>
-                                <span class="card-detail-value">12</span>
+                            <div class="card-detail-row" style="grid-row-2; grid-column:2 / span 3"> 
+                                <!-- <span class="card-detail-heading">Total Positve Marks</span> -->
+                                <span class="card-detail-heading"> </span>
+                                <span class="card-detail-value ">Had Very Good Technical Knowledge</span>
                             </div>
                             <div class="card-detail-row" style="grid-row-3; grid-column:1"> 
-                                <span class="card-detail-heading">C Programming Marks</span>
-                                <span class="card-detail-value">12</span>
+                                <span class="card-detail-heading">Communication Skills</span>
                             </div>
-                            <div class="card-detail-row" style="grid-row-3; grid-column:2"> 
-                                <span class="card-detail-heading">C Programming Positive Marks</span>
-                                <span class="card-detail-value">12</span>
+                            <div class="card-detail-row" style="grid-row-4; grid-column:1"> 
+                                <span class="card-detail-value">Good</span>
                             </div>
-                            <div class="card-detail-row" style="grid-row-3; grid-column:3"> 
-                                <span class="card-detail-heading">C Programming Negative Marks</span>
-                                <span class="card-detail-value">12</span>
+                            <div class="card-detail-row" style="grid-row-4; grid-column:2 / span 3"> 
+                                <span class="card-detail-heading"> </span>
+                                <span class="card-detail-value">Well Spoken</span>
                             </div>
-                            <div class="card-detail-row" style="grid-row: 4; grid-column: 1 / span 3;">
-                                <span class="card-detail-heading">Remark</span>
-                                <span class="card-detail-value">Good in coding, was able to answer about Trees and Graphs</span>
+                            <div class="card-detail-row" style="grid-row-5; grid-column:1"> 
+                                <span class="card-detail-heading">Attitude/Promptness in Response</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-6; grid-column:1"> 
+                                <span class="card-detail-value">Excellent</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-6; grid-column:2 / span 3"> 
+                                <span class="card-detail-heading"> </span>
+                                <span class="card-detail-value">Had Proper Attitude </span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-7; grid-column:1"> 
+                                <span class="card-detail-heading">Status</span>
+                                <span class="card-detail-value">On-Hold</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row-7; grid-column:3"> 
+                                <span class="card-detail-heading">Interviewd By</span>
+                                <span class="card-detail-value">Ashish Kishore Kumar</span>
                             </div>
                         </div>
                     </div>
@@ -1332,42 +1338,6 @@
                         displayErrorMessage("Email Does Not Match");
                         return;
                     }
-                    if (currentSectionIndex === 0) {
-                        const usn = document.getElementById('usnInput').value;
-                        const email = document.getElementById('emailInput').value;
-    
-                        if (usn.trim() !== '' && email.trim() !== '') {
-                            if (!sectionValidationStatus[currentSectionIndex]) {
-                                showLoader();
-                                Visualforce.remoting.Manager.invokeAction(
-                                    '{!$RemoteAction.studentRegistrationController.checkIfUsnAndEmailExist}',
-                                    usn,
-                                    email,
-                                    (result, event) => {
-                                        if (event.status) {
-                                            hideLoader();
-                                            if (result === true) {
-                                                displayErrorMessage("USN/Mail Already Exists");
-                                                return;
-                                            } else {
-                                                usnEmailCheckSuccessful = true;
-                                                sections[currentSectionIndex].style.display = "none";
-                                                const nextSectionIndex = sectionIds.indexOf(sectionIds[currentSectionIndex]) + 1;
-                                                if (nextSectionIndex < sections.length) {
-                                                    currentSectionIndex = nextSectionIndex;
-                                                    sections[currentSectionIndex].style.display = "block";
-                                                    updateProgressBar(currentSectionIndex);
-                                                    updateProgressText(currentSectionIndex)
-                                                }
-                                            }
-                                        } else {
-                                            displayErrorMessage("!!Apex Error!! unable to check USN and email existence.");
-                                        }
-                                    }
-                                );
-                            }
-                        }
-                    }
     
                     if (usnEmailCheckSuccessful == true) {
                         sections[currentSectionIndex].style.display = "none";
@@ -1387,14 +1357,6 @@
                 });
             });
     
-            function getCollegeNames() {
-                if (collegeListFromDataBase.length === 0) {
-                    Visualforce.remoting.Manager.invokeAction(
-                        '{!$RemoteAction.studentRegistrationController.getAllCollegeNames}',
-                        handleCollegeNameResult
-                    );
-                }
-            }
     
             function handleCollegeNameResult(result, event) {
                 for (let i = 0; i < result.length; i++) {
@@ -1461,72 +1423,7 @@
                 submitButton.setAttribute('disabled', 'disabled');
             }
         });
-    
-        function validateAndCreateStudent() {
-                let hasEmptyFields = false;
-                const name = document.getElementById('nameInput').value;
-                const phone = document.getElementById('phoneInput').value;
-                const email = document.getElementById('emailInput').value;
-                const address1 = document.getElementById('address1Input').value;
-                // const address2 = document.getElementById('address2Input').value;
-                const city = document.getElementById('cityInput').value;
-                const state = document.getElementById('stateInput').value;
-                const pincode = document.getElementById('pincodeInput').value;
-                const usn = document.getElementById('usnInput').value;
-                const collegeId = document.getElementById('collegeDropdown').value;
-                const schoolName = document.getElementById('schoolNameInput').value;
-                const schoolMarks = document.getElementById('schoolMarksInput').value;
-                const schoolPassYear = document.getElementById('schoolPassingYearInput').value;
-                const secondarySchoolName = document.getElementById('secondarySchoolNameInput').value;
-                const puMarks = document.getElementById('puMarksInput').value;
-                const puPassingYear = document.getElementById('puPassingYearInput').value;
-                const includeDiploma = document.getElementById('includeDiploma').value;
-                // Define these variables outside of the event listener
-                const degreeMarksContainer = document.getElementById('degreeMarksInput');
-                const degreePassingYearContainer = document.getElementById('degreePassingYearInput');
-                const degreeTypeContainer = document.getElementById('degreeDropdown');
-                const branchTypeContainer = document.getElementById('branchDropdown');
-    
-                const degreeMarks = document.getElementById('degreeMarksInput').value;
-                const degreePassingYear = document.getElementById('degreePassingYearInput').value;
-                const degreeType = document.getElementById('degreeDropdown').value;
-                const branchType = document.getElementById('branchDropdown').value;
-                // Add an event listener to a common parent element that contains degree-related inputs
-                const degreeInputsContainer = document.getElementById('degreeInputsContainer');
 
-                const diplomaCollegeName = document.getElementById('diplomaCollegeNameInput').value;
-                const diplomaMarks = document.getElementById('diplomaMarksInput').value;
-                const diplomaPassingYear = document.getElementById('diplomaPassingYearInput').value;
-    
-    
-                
-    
-                showLoader();
-                Visualforce.remoting.Manager.invokeAction(
-                    '{!$RemoteAction.studentRegistrationController.createStudentBasicAccount}',
-                    name,
-                    phone,
-                    email,
-                    address1,
-                    // address2,
-                    usn,
-                    city,
-                    state,
-                    pincode,
-                    collegeId,
-                    schoolName,
-                    schoolMarks,
-                    schoolPassYear,
-                    secondarySchoolName,
-                    puMarks,
-                    puPassingYear,
-                    degreeType,
-                    branchType,
-                    degreeMarks,
-                    degreePassingYear,
-                    handleResult
-                );
-            }
     
             function handleResult(result, event) {
                 hideLoader();

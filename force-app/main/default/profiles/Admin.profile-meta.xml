@@ -3364,6 +3364,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>RC_panelist__c.panelistsPassword__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>RC_panelists_event_junction__c.event__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5352,6 +5357,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>studentLoginAltCtrl</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>studentProfileController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
