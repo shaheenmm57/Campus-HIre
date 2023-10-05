@@ -188,9 +188,9 @@ public class DML
         }
     }
 
-    public Boolean createEventQuestionTestSet(String eventID)
+    public Boolean createEventQuestionTestSet(String eventID, Integer noOfQuestions)
     {
-        List<RC_question_set__c> questionForEvent = DML.getInstance().getRandomQuestionsForEvent();
+        List<RC_question_set__c> questionForEvent = DML.getInstance().getRandomQuestionsForEvent(noOfQuestions);
 
         List<RC_Event_Question_Test_Set__c> eventQuestions = new List<RC_Event_Question_Test_Set__c>();
 
@@ -271,9 +271,35 @@ public class DML
         return true;
     }
 
-    public List<RC_question_set__c> getRandomQuestionsForEvent()
+    public List<RC_question_set__c> getRandomQuestionsForEvent(Integer noOfQuestions)
     {
-        Integer aptiSize = 5, cProgrammingSize = 5; 
+        Integer aptiEzSize, aptiMedSize, aptiHardSize, cEzSize, cMedSize, cHardSize, aptiPool, cPool;
+        aptiPool = noOfQuestions/2;
+        cPool = noOfQuestions/2;
+
+        if( (math.mod(aptiPool,3)) != 0)
+        {
+            Integer ezpool = aptiPool / 3;
+            Integer HardPool = aptiPool - (2*ezpool);
+
+            aptiEzSize = ezpool;
+            aptiMedSize = ezpool;
+            aptiHardSize = HardPool;
+            cEzSize = ezpool;
+            cMedSize = ezpool;
+            cHardSize = HardPool;
+        }
+        else{
+            Integer samePool = aptiPool/3;
+            aptiEzSize = samePool;
+            aptiMedSize = samePool;
+            aptiHardSize = samePool;
+            cEzSize = samePool;
+            cMedSize = samePool;
+            cHardSize = samePool;
+        }
+
+        
         List<RC_question_set__c> questionsForStudent = new List<RC_question_set__c>();
         List<RC_question_set__c> aptitudeQuestionsEasy = new List<RC_question_set__c>();
         List<RC_question_set__c> aptitudeQuestionsMedium = new List<RC_question_set__c>();
@@ -320,14 +346,14 @@ public class DML
         }
         
         //get apti set
-        Utility.getInstance().AssignRandomQuestions(aptiSize,aptitudeQuestionsEasy,questionsForStudent);
-        Utility.getInstance().AssignRandomQuestions(aptiSize,aptitudeQuestionsMedium,questionsForStudent);
-        Utility.getInstance().AssignRandomQuestions(aptiSize,aptitudeQuestionsHard,questionsForStudent);
+        Utility.getInstance().AssignRandomQuestions(aptiEzSize,aptitudeQuestionsEasy,questionsForStudent);
+        Utility.getInstance().AssignRandomQuestions(aptiMedSize,aptitudeQuestionsMedium,questionsForStudent);
+        Utility.getInstance().AssignRandomQuestions(aptiHardSize,aptitudeQuestionsHard,questionsForStudent);
         
         //get CQuestions set
-        Utility.getInstance().AssignRandomQuestions(cProgrammingSize,cProgrammingQuestionsEasy,questionsForStudent);
-        Utility.getInstance().AssignRandomQuestions(cProgrammingSize,cProgrammingQuestionsMedium,questionsForStudent);
-        Utility.getInstance().AssignRandomQuestions(cProgrammingSize,cProgrammingQuestionsHard,questionsForStudent);
+        Utility.getInstance().AssignRandomQuestions(cEzSize,cProgrammingQuestionsEasy,questionsForStudent);
+        Utility.getInstance().AssignRandomQuestions(cMedSize,cProgrammingQuestionsMedium,questionsForStudent);
+        Utility.getInstance().AssignRandomQuestions(cHardSize,cProgrammingQuestionsHard,questionsForStudent);
          
          return questionsForStudent;
     }

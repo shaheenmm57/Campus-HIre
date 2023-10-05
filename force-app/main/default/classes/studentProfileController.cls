@@ -7,7 +7,7 @@ public with sharing class studentProfileController {
         Map<String, Object> result = new Map<String, Object>();
         
         try {
-            RC_student__c student = [SELECT Id, Name, branch_type__c, city__c, college_id__c, diploma_college_name__c, 
+            RC_student__c student = [SELECT Id, Name, branch_type__c, city__c, college_id__r.Name, diploma_college_name__c, 
                                             diploma_passing_year__c, email__c, hsc_marks__c, hsc_name__c, phone__c, 
                                             hsc_pass_year__c, pincode__c, ssc_marks__c, ssc_name__c, ssc_pass_year__c, 
                                             state__c, street__c, usn__c, isHired__c, diploma_marks__c, 
@@ -18,7 +18,7 @@ public with sharing class studentProfileController {
             result.put('Name', student.Name);
             result.put('branch_type__c', student.branch_type__c);
             result.put('city__c', student.city__c);
-            result.put('college_id__c', student.college_id__c);
+            result.put('college_id__c', student.college_id__r.Name);
             result.put('diploma_college_name__c', student.diploma_college_name__c);
             result.put('diploma_passing_year__c', student.diploma_passing_year__c);
             result.put('email__c', student.email__c);

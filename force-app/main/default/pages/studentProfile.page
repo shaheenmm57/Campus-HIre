@@ -707,34 +707,34 @@
                 </div>
                 <div class="profile-basic-details">
                     <div class="profile-name">
-                        <span id="profileName" class="profile-basic-details-name-header">Arjun Abin</span>
+                        <span id="profileName" class="profile-basic-details-name-header">Undefined</span>
                     </div>
                     <div class="profile-basic-section-1">
                         <div class="profile-basic-section-item">
-                            <span id="profileUSN" class="profile-basic-details-text-header">USN</span>
-                            <span class="profile-basic-details-text-value">4JK19CS009</span>
+                            <span  class="profile-basic-details-text-header">USN</span>
+                            <span id="profileUSN" class="profile-basic-details-text-value">Undefined</span>
                         </div>
                         <div class="profile-basic-section-item">
-                            <span id="profileEmail" class="profile-basic-details-text-header">Email</span>
-                            <span class="profile-basic-details-text-value">arjun.abin@gmail.com</span>
+                            <span class="profile-basic-details-text-header">Email</span>
+                            <span id="profileEmail" class="profile-basic-details-text-value">Undefined</span>
                         </div>
                         <div class="profile-basic-section-item">
-                            <span id="profilePhone" class="profile-basic-details-text-header">Phone</span>
-                            <span class="profile-basic-details-text-value">+91-9834123445</span>
+                            <span class="profile-basic-details-text-header">Phone</span>
+                            <span id="profilePhone" class="profile-basic-details-text-value">Undefined</span>
                         </div>
                     </div>
                     <div class="profile-basic-section-2">
                         <div class="profile-basic-section-item">
-                            <span id="profileCollege" class="profile-basic-details-text-header">College</span>
-                            <span class="profile-basic-details-text-value">NITTE Yenapoya</span>
+                            <span class="profile-basic-details-text-header">College</span>
+                            <span id="profileCollege" class="profile-basic-details-text-value">Undefined</span>
                         </div>
                         <div class="profile-basic-section-item">
-                            <span id="profileDegree" class="profile-basic-details-text-header">Degree</span>
-                            <span class="profile-basic-details-text-value">B.Tech</span>
+                            <span class="profile-basic-details-text-header">Degree</span>
+                            <span id="profileDegree" class="profile-basic-details-text-value">Undefined</span>
                         </div>
-                        <div class="profile-basic-section-item">
-                            <span id="profileBranch" class="profile-basic-details-text-header">Branch</span>
-                            <span class="profile-basic-details-text-value">(CSE) Computer Science and Engineering</span>
+                        <div id = "branchContainer" class="profile-basic-section-item">
+                            <span class="profile-basic-details-text-header">Branch</span>
+                            <span id="profileBranch" class="profile-basic-details-text-value">Undefined</span>
                         </div>
                     </div>
                 </div>                
@@ -961,18 +961,27 @@
                     if (event.status) {
                         console.log(result.Id);
                         console.log(result.Name);
-                        document.getElementById('profileName').textContent = result.Name;
-                        document.getElementById('profileUSN').textContent = result.usn__c;
-                        document.getElementById('profileEmail').textContent = result.email__c;
-                        document.getElementById('profilePhone').textContent = result.phone__c;
-                        document.getElementById('profileCollege').textContent = result.college_id__c;
-                        document.getElementById('profileDegree').textContent = result.degree_pursuing__c;
-                        document.getElementById('profileBranch').textContent = result.branch_type__c;
+                        populateStudentProfile(result);
                     } else {
                         console.error('Error:', event.message);
                     }
                 }
             );
+        }
+        function populateStudentProfile(result) {
+            document.getElementById('profileName').textContent = result.Name;
+            document.getElementById('profileUSN').textContent = result.usn__c;
+            document.getElementById('profileEmail').textContent = result.email__c;
+            document.getElementById('profilePhone').textContent = result.phone__c;
+            document.getElementById('profileCollege').textContent = result.college_id__c;
+            document.getElementById('profileDegree').textContent = result.degree_pursuing__c;
+            if (result.branch_type__c === "invalid"){
+                document.getElementById("branchContainer").style.display = 'none';
+            }
+            else{
+                document.getElementById('profileBranch').textContent = result.branch_type__c;
+            }
+            
         }
 
     </script>

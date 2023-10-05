@@ -1229,7 +1229,7 @@
                     <div class="qst-nav-btn-item-logo">
                         <img  src="{!URLFOR($Resource.c_logo)}" alt="My PNG Image" style="width:4vw;height:8vh;" />
                     </div>
-                    <div class="qst-nav-btn-item">1</div>
+                    <!-- <div class="qst-nav-btn-item">1</div>
                     <div class="qst-nav-btn-item">2</div>
                     <div class="qst-nav-btn-item">3</div>
                     <div class="qst-nav-btn-item">4</div>
@@ -1243,14 +1243,14 @@
                     <div class="qst-nav-btn-item">12</div>
                     <div class="qst-nav-btn-item">13</div>
                     <div class="qst-nav-btn-item">14</div>
-                    <div class="qst-nav-btn-item">15</div>
+                    <div class="qst-nav-btn-item">15</div> -->
                 </div>
                 <div class="qst-nav-btn-split" id="apti-btn-split"> 
                     
                     <div class="qst-nav-btn-item-logo">
                         <img  src="{!URLFOR($Resource.apti_logo)}" alt="My PNG Image" style="width:5vw;height:9vh;" />
                     </div> 
-                    <div class="qst-nav-btn-item">16</div>
+                    <!-- <div class="qst-nav-btn-item">16</div>
                     <div class="qst-nav-btn-item">17</div>
                     <div class="qst-nav-btn-item">18</div>
                     <div class="qst-nav-btn-item">19</div>
@@ -1264,7 +1264,7 @@
                     <div class="qst-nav-btn-item">27</div>
                     <div class="qst-nav-btn-item">28</div>
                     <div class="qst-nav-btn-item">29</div>
-                    <div class="qst-nav-btn-item">30</div>  
+                    <div class="qst-nav-btn-item">30</div>   -->
                 </div>
             </div>
          </div>
@@ -1871,8 +1871,50 @@
 
                             //load first and current question start  
         function initData(dataToUpdate){
+            console.log(dataToUpdate);
 
+            var C_count = 0, Apti_count = 0;
+            for(var i = 0; i < dataToUpdate.length;i++ ){
+                   if(dataToUpdate[i].question_category__c === "c programming"){
+                    C_count++;
+                   }else{
+                    Apti_count++;
+                   }
+            }
 
+            // console.log(C_count);
+            // console.log(Apti_count);
+
+            var parentDiv = document.getElementById("c_program-btn-split"); 
+            var childDivsToRemove = parentDiv.getElementsByClassName("qst-nav-btn-item"); 
+            while (childDivsToRemove.length > 0) {
+                 parentDiv.removeChild(childDivsToRemove[0]);
+            }
+
+             parentDiv = document.getElementById("apti-btn-split"); 
+             childDivsToRemove = parentDiv.getElementsByClassName("qst-nav-btn-item"); 
+            while (childDivsToRemove.length > 0) {
+                 parentDiv.removeChild(childDivsToRemove[0]);
+            }
+
+            var c_div = document.getElementById("c_program-btn-split");
+            for(var i = 1 ; i <= C_count ; i++){
+                var childDiv = document.createElement("div");
+                childDiv.className = "qst-nav-btn-item"; 
+                childDiv.textContent = i;
+                childDiv.onclick = jump_btn_click;
+                c_div.appendChild(childDiv);
+            }
+            var apti_div = document.getElementById("apti-btn-split");
+            for(var i = C_count + 1 ; i <= (C_count + Apti_count) ; i++){
+                var childDiv = document.createElement("div");
+                childDiv.className = "qst-nav-btn-item"; 
+                childDiv.textContent = i;
+                childDiv.onclick = jump_btn_click;
+                apti_div.appendChild(childDiv);
+            }
+
+            
 
 
 
@@ -2119,7 +2161,9 @@
                                                 if(event && result){
                                                     val = result;
                                                     initData(result);
-                                                    hideLoader();
+                                                    setTimeout(()=>{
+                                                        hideLoader();
+                                                    },2000)
                                                     // displaysSuccessMessage("Response Saved Sucessfully!")
                                                 }else{
                                                     displayErrorMessage("Connection Issues. Try To Contact Admin.");
@@ -2391,11 +2435,12 @@
 
 
               var navBtnContainer = document.querySelector('.qst-nav-btn');
-             var navBtns = navBtnContainer.querySelectorAll('.qst-nav-btn-item');
+             var navBtns = navBtnContainer.querySelectorAll('.qst-nav-btn-item'); 
 
-            var qstnButtons = document.querySelectorAll('.qst-nav-btn-item');
-            qstnButtons.forEach(function(button) {
-                button.addEventListener('click', function(event) {  
+
+
+             function jump_btn_click(e){
+                // console.log(e.target.textContent);
                 const errorCustom = document.getElementById("errorCustom");
                 errorCustom.style.display = "none";
                 errorCustom.classList.remove("alert-animation");
@@ -2411,7 +2456,7 @@
                         if(val[i].currentQuestion__c === true){
                             val[i].currentQuestion__c = false;
                              for(var j = 0;j<val.length;j++){
-                                if(val[j].question_number__c === (parseInt(event.currentTarget.textContent))){
+                                if(val[j].question_number__c === (parseInt(e.target.textContent))){
                                     val[j].currentQuestion__c = true;
                                     flag = true;
                                     break;
@@ -2425,9 +2470,50 @@
                          hideLoader();
                      },1250)
 
+             }
 
-                });
-            });
+
+
+
+
+
+
+
+            // var qstnButtons = document.querySelectorAll('.qst-nav-btn-item');
+            // qstnButtons.forEach(function(button) {
+            //     button.addEventListener('click', function(event) {  
+            //     const errorCustom = document.getElementById("errorCustom");
+            //     errorCustom.style.display = "none";
+            //     errorCustom.classList.remove("alert-animation");
+            //     const warningCustom = document.getElementById("warningCustom");
+            //     warningCustom.style.display = "none";
+            //     warningCustom.classList.remove("alert-animation");
+            //     const sucessCustom = document.getElementById("sucessCustom");
+            //     sucessCustom.style.display = "none";
+            //     sucessCustom.classList.remove("alert-animation");
+            //         showLoader(); 
+            //             var flag = false;
+            //         for(var i=0;i<val.length;i++){
+            //             if(val[i].currentQuestion__c === true){
+            //                 val[i].currentQuestion__c = false;
+            //                  for(var j = 0;j<val.length;j++){
+            //                     if(val[j].question_number__c === (parseInt(event.currentTarget.textContent))){
+            //                         val[j].currentQuestion__c = true;
+            //                         flag = true;
+            //                         break;
+            //                     }
+            //                  }
+            //                  if(flag === true) break;
+            //             }
+            //         }
+            //         initData(val);
+            //         setTimeout(()=>{
+            //              hideLoader();
+            //          },1250)
+
+
+            //     });
+            // });
 
              
 

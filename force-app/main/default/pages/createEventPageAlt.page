@@ -1083,12 +1083,13 @@
             var cutoff = document.getElementById('cutoff').value;
             var eventPass = document.getElementById('eventPassword').value;
             var eventPassConfirm = document.getElementById('eventPasswordConfirm').value;
+            var noOfQuestions = document.getElementById('NoOfQuestions').value;
 
             colleges = GetCollegeIDFromCollegeName(collegesSelected);
             panelists = GetPanelistIDFromPanelistName(PanelistsSelected);
             eduration = ConvertDurationToMins(eduration);
 
-            CreateEvent(ename,eventPass,edate,elocation,estartTime,eduration,colleges,cutoff,panelists);
+            CreateEvent(ename,eventPass,edate,elocation,estartTime,eduration,colleges,cutoff,panelists,noOfQuestions);
         }
         
         
@@ -1138,7 +1139,7 @@
             if(eventPassConfirm == '') document.getElementById('eventPasswordConfirm').classList.add('input-error');         
             if(collegesSelected == '') document.getElementById('dropDownHeaderCollege').classList.add('input-error');
             if(PanelistsSelected == '') document.getElementById('dropDownHeaderPanelists').classList.add('input-error');
-            if(NoOfQuestions == '') document.getElementById('NoOfQuestions');
+            if(NoOfQuestions == '') document.getElementById('NoOfQuestions').classList.add('input-error');
             return;
         }
 
@@ -1171,10 +1172,24 @@
             return;
         }
 
+
+
+        if(NoOfQuestions < 30 || NoOfQuestions > 60)
+        {
+
+            showAlertMessage("Please Enter Valid Size for questions.");
+
+            if(NoOfQuestions % 2 != 0)
+            {
+                showAlertMessage("Please Enter a even number for Size for questions.");
+            }
+            return;
+        }
+
         IsPasswordTaken(eventPass);
     }
 
-    function CreateEvent(ename,eventPass,edate,elocation,estartTime,eduration,colleges,cutoff,panelists)
+    function CreateEvent(ename,eventPass,edate,elocation,estartTime,eduration,colleges,cutoff,panelists,noOfQuestions)
     {
         showLoader();
         Visualforce.remoting.Manager.invokeAction(
@@ -1188,6 +1203,7 @@
             colleges,
             cutoff,
             panelists,
+            noOfQuestions,
             SubmitRecordCallBack
             );
     }

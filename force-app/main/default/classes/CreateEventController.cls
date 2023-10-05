@@ -1,7 +1,19 @@
 public class CreateEventController 
 {
     @RemoteAction
-    public static Boolean createEvent(String eventName, String eventPassword,String eventDate, String eventLocation, String eventStartTime, String eventDuration, String colleges,String cutoff, String panelists)
+    public static Boolean createEvent
+    (
+        String eventName, 
+        String eventPassword,
+        String eventDate, 
+        String eventLocation, 
+        String eventStartTime, 
+        String eventDuration, 
+        String colleges,
+        String cutoff, 
+        String panelists,
+        Integer noOfQuestions
+    )
     {
         Boolean flag = false;
         //Create a event Record
@@ -9,7 +21,7 @@ public class CreateEventController
 
         if(currentEventId == 'failed') return false; //couldn't create an event
 
-        flag = DML.getInstance().createEventQuestionTestSet(currentEventId); //creates a test for the event
+        flag = DML.getInstance().createEventQuestionTestSet(currentEventId,noOfQuestions); //creates a test for the event
         
         if(flag == false)  return false;
     
@@ -27,9 +39,9 @@ public class CreateEventController
         return DML.getInstance().isPasswordTaken(password);
     }
 
-    public Boolean createEventQuestionsTestSet(String currentEventID)
+    public Boolean createEventQuestionsTestSet(String currentEventID, Integer noOfQuestions)
     {
-        Boolean result = DML.getInstance().createEventQuestionTestSet(currentEventID);
+        Boolean result = DML.getInstance().createEventQuestionTestSet(currentEventID,noOfQuestions);
         return result;
     }
 
