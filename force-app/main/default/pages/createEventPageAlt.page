@@ -942,6 +942,26 @@
                 }, 600);
         }
 
+        function UpdateQuestionCount()
+        {
+            var aptiEasy = parseInt(document.getElementById('aptiEasy').value);
+            var aptiMed = parseInt(document.getElementById('aptiMed').value);
+            var aptiHard = parseInt(document.getElementById('aptiHard').value);
+            var CEasy = parseInt(document.getElementById('CEasy').value);
+            var CMed = parseInt(document.getElementById('CMed').value);
+            var CHard = parseInt(document.getElementById('CHard').value);
+
+
+            var totalApti = aptiEasy + aptiMed + aptiHard;
+            var totalC = CEasy + CMed + CHard;
+            
+            document.getElementById('totalAptiQuestions').textContent = totalApti;
+            document.getElementById('totalCQuestions').textContent = totalC;
+            document.getElementById('totalQuestions').textContent = totalApti + totalC;
+           
+
+        }
+
        function SetUpDropDownForCollege() {
             isShowingColleges = true;
             isShowingPanelists = false;
@@ -1467,33 +1487,48 @@
 
                                     <div class = "section-item">
                                         <div class = "section-item-text">No. of Aptitude Easy Questions: </div>
-                                        <select id="aptiEasy" class="field"/>
+                                        <select id="aptiEasy" onchange="UpdateQuestionCount()" class="field"/>
                                     </div> 
 
                                     <div class = "section-item">
                                         <div class = "section-item-text">No. of Aptitude Meduim Questions: </div>
-                                        <select id="aptiMed" class="field"/>
+                                        <select id="aptiMed" onchange="UpdateQuestionCount()" class="field"/>
                                     </div> 
                                     
                                     <div class = "section-item">
                                         <div class = "section-item-text">No. of Aptitude Hard Questions: </div>
-                                        <select id="aptiHard" class="field"/>
+                                        <select id="aptiHard"  onchange="UpdateQuestionCount()" class="field"/>
                                     </div> 
 
                                     <div class = "section-item">
                                         <div class = "section-item-text">No. of C Easy Questions: </div>
-                                        <select id="CEasy" class="field"/>
+                                        <select id="CEasy"  onchange="UpdateQuestionCount()" class="field"/>
                                     </div> 
 
                                     <div class = "section-item">
                                         <div class = "section-item-text">No. of C Meduim Questions: </div>
-                                        <select id="CMed" class="field"/>
+                                        <select id="CMed" onchange="UpdateQuestionCount()" class="field"/>
                                     </div> 
 
                                     <div class = "section-item">
                                         <div class = "section-item-text">No. of C Hard Questions: </div>
-                                        <select id="CHard" class="field"/>
-                                    </div> 
+                                        <select id="CHard" onchange="UpdateQuestionCount()" class="field"/>
+                                    </div>
+                                    
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">Total Aptitude Questions Assigned:  </div>
+                                        <div id="totalAptiQuestions">3</div>
+                                    </div>
+                                    
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">Total C Questions Assigned:  </div>
+                                        <div id="totalCQuestions">3</div>
+                                    </div>
+
+                                    <div class = "section-item">
+                                        <div class = "section-item-text">Total Questions Assigned:  </div>
+                                        <div id="totalQuestions">6</div>
+                                    </div>
                                 </div>
                             </div>
 

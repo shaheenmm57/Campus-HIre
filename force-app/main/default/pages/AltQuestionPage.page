@@ -646,7 +646,7 @@
             }
 
             .main-body-line-full{
-               display: none;
+                display: none;
             }
 
             .qst-nav-btn-full{
@@ -1384,24 +1384,34 @@
                     }
 
 
-
+        let isClassAdded = false;
         function toggleButtons() {
             var mainele = document.querySelector('.main-body');
             var scrollBar = document.querySelector('.qst-nav-btn');
-            scrollBar.classList.toggle('qst-nav-btn-new');
+            
             mainele.classList.toggle('main-body-full');
             mainele.classList.toggle('main-body-full-alt');
             mainele.classList.toggle('new-main-body');
-            
             var butonsele = document.querySelector(".qst-nav-btn");
             butonsele.classList.toggle('qst-nav-btn-full');
             // var lineele = document.querySelector(".main-body-line");
             // lineele.classList.toggle('main-body-line-full');
             var toggeIcon = document.querySelector('#toggle-icon-close'); 
-             toggeIcon.classList.toggle('toggle-icon-hide');
+            toggeIcon.classList.toggle('toggle-icon-hide');
             toggeIcon = document.querySelector('#toggle-icon-open'); 
             toggeIcon.classList.toggle('toggle-icon-hide');
+            if (!isClassAdded) {
+                setTimeout(() => {
+                scrollBar.classList.add('qst-nav-btn-new');
+                }, 400);
+                isClassAdded = true;
+            }
+            else{
+                scrollBar.classList.remove('qst-nav-btn-new');
+                isClassAdded = false;
+            }
         }
+        
 
 
 

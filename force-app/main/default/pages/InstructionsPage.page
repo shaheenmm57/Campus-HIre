@@ -652,11 +652,11 @@
                 <div class="main-cnt-item-a">
                     <div  class="main-cnt-item">
                         <div>a.</div>
-                        <div class="main-cnt-item-2">There will be 15 questions from the C Programming topic.</div>
+                        <div class="main-cnt-item-2">There will be <span id="c-count-id">15</span> questions from the C Programming topic.</div>
                     </div>
                     <div class="main-cnt-item">
                         <div>b.</div>
-                        <div class="main-cnt-item-2">There will be 15 questions from the Aptitude topic.</div>
+                        <div class="main-cnt-item-2">There will be <span id="apti-count-id">15</span> questions from the Aptitude topic.</div>
                     </div>
                 </div>
                 <div class="main-cnt-item">
@@ -785,12 +785,10 @@
                                     eventId,
                                     function (result, event) { 
                                             console.log("success");
-                                            hideLoader();
-
-                                              
-                                                 console.log('time from DB  ');
-                                                 console.log(  result);
-                                                 var currentTime = new Date();
+                                            if(result){ 
+                                                // console.log('time from DB  ');
+                                                // console.log(  result);
+                                                var currentTime = new Date();
                                                 var hours = currentTime.getHours();
                                                 var minutes = currentTime.getMinutes();
                                                 var seconds = currentTime.getSeconds();
@@ -800,8 +798,8 @@
                                                                 minutes.toString().padStart(2, '0') + ':' +
                                                                 seconds.toString().padStart(2, '0');
 
-                                                console.log('time from ui ');
-                                                console.log( currentTimeString );
+                                                // console.log('time from ui ');
+                                                // console.log( currentTimeString );
 
 
 
@@ -812,17 +810,11 @@
                                                 }else{
                                                     displayErrorMessage('Test start time is ' +result+ ', please wait. ');
                                                 }
-                                                 
-                                                
-                                                if (event.status) {
-                                                    console.log(event.status);
-                                                }
-                                                else if (result.type === 'exception') {
-                                                    alert("Exception caught");
-                                                }
-                                                else {
-                                                    alert("Exception caught");
-                                                }
+                                                hideLoader();  
+                                            }else{
+                                                displayErrorMessage("Unable to fetch data, please contact admin");
+                                            }
+                                      
                                         }
                                 );
             }
@@ -847,36 +839,55 @@
                                     '{!$RemoteAction.InstructionsPageController.GetCurrentTimer}',
                                     studentId, eventId,
                                     function (result, event) { 
-                                        hideLoader();
-                                        console.log(result);
-                                            console.log("success");     
-                                            let timerInterval;
-                                            let totalSeconds = 0;  
-                                            totalSeconds = result; 
 
-                                                const hours = Math.floor(totalSeconds / 3600);
-                                                const minutes = Math.floor((totalSeconds % 3600) / 60);
-                                                const seconds = totalSeconds % 60;
+                                        if(result){
+                                            // console.log(result);
+                                                // console.log("success");     
+                                                let timerInterval;
+                                                let totalSeconds = 0;  
+                                                totalSeconds = result; 
 
-                                                const formattedHours = String(hours).padStart(2, '0');
-                                                const formattedMinutes = String(minutes).padStart(2, '0');
-                                                const formattedSeconds = String(seconds).padStart(2, '0');
+                                                    const hours = Math.floor(totalSeconds / 3600);
+                                                    const minutes = Math.floor((totalSeconds % 3600) / 60);
+                                                    const seconds = totalSeconds % 60;
 
-                                                document.getElementById('timer').textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
-                                                document.querySelector('.test-start-time-inst').textContent = `${formattedHours} hours and ${formattedMinutes} minutes`;
+                                                    const formattedHours = String(hours).padStart(2, '0');
+                                                    const formattedMinutes = String(minutes).padStart(2, '0');
+                                                    const formattedSeconds = String(seconds).padStart(2, '0');
+
+                                                    document.getElementById('timer').textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+                                                    document.querySelector('.test-start-time-inst').textContent = `${formattedHours} hours and ${formattedMinutes} minutes`;
 
 
-                                                if (event.status) {
-                                                    console.log('event status  ' + (event.status));
-                                                }
-                                                else if (result.type === 'exception') {
-                                                    alert("Exception caught");
-                                                }
-                                                else {
-                                                    alert("Exception caught");
-                                                }
+                                                    hideLoader();
+                                         }else{
+                                            displayErrorMessage("Unable to fetch data, please contact admin");
+                                         }
                                         }
                                 );
+
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.InstructionsPageController.GetQustionCount}',
+                    studentId, eventId,
+                    function (result, event) { 
+                           if(result){
+                            //  console.log(result);
+                             var C_count = 0, Apti_count = 0;
+                                for(var i = 0; i < result.length;i++ ){
+                                    if(result[i].question_category__c === "c programming"){
+                                        C_count++;
+                                    }else{
+                                        Apti_count++;
+                                    }
+                                }
+                            document.querySelector("#apti-count-id").textContent = Apti_count;
+                            document.querySelector("#c-count-id").textContent = C_count;
+                            hideLoader();
+                           }else{
+                            displayErrorMessage("Unable to fetch data, please contact admin");
+                           }
+                        }
+                );
 
 
          

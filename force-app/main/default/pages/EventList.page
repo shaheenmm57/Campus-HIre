@@ -295,8 +295,8 @@ function exportWithFilename() {
                 }
             }
             else{
-                studentcutoff = parseInt(tr[i].getElementsByTagName("td")[1].textContent);
-                studentcpcutoff = parseInt(tr[i].getElementsByTagName("td")[2].textContent);
+                studentcutoff = parseInt(tr[i].getElementsByTagName("td")[4].textContent);
+                studentcpcutoff = parseInt(tr[i].getElementsByTagName("td")[5].textContent);
 
                 if (!isNaN(cutoffinput) ||  !isNaN(cpinput) ){
 
