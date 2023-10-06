@@ -657,11 +657,10 @@
                     grid-row-gap: 5px;
                 }
                 .card-detail-row{
-                    /* display: flex;
-                    flex-direction: column; */
+                    display: flex;
+                    flex-direction: column;
                     grid-row: auto;
                     grid-column: auto;
-                    padding: 5px;
                 }
                 .card-title-container{
                     margin-bottom: 2vh;
@@ -677,6 +676,27 @@
                 }
                 .bold{
                     font-weight: bold;
+                }
+                .overflow-text .full-text {
+                    display: none;
+                }
+
+                .overflow-text .read-more {
+                    color: blue;
+                    cursor: pointer;
+                }
+
+                .overflow-text.expanded .full-text {
+                    display: block;
+                }
+
+                .overflow-text.expanded .read-more {
+                    display: none;
+                }
+
+                .overflow-text.expanded .read-less {
+                    color: blue;
+                    cursor: pointer;
                 }
 
 
@@ -810,35 +830,39 @@
                         </div>
                         <div class="card-details second-round-adjusted">
                             <div class="card-group" style="grid-row:1">
-                                <div class="card-detail-row" style="grid-row:1; grid-column:1">
+                                <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3">
                                     <span class="card-detail-heading">Professional/Technical Knowledge</span>
                                 </div>
-                                <div class="card-detail-row" style="grid-row:1; grid-column:1">
+                                <div class="card-detail-row" style="grid-row:2; grid-column:1">
                                     <span class="card-detail-value">Excellent</span>
                                 </div>
-                                <div class="card-detail-row" style="grid-row:1; grid-column:2 / span 3">
-                                    <span class="card-detail-value">Had Very Good Technical Knowledge</span>
+                                <div class="card-detail-row overflow-text" style="grid-row:2; grid-column:2 / span 3">
+                                    <span class="card-detail-value">John is an outstanding student with a remarkable aptitude for programming. <span class="read-more">Read More</span></span>
+                                    <span class="full-text">
+                                        John is an outstanding student with a remarkable aptitude for programming. His technical skills in coding are truly impressive. Throughout the course, John consistently demonstrated a deep understanding of programming concepts and languages. He has a natural ability to solve complex problems efficiently and elegantly, which sets him apart from his peers.
+                                        <span class="read-less">Read Less</span>
+                                    </span>
                                 </div>
                             </div>
                             <div class="card-group" style="grid-row:2">
-                                <div class="card-detail-row" style="grid-row:1; grid-column:1">
+                                <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3">
                                     <span class="card-detail-heading">Communication Skills</span>
                                 </div>
-                                <div class="card-detail-row" style="grid-row:1; grid-column:1">
+                                <div class="card-detail-row" style="grid-row:2; grid-column:1">
                                     <span class="card-detail-value">Excellent</span>
                                 </div>
-                                <div class="card-detail-row" style="grid-row:1; grid-column:2 / span 3">
+                                <div class="card-detail-row" style="grid-row:2; grid-column:2 / span 3">
                                     <span class="card-detail-value">Had Very Good Technical Knowledge</span>
                                 </div>
                             </div>
                             <div class="card-group" style="grid-row:3">
-                                <div class="card-detail-row" style="grid-row:1; grid-column:1">
+                                <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3">
                                     <span class="card-detail-heading">Attitude/Promptness in Response</span>
                                 </div>
-                                <div class="card-detail-row" style="grid-row:1; grid-column:1">
+                                <div class="card-detail-row" style="grid-row:2; grid-column:1">
                                     <span class="card-detail-value">Excellent</span>
                                 </div>
-                                <div class="card-detail-row" style="grid-row:1; grid-column:2 / span 3">
+                                <div class="card-detail-row" style="grid-row:2; grid-column:2 / span 3">
                                     <span class="card-detail-value">Had Very Good Technical Knowledge</span>
                                 </div>
                             </div>
@@ -936,6 +960,19 @@
         document.addEventListener("DOMContentLoaded", () => {
             invokeRemoteActionWithParameters()
         });
+
+        document.querySelectorAll('.read-more').forEach(function (element) {
+            element.addEventListener('click', function () {
+                this.closest('.overflow-text').classList.add('expanded');
+            });
+        });
+
+        document.querySelectorAll('.read-less').forEach(function (element) {
+            element.addEventListener('click', function () {
+                this.closest('.overflow-text').classList.remove('expanded');
+            });
+        });
+
 
         function getURLParameters() {
             var urlParams = new URLSearchParams(window.location.search);

@@ -4468,10 +4468,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CreateEventControllerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <enabled>false</enabled>
         <apexClass>DML</apexClass>
     </classAccesses>
@@ -4492,10 +4488,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>InsertDummyQeustion</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>InsertQuestionSetsctrl</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -4513,10 +4505,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>PowerBiEmbedManager</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>QuestionsPageCtrl</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -4553,10 +4541,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>Utility</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>remoteTestControll</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>

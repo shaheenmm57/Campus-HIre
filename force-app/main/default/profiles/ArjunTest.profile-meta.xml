@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <custom>true</custom>
     <fieldPermissions>
@@ -5651,10 +5651,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CreateEventControllerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <enabled>false</enabled>
         <apexClass>DML</apexClass>
     </classAccesses>
@@ -5679,10 +5675,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>InsertDummyQeustion</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>InsertQuestionSetsctrl</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -5704,10 +5696,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>PowerBiEmbedManager</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>QuestionsPageCtrl</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
