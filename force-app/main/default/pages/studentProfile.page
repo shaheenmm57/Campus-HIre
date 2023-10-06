@@ -1011,8 +1011,18 @@
     <script>
     
         document.addEventListener("DOMContentLoaded", () => {
+            showLoader();
             invokeRemoteActionWithParameters()
+            hideLoader();
         });
+
+        function showLoader() {
+            document.querySelector(".loader").classList.remove("hidden");
+        }
+
+        function hideLoader() {
+            document.querySelector(".loader").classList.add("hidden");
+        }
 
         function getURLParameters() {
             var urlParams = new URLSearchParams(window.location.search);
@@ -1022,6 +1032,7 @@
         }
         
         function invokeRemoteActionWithParameters() {
+            
             var params = getURLParameters();
             var studentId = params.studentId;
             var eventId = params.eventId;
@@ -1043,6 +1054,7 @@
             );
         }
         function populateStudentProfile(result) {
+            showLoader();
             document.getElementById('profileName').textContent = result.Name;
             document.getElementById('profileUSN').textContent = result.usn__c;
             document.getElementById('profileEmail').textContent = result.email__c;
@@ -1070,6 +1082,7 @@
             document.getElementById('negStudentMarksScored').textContent = result.NegStudentMarksScored;
             document.getElementById('negStudentAptitudeMarks').textContent = result.NegStudentAptitudeMarks;
             document.getElementById('negStudentCProgramMarks').textContent = result.NegStudentCProgramMarks;
+            hideLoader();
         }
 
     </script>
