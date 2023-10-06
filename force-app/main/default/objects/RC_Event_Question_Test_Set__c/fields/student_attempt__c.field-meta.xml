@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>option_3__c</fullName>
+    <fullName>student_attempt__c</fullName>
     <externalId>false</externalId>
-    <label>option 3</label>
+    <label>Student Attempt</label>
     <length>255</length>
     <required>false</required>
     <trackTrending>false</trackTrending>

@@ -135,11 +135,11 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>CollegeRegistration</apexPage>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>CreateEventPage</apexPage>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>EventList</apexPage>
@@ -187,7 +187,7 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>QuestionsPage</apexPage>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>SiteLogin</apexPage>
@@ -215,7 +215,7 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>TestingFullScreen</apexPage>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>Unauthorized</apexPage>
@@ -235,7 +235,7 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>studentLogin</apexPage>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>studentLoginPageAlt</apexPage>
@@ -2310,7 +2310,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>RC_Event_Question_Test_Set__c.IsAttempted__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RC_Event_Question_Test_Set__c.currentQuestion__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>RC_Event_Question_Test_Set__c.hasProgram__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RC_Event_Question_Test_Set__c.isStudentAnswerdCorrect__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2356,6 +2371,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>RC_Event_Question_Test_Set__c.question_difficulty__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RC_Event_Question_Test_Set__c.question_number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RC_Event_Question_Test_Set__c.student_attempt__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

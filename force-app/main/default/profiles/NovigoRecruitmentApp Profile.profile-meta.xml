@@ -4585,11 +4585,11 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>CollegeRegistration</apexPage>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>CreateEventPage</apexPage>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>EventList</apexPage>
@@ -4637,7 +4637,7 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>QuestionsPage</apexPage>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>QuestionsPageAlt</apexPage>
@@ -4669,7 +4669,7 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>TestingFullScreen</apexPage>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>Unauthorized</apexPage>
@@ -4693,7 +4693,7 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>remoteTest</apexPage>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>studentList</apexPage>
@@ -4701,7 +4701,7 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>studentLogin</apexPage>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
         <apexPage>studentLoginPageAlt</apexPage>

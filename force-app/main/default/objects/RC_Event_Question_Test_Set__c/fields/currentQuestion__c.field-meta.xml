@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>option_3__c</fullName>
+    <fullName>currentQuestion__c</fullName>
+    <defaultValue>false</defaultValue>
     <externalId>false</externalId>
-    <label>option 3</label>
-    <length>255</length>
-    <required>false</required>
+    <label>currentQuestion</label>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Checkbox</type>
 </CustomField>
