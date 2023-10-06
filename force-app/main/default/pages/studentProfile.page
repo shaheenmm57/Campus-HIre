@@ -936,7 +936,12 @@
                         </div>
                         <div class="card-details marks-card-adjusted">
                             <div class="card-detail-row" style="gird-row:1; grid-column:1">
-                                <div class="wide-card-group" style="grid-row:1; grid-column:1">
+                                <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 3">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
+                                        <span class="card-detail-value bold">Total Marks Overview</span>
+                                    </div>
+                                </div>
+                                <div class="wide-card-group" style="grid-row:2; grid-column:1">
                                     <div class="card-detail-row" style="grid-row:1; grid-column:1" >
                                         <span class="card-detail-heading">Total Marks</span>
                                         <span id = "studentMarksScored" class="card-detail-value bold">20</span>
@@ -946,14 +951,14 @@
                                         <span id = "posStudentMarksScored" class="card-detail-value">20</span>
                                     </div>
                                 </div>
-                                <div class="wide-card-group" style="grid-row:2; grid-column:1">
+                                <div class="wide-card-group" style="grid-row:4; grid-column:1">
                                     <div class="card-detail-row" style="grid-row:1; grid-column:1"> 
                                         <span class="card-detail-heading">Total Negative Marks</span>
                                         <span id = "negStudentMarksScored" class="card-detail-value">-10</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-detail-row" style="gird-row:2; grid-column:1">
+                            <div class="card-detail-row" style="gird-row:1; grid-column:2">
                                 <div class="wide-card-group" style="grid-row:1; grid-column:1">
                                     <div class="card-detail-row" style="grid-row:2; grid-column:1"> 
                                         <span class="card-detail-heading">Total Aptitude Marks</span>
@@ -969,7 +974,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-detail-row" style="gird-row:3; grid-column:1">
+                            <div class="card-detail-row" style="gird-row:1; grid-column:3">
                                 <div class="wide-card-group" style="grid-row:1; grid-column:1">
                                     <div class="card-detail-row" style="grid-row:1; grid-column:1" >
                                         <span class="card-detail-heading">Total Marks</span>
