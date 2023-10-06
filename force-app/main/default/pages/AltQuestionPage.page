@@ -16,6 +16,7 @@
 
             --green-color: #539165;
             --blue-color-select: #534798;
+            --blue-color-hover: #200e89;
             --yellow-color: #ffb01d;
             --green-color-msg: #008000;
 
@@ -1009,7 +1010,7 @@
             }
 
             ::-webkit-scrollbar-thumb:hover {
-                background-color: var(--blue-color-hover);
+                    background-color: var(--blue-color-hover);
             }
 
 
