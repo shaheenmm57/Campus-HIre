@@ -786,8 +786,8 @@
                                     function (result, event) { 
                                             console.log("success");
                                             if(result){ 
-                                                // console.log('time from DB  ');
-                                                // console.log(  result);
+                                                console.log('time from DB  ');
+                                                console.log(  result);
                                                 var currentTime = new Date();
                                                 var hours = currentTime.getHours();
                                                 var minutes = currentTime.getMinutes();
@@ -798,8 +798,8 @@
                                                                 minutes.toString().padStart(2, '0') + ':' +
                                                                 seconds.toString().padStart(2, '0');
 
-                                                // console.log('time from ui ');
-                                                // console.log( currentTimeString );
+                                                console.log('time from ui ');
+                                                console.log( currentTimeString );
 
 
 
@@ -812,6 +812,7 @@
                                                 }
                                                 hideLoader();  
                                             }else{
+                                                hideLoader();
                                                 displayErrorMessage("Unable to fetch data, please contact admin");
                                             }
                                       
@@ -861,6 +862,7 @@
 
                                                     hideLoader();
                                          }else{
+                                            hideLoader();
                                             displayErrorMessage("Unable to fetch data, please contact admin");
                                          }
                                         }
@@ -884,6 +886,7 @@
                             document.querySelector("#c-count-id").textContent = C_count;
                             hideLoader();
                            }else{
+                            hideLoader();
                             displayErrorMessage("Unable to fetch data, please contact admin");
                            }
                         }

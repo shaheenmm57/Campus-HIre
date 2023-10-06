@@ -190,4 +190,35 @@ System.debug(todaysDateStr);
        System.debug('eventRes ' +eventRes);
        System.debug('studentRes '+studentRes);
     }
+    
+    public static void JsonTest()
+    {
+        List<RC_question_set__c> questions = [SELECT Id, Name, hasProgram__c, question_correct_answer__c, question_description__c, question_title__c, option_1__c, option_2__c, option_3__c, option_4__c, question_category__c, question_difficulty__c FROM RC_question_set__c];
+        Map<string,Map<string,string>> questionObj = new Map<string,Map<string,string>>();
+        
+        for(Integer i = 0; i < questions.size(); i++)
+        {
+            Map<string,string> obj = new Map<string,string>();
+            obj.put('Id', questions[i].Id);
+            obj.put('Name', questions[i].Name);
+            obj.put('hasProgram__c', String.valueOf(questions[i].hasProgram__c));
+            obj.put('question_correct_answer__c', questions[i].question_correct_answer__c);
+            obj.put('question_description__c', questions[i].question_description__c);
+            obj.put('question_title__c', questions[i].question_title__c);
+            obj.put('option_1__c', questions[i].option_1__c);
+            obj.put('option_2__c', questions[i].option_2__c);
+            obj.put('option_3__c', questions[i].option_3__c);
+            obj.put('option_4__c', questions[i].option_4__c);
+            obj.put('question_category__c', questions[i].question_category__c);
+            obj.put('question_difficulty__c', questions[i].question_difficulty__c);
+
+            questionObj.put(String.valueOf(i), obj);
+        }
+
+	   System.debug(questionObj);        
+       String js = (String)JSON.serialize(questionObj);
+       System.debug(JSON.Serialize(js));
+        
+       
+    }
 }
