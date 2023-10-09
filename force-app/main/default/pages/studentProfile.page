@@ -638,7 +638,7 @@
                     grid-template-columns: repeat(3, 1fr);
                     grid-template-rows: repeat(4, 1fr);
                     grid-column-gap: 10px;
-                    grid-row-gap: 20px;
+                    grid-row-gap: 2px;
                 }
                 .second-round-adjusted{
                     grid-template-columns: repeat(3, 1fr);
@@ -901,37 +901,6 @@
                 <div class="wide-card-section">
                     <div class="card-contents">
                         <div class="card-title-container">
-                            <span class="card-title">Marks Overview</span>
-                        </div>
-                        <div class="card-details marks-card-adjusted">
-                            <div class="card-detail-row" style="gird-row:1; grid-column:1">
-                                <span class="card-detail-heading">School Acaedmic Details</span>
-                                <span class="card-detail-heading bold">GOVERNMENT SCHOOL</span>
-                                <span class="card-detail-value">75%</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row:1; grid-column:2"> 
-                                <span class="card-detail-heading">PU Acaedmic Details</span>
-                                <span class="card-detail-heading bold">MAHESH PU COLLEGE</span>
-                                <span class="card-detail-value">74%</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row:1; grid-column:3"> 
-                                <span class="card-detail-heading">Diploma Acaedmic Details</span>
-                                <span class="card-detail-heading bold">MAHESH PU COLLEGE</span>
-                                <span class="card-detail-value">60%</span>
-                            </div>
-                            <div class="card-detail-row" style="grid-row:1; grid-column:4"> 
-                                <span class="card-detail-heading">Degree Academic Details</span>
-                                <span class="card-detail-heading bold">NITTE YENNAPOAY</span>
-                                <span class="card-detail-value">CGPA: 7.5</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="marks-banner">
-                <div class="wide-card-section">
-                    <div class="card-contents">
-                        <div class="card-title-container">
                             <span class="card-title">1<sup>st</sup> Round Report</span>
                         </div>
                         <div class="card-details marks-card-adjusted">
@@ -982,6 +951,11 @@
                                 </div>
                             </div>
                             <div class="card-detail-row" style="gird-row:1; grid-column:3">
+                                <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 3">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
+                                        <span class="card-detail-value bold">C Programming Marks</span>
+                                    </div>
+                                </div>
                                 <div class="wide-card-group" style="grid-row:1; grid-column:1">
                                     <div class="card-detail-row" style="grid-row:1; grid-column:1" >
                                         <span class="card-detail-heading">Total Marks</span>
@@ -998,6 +972,92 @@
                                         <span id = "negStudentMarksScored" class="card-detail-value">-10</span>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="card-detail-row" style="gird-row:1; grid-column:4">
+                                <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 3">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
+                                        <span class="card-detail-value bold">Selection Status</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">On-Hold</span>
+                                    </div>
+                                    <div class="card-detail-row" style="grid-row:2; grid-column:1 / span 3"> 
+                                        <span class="card-detail-value bold">Is Refferd</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">Yes</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-detail-row" style="gird-row:2; grid-column:1 / span 4">
+                                <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 3">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
+                                        <span class="card-detail-value bold">Remarks</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">HELLO HELLO HELLO EHHD</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marks-banner">
+                <div class="wide-card-section">
+                    <div class="card-contents">
+                        <div class="card-title-container">
+                            <span class="card-title">2<sup>nd</sup> Round Report</span>
+                        </div>
+                        <div class="card-details marks-card-adjusted">
+                            <div class="card-detail-row" style="gird-row:1; grid-column:1">
+                                <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 3">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1"> 
+                                        <span class="card-detail-value bold">Professional/Technical Knowledge</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">Excellent</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-detail-row" style="gird-row:1; grid-column:2 / span 4">
+                                <div class="wide-card-group" style="grid-row:1; grid-column:2 / span 4">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:2 / span 4"> 
+                                        <span class="card-detail-value bold">Comments</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">He had a very good technical skills I believe in him</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="card-detail-row" style="gird-row:2; grid-column:1 / span 4">
+                                <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 3">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
+                                        <span class="card-detail-value bold">Remarks</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">HELLO HELLO HELLO EHHD</span>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marks-banner">
+                <div class="wide-card-section">
+                    <div class="card-contents">
+                        <div class="card-title-container">
+                            <span class="card-title">Marks Overview</span>
+                        </div>
+                        <div class="card-details marks-card-adjusted">
+                            <div class="card-detail-row" style="gird-row:1; grid-column:1">
+                                <span class="card-detail-heading">School Acaedmic Details</span>
+                                <span class="card-detail-heading bold">GOVERNMENT SCHOOL</span>
+                                <span class="card-detail-value">75%</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row:1; grid-column:2"> 
+                                <span class="card-detail-heading">PU Acaedmic Details</span>
+                                <span class="card-detail-heading bold">MAHESH PU COLLEGE</span>
+                                <span class="card-detail-value">74%</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row:1; grid-column:3"> 
+                                <span class="card-detail-heading">Diploma Acaedmic Details</span>
+                                <span class="card-detail-heading bold">MAHESH PU COLLEGE</span>
+                                <span class="card-detail-value">60%</span>
+                            </div>
+                            <div class="card-detail-row" style="grid-row:1; grid-column:4"> 
+                                <span class="card-detail-heading">Degree Academic Details</span>
+                                <span class="card-detail-heading bold">NITTE YENNAPOAY</span>
+                                <span class="card-detail-value">CGPA: 7.5</span>
                             </div>
                         </div>
                     </div>
