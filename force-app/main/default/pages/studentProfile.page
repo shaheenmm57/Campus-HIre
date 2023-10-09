@@ -1006,17 +1006,61 @@
                         <div class="card-details marks-card-adjusted">
                             <div class="card-detail-row" style="gird-row:1; grid-column:1">
                                 <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 3">
-                                    <div class="card-detail-row" style="grid-row:1; grid-column:1"> 
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
                                         <span class="card-detail-value bold">Professional/Technical Knowledge</span>
                                         <span id = "studentMarksScored" class="card-detail-value">Excellent</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-detail-row" style="gird-row:1; grid-column:2 / span 4">
-                                <div class="wide-card-group" style="grid-row:1; grid-column:2 / span 4">
-                                    <div class="card-detail-row" style="grid-row:1; grid-column:2 / span 4"> 
+                                <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 3 ">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
                                         <span class="card-detail-value bold">Comments</span>
-                                        <span id = "studentMarksScored" class="card-detail-value">He had a very good technical skills I believe in him</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">One of John's most commendable qualities is his ability to quickly grasp new programming languages and frameworks. He's not just proficient in one language; he's versatile and can adapt to various technologies with ease. Whether it's debugging intricate issues or designing robust software solutions, John consistently delivers exceptional results.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-detail-row" style="gird-row:2; grid-column:1">
+                                <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 3">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
+                                        <span class="card-detail-value bold">Communication Skills</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">Excellent</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-detail-row" style="gird-row:2; grid-column:2 / span 4">
+                                <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 3 ">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
+                                        <span class="card-detail-value bold">Comments</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">John is an outstanding student with a remarkable aptitude for programming. His technical skills in coding are truly impressive. Throughout the course, John consistently demonstrated a deep understanding of programming concepts and languages. He has a natural ability to solve complex problems efficiently and elegantly, which sets him apart from his peers.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-detail-row" style="gird-row:3; grid-column:1">
+                                <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 3">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
+                                        <span class="card-detail-value bold">Attitude/Promptness in Response</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">Excellent</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-detail-row" style="gird-row:3; grid-column:2 / span 4">
+                                <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 3 ">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
+                                        <span class="card-detail-value bold">Comments</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">In addition to his technical prowess, John is an excellent team player. He readily shares his knowledge with classmates, contributing to a positive learning environment. His enthusiasm for programming is contagious, inspiring others to strive for excellence.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-detail-row" style="gird-row:4; grid-column:1 / span 4">
+                                <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 2">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
+                                        <span class="card-detail-value bold">Selection Status</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">On-Hold</span>
+                                    </div>
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:3 / span 4"> 
+                                        <span class="card-detail-value bold">Interviewd By</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">Ashish Kishore Kumar</span>
                                     </div>
                                 </div>
                             </div>
@@ -1028,6 +1072,37 @@
                                     </div>
                                 </div>
                             </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marks-banner">
+                <div class="wide-card-section">
+                    <div class="card-contents">
+                        <div class="card-title-container">
+                            <span class="card-title">3<sup>rd</sup> Round Report</span>
+                        </div>
+                        <div class="card-details marks-card-adjusted">
+                            <div class="card-detail-row" style="gird-row:1; grid-column:1 / span 4">
+                                <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 3 ">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
+                                        <span class="card-detail-value bold">Feedback</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">One of John's most commendable qualities is his ability to quickly grasp new programming languages and frameworks. He's not just proficient in one language; he's versatile and can adapt to various technologies with ease. Whether it's debugging intricate issues or designing robust software solutions, John consistently delivers exceptional results.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-detail-row" style="gird-row:4; grid-column:1 / span 4">
+                                <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 2">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
+                                        <span class="card-detail-value bold">Selection Status</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">On-Hold</span>
+                                    </div>
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:3 / span 4"> 
+                                        <span class="card-detail-value bold">Interviewd By</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">Ashish Kishore Kumar</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
