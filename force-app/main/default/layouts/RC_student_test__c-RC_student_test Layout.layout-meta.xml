@@ -35,6 +35,10 @@
                 <behavior>Edit</behavior>
                 <field>code_warnings__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>isApproved__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

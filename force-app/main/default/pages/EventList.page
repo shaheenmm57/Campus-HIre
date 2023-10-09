@@ -88,6 +88,18 @@
                 th {
                     background-color: #f2f2f2;
                 }
+
+                #approved-column {
+                    background-color: var(--red-color);
+                }
+
+                #approved-btn{
+                    background-color: var(--blue-color);
+                }
+
+                #approved-btn:hover{
+                    background-color: var(--text-color);
+                }
                 
                 .eventText:hover{
                     color: var(--red-color);
@@ -122,7 +134,7 @@
     padding: 20px;
     border: 1px solid #888;
     border-radius: 5px;
-    width: 300px;
+    width: 700px;
     text-align: center;
 }
 
@@ -144,7 +156,7 @@
 
     window.onload = showTable('random',2);
 
-    var input, filter, table, tr, td, i, txtValue, cpinput, cutoffinput, studentcutoff, studentcpcutoff;
+    var input, filter, table, tr, td, i, txtValue, cpinput, cutoffinput, studentcutoff, studentcpcutoff, clickedevent;
 
     var activeTable = 'Event';
     var cpsearch = document.createElement("input");
@@ -168,6 +180,13 @@
     backButton.id = "go-back-button";
     backButton.innerText = "Go Back";
     backButton.onclick = function() {showTable('yes',2);};
+
+    var autoSubmitButton = document.createElement("button");
+    autoSubmitButton.id = "auto-submit-btn";
+    autoSubmitButton.innerText = "Auto Submit";
+    autoSubmitButton.onclick = function() {compileTest(clickedevent);};
+
+
 
 
     function openFilenameModal() {
@@ -210,9 +229,6 @@ function exportWithFilename() {
     document.head.appendChild(script);
 
 
-
-
-
     function exportTableToExcel(tableId, filename) {
         var table = document.getElementById(tableId);
 
@@ -243,8 +259,24 @@ function exportWithFilename() {
                 for (var j = 0; j < cells.length; j++) {
                     var newCell = newRow.insertCell(j);
                     newCell.innerHTML = cells[j].innerHTML; // Copy cell content
+
+
+            // Get cell background color style for the "Approved" column (modify the index as needed)
+            if (j === cells.length - 1) {
+                var cellBackgroundColor = getComputedStyle(cells[j]).backgroundColor;
+                if (cellBackgroundColor !== "transparent") {
+                    // Set a checkmark symbol (✓) if the background color is green (selected)
+                    newCell.textContent = cellBackgroundColor === "rgb(0, 128, 0)" ? "✓" : "";
                 }
+
+                //                 // Check if the last cell contains a button element and exclude its label
+                //                 if (cells[j].querySelector("button")) {
+                //     newCell.textContent = "";
+                // }
             }
+
+            }
+        }
 
             // Export the filtered data to Excel using the new filtered table
             var wb = XLSX.utils.table_to_book(filteredTable, { sheet: "Sheet1" });
@@ -257,15 +289,38 @@ function exportWithFilename() {
 
 
 
-
-
-
-
     function routeToStudentPage(eventId,studentId) {
                 var targetPageUrl = '/apex/studentProfile?eventId=' + eventId  + '&studentId=' + studentId;
                 window.location.href = targetPageUrl;
                 
             }
+
+    function changeApproval(testId,eventID){
+        Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.EventList.changeApproval}',
+                testId,
+                function(result,event){
+                    if(event.status == 1){
+                        showTable(eventID,1);
+                    }
+
+                });
+    }
+
+
+        function EnableApprove(checkapprove){
+            var approw
+            for (let i = 0; i < checkapprove.length; i++){
+            approw = document.getElementById("approved-column-"+i.toString());
+            if(checkapprove[i].approve== true){
+                approw.style.backgroundColor = "green";
+            }
+            else{
+                approw.style.backgroundColor = "red";
+            }
+        }
+        
+        }    
 
 
         function filterTable(viewTable) {
@@ -284,9 +339,10 @@ function exportWithFilename() {
 
         for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[0]; // Change the index to target the desired column (0 for the first column)
-
+        
         if (td) {
             txtValue = td.textContent || td.innerText;
+            ta = tr[i].getElementsByTagName("td")[10];
             if(viewTable == 'Event'){
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 tr[i].style.display = "";
@@ -310,7 +366,7 @@ function exportWithFilename() {
                     }
                     
                     else{
-                        if (txtValue.toUpperCase().indexOf(filter) > -1 && ((!isNaN(cutoffinput) && studentcutoff >= cutoffinput) || (!isNaN(cpinput) && studentcpcutoff >= cpinput) )) {
+                        if (txtValue.toUpperCase().indexOf(filter) > -1 && ((!isNaN(cutoffinput) && studentcutoff >= cutoffinput) || (!isNaN(cpinput) && studentcpcutoff >= cpinput)||(ta.style.backgroundColor=="green")) ){
                                 tr[i].style.display = "";
                         } else{
                             tr[i].style.display = "none";
@@ -347,12 +403,14 @@ function exportWithFilename() {
                         // Handle the result and re-render the table
                         var tableHtml = '';
                         if (check == 1){
+                            clickedevent = eventId;
                             document.getElementById("searchbar").appendChild(cutoffsearch);
                             document.getElementById("searchbar").appendChild(cpsearch);
                             document.getElementById("searchbar").appendChild(printButton);
                             document.getElementById("searchbar").appendChild(backButton);
+                            document.getElementById("searchbar").appendChild(autoSubmitButton)
                             tableHtml += '<table id ="student-list">';
-                            tableHtml += '<tr><th>Student Name</th> <th>Phone</th><th>Email</th><th>USN</th><th>Marks Scored</th><th>C Programming Marks</th><th>Aptitude Marks</th><th>Negative Marks</th> <th>Negative C Programming Marks</th> <th>Negative Aptitude Marks</th></tr>';
+                            tableHtml += '<tr><th>Student Name</th> <th>Phone</th><th>Email</th><th>USN</th><th>Marks Scored</th><th>C Programming Marks</th><th>Aptitude Marks</th><th>Negative Marks</th> <th>Negative C Programming Marks</th><th>Negative Aptitude Marks</th> <th>Approved</th></tr>';
                             for (var i = 0; i < result.studentInfoList.length; i++) {
                                 tableHtml += '<tr>';
                                 tableHtml += '<td><a href="javascript:void(0);" onclick = "routeToStudentPage(\'' + eventId + '\' , \'' + result.studentInfoList[i].Id + '\')">' + result.studentInfoList[i].studentData.name + '</td>';
@@ -365,11 +423,21 @@ function exportWithFilename() {
                                 tableHtml += '<td>' + result.studentInfoList[i].negtotalMarks + '</td>';
                                 tableHtml += '<td>' + result.studentInfoList[i].negcpMarks + '</td>';
                                 tableHtml += '<td>' + result.studentInfoList[i].negaptiMarks + '</td>';
+                                tableHtml += '<td id="approved-column-'+i+'"><button id = "approved-btn" onclick=changeApproval(\''+result.studentInfoList[i].testId+'\',\''+eventId+'\')>Approve</button></td>';
                                 tableHtml += '</tr>';
-
+                            
                             }
                             tableHtml += '</table>';
                             activeTable = 'Student';
+
+                            console.log(result.studentInfoList);
+                            console.log(result.student_test_details);
+                            // Replace the existing table with the updated table
+                        document.getElementById('displayTable').innerHTML = tableHtml;
+
+                            
+                            EnableApprove(result.studentInfoList);
+                            
 
                             setTimeout(() => {
                                 document.getElementById("cpsearch").addEventListener("keyup", function(event){
@@ -381,7 +449,7 @@ function exportWithFilename() {
                             });
 
 
-                        }, 2000);
+                        }, 1000);
 
                             
 
@@ -391,11 +459,13 @@ function exportWithFilename() {
                             var checkcutoffsearch = document.getElementById("cutoffsearch");
                             var checkprintbutton = document.getElementById("print-button");
                             var checkbackbutton = document.getElementById("go-back-button");
+                            var checkautoSubmitButton = document.getElementById("auto-submit-btn");
                             if (checkcpsearch && checkcutoffsearch){
                                 checkcpsearch.parentNode.removeChild(checkcpsearch);
                                 checkcutoffsearch.parentNode.removeChild(checkcutoffsearch);
                                 checkprintbutton.parentNode.removeChild(checkprintbutton);
                                 checkbackbutton.parentNode.removeChild(checkbackbutton);
+                                checkautoSubmitButton.parentNode.removeChild(checkautoSubmitButton);
                             }
                             tableHtml += '<table id = "event-list">';
                             tableHtml += '<tr><th> Event Name</th><th> Event Date</th></tr>'
@@ -434,11 +504,10 @@ function exportWithFilename() {
                                 }
                                 tableHtml += '</table>';
                                 activeTable = "Event";
-
+                            // Replace the existing table with the updated table
+                            document.getElementById('displayTable').innerHTML = tableHtml;
                         }
 
-                        // Replace the existing table with the updated table
-                        document.getElementById('displayTable').innerHTML = tableHtml;
                     } 
                     
                     else {
@@ -454,6 +523,28 @@ function exportWithFilename() {
         filterTable(activeTable);
     })
   });
+
+  function compileTest(eventIDa){
+               // showLoader();
+               console.log('eventID '+eventIDa);
+                Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.EventList.compileEventTests}',
+                eventIDa,
+                (result,event)=>{
+                   // hideLoader();
+
+                    if(result == 'Updation Completed' )
+                        // displaysSuccessMessage('Updation Completed');
+
+                    console.log('Result of resubmission is : ');
+                    console.log(result);
+                    console.log('Event : ');
+                    console.log(event);
+                }
+                );
+            }
+
+
 </script>
 </head>
 <body>

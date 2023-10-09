@@ -828,6 +828,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>RC_student_test__c.isApproved__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>RC_student_test__c.isLoggedIn__c</field>
         <readable>true</readable>
     </fieldPermissions>

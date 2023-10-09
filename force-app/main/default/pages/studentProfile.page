@@ -1111,28 +1111,59 @@
                 <div class="wide-card-section">
                     <div class="card-contents">
                         <div class="card-title-container">
+                            <span class="card-title">4<sup>th</sup> Round Report</span>
+                        </div>
+                        <div class="card-details marks-card-adjusted">
+                            <div class="card-detail-row" style="gird-row:1; grid-column:1 / span 4">
+                                <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 3 ">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
+                                        <span class="card-detail-value bold">Feedback</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">One of John's most commendable qualities is his ability to quickly grasp new programming languages and frameworks. He's not just proficient in one language; he's versatile and can adapt to various technologies with ease. Whether it's debugging intricate issues or designing robust software solutions, John consistently delivers exceptional results.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-detail-row" style="gird-row:4; grid-column:1 / span 4">
+                                <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 2">
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
+                                        <span class="card-detail-value bold">Selection Status</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">On-Hold</span>
+                                    </div>
+                                    <div class="card-detail-row" style="grid-row:1; grid-column:3 / span 4"> 
+                                        <span class="card-detail-value bold">Interviewd By</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">Ashish Kishore Kumar</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="marks-banner">
+                <div class="wide-card-section">
+                    <div class="card-contents">
+                        <div class="card-title-container">
                             <span class="card-title">Marks Overview</span>
                         </div>
                         <div class="card-details marks-card-adjusted">
                             <div class="card-detail-row" style="gird-row:1; grid-column:1">
                                 <span class="card-detail-heading">School Acaedmic Details</span>
-                                <span class="card-detail-heading bold">GOVERNMENT SCHOOL</span>
-                                <span class="card-detail-value">75%</span>
+                                <span class="card-detail-heading bold" id = "schoolName">GOVERNMENT SCHOOL</span>
+                                <span class="card-detail-value" id="schoolMarks">75%</span>
                             </div>
                             <div class="card-detail-row" style="grid-row:1; grid-column:2"> 
                                 <span class="card-detail-heading">PU Acaedmic Details</span>
-                                <span class="card-detail-heading bold">MAHESH PU COLLEGE</span>
-                                <span class="card-detail-value">74%</span>
+                                <span class="card-detail-heading bold" id="secCollege">MAHESH PU COLLEGE</span>
+                                <span class="card-detail-value" id="secMarks">74%</span>
                             </div>
                             <div class="card-detail-row" style="grid-row:1; grid-column:3"> 
                                 <span class="card-detail-heading">Diploma Acaedmic Details</span>
-                                <span class="card-detail-heading bold">MAHESH PU COLLEGE</span>
-                                <span class="card-detail-value">60%</span>
+                                <span class="card-detail-heading bold" id="dipCollege">MAHESH PU COLLEGE</span>
+                                <span class="card-detail-value" id="dipMarks">60%</span>
                             </div>
                             <div class="card-detail-row" style="grid-row:1; grid-column:4"> 
                                 <span class="card-detail-heading">Degree Academic Details</span>
-                                <span class="card-detail-heading bold">NITTE YENNAPOAY</span>
-                                <span class="card-detail-value">CGPA: 7.5</span>
+                                <span class="card-detail-heading bold" id="degreeCollege">NITTE YENNAPOAY</span>
+                                <span class="card-detail-value" id="degreeMarks">CGPA: 7.5</span>
                             </div>
                         </div>
                     </div>
@@ -1201,6 +1232,19 @@
             else{
                 document.getElementById('profileBranch').textContent = result.branch_type__c;
             }
+
+            document.getElementById('schoolName').textContent = result.hsc_name__c;
+            document.getElementById('schoolMarks').textContent = result.hsc_marks__c;
+
+            document.getElementById('secName').textContent = result.ssc_name__c;
+            document.getElementById('secMarks').textContent = result.ssc_marks__c;
+
+            document.getElementById('dipCollege').textContent = result.diploma_college_name__c;
+            document.getElementById('dipMarks').textContent = result.hsc_marks__c;
+
+            document.getElementById('degreeName').textContent = result.college_id__c;
+            document.getElementById('degreeMarks').textContent = result.degree_cgpa__c;
+
             document.getElementById('studentMarksScored').textContent =
                 result.StudentMarksScored - result.NegStudentMarksScored;
 
