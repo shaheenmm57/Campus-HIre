@@ -758,7 +758,7 @@
                     </div>
                 </div>                
             </div>
-            <div class="result-banner">
+            <!-- <div class="result-banner">
                 <div class="large-card-section">
                     <div class="card-contents">
                         <div class="card-title-container">
@@ -896,7 +896,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="marks-banner">
                 <div class="wide-card-section">
                     <div class="card-contents">
@@ -1054,7 +1054,6 @@
             );
         }
         function populateStudentProfile(result) {
-            showLoader();
             document.getElementById('profileName').textContent = result.Name;
             document.getElementById('profileUSN').textContent = result.usn__c;
             document.getElementById('profileEmail').textContent = result.email__c;
@@ -1082,7 +1081,6 @@
             document.getElementById('negStudentMarksScored').textContent = result.NegStudentMarksScored;
             document.getElementById('negStudentAptitudeMarks').textContent = result.NegStudentAptitudeMarks;
             document.getElementById('negStudentCProgramMarks').textContent = result.NegStudentCProgramMarks;
-            hideLoader();
         }
 
     </script>
