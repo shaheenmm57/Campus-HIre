@@ -989,7 +989,11 @@
                                 <div class="wide-card-group" style="grid-row:1; grid-column:1 / span 3">
                                     <div class="card-detail-row" style="grid-row:1; grid-column:1 / span 3"> 
                                         <span class="card-detail-value bold">Remarks</span>
-                                        <span id = "studentMarksScored" class="card-detail-value">HELLO HELLO HELLO EHHD</span>
+                                        <span id = "studentMarksScored" class="card-detail-value">John is an outstanding student with a remarkable aptitude for programming. His technical skills in coding are truly impressive. Throughout the course, John consistently demonstrated a deep understanding of programming concepts and languages. He has a natural ability to solve complex problems efficiently and elegantly, which sets him apart from his peers.
+
+                                            One of John's most commendable qualities is his ability to quickly grasp new programming languages and frameworks. He's not just proficient in one language; he's versatile and can adapt to various technologies with ease. Whether it's debugging intricate issues or designing robust software solutions, John consistently delivers exceptional results.
+                                            
+                                            In addition to his technical prowess, John is an excellent team player. He readily shares his knowledge with classmates, contributing to a positive learning environment. His enthusiasm for programming is contagious, inspiring others to strive for excellence.</span>
                                     </div>
                                 </div>
                             </div>
@@ -1150,12 +1154,12 @@
                                 <span class="card-detail-heading bold" id = "schoolName">GOVERNMENT SCHOOL</span>
                                 <span class="card-detail-value" id="schoolMarks">75%</span>
                             </div>
-                            <div class="card-detail-row" style="grid-row:1; grid-column:2"> 
+                            <div class="card-detail-row" style="grid-row:1; grid-column:2" id = "sscCollegeBlock"> 
                                 <span class="card-detail-heading">PU Acaedmic Details</span>
                                 <span class="card-detail-heading bold" id="secCollege">MAHESH PU COLLEGE</span>
                                 <span class="card-detail-value" id="secMarks">74%</span>
                             </div>
-                            <div class="card-detail-row" style="grid-row:1; grid-column:3"> 
+                            <div class="card-detail-row" style="grid-row:1; grid-column:3" id="diplomaCollegeBlock"> 
                                 <span class="card-detail-heading">Diploma Acaedmic Details</span>
                                 <span class="card-detail-heading bold" id="dipCollege">MAHESH PU COLLEGE</span>
                                 <span class="card-detail-value" id="dipMarks">60%</span>
@@ -1236,13 +1240,27 @@
             document.getElementById('schoolName').textContent = result.hsc_name__c;
             document.getElementById('schoolMarks').textContent = result.hsc_marks__c;
 
-            document.getElementById('secName').textContent = result.ssc_name__c;
-            document.getElementById('secMarks').textContent = result.ssc_marks__c;
+            if (result.ssc_name__c != undefined){
+                document.getElementById('secCollege').textContent = result.ssc_name__c;
+                document.getElementById('secMarks').textContent = result.ssc_marks__c;
+            }
+            else{
+                document.getElementById('sscCollegeBlock').style.display = 'none';
+            }
 
-            document.getElementById('dipCollege').textContent = result.diploma_college_name__c;
-            document.getElementById('dipMarks').textContent = result.hsc_marks__c;
 
-            document.getElementById('degreeName').textContent = result.college_id__c;
+
+            console.log(result.diploma_college_name__c);
+            if (result.diploma_college_name__c != undefined){
+                document.getElementById('dipCollege').textContent = result.diploma_college_name__c;
+                document.getElementById('dipMarks').textContent = result.hsc_marks__c;
+            }
+            else{
+                document.getElementById('diplomaCollegeBlock').style.display = 'none';
+            }
+
+
+            document.getElementById('degreeCollege').textContent = result.college_id__c;
             document.getElementById('degreeMarks').textContent = result.degree_cgpa__c;
 
             document.getElementById('studentMarksScored').textContent =
