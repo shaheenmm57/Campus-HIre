@@ -7,6 +7,10 @@
         <label>Information</label>
         <layoutColumns>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>DetailAuthorizationFormText</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Name</field>
             </layoutItems>
@@ -39,9 +43,12 @@
         <customLabel>false</customLabel>
         <detailHeading>false</detailHeading>
         <editHeading>false</editHeading>
-        <layoutColumns/>
+        <layoutColumns />
         <style>CustomLinks</style>
     </layoutSections>
+    <miniLayout>
+        <fields>DetailAuthorizationFormText</fields>
+    </miniLayout>
     <relatedLists>
         <fields>Name</fields>
         <fields>ConsentGiver</fields>
